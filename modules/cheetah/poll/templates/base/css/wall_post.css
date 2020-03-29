@@ -1,0 +1,39 @@
+div.wall-event-ch_poll {
+    position: relative;
+}
+
+div.ch-poll-wall-caption {
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: 0px center;
+    line-height: 30px;
+}
+
+span.ch-poll-wall-caption-owner {
+    font-weight: bold;
+}
+
+a.ch-poll-wall-caption-link,
+a.ch-poll-wall-caption-link:link {
+    text-decoration: none;
+}
+
+a.ch-poll-wall-caption-link:hover,
+a.ch-poll-wall-caption-link:active {
+    text-decoration: underline;
+}
+
+div.ch-poll-wall-content,
+div.ch-poll-wall-content div.ch-poll-wall-title {
+    position: relative;
+}
+
+div.ch-poll-wall-content div.ch-poll-wall-title div.pollInfo {
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+}
+
+div.wall-content div.pollAnswerBlock {
+    background-color: #ffffff;
+}

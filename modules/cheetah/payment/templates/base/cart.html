@@ -1,0 +1,38 @@
+<div class="pmt-box-wrp ch-def-bc-margin">
+    <ch_repeat:vendors>
+        <div class="pmt-box ch-def-border ch-def-margin-top-auto">
+            <div class="pmt-box-cpt">
+                <div class="pmt-box-collapse" style="background-image:url(<ch_icon_url:toggle.png />)" onclick="javascript:__js_object__.toggle(this)">
+                    <img src="<ch_image_url:spacer.gif />" />
+                </div>
+                <ch_if:show_link>__txt_shopping_cart__ (__txt_shopping_cart_summary__)</ch_if:show_link>
+                <ch_if:show_text>__txt_shopping_cart__ (__txt_shopping_cart_summary__)</ch_if:show_text>
+            </div>
+            <div class="pmt-box-cnt ch-def-border-top">
+                <form id="items_from___vendor_id__" name="items_from___vendor_id__" method="POST" action="__process_url__" onsubmit="javascript:return __js_object__.onSubmit(this)">
+                    <input type="hidden" name="vendor_id" value="__vendor_id__" />
+                    <div class="pmt-vendor-icon">__vendor_icon__</div>
+                    <div class="pmt-providers">
+                        <ch_repeat:providers>
+                            <div class="pmt-provider">
+                                <input type="radio" name="provider" value="__name__" __checked__ />
+                                <b>__caption__</b>
+                            </div>
+                        </ch_repeat:providers>
+                    </div>
+                    <div class="pmt-items ch-def-padding-sec">
+                        <ch_repeat:items>
+                            <div class="pmt-item">
+                                <input type="checkbox" name="items[]" value="__vendor_id_____module_id_____item_id_____item_quantity__" checked="checked" />
+                                <a href="__item_url__">__item_title__</a> (__item_quantity__) - <ch_if:show_price_paid>__item_price__ __vendor_currency_code__</ch_if:show_price_paid><ch_if:show_price_free><ch_text:_payment_txt_free /></ch_if:show_price_free>
+                            </div>
+                        </ch_repeat:items>
+                    </div>
+                    __control_panel__
+                </form>
+            </div>
+        </div>
+    </ch_repeat:vendors>
+    <div class="pmt-cb">&nbsp;</div>
+</div>
+__js_content__

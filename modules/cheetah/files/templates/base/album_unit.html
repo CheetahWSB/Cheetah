@@ -1,0 +1,25 @@
+<div class="sys_album_unit {type}_album_unit ch-def-margin-sec-top-auto">
+    <div class="sys_album" onclick="window.location = '{albumUrl}';">
+        <div class="sys_album_cnt">
+            <ch_repeat:units>
+                <ch_if:exist>
+                    <div class="sys_album_item" style="background-image: url('{unit}');">
+                        <img src="<ch_image_url:spacer.gif />"/>
+                    </div>
+                </ch_if:exist>
+                <ch_if:not-exist>
+                    <div class="sys_album_item_empty">&nbsp;</div>
+                </ch_if:not-exist>
+            </ch_repeat:units>
+        </div>
+    </div>
+    <div class="sys_album_info ch-def-padding-sec">
+        <div class="sys_album_title">
+            <ch_if:editMode>
+                <input type="checkbox" name="entry[]" value="{id}" {checked}/>
+            </ch_if:editMode>
+            <a href="{titleLink}" title="{title}">{title}</a>
+        </div>
+        <div class="sys_album_from ch-def-font-grayed">{view} <ch_text:_By /> <a href="{fromLink}">{from}</a></div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+div.ch-ads-wall-main {
+    position: relative;
+}
+div.ch-ads-wall-caption,
+div.ch-ads-comment-wall-caption {
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: 0px center;
+    line-height: 30px;
+}
+div.wall-event-repost div.wall-caption.ch-ads-wall-caption {
+	padding-left: 5px;
+}
+span.ch-ads-wall-caption-owner {
+    font-weight: bold;
+}
+a.ch-ads-wall-caption-link,
+a.ch-ads-wall-caption-link:link {
+    text-decoration: none;
+}
+a.ch-ads-wall-caption-link:hover,
+a.ch-ads-wall-caption-link:active {
+    text-decoration: underline;
+}
+div.ch-ads-wall-content,
+div.ch-ads-comment-wall-content {
+    position: relative;
+}
+div.ch-ads-wall-content .ch-twig-unit-thumb-cont {
+	width: auto;
+}
+
+
+div.ch-ads-wall-comments {
+    padding-left: 0px;
+}
+
+/*--- Overwrite default Comment styles ---*/
+div.ch-ads-wall-comments div.cmts {
+    padding: 0px;
+    /*display: none;*/
+}
+div.ch-ads-wall-comments div.cmt-reply {
+    padding: 0px;
+    /*display: none;*/
+}
+div.ch-ads-wall-comments div.thumbnail_block {
+    left: -38px;
+    top: 1px;
+}

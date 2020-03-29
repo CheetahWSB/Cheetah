@@ -1,0 +1,9 @@
+#ch-auth-form h3,
+#ch-auth-form .ch-auth-form-buttons {
+    text-align:center;
+}
+
+.ch-auth-form-buttons .ch-btn {
+    float: none;
+    display: inline-block;
+}

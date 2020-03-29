@@ -1,0 +1,34 @@
+<div class="adm-dashboard-stats clearfix">
+    <div class="adm-ds-important">
+        <ch_repeat:items_important>
+            <div class="adm-ds-item">
+                <ch_if:show_link>
+                    <a href="__link__"><span class="ch-def-font-h1">__number__</span> __caption__</a>
+                </ch_if:show_link>
+                <ch_if:show_text><span class="ch-def-font-h1">__number__</span> __caption__</ch_if:show_text>
+            </div>
+        </ch_repeat:items_important>
+    </div>
+    <div class="clear_both"></div>
+    <div class="ch-def-hr ch-def-margin-sec-top ch-def-margin-sec-bottom"></div>
+    <div class="adm-ds-common">
+        <ch_repeat:items_common>
+            <div class="adm-ds-item">
+                <ch_if:show_link>
+                    <a href="__link__"><span class="ch-def-font-h1">__number__</span> __caption__</a>
+                </ch_if:show_link>
+                <ch_if:show_text><span class="ch-def-font-h1">__number__</span> __caption__</ch_if:show_text>
+            </div>
+        </ch_repeat:items_common>
+        <div class="clear_both"></div>
+    </div>
+    <canvas id="adm-ds-common-chart"></canvas>
+    <script type="text/javascript">
+    	var oHolder = $("#adm-ds-common-chart").get(0).getContext("2d");
+    	var oChart = new Chart(oHolder).PolarArea(__common_chart_data__, {
+			scaleBackdropColor : "transparent",
+			segmentStrokeColor : "transparent",
+			segmentStrokeWidth : 0,
+		});
+    </script>
+</div>

@@ -1,0 +1,27 @@
+<div class="sys_cal_wrapper">
+    <ch_include_auto:designbox_top_controls.html />
+    <div class="sys_cal_table_wrp ch-def-bc-margin-sec">
+        <table class="sys_cal_table">
+            <tr>
+                <ch_repeat:week_names>
+                    <th>__name__</th>
+                </ch_repeat:week_names>
+            </tr>
+            <ch_repeat:calendar_row>
+                <tr>
+                    <ch_repeat:cell>
+                        <td class="__class__" valign="top">
+                            <u class="ch-def-font-small">__day__</u>
+                            <ch_if:num>
+                                <a href="__href__"><b class="ch-def-font-h2">__num__</b> <span class="ch-phone-hide">__entries__</span></a>
+                            </ch_if:num>
+                        </td>
+                    </ch_repeat:cell>
+                </tr>
+            </ch_repeat:calendar_row>
+        </table>
+    </div>
+    <div class="dbBottomMenu">
+        __bottom_controls__
+    </div>
+</div>

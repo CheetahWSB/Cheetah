@@ -1,0 +1,97 @@
+<div class="adm-dg-controls">
+	<div class="adm-dg-control">
+		<span><ch_text:_adm_charts_select /></span>
+		<div class="input_wrapper input_wrapper_select ch-def-margin-sec-right clearfix">
+		    <select id="ch_chart_obj" name="ch_chart_obj" class="form_input_select ch-def-font-inputs" onchange="ch_chart_select_graph()" disabled>
+		        <ch_repeat:objects>
+		            <option value="__object__">__title__</option>
+		        </ch_repeat:objects>
+		    </select>
+		</div>
+	</div>
+	<div class="adm-dg-control ch-def-padding-left" id="ch_chart_date_from_wrp">
+		<span><ch_text:_adm_charts_date_from /></span>
+		<div class="input_wrapper input_wrapper_date clearfix">
+	    	<input class="form_input_date ch-def-font-inputs" id="ch_chart_date_from" name="ch_chart_date_from" type="text" onchange="ch_chart_select_graph()" readonly />
+	    </div>
+	</div>
+	<div class="adm-dg-control ch-def-padding-left" id="ch_chart_date_to_wrp">
+		<span><ch_text:_adm_charts_date_to /></span>
+		<div class="input_wrapper input_wrapper_date clearfix">
+	    	<input class="form_input_date ch-def-font-inputs" id="ch_chart_date_to" name="ch_chart_date_to" type="text" value=""  onchange="ch_chart_select_graph()" readonly />
+	    </div>
+	</div>
+</div>
+<div id="ch_chart_graph" class="ch-def-border ch-def-margin-sec-top" style="height:250px; background-color:#fff;"></div>
+<script>
+    glDateFormat = 'dd/mm/yy';
+    // attach datepicker
+    $('#ch_chart_date_from,#ch_chart_date_to').datepicker({
+        changeYear: true,
+        changeMonth: true,
+        dateFormat: glDateFormat
+    });
+    // set current dates in proper date format
+    $('#ch_chart_date_from').datepicker('setDate',  $.datepicker.formatDate(glDateFormat, $.datepicker.parseDate('yy-mm-dd', '__from__')));
+    $('#ch_chart_date_to').datepicker('setDate',  $.datepicker.formatDate(glDateFormat, $.datepicker.parseDate('yy-mm-dd', '__to__')));
+</script>
+<script type="text/javascript" src="__proto__://www.google.com/jsapi"></script>
+<script>
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(ch_chart_select_graph);
+    function ch_chart_select_graph () {
+        $('#ch_chart_graph').html('');
+        $('#ch_chart_obj').attr('disabled', true);
+        ch_loading('ch_chart_graph', true);
+        jQuery.getJSON('__admin_url__charts.json.php', {
+            action: 'get',
+            o: $('#ch_chart_obj').val(),
+            from: $.datepicker.formatDate('yy-mm-dd', $('#ch_chart_date_from').datepicker('getDate')),
+            to: $.datepicker.formatDate('yy-mm-dd', $('#ch_chart_date_to').datepicker('getDate'))
+        }, function (oData) {
+            $('#ch_chart_obj').attr('disabled', false);
+            ch_loading('ch_chart_graph', false);
+            if (undefined != oData.error) {
+                $('#ch_chart_graph').html('<div class="ch-def-font-large ch-def-padding" style="text-align:center;">' + oData.error + '</div>');
+            } else {
+                // hide date selector if chart doesn't support date range
+                if (oData.hide_date_range)
+                    $('#ch_chart_date_from_wrp,#ch_chart_date_to_wrp').fadeOut();
+                else
+                    $('#ch_chart_date_from_wrp,#ch_chart_date_to_wrp').fadeIn();
+                // convert dates
+                if (false !== oData.column_date) {
+                    for (var i in oData.data) {
+                        var sDate = oData.data[i][oData.column_date];
+                        var m = sDate.match(/(\d{4})-(\d{2})-(\d{2})/);
+                        if (!m || !m[1] || !m[2] || !m[3])
+                            continue;
+                        var oDate = new Date(m[1],m[2]-1,m[3]);
+                        oData.data[i][oData.column_date] = oDate;
+                    }
+                }
+                // add data
+                var data = new google.visualization.DataTable();
+                for (var i = 0 ; i < oData.data[0].length ; ++i) {
+                    var sType = 0 == i ? 'string' : 'number';
+                    var sLabel = '';
+                    if (false !== oData.column_date && i == oData.column_date)
+                        sType = 'datetime';
+                    else if (false !== oData.column_count && i == oData.column_count)
+                        sLabel = oData.title;
+                    data.addColumn(sType, sLabel);
+                }
+                data.addRows(oData.data);
+                // define options
+                var options = {
+                  title: oData.title
+                };
+                if (undefined != oData.options)
+                    options = jQuery.extend(options, oData.options);
+                // draw chart
+                var chart = new google.visualization[oData.type]($('#ch_chart_graph')[0]);
+                chart.draw(data, options);
+            }
+        });
+    }
+</script>

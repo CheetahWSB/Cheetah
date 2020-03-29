@@ -1,0 +1,13 @@
+<div id="tabs_control">
+    <ul>
+    	<ch_repeat:page_tabs>
+        	<li><a href="__page_url__"><span>__page_name__</span></a></li>
+        </ch_repeat:page_tabs>
+    </ul>
+</div>
+<script type="text/javascript">
+	$(document).ready(function() {
+    	$('#tabs_control').tabs({ cache: false, spinner: '<ch_text:_ch_pageac_loading />' });
+	});
+    var oChPageACMain = new ChPageACMain({sBaseURL: '__base_url__'});
+</script>

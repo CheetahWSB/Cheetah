@@ -1,0 +1,113 @@
+div.mbp-cb {
+    clear: both;
+	font-size: 0px;
+}
+div.button_wrapper {
+    margin-right: 10px;
+    position: relative;
+    float: left;
+}
+
+/*--- 'Current level' Styles ---*/
+div.status_box {
+    width: 450px;
+	margin: 10px auto 10px auto;
+
+	text-align: center;
+}
+
+/*--- 'Available levels', 'Current Level' Styles ---*/
+div.mbp-current-levels,
+div.mbp-available-levels {}
+div.mbp-level {
+	position: relative;
+    margin: 10px 0px 10px 0px;
+}
+div.mbp-level-icon {
+	top: 0px;
+	left: 0px;
+    width: 114px;
+    height: 114px;
+
+    position: absolute;
+
+    border: 1px solid #cccccc;
+    background-color: #ffffff;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+div.mbp-level-icon img{
+    width: 114px;
+    height: 114px;
+}
+div.mbp-level-select {
+	top: 2px;
+	left: 2px;
+}
+div.mbp-level-content {
+    min-height: 116px;
+    padding-left: 126px;
+}
+div.mbp-level-title {
+    font-weight: bold;
+    font-size: 12px;
+}
+div.mbp-level-info {}
+div.mbp-level-price {
+    font-weight: bold;
+	color: #008000;
+}
+div.mbp-level-control {}
+div.mbp-level-control .ch-btn {
+	margin: 5px 10px 5px 0px;
+}
+div.mbp-level-control .ch-btn i {
+	margin-right: 0px;
+}
+
+/*--- 'Available levels', 'Current Level' Styles ---*/
+div.mbp-current-level {
+    margin: 0px;
+}
+div.mbp-current-level div.mbp-level {
+	position: relative;
+    margin: 0px;
+    padding: 0px;
+}
+div.mbp-level-description {
+    min-height: 0px;
+    padding: 10px 0px 0px 0px;
+}
+
+/*--- Select Level ---*/
+div.mbp-available-levels-wrp,
+div.mbp-available-levels {
+	position: relative;
+}
+div.mbp-available-levels div.mbp-level {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	width: 50%;
+}
+div.join-box-form {
+	margin-top: 20px;
+}
+div.join-box-form:first-child {
+	margin-top: 0px;
+}
+div.join-box-form div.mbp-available-levels div.mbp-level {
+	width: 100%;
+}
+div.mbp-sp-caption {
+	text-transform: uppercase;
+}
+div.mbp-pay .ch-btn {
+	display: inline-block;
+	float: none;
+
+	margin-left: 0px;
+}
+div.mbp-pay .ch-btn.mbp-select {
+	display: none;
+}

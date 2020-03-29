@@ -1,0 +1,15 @@
+<div class="adm-dashboard-help">
+	__content__
+	<div class="adm-ds-help-btn ch-def-margin-sec-top">
+		<script>
+			function ch_adm_hide_help() {
+			    $.post('<ch_url_admin />', {hide_admin_help:1}, function(data) {
+			        $(".adm-ds-help").parents().filter(".disignBoxFirst:first").slideUp(function () {
+			            $(this).remove();
+			        });
+			    });
+			}
+		</script>
+		<button class="ch-btn ch-btn-small" onclick="ch_adm_hide_help()"><ch_text:_adm_txt_dashboard_help_dont_show /></button>
+	</div>
+</div>

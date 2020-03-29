@@ -1,0 +1,78 @@
+<script type="text/javascript">
+	function MailBoxComposeMessage()
+	{
+		// call the parent constructor ;
+		this.constructor();
+		this.sCurrentPage		= '__current_page__';
+		this.sPageReceiver 		= this.sCurrentPage + '?ajax_mode=true';
+		this.sErrorMessage 		= '__error_message__';
+	}
+	// inheritance ;
+	MailBoxComposeMessage.prototype = MailBox.prototype;
+	// add some function to the object ;
+	/**
+	 * @description : function will close the reply window ;
+	 */
+	MailBoxComposeMessage.prototype.cancelCompose = function()
+	{
+		window.location.href = this.sCurrentPage + '?mode=inbox';
+	}
+	MailBoxComposeMessage.prototype.AutoComplete = function()
+	{
+		var sPageUrl = this.sPageReceiver ;
+		$("#" + htmlSelectors[8]).autocomplete({
+            source: sPageUrl + '&action=auto_complete',
+            minLength: 1,
+            select: function(event, data) {
+                if (data.item) {
+                    $('#' + htmlSelectors[10]).val(data.item.id);
+    			    getHtmlData(htmlSelectors[9],  sPageUrl + '&action=get_thumbnail&recipient_id=' + encodeURIComponent(data.item.id));
+                }
+		    }
+		});
+	}
+	// create the object;
+	var oMailBoxComposeMessage = new MailBoxComposeMessage();
+	$(document).ready(function () {
+		oMailBoxComposeMessage.AutoComplete();
+	});
+</script>
+<div id="compose_message_block">
+    <div class="view_message_container">
+    	<div class="owner_info_wrapper ch-def-padding-sec">
+	    	<div class="owner_info clearfix">
+	   			<div class="thumb_section">
+	   				<div id="thumbnail_area">__member_thumbnail__</div>
+	   			</div>
+	   			<div class="member_info">
+	   				<div class="subject">
+	 					<div>__message_to__</div>
+	 					<div class="input_wrapper input_wrapper_text clearfix">
+	                    	<input type="text" value="__recipient_name__" id="message_recipient" class="form_input_text ch-def-font-inputs ac_input" />
+                            <input type="hidden" value="__recipient_id__" id="message_recipient_id" />
+	                    </div>
+	 					<div class="ch-def-padding-thd-top">__subject__ :</div>
+	  					<div class="input_wrapper input_wrapper_text clearfix">
+		                    <input type="text" value="" id="compose_subject" class="form_input_text ch-def-font-inputs" />
+						</div>
+	   				</div>
+	   			</div>
+	    	</div>
+    	</div>
+    	<div class="message_container">
+    		<textarea id="compose_message" class="story_edit_area"></textarea>
+    	</div>
+    	<div class="message_actions message_actions_compose">
+            <div class="message_actions_cnt ch-def-padding-sec clearfix">
+        		<div class="messages_options">
+        			<label><input type="checkbox" id="to_mail"/>__send_copy_to__</label><br />
+        			<label><input type="checkbox" id="to_my_mail"/>__send_copy_my__</label><br />
+        			<label><input type="checkbox" id="notify_mail"/>__notify__</label>
+        		</div>
+        		<div class="messages_buttons">
+                	__compose_actions_buttons__
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

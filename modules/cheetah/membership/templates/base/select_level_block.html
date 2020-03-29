@@ -1,0 +1,36 @@
+<div class="mbp-select-level">
+	<form id="mbp-select-level" method="post" action="__submit_url__" onsubmit="javascript:return __js_object__.onSubmit(this)">
+		<div class="mbp-available-levels-wrp">
+			<div class="mbp-available-levels">
+				<ch_repeat:levels>__level__</ch_repeat:levels>
+			</div>
+		</div>
+		<ch_if:show_providers_selector>
+			<div class="mbp-select-provider ch-def-margin-top"<ch_if:show_providers_selector_hidden> style="display:none;"</ch_if:show_providers_selector_hidden>>
+				<div class="mbp-sp-caption ch-def-margin-sec-bottom ch-def-font-grayed">
+					<ch_text:_membership_txt_select_payment />
+				</div>
+				<ch_repeat:providers>
+					<div class="pmt-provider">
+	                	<input type="radio" name="provider" value="__name__" __checked__ />
+	                    <b>__caption__</b>
+					</div>
+				</ch_repeat:providers>
+			</div>
+		</ch_if:show_providers_selector>
+		<ch_if:show_captcha>
+			<div class="mbp-captcha ch-def-margin-top">
+				__captcha__
+				<input type="hidden" name="captcha" value="" />
+			</div>
+		</ch_if:show_captcha>
+		<div class="mbp-pay ch-def-margin-top">
+			<ch_if:show_selected_provider>
+				<input type="hidden" name="provider" value="__name__" />
+			</ch_if:show_selected_provider>
+			<input class="ch-btn mbp-checkout" type="submit" name="mbp-checkout" value="__txt_checkout__" />
+			<div class="mbp-cb">&nbsp;</div>
+		</div>
+	</form>
+	__js_code__
+</div>

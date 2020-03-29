@@ -1,0 +1,34 @@
+@import url(../../../../templates/base/css/default.css);
+
+/* block top controls margins/paddings */
+.ch-def-btc-margin-out {
+	margin: 0px 20px 0px 20px;
+}
+
+/* tables */
+.ch-def-table {
+	width: 100%;
+	border-width: 0px;
+}
+.ch-def-table th {
+	text-align: center;
+	font-weight: bold;
+}
+
+.ch-def-table th,
+.ch-def-table td {
+	padding: 5px;
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* fonts */
+.ch-def-font,
+.ch-def-font-inputs {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+
+}
+
+.ch-def-font {
+	color: #333333;
+}

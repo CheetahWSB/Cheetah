@@ -1,0 +1,42 @@
+<div class="adm-cache clearfix">
+	<canvas id="adm-cache-chart"></canvas>
+	<div id="adm-cache-clear" class="ch-def-font-large ch-def-margin-left">
+	    <b><ch_text:_adm_txt_dashboard_cache /></b><br />
+	    <ul>
+	    <ch_repeat:clear_action>
+	        <li><a href="javascript:void(0)" onclick="javascript:ch_cache_clear('__action__');">__title__</a></li>
+	    </ch_repeat:clear_action>
+	    </ul>
+	</div>
+	<script type="text/javascript">
+		function ch_cache_show_chart(oData) {
+			var oHolder = $("#adm-cache-chart").get(0).getContext("2d");
+			return new Chart(oHolder).PolarArea(oData, {
+				scaleBackdropColor: "transparent",
+				segmentStrokeColor: "transparent",
+				segmentStrokeWidth: 0,
+				tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>" + _t('_sys_kilobyte')
+			});
+		}
+    	function ch_cache_clear(sType) {
+	        ch_loading('adm-cache-clear', true);
+	        $.post(
+	            '<ch_url_admin />cache.php',
+	            {
+	                clear_cache: sType
+	            },
+	            function(oData) {
+	                ch_loading('adm-cache-clear', false);
+	                if(oData.chart_data != undefined) {
+	                	oCacheChart.destroy();
+	                	oCacheChart = ch_cache_show_chart(oData.chart_data);
+	                }
+	                if(oData.message != undefined)
+	                	alert(oData.message);
+	            },
+	            'json'
+	        );
+	    }
+    	var oCacheChart = ch_cache_show_chart(__chart_data__);
+    </script>
+</div>

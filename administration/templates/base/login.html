@@ -1,0 +1,35 @@
+<div class="admin_login_page">
+	<div class="admin_login_wrapper ch-def-padding ch-def-round-corners">
+	    <div class="admin_login">
+	    	<div class="admin_login_icon">
+	    		<img class="admin_login_icon" src="<ch_image_url:cheetah-admin.png />" />
+	    	</div>
+	    	<div class="admin_login_form_wrapper">
+	        	<form class="admin_login_form" action="__action_url__" method="post" onsubmit="javascript: validateLoginForm(this); return false;">
+	        		<input type="hidden" name="relocate" value="__relocate_url__" />
+					<div>
+						<div class="input_wrapper input_wrapper_text clearfix">
+							<input type="text" name="ID" id="admin_username" class="form_input_text ch-def-font-inputs" placeholder="<ch_text_attribute:_adm_txt_login_username />" />
+						</div>
+					</div>
+					<div class="ch-def-margin-sec-top-auto">
+						<div class="input_wrapper input_wrapper_password clearfix">
+							<input type="password" name="Password" id="admin_password" class="form_input_password ch-def-font-inputs" placeholder="<ch_text_attribute:_adm_txt_login_password />" />
+						</div>
+					</div>
+					<div class="ch-def-margin-sec-top-auto">
+						<button class="ch-btn" type="submit" id="admin_login_form_submit">
+							<ch_text:_adm_btn_login_login />
+						</button>
+					</div>
+	            </form>
+	            <div class="clear_both"></div>
+	        </div>
+	    </div>
+	    <ch_if:show_unregistered>
+	        <div class="admin_license ch-def-margin-top">
+	            <div class="admin_license_cnt ch-def-padding-leftright"><ch_text:_adm_license_trial_copy_login_text /></div>
+	        </div>
+	    </ch_if:show_unregistered>
+	</div>
+</div>

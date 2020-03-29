@@ -1,0 +1,29 @@
+<div class="menu_builder ch-def-bc-margin">
+    __extra_js__
+    <div id="edit_form_cont"></div>
+	<div class="items_wrapper" id="menu_app_wrapper"></div>
+    <div class="pseudo_wrapper">
+		<div class="pseudo_head"><ch_text:_adm_mbuilder_active_items /></div>
+		<div id="pseudo1" class="pseudo_body pseudo_body_empty ch-def-border">
+			<div class="sys-loading"></div>
+		</div>
+		<div class="pseudo_head" style="margin-top:5px;"><ch_text:_adm_mbuilder_all_items /></div>
+		<div id="pseudo2" class="pseudo_body pseudo_body_empty ch-def-border">
+			<div class="sys-loading"></div>
+		</div>
+	</div>
+	<div class="pseudo_head ch-def-margin-sec-top"><ch_text:_adm_mbuilder_legend /></div>
+	<div class="pseudo_body pseudo_legend ch-def-padding-thd-topbottom ch-def-border">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr><td><div class="system_item"><i class="sys-icon arrows"></i></div></td><td><ch_text:_adm_mbuilder_legend_system /></td></tr>
+			<tr><td><div class="top_item"><i class="sys-icon arrows"></i></div></td><td><ch_text:_adm_mbuilder_legend_top /></td></tr>
+			<tr><td><div class="custom_item"><i class="sys-icon arrows"></i></div></td><td><ch_text:_adm_mbuilder_legend_custom /></td></tr>
+			<tr><td><div class="inactive_item"><i class="sys-icon arrows"></i></div></td><td><ch_text:_adm_mbuilder_legend_inact /></td></tr>
+		</table>
+	</div>
+	<script>
+		$(document).ready(function() {
+	    	$('.pseudo_body .sys-loading').ch_loading();
+	    })
+	</script>
+</div>

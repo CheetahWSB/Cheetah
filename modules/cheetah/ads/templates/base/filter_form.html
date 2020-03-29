@@ -1,0 +1,30 @@
+<form action="__sCurrBrowsedFile__" method="get" name="filter_form" onsubmit="PerformCollectFilterCustomActions(); return true;">
+	<div class="ordered_block">
+		<div class="ordered_block_select ch-def-margin-sec-right">
+			<span><ch_text:_Country />:</span>
+			<div class="input_wrapper input_wrapper_select ch-def-margin-sec-left clearfix">
+				<select class="form_input_select ch-def-font-inputs" name="FilterCountry" id="FilterCountry" onchange="document.forms.filter_form.submit();">
+					<option value="-1"><ch_text:_Any /></option>__sCountryOptions__
+				</select>
+			</div>
+		</div>
+		__sCateg__
+		__sSubCateg__
+		<div class="ordered_block ch-def-margin-sec-top" id="custom_values" style="display:none;"></div>
+	</div>
+	<div class="per_page_block">
+		<div class="per_page_block_select">
+			<span><ch_text:_ch_ads_Keywords />:</span>
+			<div class="input_wrapper input_wrapper_text ch-def-margin-sec-left clearfix">
+				<input class="form_input_text ch-def-font-inputs" type="text" value="__sKeywordsStr__" id="FilterKeywords" name="FilterKeywords"/>
+			</div>
+			<div class="input_wrapper input_wrapper_submit ch-def-margin-sec-left clearfix">
+				<input class="form_input_submit ch-btn ch-btn-small" type="submit" class="cur_pnt" value="<ch_text:_ch_ads_Apply />" name="butAction" />
+			</div>
+			<input type="hidden" value="" id="CustomFieldCaption_1" name="CustomFieldCaption1" />
+			<input type="hidden" value="" id="CustomFieldCaption_2" name="CustomFieldCaption2" />
+			<input type="hidden" name="action" value="3" />
+		</div>
+	</div>
+    <div class="clear_both"></div>
+</form>

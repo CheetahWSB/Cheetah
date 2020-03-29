@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<title>__page_header__</title>
+   	<meta http-equiv="Content-Type" content="text/html; charset=__page_charset__" />
+    <base href="<ch_url_root />" />
+	<ch_include_css />
+	<ch_include_js />
+    <ch_injection:mobile_injection_head />
+    <script>
+        $(document).ready(function () {
+            // highlight rows when user touches them
+            $('.ch-sys-row').bind('touchstart', function (e) {
+                $(this).addClass('ch-sys-mobile-box-bg-sel');
+            });
+            $('.ch-sys-row').bind('touchcancel touchend', function (e) {
+                $('.ch-sys-mobile-box-bg-sel').removeClass('ch-sys-mobile-box-bg-sel');
+            });
+            // don't hightlight row when user press on links inside rows
+            $('.ch-sys-row a').bind('touchstart', function (e) {
+                e.stopPropagation();
+            });
+            // don't fire touch event for row when user press on links inside rows
+            $('.ch-sys-row a').bind('click', function (e) {
+                e.stopPropagation();
+            });
+        });
+    </script>
+</head>
+<body class="ch-def-font ch-sys-mobile-page ch-sys-mobile-text">
+    <ch_injection:mobile_injection_header />
+    __page_main_code__
+    <ch_injection:mobile_injection_footer />
+</body>
+</html>

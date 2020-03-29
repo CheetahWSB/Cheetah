@@ -1,0 +1,18 @@
+<div class="ch-twig-unit ch_store_unit ch-def-margin-top-auto">
+    <div class="ch-twig-unit-thumb-cont ch-def-margin-sec-right">
+        <a href="__product_url__"><img class="ch-twig-unit-thumb ch-def-round-corners ch-def-shadow" src="__thumb_url__" /></a>
+    </div>
+    <div class="ch-twig-unit-info">
+        <div class="ch-twig-unit-title ch-def-font-h2">
+            <a href="__product_url__">__product_title__</a>
+        </div>
+        <div class="ch-twig-unit-line ch-twig-unit-desc">__snippet_text__</div>
+        <div class="ch-twig-unit-line ch-twig-unit-special">__price_range__</div>
+        <ch_if:full>
+            <div class="ch-twig-unit-line ch-twig-unit-rate">__rate__</div>
+            <div class="ch-twig-unit-line ch-def-font-small ch-def-font-grayed">
+                __created__ <span class="sys-bullet"></span> <ch_text:_From /> <a href="__author_url__">__author__</a>
+            </div>
+        </ch_if:full>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+<form id="adm-set-def-template-form" method="post">
+    <input type="hidden" id="adm-set-def-template-val" name="set_default" />
+</form>
+<form id="adm-del-template-form" method="post">
+    <input type="hidden" id="adm-del-template-val" name="del_template" />
+</form>
+<div class="adm-templates">
+    <ch_repeat:templates>
+        <div class="ch-def-hr ch-def-margin-top ch-def-margin-bottom"></div>
+        <div class="adm-template-unit">
+            <div class="adm-template-unit-preview ch-def-border ch-def-shadow ch-def-font-grayed ch-def-font-h1 ch-def-margin-right">
+                <ch_if:preview>
+                    <img class="ch-img-retina" src="__img__" />
+                </ch_if:preview>
+                <ch_if:no_preview>
+                    <div><ch_text:_adm_txt_template_preview_na /></div> &nbsp;
+                </ch_if:no_preview>
+            </div>
+            <div class="adm-template-unit-info">
+                <div class="adm-template-unit-title ch-def-font-h1">
+                    __name__
+                </div>
+                <div class="adm-template-unit-subinfo ch-def-margin-sec-top">
+                    __ver__
+                    <span class="sys-bullet"></span>
+                    __vendor__
+                </div>
+                <div class="adm-template-unit-links ch-def-font-large ch-def-margin-sec-top">
+                    <ch_if:default>
+                        <b><ch_text:_adm_txt_default /></b>
+                    </ch_if:default>
+                    <ch_if:make_default>
+                        <a href="javascript:void(0);" onclick="$('#adm-set-def-template-val').val('__key__'); $('#adm-set-def-template-form').submit()"><ch_text:_adm_txt_make_default /></a>
+                    </ch_if:make_default>
+                    <span class="sys-bullet"></span>
+                    <a href="<ch_url_root />?preview=1&skin=__key__" target="_blank"><ch_text:_Preview /></a>
+                    <ch_if:delete>
+                        <span class="sys-bullet"></span>
+                        <a href="javascript:void(0);" onclick="if (confirm(_t('_Are_you_sure'))) { $('#adm-del-template-val').val('__key__'); $('#adm-del-template-form').submit() }"><ch_text:_Delete /></a>
+                    </ch_if:delete>
+                </div>
+                <div class="adm-template-unit-desc ch-def-margin-sec-top">
+                    __desc__
+                </div>
+            </div>
+            <div class="clear_both"></div>
+        </div>
+    </ch_repeat:templates>
+</div>

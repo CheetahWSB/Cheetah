@@ -1,0 +1,35 @@
+div.ch-ava-wall-caption {
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: 0px center;
+    line-height: 30px;
+}
+span.ch-ava-wall-caption-owner {
+    font-weight: bold;
+}
+a.ch-ava-wall-caption-link,
+a.ch-ava-wall-caption-link:link {
+    text-decoration: none;
+}
+a.ch-ava-wall-caption-link:hover,
+a.ch-ava-wall-caption-link:active {
+    text-decoration: underline;
+}
+
+div.ch-ava-wall-comments {
+    padding-left: 0px;
+}
+
+/*--- Overwrite default Comment styles ---*/
+div.ch-ava-wall-comments div.cmts {
+    padding: 0px;
+    /*display: none;*/
+}
+div.ch-ava-wall-comments div.cmt-reply {
+    padding: 0px;
+    /*display: none;*/
+}
+div.ch-ava-wall-comments div.thumbnail_block {
+    left: -38px;
+    top: 1px;
+}

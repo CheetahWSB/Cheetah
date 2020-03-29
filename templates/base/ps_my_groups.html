@@ -1,0 +1,15 @@
+<form id="ps-my-groups-form" name="ps-my-groups-form" action="member_privacy.php" method="post" enctype="multipart/form-data">
+    <div class="ps-groups ch-def-bc-margin clearfix">
+        <ch_repeat:groups>
+            <div class="ps-cell-chb">
+                <input type="checkbox" name="ps-my-groups-ids[]" value="__group_id__" />
+            </div>
+            <div class="ps-cell-title ch-def-padding-sec-leftright">__group_title__(__group_members__)<ch_if:extended>__group_extended__</ch_if:extended></div>
+            <div class="ps-cell-action">
+                <a class="ch-def-margin-sec-right" href="javascript:void(0)" onclick="javascript:ps_showDialog('add', __group_id__, this)" title="<ch_text_attribute:_ps_lcpt_add />"><i class="sys-icon plus"></i></a>
+                <a href="javascript:void(0)" onclick="javascript:ps_showDialog('del', __group_id__, this)" title="<ch_text_attribute:_ps_lcpt_delete />"><i class="sys-icon minus"></i></a>
+            </div>
+        </ch_repeat:groups>
+    </div>
+    __control__
+</form>

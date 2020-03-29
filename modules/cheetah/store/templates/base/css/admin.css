@@ -1,0 +1,16 @@
+
+
+table.ch_store_actions {
+    border-collapse:collapse;
+    width:100%;
+}
+
+table.ch_store_actions td {
+    width:33%;
+    text-align:center;
+}
+
+.ch_store_manage_wrapper {
+    padding: 0;
+}
+

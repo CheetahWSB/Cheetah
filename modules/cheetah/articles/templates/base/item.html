@@ -1,0 +1,28 @@
+<div class="arl-entry-divider ch-def-hr ch-def-margin-sec-topbottom"></div>
+<div id="__id__" class="arl-entry">
+    <div class="arl-info">
+        <div class="arl-caption ch-def-font-h2">
+            <ch_if:checkbox>
+                <input type="checkbox" name="articles-ids[]" value="__id__" />
+            </ch_if:checkbox>
+            <a class="arl-caption ch-def-font-h2" href="__link__">__caption__</a>
+        </div>
+        <div class="arl-text__class__ ch-def-font-large ch-def-margin-sec-top">__content__</div>
+        <div class="arl-date ch-def-margin-sec-top">
+            <span class="ch-def-font-small ch-def-font-grayed">__date__</span>
+            <ch_if:status>
+                <span class="sys-bullet"></span>
+                <span class="arl-status ch-def-font-small ch-def-font-grayed">__status__</span>
+            </ch_if:status>
+            <ch_if:featured>
+                <span class="sys-bullet"></span>
+                <span class="arl-status ch-def-font-small ch-def-font-grayed"><ch_text:_articles_featured /></span>
+            </ch_if:featured>
+            <ch_if:edit_link>
+                <span class="sys-bullet"></span>
+                <a class="arl-action ch-def-font-small" href="__edit_link_url__">__edit_link_caption__</a>
+            </ch_if:edit_link>
+        </div>
+    </div>
+    <div class="arl-cb">&nbsp;</div>
+</div>

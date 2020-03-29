@@ -1,0 +1,20 @@
+<script type="text/javascript">
+function ch_store_product_file_toggle (e, iId) {
+    var eA = $(e);
+    eA.html('<ch_text:_ch_store_loading />');
+    $.post ('__ch_store_base_url__toggle_product_file_visibility/' + iId, function (sStatus) {
+        eA.html(sStatus);
+    });
+}
+</script>
+<div class="ch_sys_file_choice_wrapper ch_store_product_file_choice_wrapper">
+    <ch_if:empty><div class="ch_sys_forms_extra_default_padding" style="white-space:normal;"><ch_text:_Empty /></div></ch_if:empty>
+    <ch_repeat:files>
+        <div>
+            <div class="sys_icon"><label for="__name____id__"><img alt="__title__" title="__title__" src="__icon__" /></label></div>
+            <div class="ch_store_product_file_choice_line">__title__</div>
+            <div class="ch_store_product_file_choice_line"><a href="javascript:void(0);" onclick="ch_store_product_file_toggle(this, '__file_id__')">__visibility__</a></div>
+            <div class="clear_both"></div>
+        </div>
+    </ch_repeat:files>
+</div>

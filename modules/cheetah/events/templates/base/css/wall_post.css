@@ -1,0 +1,48 @@
+div.wall-event-ch_events {
+    position: relative;
+}
+div.ch-events-wall-caption,
+div.ch-events-comment-wall-caption {
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: 0px center;
+    line-height: 30px;
+}
+div.wall-event-repost div.wall-caption.ch-events-wall-caption {
+	padding-left: 5px;
+}
+span.ch-events-wall-caption-owner {
+    font-weight: bold;
+}
+
+a.ch-events-wall-caption-link,
+a.ch-events-wall-caption-link:link {
+    text-decoration: none;
+}
+
+a.ch-events-wall-caption-link:hover,
+a.ch-events-wall-caption-link:active {
+    text-decoration: underline;
+}
+div.ch-events-wall-content,
+div.ch-events-comment-wall-content {
+    position: relative;
+}
+div.ch-events-wall-comments {
+    padding-left: 0px;
+}
+
+/*--- Overwrite default Comment styles ---*/
+div.ch-events-wall-comments div.cmts {
+    padding: 0px;
+    /*display: none;*/
+}
+div.ch-events-wall-comments div.cmt-reply {
+    padding: 0px;
+    /*display: none;*/
+}
+div.ch-events-wall-comments div.thumbnail_block {
+    left: -38px;
+    top: 1px;
+}
+

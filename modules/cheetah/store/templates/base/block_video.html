@@ -1,0 +1,27 @@
+<div class="ch_store_product_videos_wrapper">
+    <div id="ch_store_product_video_title_curr">
+        __title__
+    </div>
+    <div id="ch_store_product_video_curr">
+        <ch_repeat:videos>
+            <div id="ch_store_product_video_curr___id__" style="__style__">__video__</div>
+        </ch_repeat:videos>
+    </div>
+    <div id="ch_store_product_videos_icons">
+        <ch_repeat:icons>
+            <div class="sys_icon"><img alt="__id__" title="__title__" src="__icon_url__" /></div>
+        </ch_repeat:icons>
+        <div class="clear_both"></div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+                ch_center_content ('#ch_store_product_videos_icons', '.sys_icon');
+                $('#ch_store_product_videos_icons .sys_icon img').bind('click', function () {
+                    var e = $(this);
+                    $('#ch_store_product_video_title_curr').html(e.attr('title'));
+                    $('#ch_store_product_video_curr > div:visible').fadeOut(1000);
+                    $('#ch_store_product_video_curr_'+e.attr('alt')).fadeIn(1000);
+                });
+        });
+    </script>
+</div>

@@ -1,0 +1,56 @@
+<div class="form_advanced_wrapper edit_form_wrapper">
+    <table id="edit_form_table" class="form_advanced_table" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr class="headers">
+                <th class="block_header"><ch_text:_ch_ava_current_avatar /></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="white-space:normal; padding:0;">
+                    <div class="ch-def-padding-sec">
+                        <div id="ch_ava_current">
+                            __avatar__
+                        </div>
+                        <ch_if:allow_upload>
+                            <div class="ch_ava_block ch-def-margin-sec-left">
+                                <b><ch_text:_ch_ava_upload_title /></b>
+                                <ch_text:_ch_ava_upload_info />
+                                <form id="ch_ava_form" method="post" enctype="multipart/form-data" action="__action__">
+                                    <input type="file" name="image" onchange="$('#ch_ava_form').submit()" />
+                                    <span><input type="checkbox" name="copy_to_profile_photos" id="copy_to_profile_photos" checked="checked" /><label for="copy_to_profile_photos"><ch_text:_ch_ava_copy_to_profile_photos /></label></span>
+                                    <br />
+                                    <span class="ch_ava_err">__upload_error__</span>
+                                </form>
+                                <ch_if:display_premoderation_notice>
+                                <div style="margin-top:5px;"><ch_text:_ch_ava_premoderation_note /></div>
+                                </ch_if:display_premoderation_notice>
+                            </div>
+                        </ch_if:allow_upload>
+                        <div class="clear_both"></div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<ch_if:allow_crop>
+    <div class="form_advanced_wrapper edit_form_wrapper ch-def-margin-top">
+        <table id="edit_form_table" class="form_advanced_table" cellspacing="0" cellpadding="0">
+            <thead>
+                <tr class="headers">
+                    <th class="block_header"><ch_text:_ch_ava_cropping_tool /></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="white-space:normal; padding:0;">
+                        <div class="ch-def-padding-sec">
+                            __crop_tool__
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</ch_if:allow_crop>

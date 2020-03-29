@@ -1,0 +1,30 @@
+<div class="ch-def-bc-padding">
+    <div class="switchUnitRow suViewFile" style="width:__switchWidth__px;">
+    	<a href="__href__"><img class="ch-def-round-corners ch-def-shadow" src="__picUrl__" id="mainPic" __imgWidth__ /></a>
+    </div>
+    <div class="switchUnitRow suMainInfo ch-def-margin-sec-top" style="width:__switchWidth__px;">
+    	<ch_if:href>
+    		<div class="picTitle ch-def-font-h2">
+    			<a href="__href__">__title__</a>
+    		</div>
+    	</ch_if:href>
+    	<ch_if:rate>
+    		<div class="picRate">
+    			__rate__
+    		</div>
+    	</ch_if:rate>
+    	<div class="clear_both"></div>
+    </div>
+    <div class="switchUnitRow suAddInfo ch-def-margin-sec-top" style="width:__switchWidth__px;">
+    	<ch_if:date>
+    		<span class="addInfoDate ch-def-font-grayed">
+    			__date__
+    		</span>
+    	</ch_if:date>
+    	<ch_if:from>
+    		<span class="addInfoFrom">
+    			<a href="__profileUrl__">__nick__</a>
+    		</span>
+    	</ch_if:from>
+    </div>
+</div>

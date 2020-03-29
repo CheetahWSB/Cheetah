@@ -1,0 +1,29 @@
+
+.ch_events_block_info {
+}
+
+
+.ch_events_block_info .infoUnit {
+    overflow:hidden;
+}
+
+.ch_events_country_city img {
+    top:2px;
+    width:16px;
+}
+
+table.ch_events_fields {
+    border-collapse:collapse;
+    padding:0;
+}
+
+td.ch_events_field_name {
+    margin:0;
+    text-align:left;
+}
+
+td.ch_events_field_value {
+    margin:0;
+    text-align:left;
+}
+

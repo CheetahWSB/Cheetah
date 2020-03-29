@@ -1,0 +1,23 @@
+@media (max-width:720px) {
+
+	.controlsDiv {
+	    clear: both;
+		width: 230px;
+	    margin: 20px auto;
+	}
+
+	/*--- Extra top menu ---*/
+	div.extra_top_menu table.fixed_menu div.popup_html div.menu_item b.menu_item_username {
+            display: none;
+	}
+        div.extra_top_menu table.fixed_menu div.popup_html li.extra_item.ch-phone-hide {
+            display: none;
+        }
+
+	/*--- Login Join Form Section ---*/
+	div#login_div div.login_ajax_wrap,
+	div#ch_tellfriend div.login_ajax_wrap,
+	div#sys_popup_ajax div.login_ajax_wrap {
+	    width: 300px;
+	}
+}

@@ -1,0 +1,12 @@
+<ch_if:show_selector>
+	<div class="wall-ptype-uploader-selector ch-def-margin-bottom">
+		<div class="input_wrapper input_wrapper_select clearfix">
+			<select class="form_input_select ch-def-font-inputs" id="wall-ptype-us-__type__" onchange="javascript:__js_object__.changePostType(this)">
+				<ch_repeat:items>
+					<option value="__value__"<ch_if:show_selected> selected="selected"</ch_if:show_selected>>__caption__</option>
+				</ch_repeat:items>
+			</select>
+		</div>
+	</div>
+</ch_if:show_selector>
+<div class="wall-ptype-uploader">__uploader__</div>

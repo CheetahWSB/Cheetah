@@ -1,0 +1,19 @@
+<div id="__id__" class="form_input_captcha" style="display:none">
+	<div id="recaptcha_image"></div>
+	<div class="recaptcha_only_if_incorrect_sol" style="color:red"><ch_text:_sys_recaptcha_incorrect /></div>
+	<div class="solution">
+		<div class="solution-cnt">
+			<span class="recaptcha_only_if_image"><ch_text:_sys_recaptcha_text_image /></span>
+			<span class="recaptcha_only_if_audio"><ch_text:_sys_recaptcha_text_audio /></span>
+			<input type="text" id="recaptcha_response_field" name="recaptcha_response_field" />
+		</div>
+	</div>
+	<div class="options">
+		<div class="options-cnt">
+			<a href="javascript:Recaptcha.reload()" id="icon-reload" title="<ch_text_attribute:_sys_recaptcha_btn_title_refresh />"><i class="sys-icon refresh"> <ch_text:_sys_recaptcha_btn_refresh /></i></a>
+			<a class="recaptcha_only_if_image" href="javascript:Recaptcha.switch_type('audio')" id="icon-audio" title="<ch_text_attribute:_sys_recaptcha_btn_title_audio />"><i class="sys-icon volume-up"> <ch_text:_sys_recaptcha_btn_audio /></i></a>
+			<a class="recaptcha_only_if_audio" href="javascript:Recaptcha.switch_type('image')" id="icon-image" title="<ch_text_attribute:_sys_recaptcha_btn_title_image />"><i class="sys-icon picture-o"> <ch_text:_sys_recaptcha_btn_image /></i></a>
+			<a href="javascript:Recaptcha.showhelp()" id="icon-help" title="<ch_text_attribute:_sys_recaptcha_btn_title_help />"><i class="sys-icon question-circle"> <ch_text:_sys_recaptcha_btn_help /></i></a>
+		</div>
+	</div>
+</div>

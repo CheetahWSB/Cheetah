@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>__page_header__</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=__page_charset__" />
+		<ch_include_css />
+		<ch_include_js />
+		__dol_images__
+        __dol_lang__
+        __dol_options__
+		<script defer type="text/javascript">
+			var site_url = '<ch_url_root />';
+			var aUserInfoTimers = new Array();
+		</script>
+        __extra_js__
+	   <ch_injection:injection_head />
+    </head>
+    <body <ch_injection:injection_body /> >
+        <ch_injection:injection_header />
+        <div id="FloatDesc"></div>
+        __page_main_code__
+	   <ch_injection:injection_footer />
+    </body>
+</html>

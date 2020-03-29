@@ -1,0 +1,13 @@
+@media (max-width:720px) {
+	/*--- Categories ---*/
+	.ch_ads_categories_cols .ch_ads_categories_col {
+		float: none;
+		width: 100% !important;
+	}
+
+	/*--- Categories ---*/
+    .ch_ads_main_photo img {
+        width: auto;
+        max-width: 100%;
+    }
+}

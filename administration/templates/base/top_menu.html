@@ -1,0 +1,12 @@
+<div class="adm-top-menu ch-def-margin-sec-right">
+    <ch_repeat:items>
+        <div class="adm-tm-item" onmouseover="javascript:$(this).addClass('adm-tm-item-active');" onmouseout="javascript:$(this).removeClass('adm-tm-item-active');">
+            <a href="__url__" title="__caption__" target="__target__" <ch_if:show_onclick>onclick="javascript:__onclick__"</ch_if:show_onclick>>
+                <div class="adm-tm-item-icon">
+                    __icon__
+                </div>
+            </a>
+        </div>
+    </ch_repeat:items>
+    __addons__
+</div>

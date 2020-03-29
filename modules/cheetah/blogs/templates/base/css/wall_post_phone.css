@@ -1,0 +1,25 @@
+@media (max-width:720px) {
+
+	div.ch-blog-wall-snippet .unit_info,
+	div.ch-blog-wall-content .unit_info {
+		min-height: auto !important;
+		padding-right: 0px !important;
+	}
+
+	div.ch-blog-wall-snippet .unit_info .unit_title,
+	div.ch-blog-wall-content .unit_info .unit_title,
+	div.ch-blog-wall-snippet .unit_info .blog_text,
+	div.ch-blog-wall-content .unit_info .blog_text {
+		text-align: center;
+	}
+
+	div.ch-blog-wall-snippet .unit_info .unit_img,
+	div.ch-blog-wall-content .unit_info .unit_img {
+		position: relative;
+
+		width: 100%;
+		margin-top: 10px;
+
+		text-align: center;
+	}
+}

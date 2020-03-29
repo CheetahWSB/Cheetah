@@ -1,0 +1,165 @@
+<style>
+  .dbLicText {
+    text-align: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    overflow: hidden;
+  }
+
+  .dbBoxTblLeft {
+    text-align: right;
+    font-weight: bold;
+  }
+
+  .dbBoxTblRight {}
+
+  .dbBoxTblCenter {
+    text-align: center;
+  }
+
+  .dbbox2 {
+    margin-bottom: 20px;
+  }
+</style>
+<div id="dbbox2" class="dbbox2">
+  <table class="dbBoxTbl">
+    <tr>
+      <td class="dbBoxTblLeft">
+        <ch_text:_adm_license_server_status />
+      </td>
+      <td class="dbBoxTblRight">__license_status__</td>
+    </tr>
+    <tr>
+      <td class="dbBoxTblLeft">
+        <ch_text:_adm_license_server_key />
+      </td>
+      <td class="dbBoxTblRight">__license_key__</td>
+    </tr>
+    <tr>
+      <td class="dbBoxTblLeft">
+        <ch_text:_adm_license_server_url />
+      </td>
+      <td class="dbBoxTblRight">__site_url__</td>
+    </tr>
+    <tr>
+      <td class="dbBoxTblLeft">
+        <ch_text:_adm_license_server_serverip />
+      </td>
+      <td class="dbBoxTblRight">__server_ip__</td>
+    </tr>
+    <tr>
+      <td class="dbBoxTblLeft">
+        <ch_text:_adm_license_server_lictype />
+      </td>
+      <td class="dbBoxTblRight">__key_type__</td>
+    </tr>
+    <tr>
+      <td class="dbBoxTblLeft">
+        <ch_text:_adm_license_server_paymeth />
+      </td>
+      <td class="dbBoxTblRight">__payment_type__</td>
+    </tr>
+    <tr>
+      <td class="dbBoxTblLeft">
+        <ch_text:_adm_license_server_issued />
+      </td>
+      <td class="dbBoxTblRight">__issue_date__</td>
+    </tr>
+    <tr>
+      <td class="dbBoxTblLeft">
+        <ch_text:_adm_license_server_expires />
+      </td>
+      <td class="dbBoxTblRight">__expire_date__</td>
+    </tr>
+    <ch_if:suspended>
+      <tr>
+        <td class="dbBoxTblLeft">
+          <ch_text:_adm_license_server_suspended />
+        </td>
+        <td class="dbBoxTblRight">Yes</td>
+      </tr>
+      <tr>
+        <td class="dbBoxTblLeft">
+          <ch_text:_adm_license_server_reason />
+        </td>
+        <td class="dbBoxTblRight">__suspended_reason__</td>
+      </tr>
+      <tr>
+        <td class="dbBoxTblCenter" colspan="2">
+          <div style="padding: 6px 2px;">
+            <ch_text:_adm_license_server_become_inactive_msg />
+          </div>
+        </td>
+      </tr>
+    </ch_if:suspended>
+    <ch_if:prepaid>
+      <tr>
+        <td class="dbBoxTblCenter" colspan="2">
+          <div style="padding: 6px 2px;">
+            <ch_text:_adm_license_server_become_inactive_msg />
+          </div>
+        </td>
+      </tr>
+    </ch_if:prepaid>
+  </table>
+</div>
+
+
+<ch_if:show_unregistered>
+  <div class="adm-license-text ch-def-font-h1">
+    <ch_text:_adm_license_unregistered />
+  </div>
+  <div class="ch-def-margin-thd-top">
+    <ch_text:_adm_license_note_unregistered />
+  </div>
+</ch_if:show_unregistered>
+<ch_if:show_permanent>
+  <div class="adm-license-text ch-def-font-h1">__license__</div>
+  <div class="ch-def-margin-thd-top">
+    <ch_text:_adm_license_note_permanent />
+  </div>
+</ch_if:show_permanent>
+<ch_if:show_monthly>
+  <div class="adm-license-text ch-def-font-h1">__license__</div>
+  <div class="ch-def-margin-thd-top">
+    <ch_text:_adm_license_note_monthly />
+  </div>
+</ch_if:show_monthly>
+<ch_if:show_auto_renew>
+  <div class="adm-license-text ch-def-font-h1">__license__</div>
+  <div class="ch-def-margin-thd-top">
+    <ch_text:_adm_license_note_auto_renew />
+  </div>
+</ch_if:show_auto_renew>
+<ch_if:show_yearly>
+  <div class="adm-license-text ch-def-font-h1">__license__</div>
+  <div class="ch-def-margin-thd-top">
+    <ch_text:_adm_license_note_yearly />
+  </div>
+</ch_if:show_yearly>
+<div class="boxFirstHeader dbTitle ch-def-margin-top">License Status</div>
+<div class="">__license_status__</div>
+
+<div class="ch-def-hr ch-def-margin-top ch-def-margin-bottom"></div>
+<div>
+  <form method="post" action="<ch_url_admin />license.php">
+    <input type="hidden" name="relocate" value="<ch_url_admin />license.php" />
+    <div class="adm-license-row">
+      <ch_text:_adm_license_register_new />
+    </div>
+    <div class="adm-license-row ch-def-margin-thd-top">
+      <div class="adm-license-cell ch-def-margin-sec-right">
+        <input type="text" name="license_code" value="__license__" class="adm-license-input ch-def-round-corners-with-border ch-def-font-large">
+      </div>
+      <div class="admin_license_cell">
+        <button type="submit" name="register" class="adm-license-submit ch-btn" <ch_if:show_warning>onclick="return confirm('__warning__');"</ch_if:show_warning>>
+          <ch_text:_adm_license_register />
+        </button>
+        <button type="submit" name="recheck" class="adm-license-submit ch-btn">
+          <ch_text:_adm_license_recheck />
+        </button>
+      </div>
+      <div class="clear_both"></div>
+    </div>
+  </form>
+</div>

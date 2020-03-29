@@ -1,0 +1,25 @@
+<div class="allowed_actions_wrapper ch-def-border">
+<table cellpadding="0" cellspacing="0" class="allowed_actions_table" width="100%">
+    <tr>
+        <td colspan="5" style="text-align: center;" class="ch-def-font-h2">
+            <ch_text:_Allowed actions />
+        </td>
+    </tr>
+    <tr style="font-weight:bold;">
+        <td style="text-align: left;"><ch_text:_Action /></td>
+        <td><ch_text:_Times allowed /></td>
+        <td><ch_text:_Period_hours /></td>
+        <td><ch_text:_Allowed Since /></td>
+        <td><ch_text:_Allowed Until /></td>
+    </tr>
+    <ch_repeat:actions>
+        <tr>
+            <td style="text-align: left;" class="ch-def-border-top">__Name__</td>
+            <td class="ch-def-border-top ch-def-border-left">__AllowedCount__</td>
+            <td class="ch-def-border-top ">__AllowedPeriodLen__</td>
+            <td class="ch-def-border-top ch-def-border-left">__AllowedPeriodStart__</td>
+            <td class="ch-def-border-top">__AllowedPeriodEnd__</td>
+        </tr>
+    </ch_repeat:actions>
+</table>
+</div>

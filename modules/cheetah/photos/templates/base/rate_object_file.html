@@ -1,0 +1,12 @@
+<script type="text/javascript">
+	function ch_scroll () {
+	    var iTop = parseInt($(".rateObject").parents().filter('.boxContent').offset().top);
+	    $($.browser.safari ? "body" : "html,body").scrollTop(iTop - 10);
+	}
+	$(document).ready(function() {
+	    ch_scroll();
+	});
+</script>
+<div class="fileBody" style="width:__infoWidth__px;">
+	<img src="__fileBody__" class="ch-def-round-corners ch-def-shadow" onload="ch_scroll();">
+</div>

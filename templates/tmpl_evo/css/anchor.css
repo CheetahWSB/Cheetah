@@ -1,0 +1,34 @@
+@import url(../../base/css/anchor.css);
+
+/* universal links */
+a,
+a:link,
+a:visited,
+a:active  {
+	color: rgba(2, 136, 209, 1.0); /* equal to #0288D1 */
+}
+a:hover {
+	color: rgba(2, 136, 209, 0.8);
+}
+
+a.ch-btn,
+a.ch-btn:link,
+a.ch-btn:visited,
+a.ch-btn:active {
+	text-decoration: none;
+	color: #ffffff;
+}
+
+a.ch-popup-element-close,
+a.ch-popup-element-close:link,
+a.ch-popup-element-close:visited,
+a.ch-popup-element-close:active {
+	text-decoration: none;
+	color: rgba(0, 0, 0, 0.7);
+}
+
+.ch-anchor-link {
+    display: block;
+    margin-top: -64px;
+    padding-bottom: 64px;
+}

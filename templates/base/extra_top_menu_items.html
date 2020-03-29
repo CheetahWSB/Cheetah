@@ -1,0 +1,56 @@
+<ch_repeat:items>
+	<li<ch_if:show_class> class="__class__"</ch_if:show_class>>
+		<div class="menu_item __indent__" onmouseover="membermenu.show_description('descr___menu_id__')" onmouseout="membermenu.hide_description('descr___menu_id__')">
+			__bubble_box__
+			<a href="__menu_link__" class="__item_link_indent__" __extended_action__ __target__>__menu_image____menu_caption__</a>
+			<ch_if:menu_desc>
+				<div class="description __desc_indent__" id="descr___menu_id__">__desc_window__</div>
+			</ch_if:menu_desc>
+		</div>
+		<ch_if:sub_menu>
+			<ul id="extra_menu_popup___menu_id__" class="extra_menu_popup extra_menu_popup___menu_name__">
+				<li>
+					<table class="popup" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td class="html_data">
+									<div class="popup_content ch-def-border ch-def-round-corners">
+										<ch_if:reduce_element_top>
+											<div class="extra_data __cover__ ch-def-padding-sec-leftright ch-def-padding-thd-topbottom">
+												<ch_if:part_image>
+													<div class="part_img ch-def-padding-thd-right">__item_img__</div>
+												</ch_if:part_image>
+												<div class="part_name"><a href="__item_link__" __extended_action__ class="item_block">__item_name__</a></div>
+												<div class="part_reduce">
+													<div class="part_reduce_cnt">
+														<i class="sys-icon times" alt="<ch_text:_Close />"  title="<ch_text:_Close />" onclick="membermenu.close_popup('extra_menu_popup___menu_id__')"></i>
+													</div>
+													<div class="part_reduce_indent ch-def-padding-sec-right"></div>
+												</div>
+											</div>
+										</ch_if:reduce_element_top>
+										<div class="html_data ch-def-padding-leftright clearfix" id="menu_content___menu_id__"></div>
+										<ch_if:reduce_element_bottom>
+											<div class="extra_data __cover__ ch-def-padding-sec-leftright ch-def-padding-thd-topbottom">
+												<ch_if:part_image>
+													<div class="part_img ch-def-padding-thd-right">__item_img__</div>
+												</ch_if:part_image>
+												<div class="part_name"><a href="__item_link__" class="item_block">__item_name__</a></div>
+												<div class="part_reduce">
+													<div class="part_reduce_cnt">
+														<i class="sys-icon times" alt="<ch_text:_Close />"  title="<ch_text:_Close />" onclick="membermenu.close_popup('extra_menu_popup___menu_id__')"></i>
+													</div>
+													<div class="part_reduce_indent ch-def-padding-sec-right"></div>
+												</div>
+											</div>
+										</ch_if:reduce_element_bottom>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</li>
+			</ul>
+		</ch_if:sub_menu>
+	</li>
+</ch_repeat:items>

@@ -1,0 +1,60 @@
+<div class="adm-main-menu">
+    <ch_repeat:items>
+        <div class="adm-menu-wrapper ch-def-round-corners" __click__>
+            <div class="adm-menu-header __class__ ch-def-padding-left">
+                <ch_if:icon>
+                    <img class="adm-menu-icon" src="__icon__" />
+                </ch_if:icon>
+                <ch_if:texticon>
+                    <i class="adm-menu-icon sys-icon __icon__"></i>
+                </ch_if:texticon>
+                <ch_if:collapsible>
+                	<i class="adm-menu-arrow sys-icon __class__"></i>
+                </ch_if:collapsible>
+                <ch_if:item-text>
+                    <span class="adm-menu-title">__title__</span>
+                </ch_if:item-text>
+                <ch_if:item-link>
+                    <a class="adm-menu-title" href="__link__">__title__</a>
+                </ch_if:item-link>
+            </div>
+            <ch_if:submenu>
+                <div id="adm-mmi-__id__" class="adm-menu-items-wrapper ch-def-padding-left ch-def-padding-sec-topbottom __class__">
+                    <ch_repeat:subitems>
+                        <div class="adm-menu-item-wrapper ch-def-padding-thd-left __class__">
+                            <ch_if:subicon>
+                                <img class="adm-menu-item-icon" src="__icon__" />
+                            </ch_if:subicon>
+                            <ch_if:textsubicon>
+                                <i class="adm-menu-item-icon sys-icon __icon__"></i>
+                            </ch_if:textsubicon>
+                            <ch_if:subitem-text>
+                                <span class="adm-menu-item-title">__title__</span>
+                            </ch_if:subitem-text>
+                            <ch_if:subitem-link>
+                                <a class="adm-menu-item-title" href="__link__" __onclick__>__title__</a>
+                            </ch_if:subitem-link>
+                        </div>
+                    </ch_repeat:subitems>
+                </div>
+            </ch_if:submenu>
+        </div>
+    </ch_repeat:items>
+    <div class="adm-menu-wrapper ch-def-round-corners" onclick="javascript:window.open('<ch_url_admin />license.php', '_self')">
+		<div class="adm-menu-header adm-mm-license">
+			<i class="sys-icon key col-red3 adm-menu-icon ch-def-margin-left"></i>
+			<a class="adm-menu-title" href="<ch_url_admin />license.php"><ch_text:_adm_mmi_license /></a>
+			<img class="adm-menu-image" src="<ch_image_url:cheetah.png />" /></div>
+	</div>
+    <script type="text/javascript" language="JavaScript">
+    <!--
+        $('.adm-main-menu .adm-menu-header').bind('click', function() {
+        	adminMenuCollapse(this);
+        }).bind('mouseover', function() {
+        	$(this).addClass('adm-mmh-hover');
+        }).bind('mouseout', function() {
+        	$(this).removeClass('adm-mmh-hover');
+        });
+    -->
+    </script>
+</div>

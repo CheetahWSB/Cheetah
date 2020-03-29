@@ -1,0 +1,9 @@
+div.wall-oii-image span {
+    display: inline-block;
+    vertical-align: middle;
+
+    height: 140px;
+    line-height: 140px;
+
+    text-align: center;
+}

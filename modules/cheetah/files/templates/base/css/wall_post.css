@@ -1,0 +1,69 @@
+div.wall-event-ch_files {
+    position: relative;
+}
+div.ch_files-wall-caption,
+div.ch_files_comment-wall-caption {
+    position: relative;
+
+    background-repeat: no-repeat;
+    background-position: 0px center;
+
+    line-height: 30px;
+}
+div.wall-event-repost div.wall-caption.ch_files-wall-caption {
+	padding-left: 5px;
+}
+span.ch_files-wall-caption-owner {
+    font-weight: bold;
+}
+a.ch_files-wall-caption-link,
+a.ch_files-wall-caption-link:link {
+    text-decoration: none;
+}
+a.ch_files-wall-caption-link:hover,
+a.ch_files-wall-caption-link:active {
+    text-decoration: underline;
+}
+div.ch_files-wall-content,
+div.ch_files_comment-wall-content {
+    position: relative;
+}
+div.wall-content.ch_files-wall-content-grouped {
+	overflow: visible;
+}
+div.ch_files-wall-content-grouped-cnt {
+	margin: -5px;
+}
+div.ch_files-wall-shp-wrapper {
+    position: relative;
+    float: left;
+
+	margin: 5px;
+
+    background-color:#fff;
+
+	overflow: hidden;
+}
+div.ch_files-wall-shp-wrapper img {
+	display: block;
+
+    background-repeat: no-repeat;
+    background-position: center;
+}
+div.ch_files-wall-comments {
+    padding-left: 0px;
+}
+
+/*--- Overwrite default Comment styles ---*/
+div.ch_files-wall-comments div.cmts {
+    padding: 0px;
+    /*display: none;*/
+}
+div.ch_files-wall-comments div.cmt-reply {
+    padding: 0px;
+    /*display: none;*/
+}
+div.ch_files-wall-comments div.thumbnail_block {
+    left: -38px;
+    top: 1px;
+}

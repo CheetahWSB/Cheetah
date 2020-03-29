@@ -1,0 +1,9 @@
+<div class="statusTab">
+    <div class="input_wrapper input_wrapper_text ch-def-round-corners-with-border" style="width:345px;">
+        <input id="UserStatusMessBut_nm" class="form_input_text ch-def-font" type="text" value="__status_message__" name="UserStatusMessage" onkeyup="if (typeof oChUserStatus != undefined) oChUserStatus.sendStatusMessage(event, this);return false;" />
+    </div>
+    <div class="input_wrapper input_wrapper_submit ch-def-margin-sec-left">
+        <input class="ch-btn ch-btn-small" type="button" value="<ch_text:_Submit />" name="UserStatusMessBut" onclick="if (typeof oChUserStatus != undefined) oChUserStatus.PerformSendingStatusMess(document.getElementById('UserStatusMessBut_nm'));return false;" />
+    </div>
+    <div class="clear_both"></div>
+</div>

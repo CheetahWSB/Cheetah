@@ -1,0 +1,58 @@
+<ch_include_auto:_header.html />
+        <noscript>
+            <div class="sys_no_js ch-def-padding-topbottom ch-def-font-large"><b><ch_text:_sys_wrn_disabled_scripts /></b></div>
+        </noscript>
+        <div class="adm-header">
+        	<div class="adm-header-content">
+            	<div class="adm-header-title ch-def-margin-sec-left">
+            		<ch_injection:injection_logo_before />
+            		<div class="adm-header-text ch-def-font-h1">Cheetah <span>__current_version__</span></div>
+            		<ch_injection:injection_logo_after />
+                    <div class="adm-header-update ch-def-margin-sec-left" id="adm-header-update"></div>
+                    <div class="clear_both">&nbsp;</div>
+                    <script language="javascript" type="text/javascript">
+                    <!--
+                        $(document).ready(function() {
+                            $.get(
+                                '<ch_url_root />get_rss_feed.php?ID=cheetah_version&member=0',
+                                {},
+                                function(sData) {
+                                	if(!sData)
+                                	    return;
+                                    var sVerCur = '__current_version__';
+                                    var sVerNew = $(sData).find('cheetah').html();
+                                    if(sVerNew != undefined && sVerNew != null && sVerNew != '' && sVerNew != sVerCur)
+                                        $('#adm-header-update').html('<a href="https://cheetah.deanbassett.com/downloads"><ch_text:_adm_txt_dashboard_update_to /> ' + sVerNew + ' <ch_text:_adm_txt_dashboard_update_now /></a>');
+                                },
+                                'text'
+                            );
+                        });
+                    -->
+                    </script>
+            	</div>
+            	<ch_injection:injection_top_menu_before />
+            	__top_menu__
+            	<ch_injection:injection_top_menu_after />
+            	<div class="clear_both">&nbsp;</div>
+            </div>
+        </div>
+        <div class="adm-middle">
+            <div class="adm-middle-center">
+                <div class="adm-middle-cnt ch-def-margin-sec-leftright">
+            		<table class="adm-middle" cellpadding="0" cellspacing="0">
+            			<tr>
+            				<td class="adm-middle-menu">
+            					<ch_injection:injection_main_menu_before />
+                                __main_menu__
+                                <ch_injection:injection_main_menu_after />
+                                <!--<div class="adm-copyright ch-def-margin-sec-top">&copy; <a href="https://cheetah.deanbassett.com/">Cheetah</a></div>-->
+                                <ch_injection:injection_copyright_after />
+            				</td>
+            				<td class="adm-middle-main" id="main_cont">
+            					<div class="adm-page-header">
+            						<div class="disignBoxFirst ch-def-border ch-def-round-corners">
+            							<div class="boxContent ch-def-bc-padding">__page_header__</div>
+            						</div>
+            					</div>
+            					<div class="adm-page-content">
+            						<ch_injection:injection_content_before />

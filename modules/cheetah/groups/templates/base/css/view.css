@@ -1,0 +1,21 @@
+
+table.ch_groups_fields {
+    border-collapse:collapse;
+    border-spacing:0px;
+}
+
+td.ch_groups_field_name {
+    margin:0;
+    text-align:left;
+}
+
+td.ch_groups_field_value {
+    margin:0;
+    text-align:left;
+}
+
+.ch_groups_profile_unit {
+    overflow:hidden;
+    float:left;
+}
+

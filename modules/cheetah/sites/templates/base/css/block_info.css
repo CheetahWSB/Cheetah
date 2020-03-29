@@ -1,0 +1,28 @@
+
+.ch_sites_block_view .show_image {
+    text-align:center;
+}
+
+.ch_sites_block_rate {
+   overflow: hidden;
+}
+
+.ch_sites_vote {
+   float: left;
+}
+
+.ch_sites_count {
+   float: right;
+}
+
+.ch_sites_val {
+	float: left;
+	height: 16px;
+	line-height: 16px;
+	width: auto;
+}
+
+.ch_sites_block_view .title {
+	color: green;
+}
+

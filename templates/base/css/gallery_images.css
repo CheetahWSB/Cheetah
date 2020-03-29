@@ -1,0 +1,70 @@
+
+
+.ch-gallery-icons {
+    position:relative;
+    width:100%;
+    overflow:hidden;
+}
+
+.ch-gallery-icons-rails {
+    position:relative;
+    white-space:nowrap;
+}
+
+.ch-gallery-icon {
+    width:32px;
+    height:32px;
+    margin:4px;
+
+	border-radius:16px;
+	-moz-border-radius:16px;
+	-webkit-border-radius:16px;
+
+    cursor:pointer;
+}
+
+.ch-gallery-icon-selector {
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:1;
+    width:32px;
+    height:32px;
+
+    border:4px solid rgb(0, 102, 153);
+    border:4px solid rgba(0, 102, 153, 0.6);
+	border-radius:20px;
+	-moz-border-radius:20px;
+	-webkit-border-radius:20px;
+}
+
+.ch-gallery-imgs {
+    position:relative;
+    width:100%;
+    min-height:200px;
+    overflow:hidden;
+    padding-bottom:3px;
+}
+
+.ch-gallery-img-cont {
+    position:absolute;
+    display:none;
+    top:0;
+    left:0;
+}
+
+.ch-gallery-img-cont img {
+    background-color:#fff;
+    max-width:100%;
+}
+
+.ch-gallery-img-title {
+    position:absolute;
+    display:none;
+    top:5px;
+    right:5px;
+    padding:5px;
+    background-color:rgb(0, 0, 0);
+    background-color:rgba(0, 0, 0, 0.4);
+    color:#eee;
+}

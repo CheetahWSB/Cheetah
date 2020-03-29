@@ -1,0 +1,41 @@
+<div class="feedback-entry-divider ch-def-hr ch-def-margin-sec-topbottom"></div>
+<div id="__id__" class="feedback-entry">
+    <ch_if:checkbox>
+        <div class="feedback-checkbox">
+            <input type="checkbox" name="feedback-ids[]" value="__id__" />
+        </div>
+    </ch_if:checkbox>
+    <ch_if:author_icon>__author_icon__</ch_if:author_icon>
+    <ch_if:author_icon_empty>
+        <div class="thumbnail_block thumbnail_block_icon" style="float:left;">
+            <div class="thumbnail_image">
+                <img class="thumbnail_image_file ch-def-thumbnail ch-def-shadow ch-img-retina" src="__author_icon__" />
+            </div>
+        </div>
+    </ch_if:author_icon_empty>
+    <div class="feedback-info">
+        <div class="feedback-caption ch-def-font-h2">
+            <a class="feedback-caption ch-def-font-h2" href="__link__">__caption__</a>
+        </div>
+        <div class="feedback-text__class__ ch-def-font-large ch-def-margin-sec-top">__content__</div>
+        <div class="feedback-date ch-def-margin-sec-top">
+            <ch_if:author_username_link>
+                <a class="feedback-author" href="__author_url__">__author_username__</a>
+            </ch_if:author_username_link>
+            <ch_if:author_username_text>
+                <span class="feedback-author">__author_username__</span>
+            </ch_if:author_username_text>
+            <span class="sys-bullet"></span>
+            <span class="feedback-date ch-def-font-small ch-def-font-grayed">__date__</span>
+            <ch_if:status>
+                <span class="sys-bullet"></span>
+                <span class="feedback-status ch-def-font-small ch-def-font-grayed">__status__</span>
+            </ch_if:status>
+            <ch_if:edit_link>
+                <span class="sys-bullet"></span>
+                <a class="feedback-action ch-def-font-small" href="__edit_link_url__">__edit_link_caption__</a>
+            </ch_if:edit_link>
+        </div>
+    </div>
+    <div class="feedback-cb">&nbsp;</div>
+</div>

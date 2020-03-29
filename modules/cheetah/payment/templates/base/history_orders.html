@@ -1,0 +1,19 @@
+<ch_repeat:orders>
+    <div class="pmt-orders-item">
+        <div class="pmt-orders-date">__date_uf__</div>
+        <div class="pmt-orders-client">
+        	<ch_if:show_link>
+            	<a href="__user_url__" target="_blank">__user_name__</a>
+            </ch_if:show_link>
+            <ch_if:show_text>__user_name__</ch_if:show_text>
+        </div>
+        <div class="pmt-orders-order">__order__</div>
+        <div class="pmt-orders-amount">__amount__</div>
+        <div class="pmt-orders-license">__license__</div>
+        <div class="pmt-orders-action">
+            __products__ __txt_more_products__ __items__ __txt_more_items__ <a href="javascript:void(0)" onclick="javascript:__js_object__.more('history', __id__)">__txt_action_more__</a>
+        </div>
+        <div class="pmt-cb">&nbsp;</div>
+    </div>
+</ch_repeat:orders>
+__paginate_panel__

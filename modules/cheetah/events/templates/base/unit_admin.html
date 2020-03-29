@@ -1,0 +1,23 @@
+<div class="ch-twig-unit ch-twig-unit-admin ch_events_unit ch-def-margin-top-auto">
+    <div class="ch_sys_unit_checkbox ch-def-round-corners">
+        <input type="checkbox" name="entry[]" value="__id__" />
+    </div>
+    <div class="ch-twig-unit-thumb-cont ch-def-margin-sec-right">
+        <a href="__event_url__"><img class="ch-twig-unit-thumb ch-def-round-corners ch-def-shadow" src="__thumb_url__"></a>
+    </div>
+    <div class="ch-twig-unit-info">
+        <div class="ch-twig-unit-title ch-def-font-h2">
+            <a href="__event_url__">__event_title__</a>
+        </div>
+        <div class="ch-twig-unit-line ch-twig-unit-desc">__snippet_text__</div>
+        <div class="ch-twig-unit-line ch-twig-unit-special">__event_start__</div>
+        <div class="ch-twig-unit-line">__country_city__</div>
+        <div class="ch-twig-unit-line ch_events_unit_participants"><i class="sys-icon user ch-def-font-grayed"></i><b>__participants__</b></div>
+        <ch_if:full>
+            <div class="ch-twig-unit-line ch-twig-unit-rate">__rate__</div>
+            <div class="ch-twig-unit-line ch-def-font-small ch-def-font-grayed">
+                <ch_text:_From /> <a href="__author_url__">__author__</a>
+            </div>
+        </ch_if:full>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>__page_header__</title>
+		<base href="<ch_url_root />" />
+		<meta http-equiv="Content-Type" content="text/html; charset=__page_charset__" />
+        <ch_include_css />
+        <ch_include_js />
+        __dol_images__
+        <ch_injection:injection_head />
+	</head>
+    <body <ch_injection:injection_body /> class="ch-def-font ch-def-padding-sec">
+        <ch_injection:mobile_injection_header />
+        <div id="FloatDesc" style="position:absolute;display:none;z-index:100;"></div>
+		<div class="disignBoxFirst ch-def-border">
+			<div class="boxFirstHeader ch-def-bh-margin">__page_header__</div>
+			<div class="boxContent">
+				<div class="clear_both"></div>
+					__page_code__
+				<div class="clear_both"></div>
+			</div>
+        </div>
+        <ch_injection:mobile_injection_footer />
+	</body>
+</html>

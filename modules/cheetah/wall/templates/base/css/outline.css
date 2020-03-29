@@ -1,0 +1,193 @@
+div.wall-clear {
+    clear:both;
+    font-size:0px;
+}
+div.wall-outline,
+div.wall-outline-items {
+    position: relative;
+}
+div.wall-outline {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+div.wall-outline div.wall-load-more .ch-btn {
+    float: none;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+/*--- Item main layout ---*/
+div.wall-oi-item {
+	position: relative;
+}
+div.wall-oi-sizer {
+	width: 33.3%;
+}
+div.wall-oi-item-grouped {}
+div.wall-oi-item-cnt {
+	position: relative;
+	background-color: #ffffff;
+	overflow: hidden;
+}
+div.wall-oi-item-circle {
+	position: absolute;
+	display: none;
+
+    top: 20px;
+    left: -2px;
+    width: 32px;
+    height: 32px;
+
+    border-radius: 16px;
+    -moz-border-radius: 16px;
+    -webkit-border-radius: 16px;
+
+    background-color: rgba(255, 255, 255, 0.9);
+
+    text-align: center;
+    line-height: 32px;
+    color: #999999;
+}
+div.wall-oi-item-circle i.sys-icon {
+	vertical-align: middle;
+	font-size: 16px;
+}
+
+
+/*--- Content section ---*/
+div.wall-oii-description {
+	margin-top: 5px;
+
+	color: #999999;
+}
+
+div.wall-oii-description-extra-special,
+div.wall-oii-description-extra {
+    margin-top: 5px;
+}
+div.wall-oii-description-extra-special {
+    font-weight:bold;
+}
+
+
+/*--- Image base content ---*/
+div.wall-oii-image-wrp {
+	width: 100%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+
+	border: 1px  solid #ffffff;
+
+	text-align: center;
+}
+div.wall-oii-image {
+	position: relative;
+	display: inline-block;
+}
+div.wall-oi-item-grouped div.wall-oii-image {
+	margin-top: 1px;
+}
+div.wall-oi-item-grouped div.wall-oii-image:first-child {
+	margin-top: 0px;
+}
+div.wall-oii-image img,
+div.wall-oii-image img.wall-oii-image {
+	position: relative;
+	display: block;
+
+	width: auto;
+	max-width: 100%;
+}
+
+
+/*--- Author section ---*/
+div.wall-oii-author {
+	position: relative;
+}
+div.wall-oii-author div.thumbnail_block {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+div.wall-oii-author-cnt {
+	min-height: 32px;
+	margin-left: 42px;
+}
+div.wall-oii-author-name {
+	font-weight: bold;
+}
+div.wall-oii-posted {}
+
+
+/*--- Actions section ---*/
+div.wall-oii-actions .ch-btn {
+	height: 24px;
+	padding-left: 10px;
+	padding-right: 10px;
+
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	box-shadow: none;
+
+	background-color: transparent;
+	border-color: #cccccc;
+    border-width: 1px;
+	border-style: solid;
+
+	line-height: 20px;
+}
+div.wall-oii-actions .ch-btn:hover {
+	background-color: #ffffff;
+}
+div.wall-oii-actions .ch-btn.ch-btn-disabled:hover {
+	background-color: transparent;
+}
+div.wall-oii-actions .ch-btn,
+div.wall-oii-actions .ch-btn .sys-icon {
+	margin-left: 0px;
+	margin-right: 0px;
+}
+div.wall-oii-actions .ch-btn,
+div.wall-oii-actions .wall-comment,
+div.wall-oii-actions .wall-voting,
+div.wall-oii-actions .wall-repost,
+div.wall-oii-actions .wall-comment-counter-holder,
+div.wall-oii-actions .wall-voting-counter-holder,
+div.wall-oii-actions .wall-repost-counter-holder {
+	position: relative;
+	display: inline-block;
+	float: none;
+
+	vertical-align: top;
+
+	color: #666666;
+}
+div.wall-oii-actions .wall-repost-counter-holder a {
+	text-decoration: none;
+	color: #666666;
+}
+div.wall-oii-actions .wall-voting,
+div.wall-oii-actions .wall-repost {
+	margin-left: 5px;
+}
+div.wall-oii-actions .wall-comment-counter-holder,
+div.wall-oii-actions .wall-voting-counter-holder,
+div.wall-oii-actions .wall-repost-counter-holder {
+	margin-left: 2px;
+
+	line-height: 24px;
+}
+div.wall-oii-actions .wall-repost-counter-holder {
+	font-size: 14px;
+	font-size: 0.875rem;
+}
+div.wall-oii-actions .wall-comment-counter-holder i,
+div.wall-oii-actions .wall-voting-counter-holder i {
+	font-style: normal;
+}
+div.wall-oii-actions .wall-repost-element-holder {
+	line-height: 20px;
+	line-height: 1.25rem;
+}

@@ -1,0 +1,18 @@
+#ch_groups_admin_listing .block_cont {
+    padding:1px;
+}
+
+table.ch_groups_actions {
+    border-collapse:collapse;
+    margin:5px;
+    width:100%;
+}
+
+table.ch_groups_actions td {
+    width:33%;
+    text-align:center;
+}
+
+.ch_groups_manage_wrapper {
+    padding:0;
+}

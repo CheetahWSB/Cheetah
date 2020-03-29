@@ -1,0 +1,74 @@
+div.wall-event-ch_photos {
+    position: relative;
+}
+div.ch_photos-wall-caption,
+div.ch_photos_comment-wall-caption {
+    position: relative;
+
+    background-repeat: no-repeat;
+    background-position: 0px center;
+
+    line-height: 30px;
+}
+div.wall-event-repost div.wall-caption.ch_photos-wall-caption {
+	padding-left: 5px;
+}
+span.ch_photos-wall-caption-owner {
+    font-weight: bold;
+}
+a.ch_photos-wall-caption-link,
+a.ch_photos-wall-caption-link:link {
+    text-decoration: none;
+}
+a.ch_photos-wall-caption-link:hover,
+a.ch_photos-wall-caption-link:active {
+    text-decoration: underline;
+}
+div.ch_photos-wall-content,
+div.ch_photos_comment-wall-content {
+    position: relative;
+	padding: 5px;
+}
+div.wall-content.ch_photos-wall-content-grouped {
+	overflow: visible;
+}
+div.ch_photos-wall-content-grouped-cnt {
+	margin: -5px;
+}
+div.ch_photos-wall-content-grouped-cnt div.wall-content-gap {
+	margin: 5px;
+}
+div.ch_photos-wall-content-grouped-cnt div.wall-content-gap div.wall-content-wrapper {
+    margin: 0px;
+}
+
+div.ch_photos-wall-shp-wrapper,
+div.ch_photos-wall-shp-wrapper img {
+	width: 240px;
+	height: 240px;
+}
+div.ch_photos-wall-shp-gap {
+	position: relative;
+    float: left;
+}
+div.ch_photos-wall-shp-wrapper {
+    position: relative;
+	overflow: hidden;
+}
+div.ch_photos-wall-comments {
+    padding-left: 0px;
+}
+
+/*--- Overwrite default Comment styles ---*/
+div.ch_photos-wall-comments div.cmts {
+    padding: 0px;
+    /*display: none;*/
+}
+div.ch_photos-wall-comments div.cmt-reply {
+    padding: 0px;
+    /*display: none;*/
+}
+div.ch_photos-wall-comments div.thumbnail_block {
+    left: -38px;
+    top: 1px;
+}

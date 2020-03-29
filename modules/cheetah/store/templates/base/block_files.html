@@ -1,0 +1,25 @@
+<div class="ch_sys_files_wrapper ch-def-bc-padding">
+    <ch_repeat:files>
+        <div class="ch-def-hr ch-def-margin-sec-top ch-def-margin-sec-bottom"></div>
+        <div class="ch_sys_files_line">
+            <div class="sys_icon ch-def-round-corners"><img alt="__title__" title="__title__" src="__icon__" /></div>
+            <div class="ch_store_files_info">
+                <p>__title__</p>
+                <i class="ch-def-font-small ch-def-font-grayed">__for_group__</i>
+                <b>__price__</b>
+                <u class="ch-def-font-small ch-def-font-grayed">__date__</u>
+            </div>
+        </div>
+        <div class="ch_store_files_btns_container ch_sys_files_line">
+            <div class="ch_sys_files_btns">
+                <ch_if:purchase>
+                    __btn_purchase__
+                </ch_if:purchase>
+                <ch_if:download>
+                    __btn_download__
+                </ch_if:download>
+            </div>
+            <div class="clear_both"></div>
+        </div>
+    </ch_repeat:files>
+</div>

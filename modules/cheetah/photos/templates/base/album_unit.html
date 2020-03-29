@@ -1,0 +1,40 @@
+<div class="sys_album_unit_wrp {type}_album_unit_wrp">
+	<div class="sys_album_unit {type}_album_unit">
+	    <ch_if:editMode>
+	       <div class="ch_sys_unit_checkbox">
+	           <input type="checkbox" name="entry[]" value="{id}" {checked}/>
+	       </div>
+	    </ch_if:editMode>
+	    <div class="sys_album">
+	        <div class="sys_album_cnt">
+	            <ch_repeat:units>
+	                <ch_if:exist>
+	                    <div class="sys_album_item{class}" style="background-image: url('{unit}');" onclick="window.location = '{url}';">
+	                        <img src="<ch_image_url:spacer.gif />"/>
+	                    </div>
+	                </ch_if:exist>
+	                <ch_if:not-exist>
+	                	<div class="sys_album_item{class}">
+	                        <img src="<ch_image_url:spacer.gif />"/>
+	                    </div>
+	                </ch_if:not-exist>
+	            </ch_repeat:units>
+	        </div>
+	    </div>
+	    <div class="sys_album_info ch-def-padding-sec">
+	        <div class="sys_album_title">
+	            <a href="{titleLink}" title="{title}">{title}</a>
+	        </div>
+	        <div class="sys_album_from ch-def-font-grayed">{view} <ch_text:_By /> <a href="{fromLink}">{from}</a></div>
+	    </div>
+	    <div class="sys_album_navigation">
+			<a class="sys_an_prev ch-def-round-corners" href="javascript:void(0)" title="<ch_text_attribute:_Previous_item />"><i class="sys-icon chevron-left"></i></a>
+			<a class="sys_an_next ch-def-round-corners" href="javascript:void(0)" title="<ch_text_attribute:_Next_item />"><i class="sys-icon chevron-right"></i></a>
+	    </div>
+	    <ch_if:show_activation>
+		    <div class="sys_album_activation">
+		    	<a class="sys_aa_open ch-def-round-corners" href="javascript:void(0)" title="<ch_text_attribute:_Open />"><i class="sys-icon sign-in"></i></a>
+		    </div>
+	    </ch_if:show_activation>
+	</div>
+</div>

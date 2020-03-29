@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<title>__page_header__</title>
+    	<meta http-equiv="Content-Type" content="text/html; charset=__page_charset__" />
+    	<meta http-equiv="Content-Style-Type" content="text/css" />
+    	<ch_include_css />
+    	<ch_include_js />
+        <script defer type="text/javascript">
+    		var site_url = '<ch_url_root />';
+            setTimeout(function () {
+                document.location = '__url_relocate__';
+            }, 1000);
+    	</script>
+        <ch_injection:injection_head />
+    </head>
+    <body <ch_injection:injection_body /> class="ch-def-font">
+    	<ch_injection:injection_header />
+    	__page_main_code__
+    	<ch_injection:injection_footer />
+    </body>
+</html>

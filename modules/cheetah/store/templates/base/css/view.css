@@ -1,0 +1,39 @@
+
+table.ch_store_fields {
+    border-collapse:collapse;
+    padding:0;
+}
+
+td.ch_store_field_name {
+    margin:0;
+    text-align:left;
+}
+
+td.ch_store_field_value {
+    margin:0;
+    text-align:left;
+}
+
+
+/* files block */
+
+.ch_sys_files_line .ch_store_files_info b {
+    position:absolute;
+    font-weight:normal;
+    top:5px;
+    right:5px;
+}
+
+.ch_sys_files_line .ch_store_files_info i {
+    position:absolute;
+    top:20px;
+    right:5px;
+    text-decoration:none;
+    font-style:normal;
+    text-transform:lowercase;
+}
+
+.ch_sys_files_wrapper .ch_store_files_btns_container {
+    padding-left:0;
+    min-height:0;
+}

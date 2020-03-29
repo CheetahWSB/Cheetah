@@ -1,0 +1,12 @@
+<div class="ordered_block">
+	<div class="ordered_block_select">
+		<span>__head_key__</span>
+		<div class="input_wrapper input_wrapper_select ch-def-margin-sec-left clearfix">
+		    <select class="form_input_select ch-def-font-inputs" onchange="loadDynamicBlock(__block_id__, this.value + '&amode=ajax');">
+		        <ch_repeat:options>
+		            <option value="__href__" __selected__>__name__</option>
+		        </ch_repeat:options>
+		    </select>
+		</div>
+	</div>
+</div>

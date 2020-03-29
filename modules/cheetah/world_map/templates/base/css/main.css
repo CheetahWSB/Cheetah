@@ -1,0 +1,114 @@
+
+.ch_wmap_extra_wrtapper {
+    padding-top:10px;
+}
+
+.ch_wmap {
+    width:auto;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+}
+
+.ch_wmap_info {
+    width:auto;
+}
+
+.ch_wmap_tip {
+    width:auto;
+    margin-top:5px;
+    font-style:italic;
+}
+
+.ch_wmap_parts {
+    width:auto;
+}
+
+.ch_wmap_part {
+    width:200px;
+    float:left;
+}
+
+.ch_wmap_part > img {
+    vertical-align:bottom;
+}
+.ch_wmap_part a > img {
+    vertical-align:top;
+}
+.ch_wmap_part .sys-icon {
+    display:inline-block;
+    min-width:16px;
+    min-height:16px;
+    font-size:16px;
+    vertical-align:middle;
+}
+
+.ch_wmap_form_map {
+    width:500px;
+}
+
+.ch_wmap_form_map>.ch_map {
+    margin:0;
+}
+
+.ch_wmap_search_form {
+
+}
+
+.ch_wmap_location_box {
+    height:250px;
+}
+.ch_wmap_location_box .ch_wmap_loading {
+    line-height:250px;
+}
+
+.ch_wmap_homepage_part {
+    height:350px;
+}
+
+.ch_wmap_homepage {
+    height:250px;
+}
+.ch_wmap_homepage .ch_wmap_loading {
+    line-height:250px;
+}
+
+.ch_wmap_edit {
+    height:500px;
+}
+.ch_wmap_separate {
+    height:500px;
+}
+.ch_wmap_form_map .ch_wmap_separate {
+    height:280px;
+}
+.ch_wmap_separate .ch_wmap_loading {
+    line-height:500px;
+}
+.ch_wmap_form_map .ch_wmap_separate .ch_wmap_loading {
+    line-height:280px;
+}
+
+.ch_wmap_location {
+    margin:5px;
+    text-align:left;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow:hidden;
+}
+.ch_wmap_location > .sys-icon {
+    font-size:16px;
+    vertical-align:middle;
+}
+.ch_wmap_location > img {
+    position:relative;
+    top:3px;
+}
+
+.ch_wmap_locations {
+    max-height:180px;
+    max-width:261px;
+    overflow-y:auto;
+    margin-right:15px;
+}
+

@@ -1,0 +1,4 @@
+To complete installation add the following lines to the beginning of inc/header.inc.php file:
+define ('CH_PROFILER', true);
+if (CH_PROFILER && !isset($GLOBALS['ch_profiler_start']))
+    $GLOBALS['ch_profiler_start'] = microtime ();

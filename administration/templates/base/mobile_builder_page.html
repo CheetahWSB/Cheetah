@@ -1,0 +1,75 @@
+<div class="ch-def-bc-margin" id="ch-sort-wrapper">
+    <ch_repeat:containers>
+    <div class="ch-sortable-container-wrapper">
+        <span class="ch-def-font-h2">__title__</span>
+        <div class="ch-sys-mobile-page">
+            <div class="ch-sys-mobile-padding ch-sortable-connected" id="ch-sort-cont-__id__">
+                <ch_repeat:items>
+                    <div id="ch-sort-item-__id__" class="ch-sortable-item">
+                        __item__
+<!--
+                        <div class="ch-sys-mobile-padding2 ch-sys-mobile-border ch-sys-mobile-box-bg ch-sys-mobile-text">
+                            __title__
+                        </div>
+-->
+                    </div>
+                </ch_repeat:items>
+            </div>
+        </div>
+    </div>
+    </ch_repeat:containers>
+    <div class="clear_both">&nbsp;</div>
+</div>
+<script>
+	$(function() {
+		$( "__containers_ids__" ).sortable({
+            opacity: 0.6,
+            placeholder: "ch-sortable-placeholder",
+			connectWith: ".ch-sortable-connected",
+            stop: function(event, ui) {
+                var aContainersOrdered = {};
+                $('#ch-sort-wrapper .ch-sortable-connected').each(function (e) {
+                    var aContMatch;
+                    var sId = this.id;
+                    if (aContMatch = sId.match(/ch-sort-cont-([0-9a-zA-Z_]+)/)) {
+                        var sContId = aContMatch[1];
+                        var sIdsOrdered = '';
+                        $('#ch-sort-cont-' + sContId + ' > .ch-sortable-item').each(function (e) {
+                            var s = this.id;
+                            var aItemMatch;
+                            if (aItemMatch = s.match(/ch-sort-item-([0-9a-zA-Z_]+)/))
+                                sIdsOrdered +=  aItemMatch[1] + ',';
+                        });
+                        aContainersOrdered[sContId] = sIdsOrdered;
+                    }
+                });
+                var aContNames = [];
+                var aContData = [];
+                var i;
+                for (var sContId in aContainersOrdered) {
+                    aContNames[i] = sContId;
+                    aContData[i] = aContainersOrdered[sContId];
+                    ++i;
+                }
+                var oData = {
+                    action: 'SaveItemsOrder',
+                    'cont_names[]': aContNames,
+                    'cont_data[]': aContData
+                }
+                $.post("__post_url__", ch_query_data(oData));
+            }
+		}).disableSelection();
+	});
+    function ch_query_data (o) {
+        var s = '';
+        for (var i in o) {
+            if (typeof o[i] == "object") {
+                for (var ii in o[i])
+                    s += i + '=' + o[i][ii] + '&';
+            } else {
+                s += i + '=' + o[i] + '&';
+            }
+        }
+        return s;
+    }
+</script>

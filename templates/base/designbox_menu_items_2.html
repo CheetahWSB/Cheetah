@@ -1,0 +1,14 @@
+<div class="dbTopMenuPopupCnt">
+	<ch_repeat:items>
+	    <div id="__id__-act" class="active ch-def-margin-sec-top-auto" __show_active__>
+	        <ch_if:icon_act><img __class__ src="__src__" /></ch_if:icon_act>
+	        <ch_if:texticon_act><i class="sys-icon __icon__"></i></ch_if:texticon_act>
+	        <span __class__>__title__</span>
+	    </div>
+	    <div id="__id__-pas" class="notActive ch-def-margin-sec-top-auto" __show_passive__>
+	        <ch_if:icon_pas><img __class__ src="__src__" /></ch_if:icon_pas>
+	        <ch_if:texticon_pas><i class="sys-icon __icon__"></i></ch_if:texticon_pas>
+	        <a id="__id__" __class__ __href__ __target__ __on_click__>__title__</a>
+	    </div>
+	</ch_repeat:items>
+</div>

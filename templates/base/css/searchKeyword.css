@@ -1,0 +1,21 @@
+
+.boxContent .votes_small {
+	float: none;
+	width: auto;
+}
+.dbContent {
+	margin: 5px;
+}
+
+.searchContentBlock {
+    margin: 5px auto;
+}
+
+.ch-btn-area {
+    text-align: center;
+}
+.ch-btn-area .ch-btn-centered {
+    margin: 0px 10px 10px 0px;
+    float: none;
+    display: inline;
+}

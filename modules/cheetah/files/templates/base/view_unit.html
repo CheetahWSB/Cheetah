@@ -1,0 +1,46 @@
+<span class="ch-anchor-link" id="view"></span>
+<div class="navPanel ch-def-margin-sec-bottom">
+	<div class="navPanelLink ch-def-font-large">
+		<ch_text:_ch_files_album />: <a href="__albumUri__">__albumCaption__</a>
+	</div>
+	<ch_if:prev>
+	   <a href="__linkPrev__#view" title="__titlePrev__"><i class="navPanelLinkPrev sys-icon arrow-left"></i></a>
+	</ch_if:prev>
+	<ch_if:next>
+		<a href="__linkNext__#view" title="__titleNext__"><i class="navPanelLinkNext sys-icon arrow-right"></i></a>
+	</ch_if:next>
+</div>
+<div class="fileUnit ch-def-margin-sec-bottom">
+    <div class="fileUnitLeft ch-def-margin-sec-right">
+        <div class="fileUnitPic" style="background-image: url('__pic__')">
+            <img src="<ch_icon_url:spacer.gif />" class="fileUnitSpacer"/>
+        </div>
+    </div>
+    <div class="fileUnitRight">
+        <div class="fileTitle ch-def-font-h2">
+            __fileTitle__
+        </div>
+        <div class="fileSize">
+            <ch_text:_ch_files_size />: __fileSize__ (__fileExt__)
+        </div>
+        <div class="fileDescription ch-def-margin-sec-top ch-def-font-large">
+			__fileDescription__
+        </div>
+    </div>
+    <div class="clear_both"></div>
+</div>
+<div class="fileUnitInfo">
+    <div class="fileUnitInfoRate">
+        __rate__
+    </div>
+    <div class="fileUnitInfoCounts">
+        <div class="fileUnitInfoFav">
+            <i class="sys-icon asterisk" title="<ch_text:_ch_files_view_alt_fav />"></i>
+            __favInfo__
+        </div>
+        <div class="fileUnitInfoView">
+             <i class="sys-icon eye" title="<ch_text:_ch_files_view_alt_view />"></i>
+            __viewInfo__
+        </div>
+    </div>
+</div>

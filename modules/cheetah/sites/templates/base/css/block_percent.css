@@ -1,0 +1,22 @@
+
+.ch_sites_block_percent {
+    overflow: hidden;
+}
+
+.ch_sites_block_percent .image {
+	text-align: center;
+}
+
+.ch_sites_block_percent .votes_big,
+.image img {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.ch_sites_block_percent .votes_big {
+    width: 150px;
+}
+
+.ch_sites_block_percent .ch_sites_unit_content {
+    position:relative;
+}

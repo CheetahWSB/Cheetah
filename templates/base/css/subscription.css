@@ -1,0 +1,28 @@
+/*--- My Subscriptions page ---*/
+form#sbs-subscriptions-form div.input_wrapper_custom  {
+	float: none;
+}
+div.sys-sbs-row {}
+div.sys-sbs-object {
+	position: relative;
+	float: left;
+	line-height: 22px;
+	font-weight: bold;
+}
+div.sys-sbs-row button.ch-btn {
+	float: right;
+}
+
+/*--- Subscriptions Popup ---*/
+div#sbs_visitor_popup {
+	width: 490px;
+    display: none;
+}
+div#sbs_visitor_popup .input_wrapper_input_set {
+	text-align: center;
+	white-space: normal;
+}
+div#sbs_visitor_popup .input_wrapper_input_set .ch-btn {
+	display: inline-block;
+	float: none;
+}

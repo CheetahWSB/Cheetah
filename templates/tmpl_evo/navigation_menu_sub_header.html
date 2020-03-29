@@ -1,0 +1,26 @@
+<div class="subMenu ch-def-border" id="subMenu___submenu_id__" style="display:__display_value__;">
+	<div class="subMenuCnt ch-def-padding-leftright clearfix">
+		<div class="sys_page_icon ch-def-padding-right ch-phone-hide">__picture__</div>
+		<ch_if:show_caption>
+			<div class="sys_page_header ch-def-padding-right">__caption__<ch_injection:injection_title_zone /></div>
+		</ch_if:show_caption>
+        <ch_if:show_submenu>
+	        <div class="sys_page_header_divider ch-def-padding-right ch-phone-hide">
+				<i class="sys-icon angle-right"></i>
+			</div>
+            <div class="sys_page_submenu ch-def-padding-right clearfix">__submenu__</div>
+        </ch_if:show_submenu>
+        <ch_if:show_submenu_bottom>
+        	<div class="sys_page_header_divider ch-def-padding-right">
+				<i class="sys-icon angle-right"></i>
+			</div>
+            <div class="sys_page_submenu_bottom ch-def-padding-right">__submenu__</div>
+        </ch_if:show_submenu_bottom>
+        <ch_if:show_empty>
+            <div class="sys_page_empty"></div>
+        </ch_if:show_empty>
+        <div class="sys_page_actions clearfix">
+            <div class="actionsContainer actionsContainerSubmenu">__profile_actions____login_section__</div>
+        </div>
+	</div>
+</div>

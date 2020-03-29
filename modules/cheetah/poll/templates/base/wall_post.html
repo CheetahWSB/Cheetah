@@ -1,0 +1,25 @@
+<div class="wall-event-circle"><i class="sys-icon tasks"></i></div>
+<div class="wall-caption ch-poll-wall-caption">
+	<span class="ch-poll-wall-caption-owner">__cpt_user_name__</span> __cpt_added_new__ <a class="ch-poll-wall-caption-link" href="__cpt_item_url__">__cpt_object__</a>.&nbsp;
+</div>
+<div class="wall-content ch-poll-wall-content">
+	<div class="ch-poll-wall-title">
+		<a class="ch-def-font-h2" href="__cnt_item_page__">__cnt_item_title__</a>
+		<div class="pollInfo">
+			<div id="wpol_result_block__cnt_item_id__" class="result">
+				<a href="javascript:void(0);" onclick="PerformSubmit(__cnt_item_id__, -1, 'wpol')"><ch_text:_ch_poll_result /></a>
+			</div>
+			<div id="wpol_back_poll__cnt_item_id__" class="back">
+				<a href="javascript:void(0);" onclick="getPoll(['wpol', 'wpol_question_text___cnt_item_id__'], 'get_questions', '', '__cnt_item_id__' )"><ch_text:_ch_poll /></a>
+			</div>
+		</div>
+	</div>
+	<div class="ch-poll-wall-description">
+		<div id="wpol_question___cnt_item_id__" class="pollAnswerBlock ch-def-round-corners-with-border ch-def-margin-sec-top">
+			<div id="wpol_question_text___cnt_item_id__" class="pollAnswerWrapper ch-def-padding-sec"></div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" language="javascript">
+	send_data(['wpol', 'wpol_question_text___cnt_item_id__'], 'get_questions', '', '__cnt_item_id__' );
+</script>

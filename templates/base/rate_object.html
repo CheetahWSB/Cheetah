@@ -1,0 +1,22 @@
+<script type="text/javascript">
+	ChWsbVoting.prototype.onvote = function (fRate, iCount) {
+		document.location = '__url__';
+	}
+	ChWsbVoting.prototype.onvotefail = function () {
+		document.location = '__url__';
+	}
+</script>
+<div class="rateObject">
+	<div class="ratePart ch-def-margin-bottom">
+		<div class="ratePartCnt">__ratePart__</div>
+		<div class="clear_both"></div>
+	</div>
+	<div class="rateFile">__fileBody__</div>
+	<div class="rateInfoMain ch-def-margin-sec-top ch-def-font-h1">
+		<a href="__fileUri__">__fileTitle__</a>
+	</div>
+	<div class="rateInfoAux ch-def-margin-sec-topbottom ch-def-font-large">
+		<span class="addInfoDate">__fileWhen__</span>
+   		<span class="addInfoFrom"><ch_text:_from /> <a href="__fileFromLink__">__fileFrom__</a></span>
+   	</div>
+</div>

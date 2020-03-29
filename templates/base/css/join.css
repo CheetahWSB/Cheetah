@@ -1,0 +1,7 @@
+#join_form td.colspan {
+    text-align: center;
+}
+
+#join_form .hidable {
+    display: none;
+}

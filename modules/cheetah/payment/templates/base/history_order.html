@@ -1,0 +1,35 @@
+<div class="pmt-view-order">
+    <div class="pmt-vo-row">
+        <div class="pmt-vo-caption">__txt_seller__</div>
+        <div class="pmt-vo-content">
+			<ch_if:show_link>
+            	<a href="__seller_url__" target="_blank">__seller_name__</a>
+            </ch_if:show_link>
+            <ch_if:show_text>__seller_name__</ch_if:show_text>
+        </div>
+        <div class="pmt-cb">&nbsp;</div>
+    </div>
+    <div class="pmt-vo-row">
+        <div class="pmt-vo-caption">__txt_order__</div>
+        <div class="pmt-vo-content">__order__</div>
+        <div class="pmt-cb">&nbsp;</div>
+    </div>
+    <div class="pmt-vo-row">
+        <div class="pmt-vo-caption">__txt_date__</div>
+        <div class="pmt-vo-content">__date__</div>
+        <div class="pmt-cb">&nbsp;</div>
+    </div>
+    <div class="pmt-vo-row">
+        <div class="pmt-vo-caption">__txt_products__</div>
+        <div class="pmt-vo-items">
+            <ch_repeat:items>
+                <ch_if:link>
+                    <a href="__url__" target="_blank">__title__</a>
+                </ch_if:link>
+                <ch_if:text>__title__</ch_if:text>
+                (__quantity__) - __price__ __currency_code__<br />
+            </ch_repeat:items>
+        </div>
+        <div class="pmt-cb">&nbsp;</div>
+    </div>
+</div>

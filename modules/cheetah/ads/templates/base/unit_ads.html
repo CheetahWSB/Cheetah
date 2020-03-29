@@ -1,0 +1,20 @@
+<div class="ads_Unit ch-twig-unit ch-def-margin-top-auto">
+    __admin_check__
+	<div class="ads_Pic ch-twig-unit-thumb-cont ch-def-margin-sec-right">
+        <a href="__ad_link__"><img class="ch-twig-unit-thumb ch-def-round-corners ch-def-shadow" src="__ad_cover_img__" /></a>
+    </div>
+    <div class="ch-twig-unit-info">
+        <div class="ads_Title ch-twig-unit-title ch-def-font-h2">
+		    <a href="__ad_link__" class="bottom_text">__ad_title__ <ch_if:expired>(<ch_text:_ch_ads_expired />)</ch_if:expired></a>
+        </div>
+		__ad_status__
+		<ch_if:using_c1><div class="ads_From ch-twig-unit-line" style="__cust_style1__">__custom_name1__: <span>__unit__</span>__custom1__ </div></ch_if:using_c1>
+        <ch_if:using_c2><div class="ads_From ch-twig-unit-line" style="__cust_style2__">__custom_name2__: <span>__unit2__</span>__custom2__</div></ch_if:using_c2>
+		<div class="ads_Categ ch-twig-unit-line">
+            <i class="sys-icon folder"></i> __cats__
+		</div>
+        <div class="ch-twig-unit-line ch-def-font-small ch-def-font-grayed">
+            __ad_date__ <span class="sys-bullet"></span> __from_label__ <a href="__ad_owner_link__">__ad_owner_name__</a>
+        </div>
+    </div>
+</div>

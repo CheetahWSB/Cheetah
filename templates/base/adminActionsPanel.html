@@ -1,0 +1,18 @@
+<div class="admin_actions_panel ch-def-padding-thd-topbottom clearfix">
+    <ch_if:selectAll>
+        <div class="admin-actions-select ch-def-padding-left">
+            <input id="admin-actions-select-all-{wrapperId}" class="admin-actions-select-all" type="checkbox" onclick="$('#{wrapperId} input[name=\'{checkboxName}[]\']:enabled').attr('checked', this.checked)"  {checked} />
+            <label for="admin-actions-select-all-{wrapperId}"><ch_text:_Select_all /></label>
+        </div>
+    </ch_if:selectAll>
+    <ch_if:actionButtons>
+        <div class="admin-actions-buttons ch-def-padding-left {class}">
+            <ch_repeat:buttons>
+                <button class="ch-btn ch-btn-small" type="{type}" name="{name}" value="{value}" {onclick} >{value}</button>
+            </ch_repeat:buttons>
+        </div>
+    </ch_if:actionButtons>
+    <ch_if:customHTML>
+        <div class="admin-actions-custom ch-def-padding-left">{custom_HTML}</div>
+    </ch_if:customHTML>
+</div>

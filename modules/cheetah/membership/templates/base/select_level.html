@@ -1,0 +1,26 @@
+<div class="mbp-level">
+    <div class="mbp-level-icon" style="background-image:url(__icon__);">
+        <img src="<ch_image_url:spacer.gif />" />
+        <div class="ch_sys_unit_checkbox mbp-level-select">
+        	<input type="radio" name="descriptor" value="__descriptor__" onchange="javascript:return __js_object__.onSelect(this);" ch-data-price="__price__" __checked__ />
+        </div>
+    </div>
+    <div class="mbp-level-content">
+        <div class="mbp-level-title">
+            <a href="javascript: void(0)" onclick="javascript: loadHtmlInPopup('explanation_popup', '<ch_url_root />explanation.php?explain=membership&type=__id__');">__title__</a> (__days__)
+        </div>
+        <ch_if:show_description>
+        	<div class="mbp-level-info ch-def-padding-thd-top">__description__</div>
+        </ch_if:show_description>
+        <div class="mbp-level-price ch-def-padding-thd-top">
+        	<ch_if:show_price_paid>__price__ <span class="mbp-level-curr-code">__currency_code__</span></ch_if:show_price_paid>
+        	<ch_if:show_price_free><ch_text:_membership_txt_free /></ch_if:show_price_free>
+        </div>
+        <div class="mbp-level-control">
+            <button type="button" class="ch-btn ch-btn-img ch-btn-ifont" onclick="javascript: loadHtmlInPopup('explanation_popup', '<ch_url_root />explanation.php?explain=membership&type=__id__');" title="<ch_text_attribute:_membership_txt_explanation />">
+                <i class="sys-icon info-circle"></i>
+            </button>
+            <div class="mbp-cb">&nbsp;</div>
+        </div>
+    </div>
+</div>

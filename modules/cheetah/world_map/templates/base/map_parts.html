@@ -1,0 +1,23 @@
+<div id="ChWmapParts__suffix__" class="ch_wmap_parts __subclass___parts ch-def-margin-sec-bottom">
+    <ch_repeat:parts>
+        <div class="ch_wmap_part"><a href="#" alt="__part__">__icon__</a><input type="checkbox" name="__part__" id="ChWmapPartsCheckId___part__" value="__part__" __checked__/><label for="ChWmapPartsCheckId___part__">__title__</label></div>
+    </ch_repeat:parts>
+    <div class="clear_both"></div>
+</div>
+<script type="text/javascript">
+    jQuery('#ChWmapParts__suffix__ > div > a').bind('click', function () {
+        jQuery('#ChWmapParts__suffix__ > div > input:checked').removeAttr('checked');
+        jQuery('#ChWmapParts__suffix__ > div > input[name=' + $(this).attr('alt') + ']').attr('checked', 'checked');
+        glChWmap__suffix__.setParts($(this).attr('alt'));
+        glChWmap__suffix__.updateLocations();
+        return false;
+    });
+jQuery('#ChWmapParts__suffix__ > div > input').bind('change', function () {
+        var s = '';
+        jQuery('#ChWmapParts__suffix__ > div > input:checked').each (function () {
+            s += ',' + jQuery(this).attr('name');
+        });
+        glChWmap__suffix__.setParts(s.substr(1));
+        glChWmap__suffix__.updateLocations();
+    });
+</script>

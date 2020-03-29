@@ -1,0 +1,23 @@
+<div class="ch-def-bc-padding">
+    <div id="__prefix__-gallery" class="ch-gallery">
+        <div class="ch-gallery-icons ch-def-margin-sec-bottom">
+            <div class="ch-gallery-icons-rails">
+                <ch_repeat:icons><img class="ch-gallery-icon" title="__title__" alt="___title__" src="__icon_url__" id="ch-gallery-icon-__id__" /></ch_repeat:icons>
+            </div>
+            <div class="ch-gallery-icon-selector"></div>
+        </div>
+        <div id="__prefix__-gallery-imgs" class="ch-gallery-imgs">
+            <ch_repeat:images>
+                <div class="ch-gallery-img-cont" data-img="__image_url__" data-icon="__icon_url__" id="ch-gallery-img-cont-__id__">
+                    <div class="ch-gallery-img-title ch-def-font-large ch-def-round-corners">__title__</div>
+                    <img class="ch-gallery-img ch-def-shadow ch-def-round-corners" title="__title__" alt="__title__" src="__image_url__" id="ch-gallery-img-__id__" />
+                </div>
+            </ch_repeat:images>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#__prefix__-gallery').dolGalleryImages();
+        });
+    </script>
+</div>

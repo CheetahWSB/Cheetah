@@ -1,0 +1,55 @@
+<div id="ChWmap__suffix__" class="ch_wmap __subclass__ ch-def-border">
+</div>
+<script type="text/javascript">
+    ch_map_loading ('ChWmap__suffix__', 1);
+    ChWmapInitCallback__suffix__ = function ()	{
+        if ('undefined' != typeof(glChWmap__suffix__))
+            return;
+        glChWmap__suffix__ = new ChWmap (glMap__suffix__, '__data_url__', 'glChWmap__suffix__', 'ChWmap__suffix__');
+        glChWmap__suffix__.setParts('__parts__');
+        glChWmap__suffix__.setCustom('__custom__');
+        glChWmap__suffix__.setShadowUrl('__shadow_url__');
+        glChWmap__suffix__.setSaveDataUrl('__save_data_url__');
+		google.maps.event.addListener(glMap__suffix__, "dragend", function() {
+			glChWmap__suffix__.updateLocations();
+		});
+		google.maps.event.addListener(glMap__suffix__, "zoomend", function(oldLevel,  newLevel) {
+            glChWmap__suffix__.updateLocations();
+        });
+        glChWmap__suffix__.setSaveLocationUrl('__save_location_url__');
+        glChWmap__suffix__.updateLocations();
+        ch_map_loading ('ChWmap__suffix__', 0);
+    }
+    ChWmapOnloadCallback__suffix__ = function ()	{
+        var mapOptions = {
+            scrollwheel: false,
+            draggable: (1 == __map_is_dragable__) ? true : false,
+            zoom: __map_zoom__,
+            center: new google.maps.LatLng(__map_lat__, __map_lng__),
+            panControl: false,
+            overviewMapControl: (1 == __map_is_overview_control__ ? true : false),
+            overviewMapControlOptions: { opened: false },
+            disableDoubleClickZoom: false,
+            zoomControl: true,
+            zoomControlOptions: { style: google.maps.ZoomControlStyle.DEFAULT },
+            mapTypeControl: (1 == __map_is_type_control__ ? true : false),
+            mapTypeControlOptions: { style: google.maps.MapTypeControlStyle.DEFAULT },
+            scaleControl: (1 == __map_is_scale_control__ ? true : false),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+		switch ('__map_control__') {
+			case 'large': mapOptions.zoomControlOptions.style = google.maps.ZoomControlStyle.LARGE; break;
+            case 'small': mapOptions.zoomControlOptions.style = google.maps.ZoomControlStyle.SMALL; break;
+            case 'none': mapOptions.zoomControl = false; break;
+		}
+        switch ('__map_type__') {
+            case 'satellite': mapOptions.mapTypeId = google.maps.MapTypeId.SATELLITE; break;
+            case 'hybrid': mapOptions.mapTypeId = google.maps.MapTypeId.HYBRID; break;
+            case 'terrain': mapOptions.mapTypeId = google.maps.MapTypeId.TERRAIN; break;
+        }
+        glMap__suffix__ = new google.maps.Map(document.getElementById('ChWmap__suffix__'), mapOptions);
+        google.maps.event.addListener(glMap__suffix__, "tilesloaded", ChWmapInitCallback__suffix__);
+    }
+    google.load("maps", "3", {other_params: "language=__lang__&key=__key__"});
+    google.setOnLoadCallback(ChWmapOnloadCallback__suffix__);
+</script>

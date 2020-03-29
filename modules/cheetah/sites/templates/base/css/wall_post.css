@@ -1,0 +1,45 @@
+div.wall-event-ch_sites {
+    position: relative;
+}
+div.ch-sites-wall-caption,
+div.ch-sites-comment-wall-caption {
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: 0px center;
+    line-height: 30px;
+}
+div.wall-event-repost div.wall-caption.ch-sites-wall-caption {
+	padding-left: 5px;
+}
+span.ch-sites-wall-caption-owner {
+    font-weight: bold;
+}
+a.ch-sites-wall-caption-link,
+a.ch-sites-wall-caption-link:link {
+    text-decoration: none;
+}
+a.ch-sites-wall-caption-link:hover,
+a.ch-sites-wall-caption-link:active {
+    text-decoration: underline;
+}
+div.ch-sites-wall-content,
+div.ch-sites-comment-wall-content {
+    position: relative;
+}
+div.ch-sites-wall-comments {
+    padding-left: 0px;
+}
+
+/*--- Overwrite default Comment styles ---*/
+div.ch-sites-wall-comments div.cmts {
+    padding: 0px;
+    /*display: none;*/
+}
+div.ch-sites-wall-comments div.cmt-reply {
+    padding: 0px;
+    /*display: none;*/
+}
+div.wall-event-ch_sites div.wall-comments-ch_sites div.thumbnail_block {
+    left: -38px;
+    top: 1px;
+}

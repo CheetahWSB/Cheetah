@@ -1,0 +1,21 @@
+<div class="ch-def-padding-bottom">
+	<table class="adm-ipbl-ips ch-def-table" cellspacing="1" cellpadding="0">
+	    <tr>
+	        <th><ch_text:_From /></th>
+	        <th><ch_text:_Member /></th>
+	        <th><ch_text:_Date /></th>
+	    </tr>
+	    <ch_repeat:items>
+	    	<tr>
+	    		<td>__from__</td>
+	    		<td>
+	    			<ch_if:show_profile_link>
+	    				<a href="__href__">__caption__</a>
+	    			</ch_if:show_profile_link>
+	    		</td>
+	    		<td>__date__</td>
+	    	</tr>
+	    </ch_repeat:items>
+	</table>
+</div>
+__paginate__

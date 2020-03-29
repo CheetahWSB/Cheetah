@@ -1,0 +1,14 @@
+<div class="dbTopMenu">
+	<ch_repeat:menu>
+		<ch_if:active>
+			<div class="active">
+				<span>__title__</span>
+			</div>
+		</ch_if:active>
+		<ch_if:not_active>
+			<div class="notActive">
+				<a class="top_members_menu" href="__link__">__title__</a>
+			</div>
+		</ch_if:not_active>
+	</ch_repeat:menu>
+</div>

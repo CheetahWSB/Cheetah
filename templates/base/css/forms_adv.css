@@ -1,0 +1,399 @@
+/* * * * Table * * * */
+
+.form_advanced_wrapper {
+	overflow: hidden;
+}
+
+.form_advanced_table {
+    position: relative;
+    width: 100%;
+}
+
+.form_advanced_table .ch-form-fields-wrapper {
+	margin: 0px;
+	padding: 0px;
+    border: none;
+}
+
+.form_advanced_table .ch-form-fields-wrapper:first-child .ch-form-element:first-child {
+    margin-top:0;
+}
+
+.form_advanced_table .ch-form-element {
+	position: relative;
+}
+
+.form_advanced_table .ch-form-block-header,
+.form_advanced_table .ch-form-block-headers {
+	position: relative;
+
+	background-color: rgba(0, 0, 0, 0.1);
+
+    text-align: left;
+    font-weight: normal;
+}
+
+.form_advanced_table .ch-form-block-header .ch-form-block-header-collapse {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	padding: 10px 5px;
+}
+
+.form_advanced_table .ch-form-block-header .ch-form-block-header-collapse i {
+    min-width:16px;
+    min-height:16px;
+    margin-top:3px;
+
+    text-align:center;
+    font-size:16px;
+    color:#999;
+    cursor: pointer;
+}
+
+.form_advanced_table .ch-form-block-headers .header {
+	position: relative;
+	float: left;
+	width: 50%;
+}
+
+.form_advanced_table .ch-form-caption {
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+.form_advanced_table .input_wrapper_wraptext,
+.form_advanced_table .ch-form-value label {
+    white-space: normal;
+}
+
+.form_advanced_table .ch-form-combined b {
+	text-transform: capitalize;
+}
+
+.form_advanced_table .ch-form-caption {
+	margin-bottom: 5px;
+
+    text-align: left;
+    text-transform: capitalize;
+}
+
+.form_advanced_table .ch-form-block-header .ch-form-caption {
+	margin: 0px;
+	padding: 10px 5px;
+	text-align: center;
+}
+/* * * * [end] Table * * * */
+
+
+/* * * * Inputs and Wrappers * * * */
+.input_wrapper {
+    position: relative;
+	float: none;
+}
+
+.ch-form-element-multiplyable .input_wrapper {
+	margin-top: 20px;
+}
+
+.ch-form-element-multiplyable .input_wrapper:first-child {
+	margin-top: 0px;
+}
+
+.input_wrapper_input_set {
+    float: none;
+    margin: -10px -5px 0px -5px;
+    padding: 0px;
+}
+
+.input_wrapper_input_set .ch-btn {
+	margin: 10px 5px 0px 5px;
+}
+
+.input_wrapper_text,
+.input_wrapper_select,
+.input_wrapper_select_box,
+.input_wrapper_select_multiple,
+.input_wrapper_email,
+.input_wrapper_url,
+.input_wrapper_date,
+.input_wrapper_datetime,
+.input_wrapper_password,
+.input_wrapper_number
+{
+    height: 38px;
+	padding: 0px;
+	border: none;
+	background-color: transparent;
+}
+
+.input_wrapper_slider,
+.input_wrapper_range,
+.input_wrapper_doublerange {
+    height: auto;
+    padding: 4px;
+    background-color: #fff;
+}
+
+.input_wrapper_select_multiple {
+    height: 160px;
+}
+
+.form_input_text,
+.form_input_textarea,
+.form_input_email,
+.form_input_url,
+.form_input_date,
+.form_input_datetime,
+.form_input_password,
+.form_input_number,
+.form_input_slider,
+.form_input_range,
+.form_input_doublerange,
+.form_input_select,
+.form_input_select_multiple {
+    width: 100%;
+    height: 100%;
+	padding: 0px 10px;
+
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+
+	border-color: #999;
+	border-width: 1px;
+	border-style: solid;
+	border-radius:3px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+
+	background-color: #ffffff;
+
+    outline: none;
+}
+
+.form_input_textarea {
+    margin: 0px;
+    padding: 5px;
+}
+
+.form_input_textarea {
+    width: 100%;
+    height: 157px;
+    resize: none;
+
+    background-color: #ffffff;
+}
+
+.form_input_file {
+	position: fixed;
+	top: -1000px;
+
+    border: none;
+    background-color: transparent;
+}
+
+.form_input_radio,
+.form_input_checkbox {
+    vertical-align:middle;
+}
+
+.form_input_radio {
+    margin-top:0;
+    margin-bottom:0;
+}
+
+.input_wrapper label
+{
+    vertical-align: middle;
+}
+
+.form_advanced_table .ch-form-combined .input_wrapper {
+    /*width: 100%;*/
+    width: auto;
+}
+/* * * * [end] Inputs and Wrappers * * * */
+
+
+/* * * * Icon based buttons * * * */
+.form_advanced_table .ch-form-required {
+	padding-right: 5px;
+    color: red;
+}
+
+.form_advanced_table .ch-form-info,
+.form_advanced_table .ch-form-error {
+	padding-left: 5px;
+}
+
+.form_advanced_table .form_input_multiply_path {
+	display: none;
+}
+
+.form_advanced_table .ch-btn.form_input_multiply_add,
+.form_advanced_table .ch-btn.form_input_multiply_other,
+.form_advanced_table .ch-btn.form_input_multiply_remove,
+.form_advanced_table .ch-btn.form_input_multiply_select {
+	margin: 10px 10px 0px 0px;
+    padding: 0px 20px;
+}
+
+.form_advanced_table .sys-icon.multiply_add_button,
+.form_advanced_table .sys-icon.multiply_remove_button,
+.form_advanced_table .sys-icon.multiply_other_button,
+.form_advanced_table .sys-icon.reload_button,
+.form_advanced_table .ch-form-info .sys-icon,
+.form_advanced_table .ch-form-error .sys-icon {
+    cursor: pointer;
+}
+.form_advanced_table .ch-form-info .sys-icon {
+    color: rgba(0, 0, 0, 0.5);
+    cursor: help;
+}
+.form_advanced_table .ch-form-error {
+	display: none;
+}
+.form_advanced_table .ch-form-error .sys-icon {
+    color: #c00;
+    cursor: help;
+}
+.form_advanced_table .ch-form-element-error .ch-form-error {
+    display: inline;
+}
+/* * * * [end] Icon based buttons * * * */
+
+
+.form_advanced .ui-slider,
+.input_wrapper_doublerange .ui-slider {
+    width:auto;
+    margin-top:2px;
+    margin-left:4px;
+    margin-right:9px;
+}
+
+.input_wrapper .ui-slider .ui-slider-handle {
+    margin-top:-1px;
+    padding-left:1px;
+    padding-right:2px;
+    height:16px;
+    line-height:16px;
+    text-decoration:none;
+    cursor:pointer;
+    font-size:12px;
+    text-align:center;
+}
+
+/* * * * * */
+
+#float_info {
+	max-width: 300px;
+	padding: 5px;
+
+    background-color: #FFFFD7;
+
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+
+    -webkit-box-shadow: 0 0px 1px rgba(0, 0, 0, 0.9);
+    -moz-box-shadow: 0 0px 1px rgba(0, 0, 0, 0.9);
+    box-shadow: 0 0px 1px rgba(0, 0, 0, 0.9);
+
+    box-sizing: border-box;
+}
+
+.form_input_toggle_html {
+    margin-top:5px;
+}
+
+/* * * * * Select File Box field * * * * */
+.ch-form-element-file .input_wrapper.input_wrapper_file {
+	margin-top: -10px;
+}
+
+.ch-form-element-file .ch-btn.form_input_multiply_path {
+	display: block;
+
+	margin: 10px 10px 0px 0px;
+	padding: 0 10px;
+
+	background-color: transparent;
+	background-image: none;
+	border-width: 0px;
+	border-radius: 0px;
+	box-shadow: none;
+
+    filter: none;
+
+    text-shadow: none;
+    text-transform: none;
+
+    font-weight: normal;
+    color: rgba(0, 0, 0, 0.7);
+
+    cursor: auto;
+}
+.ch-form-element-file .ch-btn.form_input_multiply_path:hover,
+.ch-form-element-file .ch-btn.form_input_multiply_path:active {
+	top: 0px;
+
+	background-color: transparent;
+	box-shadow: none;
+
+	color: rgba(0, 0, 0, 0.7);
+}
+
+
+/* * * * * Multiply Select Box field * * * * */
+.ch-form-element-select_box .ch-btn {
+	margin: 10px 10px 0px 0px;
+	padding: 0px 20px;
+}
+.input_wrapper_select_box {
+	margin-top: 20px;
+}
+.input_wrapper_select_box:first-child {
+	margin-top: 0px;
+}
+
+/* * * * * location field * * * * */
+.location_wrapper > div:first-child {
+    margin-bottom:5px;
+}
+
+.location_wrapper .form_input_metric {
+    width:auto;
+}
+
+.location_wrapper .form_input_distance,
+.location_wrapper .form_input_zip {
+    padding:1px;
+    width:50px;
+}
+
+::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+.input_wrapper_textarea .mce-tinymce {
+    box-sizing: border-box;
+}
+
+/* * * * * emoji picker * * * * */
+.ch-form-input-emoji {
+    position:absolute;
+    top:0px;
+    right:5px;
+    height:38px;
+    line-height:38px;
+    font-size:28px;
+    color:rgba(2, 136, 209, 1.0);
+}
+
+.emojiPickerIconWrap {
+    height:100%;
+}
+
+.emojiPickerIconWrap input {
+    padding-right:30px;
+}

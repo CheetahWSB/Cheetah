@@ -1,0 +1,15 @@
+<div id="ch-photos-cover" class="ch-photos-cover ch-photos-cover-size-2 ch-photos-cover-shadow ch-def-margin-top">
+	__loading__
+	<ul>
+		<ch_repeat:images>
+			<li><a href="__link__" title="__title__"><img src="__src__" alt="__title__"/></a></li>
+		</ch_repeat:images>
+	</ul>
+</div>
+<script language="javascript" type="text/javascript">
+	$( '#ch-photos-cover' ).gridrotator({
+		rows: __rows__,
+		columns: __columns__,
+		preventClick: false
+	});
+</script>
