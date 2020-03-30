@@ -1096,7 +1096,8 @@ INSERT INTO `sys_options` VALUES
 
 ('sys_default_payment', '', @iCatGeneral, 'Payment module (at least one payment processing module should be installed)', 'select', '', '', 170, 'PHP:ch_import(\'ChWsbPayments\'); return ChWsbPayments::getInstance()->getPayments();'),
 
-('sys_embedly_key', '', @iCatGeneral, 'Embedly Key', 'digit', '', '', 180, '');
+('sys_embedly_key', '', @iCatGeneral, 'Embedly Key', 'digit', '', '', 180, ''),
+('sys_php_block_enabled', '', @iCatGeneral, 'Enable PHP Block in Page Builders.', 'checkbox', '', '', 190, '');
 
 -- CAT: Massmailer
 SET @iCatMassmailer = 4;

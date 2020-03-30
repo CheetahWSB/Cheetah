@@ -111,6 +111,16 @@ class ChWsbAdminSettings
                     else if(!$bIsset)
                         $aItemsData[$aItem['name']] = $this->_empty($aItem);
 
+                    if($aItem['name'] == 'sys_php_block_enabled') {
+                        if($aItemsData[$aItem['name']] == 'on') {
+                            if(getParam('sys_php_block_enabled') == '') {
+                                $GLOBALS['MySQL']->query("INSERT INTO `sys_page_compose` (`Page`, `PageWidth`, `Desc`, `Caption`, `Column`, `Order`, `Func`, `Content`, `DesignBox`, `ColWidth`, `Visible`, `MinWidth`, `Cache`) VALUES ('', '1140px', 'Simple PHP Block', '_Code Block', 0, 0, 'Sample', 'Code', 11, 0, 'non,memb', 0, 0)");
+                            }
+                        } else {
+                            $GLOBALS['MySQL']->query("DELETE FROM `sys_page_compose` WHERE `Func` = 'Sample' AND `Content` = 'Code'");
+                        }
+
+                    }
                     setParam ($aItem['name'], $aItemsData[$aItem['name']]);
                 }
             }
