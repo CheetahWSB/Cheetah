@@ -485,18 +485,17 @@ class ChBaseProfileGenerator extends ChWsbProfile
         if (!isMember()) {
             return "";
         }
-
         $aViewer    = getProfileInfo();
-        $mixedCheck = $GLOBALS['MySQL']->getOne("SELECT `Check` FROM `sys_friend_list` WHERE `ID`='" . $this -> _iProfileID . "' AND `Profile`='" . $aViewer['ID'] . "' LIMIT 1");
-        if ($mixedCheck === false || (int)$mixedCheck != 0) {
+        $sQuery     = "SELECT `ID` FROM `sys_friend_list` WHERE `Profile`='" . $aViewer['ID'] . "' AND `Check`=0 LIMIT 1";
+        $mixedCheck = $GLOBALS['MySQL']->getOne($sQuery);
+        if ((int)$mixedCheck == 0) {
             return "";
         }
-
         $sContent = _t('_pending_friend_request_answer', CH_WSB_URL_ROOT . "communicator.php?person_switcher=to&communicator_mode=friends_requests");
         $sContent = MsgBox($sContent);
-
         return array($sContent, array(), array(), false);
     }
+    
     public function showBlockRateProfile($sCaption, $bNoDB = false)
     {
         $votes = getParam('votes');
