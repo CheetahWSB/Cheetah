@@ -32,7 +32,7 @@ class ChBaseProfileGenerator extends ChWsbProfile
         parent::__construct($ID, 0);
 
         $this->oVotingView = new ChTemplVotingView('profile', (int)$ID);
-        $this->oCmtsView = new ChWsbCmtsProfile('profile', (int)$ID);
+        $this->oCmtsView   = new ChWsbCmtsProfile('profile', (int)$ID);
 
         //$this->ID = $this->_iProfileID;
 
@@ -51,7 +51,7 @@ class ChBaseProfileGenerator extends ChWsbProfile
 
                         if ($_REQUEST['editable']) {
                             $this->bPFEditable = true;
-                            $iPFArea = 2; // Edit Owner
+                            $iPFArea           = 2; // Edit Owner
                         } else {
                             $iPFArea = isAdmin() ? 5 : 6;
                         } // View Owner
@@ -106,7 +106,7 @@ class ChBaseProfileGenerator extends ChWsbProfile
 
         $sAddSQL = ($sOldStyle == true) ? " AND `Func`='PFBlock' " : '';
         $rBlocks = db_res("SELECT * FROM `sys_page_compose` WHERE `Page` = 'profile' AND `Column`=$column AND FIND_IN_SET( '$sVisible', `Visible` ) {$sAddSQL} ORDER BY `Order`");
-        while ($aBlock =  $rBlocks ->fetch()) {
+        while ($aBlock = $rBlocks ->fetch()) {
             $func = 'showBlock' . $aBlock['Func'];
             $this->$func($aBlock['Caption'], $aBlock['Content']);
         }
@@ -132,9 +132,9 @@ class ChBaseProfileGenerator extends ChWsbProfile
                     array(
                         _t('_Edit') => array(
                             //'caption' => _t('_Edit'),
-                            'href' => 'pedit.php?ID=' . $this->_iProfileID,
+                            'href'         => 'pedit.php?ID=' . $this->_iProfileID,
                             'dynamicPopup' => false,
-                            'active' => $this->bPFEditable,
+                            'active'       => $this->bPFEditable,
                         ),
                     ),
                     array(),
@@ -155,11 +155,11 @@ class ChBaseProfileGenerator extends ChWsbProfile
         }
 
         // get parameters
-        $bCouple        = $this->bCouple;
-        $aItems         = $this->aPFBlocks[$iPFBlockID]['Items'];
+        $bCouple = $this->bCouple;
+        $aItems  = $this->aPFBlocks[$iPFBlockID]['Items'];
 
         // collect inputs
-        $aInputs = array();
+        $aInputs       = array();
         $aInputsSecond = array();
 
         foreach ($aItems as $aItem) {
@@ -187,9 +187,9 @@ class ChBaseProfileGenerator extends ChWsbProfile
                 if ($aItem['Type'] == 'pass') {
                     $aItem_confirm = $aItem;
 
-                    $aItem_confirm['Name']    .= '_confirm';
-                    $aItem_confirm['Caption']  = '_Confirm password';
-                    $aItem_confirm['Desc']     = '_Confirm password descr';
+                    $aItem_confirm['Name'] .= '_confirm';
+                    $aItem_confirm['Caption'] = '_Confirm password';
+                    $aItem_confirm['Desc']    = '_Confirm password descr';
 
                     $aInputs[] = $this->oPF->convertEditField2Input($aItem_confirm, $aParams, 0);
 
@@ -204,10 +204,10 @@ class ChBaseProfileGenerator extends ChWsbProfile
             } else {
                 if ($sValue1 || $aItem['Type'] == 'bool') { //if empty, do not draw
                     $aInputs[] = array(
-                        'type'    => 'value',
-                        'name'    => $aItem['Name'],
-                        'caption' => _t($aItem['Caption']),
-                        'value'   => $this->oPF->getViewableValue($aItem, $sValue1),
+                        'type'      => 'value',
+                        'name'      => $aItem['Name'],
+                        'caption'   => _t($aItem['Caption']),
+                        'value'     => $this->oPF->getViewableValue($aItem, $sValue1),
                         'wrap_text' => $aItem['Type'] == 'area',
                     );
                 }
@@ -227,14 +227,14 @@ class ChBaseProfileGenerator extends ChWsbProfile
         if (!empty($aInputsSecond)) {
             $aHeader1 = array( // wrapper for merging
                 array( // input itself
-                    'type' => 'block_header',
+                    'type'    => 'block_header',
                     'caption' => _t('_First Person')
                 )
             );
 
             $aHeader2 = array(
                 array(
-                    'type' => 'block_header',
+                    'type'    => 'block_header',
                     'caption' => _t('_Second Person'),
                 )
             );
@@ -249,42 +249,42 @@ class ChBaseProfileGenerator extends ChWsbProfile
         if ($this->bPFEditable) {
             // add submit button
             $aInputs[] = array(
-                'type' => 'submit',
+                'type'    => 'submit',
                 'colspan' => 'true',
-                'value' => _t('_Save'),
+                'value'   => _t('_Save'),
             );
 
             // add hidden inputs
             // profile id
             $aInputs[] = array(
-                'type' => 'hidden',
-                'name' => 'ID',
+                'type'  => 'hidden',
+                'name'  => 'ID',
                 'value' => $this->_iProfileID,
             );
 
             $aInputs[] = array(
-                'type' => 'hidden',
-                'name' => 'force_ajax_save',
+                'type'  => 'hidden',
+                'name'  => 'force_ajax_save',
                 'value' => '1',
             );
 
             $aInputs[] = array(
-                'type' => 'hidden',
-                'name' => 'pf_block',
+                'type'  => 'hidden',
+                'name'  => 'pf_block',
                 'value' => $iPFBlockID,
             );
 
             $aInputs[] = array(
-                'type' => 'hidden',
-                'name' => 'do_submit',
+                'type'  => 'hidden',
+                'name'  => 'do_submit',
                 'value' => '1',
             );
 
             $aFormAttrs = array(
-                'method' => 'post',
-                'action' => CH_WSB_URL_ROOT . 'pedit.php',
+                'method'   => 'post',
+                'action'   => CH_WSB_URL_ROOT . 'pedit.php',
                 'onsubmit' => "submitViewEditForm(this, $iPageBlockID, " . ch_html_attribute($_SERVER['PHP_SELF']) . "'?ID={$this->_iProfileID}'); return false;",
-                'name' => 'edit_profile_form',
+                'name'     => 'edit_profile_form',
             );
 
             $aFormParams = array();
@@ -294,7 +294,7 @@ class ChBaseProfileGenerator extends ChWsbProfile
             );
 
             $aFormParams = array(
-                'remove_form'    => true,
+                'remove_form' => true,
             );
         }
 
@@ -320,22 +320,22 @@ class ChBaseProfileGenerator extends ChWsbProfile
     {
         global $p_arr;
 
-        $bProfileOwner = isLogged() && $p_arr['ID'] == getLoggedId();
+        $bProfileOwner    = isLogged() && $p_arr['ID'] == getLoggedId();
         $sProfileNickname = getNickName($p_arr['ID']);
 
-        $sProfileThumbnail = '';
-        $sProfileThumbnail2x = '';
+        $sProfileThumbnail     = '';
+        $sProfileThumbnail2x   = '';
         $sProfileThumbnailHref = '';
 
-        $bProfileThumbnail = false;
+        $bProfileThumbnail     = false;
         $bProfileThumbnailHref = false;
 
         $aProfileThumbnail = ChWsbService::call('photos', 'profile_photo', array($p_arr['ID'], 'browse', 'full'), 'Search');
         if (!empty($aProfileThumbnail) && is_array($aProfileThumbnail)) {
-            $sProfileThumbnail = $aProfileThumbnail['file_url'];
+            $sProfileThumbnail     = $aProfileThumbnail['file_url'];
             $sProfileThumbnailHref = $aProfileThumbnail['view_url'];
 
-            $bProfileThumbnail = true;
+            $bProfileThumbnail     = true;
             $bProfileThumbnailHref = true;
 
             $aProfileThumbnail2x = ChWsbService::call('photos', 'profile_photo', array($p_arr['ID'], 'browse2x', 'full'), 'Search');
@@ -367,16 +367,16 @@ class ChBaseProfileGenerator extends ChWsbProfile
         }
 
         ch_import('ChWsbMemberInfo');
-        $o = ChWsbMemberInfo::getObjectInstance('sys_status_message');
+        $o              = ChWsbMemberInfo::getObjectInstance('sys_status_message');
         $sProfileStatus = $o ? $o->get($p_arr) : '';
 
-        $sBackground = '';
+        $sBackground      = '';
         $sBackgroundClass = '';
         if ($bProfileCoverHref) {
-            $sBackground = $sProfileCoverHref;
+            $sBackground      = $sProfileCoverHref;
             $sBackgroundClass = ' sys-pcb-cover';
         } elseif ($bProfileThumbnail) {
-            $sBackground = $sProfileThumbnail;
+            $sBackground      = $sProfileThumbnail;
             $sBackgroundClass = ' sys-pcb-thumbnail';
         }
 
@@ -403,25 +403,25 @@ class ChBaseProfileGenerator extends ChWsbProfile
                     );
         */
         $sContent = $GLOBALS['oSysTemplate']->parseHtmlByName('profile_cover.html', array(
-            'background_class' => $sBackgroundClass,
+            'background_class'      => $sBackgroundClass,
             'ch_if:show_background' => array(
                 'condition' => !empty($sBackground),
-                'content' => array(
+                'content'   => array(
                     'background' => $sBackground
                 )
             ),
             'ch_if:show_actions' => array(
                 'condition' => $bProfileOwner,
-                'content' => array(
+                'content'   => array(
                     'ch_if:show_action_thumbnail' => array(
                         'condition' => $bProfileThumbnailHref,
-                        'content' => array(
+                        'content'   => array(
                             'href_upload_thumbnail' => $sProfileThumbnailHref
                         ),
                     ),
                     'ch_if:show_action_cover' => array(
                         'condition' => $bProfileCoverChangeHref,
-                        'content' => array(
+                        'content'   => array(
                             'href_upload' => $sProfileCoverChangeHref,
                         )
                     )
@@ -429,27 +429,27 @@ class ChBaseProfileGenerator extends ChWsbProfile
             ),
             'ch_if:show_thumbnail_image' => array(
                 'condition' => $bProfileThumbnail,
-                'content' => array(
+                'content'   => array(
                     'thumbnail_href' => $sProfileThumbnailHref,
-                    'thumbnail' => $sProfileThumbnail,
-                    'thumbnail2x' => $sProfileThumbnail2x,
+                    'thumbnail'      => $sProfileThumbnail,
+                    'thumbnail2x'    => $sProfileThumbnail2x,
                 )
             ),
             'ch_if:show_thumbnail_letter_text' => array(
                 'condition' => !$bProfileThumbnail && !$bProfileThumbnailHref,
-                'content' => array(
+                'content'   => array(
                     'letter' => mb_substr($sProfileNickname, 0, 1)
                 )
             ),
             'ch_if:show_thumbnail_letter_link' => array(
                 'condition' => !$bProfileThumbnail && $bProfileThumbnailHref,
-                'content' => array(
+                'content'   => array(
                     'thumbnail_href' => $sProfileThumbnailHref,
-                    'letter' => mb_substr($sProfileNickname, 0, 1)
+                    'letter'         => mb_substr($sProfileNickname, 0, 1)
                 )
             ),
-            'nickname' => $sProfileNickname,
-            'status' => $sProfileStatus,
+            'nickname'             => $sProfileNickname,
+            'status'               => $sProfileStatus,
             'ch_repeat:menu_items' => $aTmplVarsMenu,
         ));
 
@@ -486,7 +486,7 @@ class ChBaseProfileGenerator extends ChWsbProfile
             return "";
         }
 
-        $aViewer = getProfileInfo();
+        $aViewer    = getProfileInfo();
         $mixedCheck = $GLOBALS['MySQL']->getOne("SELECT `Check` FROM `sys_friend_list` WHERE `ID`='" . $this -> _iProfileID . "' AND `Profile`='" . $aViewer['ID'] . "' LIMIT 1");
         if ($mixedCheck === false || (int)$mixedCheck != 0) {
             return "";
@@ -528,16 +528,16 @@ class ChBaseProfileGenerator extends ChWsbProfile
     {
         $iLimit = $this->iFriendsPerPage;
 
-        $sAllFriends    = 'viewFriends.php?iUser=' .  $this -> _iProfileID;
-        $sProfileLink   = getProfileLink($this -> _iProfileID);
+        $sAllFriends  = 'viewFriends.php?iUser=' .  $this -> _iProfileID;
+        $sProfileLink = getProfileLink($this -> _iProfileID);
 
         // count all friends ;
         $iCount = getFriendNumber($this->_iProfileID);
 
         $sPaginate = '';
         if ($iCount) {
-            $iPages = ceil($iCount/ $iLimit);
-            $iPage = (isset($_GET['page'])) ? (int) $_GET['page'] : 1;
+            $iPages = ceil($iCount / $iLimit);
+            $iPage  = (isset($_GET['page'])) ? (int) $_GET['page'] : 1;
 
             if ($iPage < 1) {
                 $iPage = 1;
@@ -556,7 +556,7 @@ class ChBaseProfileGenerator extends ChWsbProfile
         }
 
         $aAllFriends = getMyFriendsEx($this->_iProfileID, '', 'image', $sqlLimit);
-        $iCurrCount = count($aAllFriends);
+        $iCurrCount  = count($aAllFriends);
 
         $aTmplVars = array(
             'ch_repeat:friends' => array()
@@ -569,10 +569,10 @@ class ChBaseProfileGenerator extends ChWsbProfile
         $sOutputHtml = $GLOBALS['oSysTemplate']->parseHtmlByName('profile_friends.html', $aTmplVars);
 
         $oPaginate = new ChWsbPaginate(array(
-            'page_url' => CH_WSB_URL_ROOT . 'profile.php',
-            'count' => $iCount,
-            'per_page' => $iLimit,
-            'page' => $iPage,
+            'page_url'       => CH_WSB_URL_ROOT . 'profile.php',
+            'count'          => $iCount,
+            'per_page'       => $iLimit,
+            'page'           => $iPage,
             'on_change_page' => 'return !loadDynamicBlock({id}, \'' .  $sProfileLink. '?page={page}&per_page={per_page}\');',
         ));
 
@@ -590,7 +590,7 @@ class ChBaseProfileGenerator extends ChWsbProfile
             $sCode = $sPaginate = '';
 
             $iPerPage = $this->iFriendsPerPage;
-            $iPage = (int)$_GET['page'] > 0 ? (int)$_GET['page'] : 1;
+            $iPage    = (int)$_GET['page'] > 0 ? (int)$_GET['page'] : 1;
 
             $aTmplVars = array(
                 'ch_repeat:friends' => array()
@@ -604,10 +604,10 @@ class ChBaseProfileGenerator extends ChWsbProfile
 
             if ($this->iCountMutFriends > $iPerPage) {
                 $oPaginate = new ChWsbPaginate(array(
-                    'page_url' => CH_WSB_URL_ROOT . 'profile.php',
-                    'count' => $this->iCountMutFriends,
-                    'per_page' => $iPerPage,
-                    'page' => $iPage,
+                    'page_url'       => CH_WSB_URL_ROOT . 'profile.php',
+                    'count'          => $this->iCountMutFriends,
+                    'per_page'       => $iPerPage,
+                    'page'           => $iPage,
                     'on_change_page' => 'return !loadDynamicBlock({id}, \'' .  getProfileLink($this->_iProfileID). '?page={page}&per_page={per_page}\');',
                 ));
                 $sPaginate = $oPaginate->getSimplePaginate('', -1, -1, false);
@@ -628,12 +628,12 @@ class ChBaseProfileGenerator extends ChWsbProfile
 
     public function FindMutualFriends($iViewer, $iPage = 1, $iPerPage = 14)
     {
-        $iViewer = (int)$iViewer;
+        $iViewer                = (int)$iViewer;
         $this->iCountMutFriends = $this->CountMutualFriends($iViewer);
         if ($this->iCountMutFriends > 0) {
-            $iPage = $iPage > 0 ? (int)$iPage : 1;
+            $iPage    = $iPage    > 0 ? (int)$iPage : 1;
             $iPerPage = $iPerPage > 0 ? (int)$iPerPage : $this->iFriendsPerPage;
-            $sLimit = "LIMIT " . ($iPage - 1) * $iPerPage . ", $iPerPage";
+            $sLimit   = "LIMIT " . ($iPage - 1) * $iPerPage . ", $iPerPage";
 
             $sQuery = "
             SELECT p.ID AS `friendID` , p.NickName
@@ -649,7 +649,7 @@ class ChBaseProfileGenerator extends ChWsbProfile
             ";
 
             $vResult = db_res($sQuery);
-            while ($aRow =  $vResult ->fetch()) {
+            while ($aRow = $vResult ->fetch()) {
                 $this->aMutualFriends[ $aRow['friendID'] ] = $aRow['NickName'];
             }
         }
@@ -657,8 +657,8 @@ class ChBaseProfileGenerator extends ChWsbProfile
 
     public function GenSqlConditions(&$aSearchBlocks, &$aRequestParams, $aFilterSortSettings = array())
     {
-        $aWhere = array();
-        $sJoin = '';
+        $aWhere         = array();
+        $sJoin          = '';
         $sPossibleOrder = '';
 
         // --- cut 1
@@ -686,7 +686,7 @@ class ChBaseProfileGenerator extends ChWsbProfile
                     case 'num':
                         $mValue[0] = (int)$mValue[0];
                         $mValue[1] = (int)$mValue[1];
-                        $aWhere[] = "`Profiles`.`$sItemName` >= {$mValue[0]} AND `Profiles`.`$sItemName` <= {$mValue[1]}";
+                        $aWhere[]  = "`Profiles`.`$sItemName` >= {$mValue[0]} AND `Profiles`.`$sItemName` <= {$mValue[1]}";
                     break;
 
                     case 'date':
@@ -700,7 +700,7 @@ class ChBaseProfileGenerator extends ChWsbProfile
 
                     case 'select_one':
                         if (is_array($mValue)) {
-                            $sValue = implode(',', $mValue);
+                            $sValue   = implode(',', $mValue);
                             $aWhere[] = "FIND_IN_SET( `Profiles`.`$sItemName`, '" . process_db_input($sValue, CH_TAGS_STRIP) . "' )";
                         } else {
                             $aWhere[] = "`Profiles`.`$sItemName` = '" . process_db_input($mValue, CH_TAGS_STRIP) . "'";
@@ -742,8 +742,8 @@ class ChBaseProfileGenerator extends ChWsbProfile
                             case 'Keyword':
                             case 'Location':
                                 $aFields = explode("\n", $aItem['Extra']);
-                                $aKeyw = array();
-                                $sValue = process_db_input($mValue, CH_TAGS_STRIP);
+                                $aKeyw   = array();
+                                $sValue  = process_db_input($mValue, CH_TAGS_STRIP);
 
                                 foreach ($aFields as $sField) {
                                     $aKeyw[] = "`Profiles`.`$sField` LIKE '%$sValue%'";
@@ -775,7 +775,7 @@ class ChBaseProfileGenerator extends ChWsbProfile
         // add online only
         if ($_REQUEST['online_only']) {
             $iOnlineTime = (int)getParam('member_online_time');
-            $aWhere[] = "`DateLastNav` >= DATE_SUB(NOW(), INTERVAL $iOnlineTime MINUTE)";
+            $aWhere[]    = "`DateLastNav` >= DATE_SUB(NOW(), INTERVAL $iOnlineTime MINUTE)";
         }
 
         // --- cut 4
@@ -831,10 +831,10 @@ class ChBaseProfileGenerator extends ChWsbProfile
         }
 
         // status uptimization
-        $iOnlineTime = (int)getParam("member_online_time");
+        $iOnlineTime  = (int)getParam("member_online_time");
         $sIsOnlineSQL = ", if(`DateLastNav` > SUBDATE(NOW(), INTERVAL {$iOnlineTime} MINUTE ), 1, 0) AS `is_online`";
 
-        $sQuery = 'SELECT DISTINCT SQL_CALC_FOUND_ROWS IF( `Profiles`.`Couple`=0, `Profiles`.`ID`, IF( `Profiles`.`Couple`>`Profiles`.`ID`, `Profiles`.`ID`, `Profiles`.`Couple` ) ) AS `ID` ' . $sIsOnlineSQL . ' FROM `Profiles` ';
+        $sQuery    = 'SELECT DISTINCT SQL_CALC_FOUND_ROWS IF( `Profiles`.`Couple`=0, `Profiles`.`ID`, IF( `Profiles`.`Couple`>`Profiles`.`ID`, `Profiles`.`ID`, `Profiles`.`Couple` ) ) AS `ID` ' . $sIsOnlineSQL . ' FROM `Profiles` ';
         $sQueryCnt = 'SELECT COUNT(DISTINCT IF( `Profiles`.`Couple`=0, `Profiles`.`ID`, IF( `Profiles`.`Couple`>`Profiles`.`ID`, `Profiles`.`ID`, `Profiles`.`Couple` ) )) AS "Cnt" FROM `Profiles` ';
 
         list($aWhere, $sJoin, $sPossibleOrder) = $this->GenSqlConditions($aSearchBlocks, $aRequestParams, $aFilterSortSettings);
@@ -842,7 +842,7 @@ class ChBaseProfileGenerator extends ChWsbProfile
         $sWhere = ' WHERE ' . implode(' AND ', $aWhere);
 
         //collect the whole query string
-        $sQuery = $sQuery . $sJoin . $sWhere . $sPossibleOrder;
+        $sQuery    = $sQuery . $sJoin . $sWhere . $sPossibleOrder;
         $sQueryCnt = $sQueryCnt . $sJoin . $sWhere . $sPossibleOrder;
 
         //echo $sQuery;
@@ -878,15 +878,15 @@ class ChBaseProfileGenerator extends ChWsbProfile
             }
 
             //make search
-            $aProfiles = array();
+            $aProfiles        = array();
             $aProfileStatuses = array();
-            $rProfiles = db_res($sQuery);
+            $rProfiles        = db_res($sQuery);
             while ($aProfile = $rProfiles->fetch()) {
-                $aProfiles[] = $aProfile['ID'];
+                $aProfiles[]                       = $aProfile['ID'];
                 $aProfileStatuses[$aProfile['ID']] = $aProfile['is_online'];
             }
 
-            $sOutputMode = (isset($_REQUEST['search_result_mode']) && $_REQUEST['search_result_mode']=='ext') ? 'ext' : 'sim';
+            $sOutputMode = (isset($_REQUEST['search_result_mode']) && $_REQUEST['search_result_mode'] == 'ext') ? 'ext' : 'sim';
 
             $aDBTopMenu = array();
             foreach (array( 'sim', 'ext' ) as $myMode) {
@@ -901,12 +901,12 @@ class ChBaseProfileGenerator extends ChWsbProfile
 
                 $aGetParams = $_GET;
                 unset($aGetParams['search_result_mode']);
-                $sRequestString = $this->collectRequestString($aGetParams);
+                $sRequestString         = $this->collectRequestString($aGetParams);
                 $aDBTopMenu[$modeTitle] = array('href' => ch_html_attribute($_SERVER['PHP_SELF']) . "?search_result_mode={$myMode}{$sRequestString}", 'dynamic' => false, 'active' => ($myMode == $sOutputMode));
             }
 
             if ($sOutputMode == 'sim') {
-                $sBlockWidthSQL = "SELECT `PageWidth`, `ColWidth` FROM `sys_page_compose` WHERE `Page`='profile' AND `Func`='ProfileSearch'";
+                $sBlockWidthSQL  = "SELECT `PageWidth`, `ColWidth` FROM `sys_page_compose` WHERE `Page`='profile' AND `Func`='ProfileSearch'";
                 $aBlockWidthInfo = db_arr($sBlockWidthSQL);
 
                 $iBlockWidth = (int)((int)$aBlockWidthInfo['PageWidth'] /* * (int)$aBlockWidthInfo['ColWidth'] / 100*/) - 20;
@@ -917,17 +917,17 @@ class ChBaseProfileGenerator extends ChWsbProfile
 
                 if ($iDestWidth > $iBlockWidth) {
                     $iMaxAllowed = (int)floor($iBlockWidth / ($iMaxThumbWidth + 6));
-                    $iDestWidth = $iMaxAllowed * ($iMaxThumbWidth + 6);
+                    $iDestWidth  = $iMaxAllowed * ($iMaxThumbWidth + 6);
                 }
             }
-            $sWidthCent = ($iDestWidth>0) ? "width:{$iDestWidth}px;" : '';
+            $sWidthCent = ($iDestWidth > 0) ? "width:{$iDestWidth}px;" : '';
 
             $sResults .= '<div class="block_rel_100 ch-def-bc-margin' . ($sOutputMode == 'sim' ? '-thd' : '') . '">';
 
             //output search results
             require_once(CH_DIRECTORY_PATH_ROOT . 'templates/tmpl_'.$GLOBALS['tmpl'].'/scripts/ChTemplSearchProfile.php');
             $oChTemplSearchProfile = new ChTemplSearchProfile();
-            $iCounter = 0;
+            $iCounter              = 0;
 
             foreach ($aProfiles as $iProfID) {
                 $aProfileInfo = getProfileInfo($iProfID);
@@ -959,14 +959,14 @@ EOF;
         ch_import('ChWsbProfilesCalendar');
 
         $aDateParams = array();
-        $sDate = $_REQUEST['date'];
+        $sDate       = $_REQUEST['date'];
         if ($sDate) {
             $aDateParams = explode('/', $sDate);
         }
         $oCalendar = new ChWsbProfilesCalendar((int)$aDateParams[0], (int)$aDateParams[1], $this);
 
-        $sOutputMode = (isset($_REQUEST['mode']) && $_REQUEST['mode']=='dob') ? 'dob' : 'dor';
-        $aDBTopMenu = array();
+        $sOutputMode = (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'dob') ? 'dob' : 'dor';
+        $aDBTopMenu  = array();
         foreach (array( 'dob', 'dor' ) as $myMode) {
             switch ($myMode) {
                 case 'dob':
@@ -982,7 +982,7 @@ EOF;
 
             $aGetParams = $_GET;
             unset($aGetParams['mode']);
-            $sRequestString = $this->collectRequestString($aGetParams);
+            $sRequestString         = $this->collectRequestString($aGetParams);
             $aDBTopMenu[$modeTitle] = array('href' => ch_html_attribute($_SERVER['PHP_SELF']) . "?mode={$myMode}{$sRequestString}", 'dynamic' => true, 'active' => ($myMode == $sOutputMode));
         }
 
@@ -1006,11 +1006,11 @@ EOF;
 
         $oPaginate = new ChWsbPaginate(
             array(
-                'page_url'	=> $sPaginTmpl,
-                'count'		=> $iCountProfiles,
-                'per_page'	=> $iResultsPerPage,
-                'sorting'    => $aFilterSortSettings['sort'], // New param
-                'page'		=> $iCurrentPage,
+                'page_url' => $sPaginTmpl,
+                'count'    => $iCountProfiles,
+                'per_page' => $iResultsPerPage,
+                'sorting'  => $aFilterSortSettings['sort'], // New param
+                'page'     => $iCurrentPage,
             )
         );
 
@@ -1018,7 +1018,7 @@ EOF;
 
         // fill array with sorting params
         $aSortingParam = array(
-            'none' => _t('_None'),
+            'none'     => _t('_None'),
             'activity' => _t('_Latest activity'),
             'date_reg' => _t('_FieldCaption_DateReg_View'),
         );
@@ -1027,7 +1027,7 @@ EOF;
         }
 
         // gen sorting block ( type of : drop down ) ;
-        $sSortBlock = $oPaginate->getSorting($aSortingParam);
+        $sSortBlock   = $oPaginate->getSorting($aSortingParam);
         $sSortElement = '<div class="ordered_block">' . $sSortBlock . '</div><div class="clear_both"></div>';
         $sSortElement = $GLOBALS['oSysTemplate']->parseHtmlByName('designbox_top_controls.html', array(
             'top_controls' => $sSortElement
@@ -1067,17 +1067,17 @@ EOF;
 
         $iViewedMemberID = (int)$p_arr['ID'];
 
-        if ((!$iMemberID  or !$iViewedMemberID) or ($iMemberID == $iViewedMemberID)) {
+        if ((!$iMemberID or !$iViewedMemberID) or ($iMemberID == $iViewedMemberID)) {
             return null;
         }
 
         // prepare all nedded keys
-        $p_arr['url']  			= CH_WSB_URL_ROOT;
-        $p_arr['window_width'] 	= $this->oTemplConfig->popUpWindowWidth;
-        $p_arr['window_height']	= $this->oTemplConfig->popUpWindowHeight;
-        $p_arr['anonym_mode']	= $this->oTemplConfig->bAnonymousMode;
-        $p_arr['member_id']		= $iMemberID;
-        $p_arr['member_pass']	= getPassword($iMemberID);
+        $p_arr['url']           = CH_WSB_URL_ROOT;
+        $p_arr['window_width']  = $this->oTemplConfig->popUpWindowWidth;
+        $p_arr['window_height'] = $this->oTemplConfig->popUpWindowHeight;
+        $p_arr['anonym_mode']   = $this->oTemplConfig->bAnonymousMode;
+        $p_arr['member_id']     = $iMemberID;
+        $p_arr['member_pass']   = getPassword($iMemberID);
 
         $sActions = $GLOBALS['oFunctions']->genObjectsActions($p_arr, 'Profile', 'cellpadding="0" cellspacing="0"');
 
