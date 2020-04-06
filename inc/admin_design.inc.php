@@ -41,15 +41,10 @@ $oAdmTemplate->addJs(array(
     'functions.js',
     'functions.admin.js'
 ));
+
 function PageCodeAdmin($oTemplate = null)
 {
-    if (empty($oTemplate)) {
-        $oTemplate = $GLOBALS['oAdmTemplate'];
-    }
-
-    $iNameIndex = $GLOBALS['_page']['name_index'];
-    header('Content-type: text/html; charset=utf-8');
-    echo $oTemplate->parsePageByName('page_' . $iNameIndex . '.html', $GLOBALS['_page_cont'][$iNameIndex]);
+    chPageCodeAdmin($oTemplate);
 }
 
 function DesignBoxAdmin($sTitle, $sContent, $mixedTopItems = '', $sBottomItems = '', $iIndex = 1)

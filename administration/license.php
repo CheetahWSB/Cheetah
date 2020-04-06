@@ -97,9 +97,9 @@ $aVars = array(
     'site_url' => $aLicenseData['site_url'],
     'server_ip' => $aLicenseData['server_ip'],
     'key_type' => $aLicenseData['key_type'],
-    'payment_type' => $aLicenseData['payment_type'],
-    'issue_date' => $aLicenseData['issue_date'],
-    'expire_date' => $aLicenseData['expire_date'],
+    //'payment_type' => $aLicenseData['payment_type'],
+    //'issue_date' => $aLicenseData['issue_date'],
+    //'expire_date' => $aLicenseData['expire_date'],
     'ch_if:suspended' => array(
         'condition' => $aLicenseData['subscription_canceled'],
         'content' => array(
@@ -159,9 +159,9 @@ if ($sLicense == '') {
     $aVars['site_url'] = 'Not available until key registered to site.';
     $aVars['server_ip'] = 'Not available until key registered to site.';
     $aVars['key_type'] = 'Not available until key has been purchased.';
-    $aVars['payment_type'] = 'Not available until key has been purchased.';
-    $aVars['issue_date'] = 'Not available until key has been issued.';
-    $aVars['expire_date'] = 'Not available until payment on key has been made.';
+    //$aVars['payment_type'] = 'Not available until key has been purchased.';
+    //$aVars['issue_date'] = 'Not available until key has been issued.';
+    //$aVars['expire_date'] = 'Not available until payment on key has been made.';
 }
 
 $sContent = $GLOBALS['oAdmTemplate']->parseHtmlByName('license.html', $aVars);

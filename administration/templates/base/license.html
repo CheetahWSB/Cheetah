@@ -5,18 +5,14 @@
     padding-bottom: 4px;
     overflow: hidden;
   }
-
   .dbBoxTblLeft {
     text-align: right;
     font-weight: bold;
   }
-
   .dbBoxTblRight {}
-
   .dbBoxTblCenter {
     text-align: center;
   }
-
   .dbbox2 {
     margin-bottom: 20px;
   }
@@ -53,6 +49,7 @@
       </td>
       <td class="dbBoxTblRight">__key_type__</td>
     </tr>
+<!--
     <tr>
       <td class="dbBoxTblLeft">
         <ch_text:_adm_license_server_paymeth />
@@ -71,6 +68,7 @@
       </td>
       <td class="dbBoxTblRight">__expire_date__</td>
     </tr>
+-->    
     <ch_if:suspended>
       <tr>
         <td class="dbBoxTblLeft">
@@ -103,8 +101,6 @@
     </ch_if:prepaid>
   </table>
 </div>
-
-
 <ch_if:show_unregistered>
   <div class="adm-license-text ch-def-font-h1">
     <ch_text:_adm_license_unregistered />
@@ -137,9 +133,6 @@
     <ch_text:_adm_license_note_yearly />
   </div>
 </ch_if:show_yearly>
-<div class="boxFirstHeader dbTitle ch-def-margin-top">License Status</div>
-<div class="">__license_status__</div>
-
 <div class="ch-def-hr ch-def-margin-top ch-def-margin-bottom"></div>
 <div>
   <form method="post" action="<ch_url_admin />license.php">
