@@ -64,7 +64,6 @@ require_once($gConf['dir']['base'] . 'integrations/' . CH_ORCA_INTEGRATION . '/c
 require_once($gConf['dir']['base'] . 'integrations/' . CH_ORCA_INTEGRATION . '/design.php'); // include custom header/footer
 
 $action        = isset($_GET['action']) ? $_GET['action'] : (isset($_POST['action']) ? $_POST['action'] : '');
-$l             = 'base64_decode';
 $_GET['debug'] = isset($_GET['debug']) && $_GET['debug'] ? 1 : 0;
 $_GET['trans'] = isset ($_GET['trans']) && $_GET['trans'] ? 1 : 0;
 

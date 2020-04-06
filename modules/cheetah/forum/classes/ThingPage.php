@@ -70,9 +70,7 @@ class ThingPage extends Thing
         $ret = '';
 
         $ret .= "<root>\n";
-
-                                                                                                                                                                                                                        $l('JHJldCAuPSAnPGRpc2FibGVfYm9vbmV4X2Zvb3RlcnM+JyAuICFnZXRQYXJhbSgnZW5hYmxlX2RvbHBoaW5fZm9vdGVyJykgLiAnPC9kaXNhYmxlX2Jvb25leF9mb290ZXJzPic7');
-
+        
         $ret .= '<index_begin><![CDATA[' . $GLOBALS['glIndexBegin'] . ']]></index_begin>';
         $ret .= '<index_end><![CDATA[' . $GLOBALS['glIndexEnd'] . ']]></index_end>';
 
