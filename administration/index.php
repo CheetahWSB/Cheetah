@@ -16,9 +16,8 @@ ch_import('ChWsbAdminDashboard');
 define('CH_WSB_ADMIN_INDEX', 1);
 
 $bLogged = isLogged();
-$bNeedCheck = $bLogged && isAdmin() && isset($_POST['relocate']) && $_POST['relocate'] && strncasecmp($_POST['relocate'], CH_WSB_URL_ADMIN . 'license.php', strlen(CH_WSB_URL_ADMIN . 'license.php')) === 0;
 
-if ($bNeedCheck || (isset($_POST['ID']) && isset($_POST['Password']))) {
+if (isset($_POST['ID']) && isset($_POST['Password'])) {
     $iId = getID($_POST['ID']);
     $sPassword = process_pass_data($_POST['Password']);
 
@@ -29,42 +28,9 @@ if ($bNeedCheck || (isset($_POST['ID']) && isset($_POST['Password']))) {
 
     if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
         echo check_password($iId, $sPassword, CH_WSB_ROLE_ADMIN, false) ? 'OK' : 'Fail';
-    } elseif ($bNeedCheck || check_password($iId, $sPassword, CH_WSB_ROLE_ADMIN)) {
-        if ($_POST['relocate'] && (strncasecmp($_POST['relocate'], CH_WSB_URL_ROOT, strlen(CH_WSB_URL_ROOT)) === 0 || strncasecmp($_POST['relocate'], CH_WSB_URL_ADMIN . 'license.php', strlen(CH_WSB_URL_ADMIN . 'license.php')) === 0)) {
-            $sUrlRelocate = $_POST['relocate'];
-        } else {
-            $sUrlRelocate = CH_WSB_URL_ADMIN . 'index.php';
-        }
-
-        $sUrlRelocate = ch_html_attribute($sUrlRelocate);
-
-		$iCode = 0;
-		ch_login($iId, (bool)$_POST['rememberMe']);
-
-        header('Content-Type: text/html; charset=utf-8'); ?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Admin Panel</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link href="templates/base/css/default.css" rel="stylesheet" type="text/css" />
-        <link href="templates/base/css/common.css" rel="stylesheet" type="text/css" />
-        <link href="templates/base/css/general.css" rel="stylesheet" type="text/css" />
-        <link href="templates/base/css/anchor.css" rel="stylesheet" type="text/css" />
-        <link href="templates/base/css/login.css" rel="stylesheet" type="text/css" />
-        <?php if (0 == $iCode || -1 == $iCode) {
-            ?>
-        <script>
-            setTimeout(function () {
-                document.location = '<?= $sUrlRelocate ?>';
-            }, 1000);
-        </script>
-        <?php
-        } ?>
-    </head>
-    <body class="ch-def-font"></body>
-</html>
-<?php
+    } elseif (check_password($iId, $sPassword, CH_WSB_ROLE_ADMIN)) {
+        ch_login($iId, (bool)$_POST['rememberMe']);
+        header('Location: ' . $sUrlRelocate);
     }
     exit;
 }
