@@ -1,0 +1,51 @@
+# Exclude system cache folders
+packages/*
+cache/*
+cache_public/*
+tmp/*
+logs/*
+langs/*
+backup/*.sql
+
+# Exclude main config file
+inc/header*
+  
+# Exclude OS folder attributes
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+.*.swp
+
+
+# Excludes from modules
+media/images/membership/[0-9]*
+media/images/blog/*.jpg
+
+modules/cheetah/moxie
+
+modules/cheetah/forum/classes/en/*
+modules/cheetah/forum/classes/ru/*
+modules/cheetah/forum/js/en/*
+modules/cheetah/forum/js/ru/*
+modules/cheetah/forum/layout/base_en/*
+modules/cheetah/forum/layout/base_ru/*
+modules/cheetah/forum/layout/uni_en/*
+modules/cheetah/forum/layout/uni_ru/*
+modules/cheetah/forum/layout/alt_en/*
+modules/cheetah/forum/layout/alt_ru/*
+modules/cheetah/forum/layout/evo_en/*
+modules/cheetah/forum/layout/evo_ru/*
+
+flash/modules/global/app/ffmpeg_*.exe
+flash/modules/mp3/files/*.jpg
+flash/modules/mp3/files/*.mp3
+flash/modules/mp3/files/*.ogg
+flash/modules/mp3/files/[0-9]*
+flash/modules/video/files/*.jpg
+flash/modules/video/files/*.m4v
+flash/modules/video/files/*.flv
+flash/modules/video/files/*.webm
+flash/modules/video_comments/files/[0-9]*
