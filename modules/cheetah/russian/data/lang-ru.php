@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This work, "Cheetah - https://cheetah.deanbassett.com", is a derivative of "Dolphin Pro V7.4.2" by BoonEx Pty Limited - https://www.boonex.com/, used under CC-BY. "Cheetah" is licensed under CC-BY by Dean J. Bassett Jr.
+ * This work, "Cheetah - https://www.cheetahwsb.com", is a derivative of "Dolphin Pro V7.4.2" by BoonEx Pty Limited - https://www.boonex.com/, used under CC-BY. "Cheetah" is licensed under CC-BY by Dean J. Bassett Jr.
  * CC-BY License - http://creativecommons.org/licenses/by/3.0/
  */
 
@@ -10,7 +10,7 @@ $LANG_INFO = array(
 );
 
 $LANG= array(
-    '_ABOUT_US' => 'Этот сайт создан с помощью <a href="https://cheetah.deanbassett.com/features" target="_blank">Cheetah Cheetah</a>. Остальное - тайна, покрытая мраком.',
+    '_ABOUT_US' => 'Этот сайт создан с помощью <a href="https://www.cheetahwsb.com/features" target="_blank">Cheetah Cheetah</a>. Остальное - тайна, покрытая мраком.',
     '_ABOUT_US_H' => 'О сайте',
     '_ACTION_EVERY_PERIOD' => ' каждые {4} часа',
     '_ACTION_LIMIT_REACHED' => 'Достигнуто ограничение. Ваше текущее членство (<b>{2}</b>) позволяет {1} не более {3} раз',
@@ -922,7 +922,7 @@ $LANG= array(
   '_adm_admtools_Non_Writable' => 'Неизменяемый',
   '_adm_admtools_Not_Exists' => 'Не существует',
   '_adm_admtools_Only_bad_files' => 'Показать только файлы и директории с неправильными разрешениями',
-  '_adm_admtools_Perm_description' => 'Дельфину нужен особый доступ к определённым файлам и директориям. Пожалуйста, измените разрешения так, как указано в таблице ниже. Полезная информация о разрешениях находится <a href="https://cheetah.deanbassett.com/trac/cheetah/wiki/DetailedInstall#InstallScript-Step1-Permissions" target="_blank">здесь</a>.',
+  '_adm_admtools_Perm_description' => 'Дельфину нужен особый доступ к определённым файлам и директориям. Пожалуйста, измените разрешения так, как указано в таблице ниже. Полезная информация о разрешениях находится <a href="https://www.cheetahwsb.com/trac/cheetah/wiki/DetailedInstall#InstallScript-Step1-Permissions" target="_blank">здесь</a>.',
   '_adm_admtools_Permissions' => 'Разрешения',
   '_adm_admtools_Writable' => 'Изменяемый',
   '_adm_admtools_cache_engines' => 'Кэш-инструменты',
@@ -1145,16 +1145,16 @@ $LANG= array(
   '_adm_ipbl_Type0_desc' => 'Тип списка IP 0 : отключено',
   '_adm_ipbl_Type1_desc' => 'Тип списка IP 1 : Все IP разрешены, кроме тех, что в списке',
   '_adm_ipbl_Type2_desc' => 'Тип списка IP 2 : Все IP заблокированы, кроме тех, что в списке',
-  '_adm_license_trial_copy_login_text' => 'Это пробная копия Дельфина. <a href="https://cheetah.deanbassett.com/start" target="_blank">Получить лицензию у Cheetah.</a>',
+  '_adm_license_trial_copy_login_text' => 'Это пробная копия Дельфина. <a href="https://www.cheetahwsb.com/start" target="_blank">Получить лицензию у Cheetah.</a>',
   '_adm_license_note_permanent' => 'Постоянная лицензия',
   '_adm_license_note_monthly' => 'Ежемесячная лицензия',
   '_adm_license_note_yearly' => 'Годовая лицензия',
   '_adm_license_note_auto_renew' => 'Авто продление ежемесячной лицензии',
-  '_adm_license_note_unregistered' => '<a href="https://cheetah.deanbassett.com/m/license_server/buy_license/"><b>Приобрести лицензию</b></a> для удаления Cheetah Powered по ссылкам и незарегистрированным предупреждениям админа.',
+  '_adm_license_note_unregistered' => '<a href="https://www.cheetahwsb.com/m/license_server/buy_license/"><b>Приобрести лицензию</b></a> для удаления Cheetah Powered по ссылкам и незарегистрированным предупреждениям админа.',
   '_adm_license_continue' => 'или <a href="{0}">продолжать незарегистрированные</a>',
   '_adm_license_popup_continue' => 'продолжать незарегистрированные',
   '_adm_license_popup_license' => 'Лицензия:',
-  '_adm_license_popup_note' => 'Пробная копия! <b><a href="https://cheetah.deanbassett.com/start">Получить лицензию</a></b> и зарегистрировать:',
+  '_adm_license_popup_note' => 'Пробная копия! <b><a href="https://www.cheetahwsb.com/start">Получить лицензию</a></b> и зарегистрировать:',
   '_adm_license_popup_or' => 'или',
   '_adm_license_popup_register' => 'Отправить',
   '_adm_license_register' => 'Отправить',
@@ -1341,7 +1341,7 @@ $LANG= array(
     <li>
         Как изменить логотип сайта на собственный
         <a href="{0}basic_settings.php">здесь</a>
-        <a target="_blank" href="https://cheetah.deanbassett.com/trac/cheetah/wiki/TutorialHowToPersonalizeYourCheetahSite#Logo"><i class="sys-icon question-sign"></i></a>
+        <a target="_blank" href="https://www.cheetahwsb.com/trac/cheetah/wiki/TutorialHowToPersonalizeYourCheetahSite#Logo"><i class="sys-icon question-sign"></i></a>
     </li>
     <li>
         <a target="_blank" href="http://www.google.com/recaptcha">Как сгенерировать собственные коды для капчи</a> and fill them in
@@ -1350,17 +1350,17 @@ $LANG= array(
     <li>
         Как написать свой текст для копирайта
         <a href="{0}lang_file.php">здесь</a>
-        <a target="_blank" href="https://cheetah.deanbassett.com/trac/cheetah/wiki/TutorialHowToPersonalizeYourCheetahSite#Copyright"><i class="sys-icon question-sign"></i></a>
+        <a target="_blank" href="https://www.cheetahwsb.com/trac/cheetah/wiki/TutorialHowToPersonalizeYourCheetahSite#Copyright"><i class="sys-icon question-sign"></i></a>
     </li>
     <li>
         Как изменить \'о нас\' и другой информационный текст
         <a href="{0}lang_file.php">здесь</a>
-        <a target="_blank" href="https://cheetah.deanbassett.com/trac/cheetah/wiki/TutorialHowToPersonalizeYourCheetahSite#PersonalizingText"><i class="sys-icon question-sign"></i></a>
+        <a target="_blank" href="https://www.cheetahwsb.com/trac/cheetah/wiki/TutorialHowToPersonalizeYourCheetahSite#PersonalizingText"><i class="sys-icon question-sign"></i></a>
     </li>
     <li>
         Как установить модули на выбор
         <a href="{0}modules.php">здесь</a>
-        <a target="_blank" href="https://cheetah.deanbassett.com/trac/cheetah/wiki/CheetahAdminModules"><i class="sys-icon question-sign"></i></a>
+        <a target="_blank" href="https://www.cheetahwsb.com/trac/cheetah/wiki/CheetahAdminModules"><i class="sys-icon question-sign"></i></a>
     </li>
     <li>
         Как при использовании Facebook Connect сгенерировать свои Facebook ключи и ввести их
@@ -1369,16 +1369,16 @@ $LANG= array(
     <li>
         Как создать блоки для домашней страницы сайта
         <a href="{0}pageBuilder.php?Page=index">здесь</a>
-        <a target="_blank" href="https://cheetah.deanbassett.com/trac/cheetah/wiki/CheetahAdminPagesBlocks"><i class="sys-icon question-sign"></i></a>
+        <a target="_blank" href="https://www.cheetahwsb.com/trac/cheetah/wiki/CheetahAdminPagesBlocks"><i class="sys-icon question-sign"></i></a>
     </li>
     <li>
         Как настроить доступ к функциям сайта
         <a href="{0}memb_levels.php">здесь</a>
-        <a target="_blank" href="https://cheetah.deanbassett.com/trac/cheetah/wiki/CheetahAdminMembershipLevels"><i class="sys-icon question-sign"></i></a>
+        <a target="_blank" href="https://www.cheetahwsb.com/trac/cheetah/wiki/CheetahAdminMembershipLevels"><i class="sys-icon question-sign"></i></a>
     </li>
     <li>
         Приобрести полноценную лицензию можно
-        <a target="_blank" href="https://cheetah.deanbassett.com/start">здесь</a>
+        <a target="_blank" href="https://www.cheetahwsb.com/start">здесь</a>
     </li>
     <li>
         Зарегистрируйте свою лицензию <a href="{0}license.php">здесь</a>
@@ -1744,7 +1744,7 @@ $LANG= array(
   '_please_fill_next_fields_first' => 'сначала, заполните эти поля',
   '_popular_tags' => 'Популярные теги',
   '_post_successfully_deleted' => 'пост удачно удалён',
-  '_powered_by_Cheetah' => 'Наш вебсайт построен на <a href="https://cheetah.deanbassett.com/features">Cheetah Cheetah</a>. Любой желающий может создать свою собственную социальную сеть на основе программного обеспечения от Cheetah.',
+  '_powered_by_Cheetah' => 'Наш вебсайт построен на <a href="https://www.cheetahwsb.com/features">Cheetah Cheetah</a>. Любой желающий может создать свою собственную социальную сеть на основе программного обеспечения от Cheetah.',
   '_prof_status' => '{0} теперь {1}',
   '_profile_comments' => 'Комментарии к профилю',
   '_profile_info' => 'Инфо',

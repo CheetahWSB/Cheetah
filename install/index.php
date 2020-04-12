@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This work, "Cheetah - https://cheetah.deanbassett.com", is a derivative of "Dolphin Pro V7.4.2" by BoonEx Pty Limited - https://www.boonex.com/, used under CC-BY. "Cheetah" is licensed under CC-BY by Dean J. Bassett Jr.
+ * This work, "Cheetah - https://www.cheetahwsb.com", is a derivative of "Dolphin Pro V7.4.2" by BoonEx Pty Limited - https://www.boonex.com/, used under CC-BY. "Cheetah" is licensed under CC-BY by Dean J. Bassett Jr.
  * CC-BY License - http://creativecommons.org/licenses/by/3.0/
  */
 
@@ -57,7 +57,7 @@ if (count($aErrors)) {
         echo <<<EOF
 {$sErrors} <br />
 Please go to the <br />
-<a href="https://cheetah.deanbassett.com/trac/cheetah/wiki/GenDol7TShooter">Cheetah Troubleshooter</a> <br />
+<a href="https://www.cheetahwsb.com/trac/cheetah/wiki/GenDol7TShooter">Cheetah Troubleshooter</a> <br />
 and solve the problem.
 EOF;
         exit;
@@ -173,7 +173,7 @@ if (defined('CHECK_CHEETAH_REQUIREMENTS')) {
         echo <<<EOF
 {\$sErrors} <br />
 Please go to the <br />
-<a href="https://cheetah.deanbassett.com/trac/cheetah/wiki/GenDol7TShooter">Cheetah Troubleshooter</a> <br />
+<a href="https://www.cheetahwsb.com/trac/cheetah/wiki/GenDol7TShooter">Cheetah Troubleshooter</a> <br />
 and solve the problem.
 EOF;
         exit;
@@ -627,7 +627,7 @@ function genInstallationProcessPage($sErrorMessage = '')
 </div>
 
 <div class="ch-install-header-text ch-def-font-large ch-def-font-grayed ch-def-margin-bottom">
-    Setup Cron Jobs as specified below. Helpful info about Cron Jobs is <a href="https://cheetah.deanbassett.com/trac/cheetah/wiki/DetailedInstall#InstallScript-Step5-CronJobs" target="_blank">available here</a>.
+    Setup Cron Jobs as specified below. Helpful info about Cron Jobs is <a href="https://www.cheetahwsb.com/trac/cheetah/wiki/DetailedInstall#InstallScript-Step5-CronJobs" target="_blank">available here</a>.
 </div>
 
 {$sInnerCode}
@@ -749,7 +749,7 @@ EOF;
 </div>
 
 <div class="ch-install-header-text ch-def-font-large ch-def-font-grayed ch-def-margin-bottom">
-    Reverse permissions for the files indicated below to keep your site secure. Helpful info about permissions is <a href="https://cheetah.deanbassett.com/trac/cheetah/wiki/DetailedInstall#InstallScript-Step1-Permissions" target="_blank">available here</a>.
+    Reverse permissions for the files indicated below to keep your site secure. Helpful info about permissions is <a href="https://www.cheetahwsb.com/trac/cheetah/wiki/DetailedInstall#InstallScript-Step1-Permissions" target="_blank">available here</a>.
 </div>
 
 {$sErrors}
@@ -892,7 +892,7 @@ function genDatabaseConfig($sErrorMessage = '')
 </div>
 
 <div class="ch-install-header-text ch-def-font-large ch-def-font-grayed ch-def-margin-bottom">
-    Please <a target="_blank" href="https://cheetah.deanbassett.com/trac/cheetah/wiki/DetailedInstall#Part2:CreateaDatabaseandaUser">create a database</a> and tell Cheetah about it.
+    Please <a target="_blank" href="https://www.cheetahwsb.com/trac/cheetah/wiki/DetailedInstall#Part2:CreateaDatabaseandaUser">create a database</a> and tell Cheetah about it.
 </div>
 
 {$sErrors}
@@ -1038,7 +1038,7 @@ function genPreInstallPermissionTable($sErrorMessage = '')
 </div>
 
 <div class="ch-install-header-text ch-def-font-large ch-def-font-grayed ch-def-margin-bottom">
-    Change permissions of files and directories as specified in the chart below. Helpful info about permissions is <a href="https://cheetah.deanbassett.com/trac/cheetah/wiki/DetailedInstall#InstallScript-Step1-Permissions" target="_blank">available here</a>.
+    Change permissions of files and directories as specified in the chart below. Helpful info about permissions is <a href="https://www.cheetahwsb.com/trac/cheetah/wiki/DetailedInstall#InstallScript-Step1-Permissions" target="_blank">available here</a>.
 </div>
 
 {$sError}
@@ -1079,7 +1079,7 @@ function StartInstall()
 </div>
 
 <div class="ch-install-step-startInstall-text ch-def-font-large ch-def-margin-top">
-    Cheetah {$aConf['iVersion']}.{$aConf['iPatch']} by <a href="https://cheetah.deanbassett.com" target="_blank">Cheetah</a>
+    Cheetah {$aConf['iVersion']}.{$aConf['iPatch']} by <a href="https://www.cheetahwsb.com" target="_blank">Cheetah</a>
 </div>
 
 EOF;

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This work, "Cheetah - https://cheetah.deanbassett.com", is a derivative of "Dolphin Pro V7.4.2" by BoonEx Pty Limited - https://www.boonex.com/, used under CC-BY. "Cheetah" is licensed under CC-BY by Dean J. Bassett Jr.
+ * This work, "Cheetah - https://www.cheetahwsb.com", is a derivative of "Dolphin Pro V7.4.2" by BoonEx Pty Limited - https://www.boonex.com/, used under CC-BY. "Cheetah" is licensed under CC-BY by Dean J. Bassett Jr.
  * CC-BY License - http://creativecommons.org/licenses/by/3.0/
  */
 
@@ -93,7 +93,7 @@ $_page_cont[$iNameIndex] = array(
     'page_code_installed' => $oInstallerUi->getInstalled(),
     'page_code_not_installed' => DesignBoxAdmin(_t('_adm_box_cpt_not_installed_modules'), $oInstallerUi->getNotInstalled($sResultDeleteModule)),
     'page_code_updates' => DesignBoxAdmin(_t('_adm_box_cpt_available_updates'), $oInstallerUi->getUpdates($sResultDeleteUpdate)),
-    'page_code_uploader' => DesignBoxAdmin(_t('_adm_box_cpt_upload'), $oInstallerUi->getUploader($sResultUpload), array (array('title' => _t('_adm_txt_get_new_modules'), 'href' => "https://cheetah.deanbassett.com/market")), '', 11),
+    'page_code_uploader' => DesignBoxAdmin(_t('_adm_box_cpt_upload'), $oInstallerUi->getUploader($sResultUpload), array (array('title' => _t('_adm_txt_get_new_modules'), 'href' => "https://www.cheetahwsb.com/market")), '', 11),
     'page_code_market_feed' => 'on' == getParam('feeds_enable') ? DesignBoxAdmin(_t('_adm_box_cpt_featured_modules'), '<div class="RSSAggrCont" rssid="cheetah_unity_market_featured" rssnum="5" member="0">' . $GLOBALS['oFunctions']->loadingBoxInline() . '</div>') : '',
 	'obj_name' => CH_WSB_ADM_MM_JS_NAME,
 	'actions_url' => $GLOBALS['site']['url_admin'] . 'modules.php',

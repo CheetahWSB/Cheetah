@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This work, "Cheetah - https://cheetah.deanbassett.com", is a derivative of "Dolphin Pro V7.4.2" by BoonEx Pty Limited - https://www.boonex.com/, used under CC-BY. "Cheetah" is licensed under CC-BY by Dean J. Bassett Jr.
+ * This work, "Cheetah - https://www.cheetahwsb.com", is a derivative of "Dolphin Pro V7.4.2" by BoonEx Pty Limited - https://www.boonex.com/, used under CC-BY. "Cheetah" is licensed under CC-BY by Dean J. Bassett Jr.
  * CC-BY License - http://creativecommons.org/licenses/by/3.0/
  */
 
@@ -10,12 +10,12 @@ require_once( './inc/db.inc.php' );
 require_once( './inc/profiles.inc.php' );
 
 $aPredefinedRssFeeds = array (
-    'cheetah_news' => 'https://cheetah.deanbassett.com/newsfeed.rss',
-    'cheetah_version' => 'https://cheetah.deanbassett.com/version.rss',
-    'cheetah_unity_market' => 'https://cheetah.deanbassett.com/market.rss',
-    'cheetah_unity_lang_files' => 'https://cheetah.deanbassett.com/lang.rss',
-    'cheetah_unity_market_templates' => 'https://cheetah.deanbassett.com/templates.rss',
-    'cheetah_unity_market_featured' => 'https://cheetah.deanbassett.com/mfeatured.rss',
+    'cheetah_news' => 'https://www.cheetahwsb.com/newsfeed.rss',
+    'cheetah_version' => 'https://www.cheetahwsb.com/version.rss',
+    'cheetah_unity_market' => 'https://www.cheetahwsb.com/market.rss',
+    'cheetah_unity_lang_files' => 'https://www.cheetahwsb.com/lang.rss',
+    'cheetah_unity_market_templates' => 'https://www.cheetahwsb.com/templates.rss',
+    'cheetah_unity_market_featured' => 'https://www.cheetahwsb.com/mfeatured.rss',
 );
 
 if (isset($aPredefinedRssFeeds[$_GET['ID']])) {

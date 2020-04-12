@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This work, "Cheetah - https://cheetah.deanbassett.com", is a derivative of "Dolphin Pro V7.4.2" by BoonEx Pty Limited - https://www.boonex.com/, used under CC-BY. "Cheetah" is licensed under CC-BY by Dean J. Bassett Jr.
+ * This work, "Cheetah - https://www.cheetahwsb.com", is a derivative of "Dolphin Pro V7.4.2" by BoonEx Pty Limited - https://www.boonex.com/, used under CC-BY. "Cheetah" is licensed under CC-BY by Dean J. Bassett Jr.
  * CC-BY License - http://creativecommons.org/licenses/by/3.0/
  */
 
@@ -47,7 +47,7 @@ $aLangContent = array(
             <li>Удостовеьтесь, что "Override default sender email address" правильный и существует</li>
             <li>Попробуйте изменить шаблоны электронной почты по умолчанию; возможно, что стандартные занесены в спам-фильтры, так как они используются на многих сайтах по умолчанию</li>
             <li>Попросите пользователей добавить Ваш электронный адрес в список контактов - если электронный адрес находится в списке контактов, то почта с него всегда поступает во Входящие</li>
-            <li><a href="https://cheetah.deanbassett.com/trac/cheetah/wiki/TutorialTweakingSpamFilters" target="_blank">Вот замечательное руководство</a>, как сделать Ваш сервер легитимным для большинства популярных почтовых серверов, включая yahoo</li>
+            <li><a href="https://www.cheetahwsb.com/trac/cheetah/wiki/TutorialTweakingSpamFilters" target="_blank">Вот замечательное руководство</a>, как сделать Ваш сервер легитимным для большинства популярных почтовых серверов, включая yahoo</li>
         </ul>
 ',
 

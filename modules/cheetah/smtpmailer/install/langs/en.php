@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This work, "Cheetah - https://cheetah.deanbassett.com", is a derivative of "Dolphin Pro V7.4.2" by BoonEx Pty Limited - https://www.boonex.com/, used under CC-BY. "Cheetah" is licensed under CC-BY by Dean J. Bassett Jr.
+ * This work, "Cheetah - https://www.cheetahwsb.com", is a derivative of "Dolphin Pro V7.4.2" by BoonEx Pty Limited - https://www.boonex.com/, used under CC-BY. "Cheetah" is licensed under CC-BY by Dean J. Bassett Jr.
  * CC-BY License - http://creativecommons.org/licenses/by/3.0/
  */
 
@@ -47,7 +47,7 @@ $aLangContent = array(
             <li>Make sure that "Override default sender email address" is valid and exists</li>
             <li>Try to change default email templates, it maybe that standard ones can be in spam filters, since they are used on a lot of sites by default</li>
             <li>Ask your members to add your site email to their contacts - when email is in user\'s contact list it always goes to inbox</li>
-            <li><a href="https://cheetah.deanbassett.com/trac/cheetah/wiki/TutorialTweakingSpamFilters" target="_blank">This is great tutorial</a> on how to whitelist your server in many popular webmail services, including yahoo</li>
+            <li><a href="https://www.cheetahwsb.com/trac/cheetah/wiki/TutorialTweakingSpamFilters" target="_blank">This is great tutorial</a> on how to whitelist your server in many popular webmail services, including yahoo</li>
         </ul>
 ',
 
