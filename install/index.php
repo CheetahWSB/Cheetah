@@ -36,17 +36,34 @@ switch ($last) {
         break;
 }
 
+$iUploadLimitBytes = ini_get('upload_max_filesize');
+$last              = strtolower($iUploadLimitBytes{strlen($iUploadLimitBytes) - 1});
+$iUploadLimitBytes = (int)$iUploadLimitBytes;
+switch ($last) {
+    case 'k':
+        $iUploadLimitBytes *= 1024;
+        break;
+    case 'm':
+        $iUploadLimitBytes *= 1024 * 1024;
+        break;
+    case 'g':
+        $iUploadLimitBytes *= 1024 * 1024 * 1024;
+        break;
+}
+
 $aErrors   = array();
 $aErrors[] = (ini_get('register_globals') == 0) ? '' : '<font color="red">register_globals is On (warning, you should have this param in the Off state, or your site will be unsafe)</font>';
 $aErrors[] = (ini_get('safe_mode') == 0) ? '' : '<font color="red">safe_mode is On, disable it</font>';
+$aErrors[] = (ini_get('open_basedir') == '') ? '' : '<font color="red"><b>open_basedir</b> is not empty. It must be empty.</font>';
 $aErrors[] = (version_compare(PHP_VERSION, '5.4.0', '<')) ? '<font color="red">PHP version too old, please update to PHP 5.4.0 at least</font>' : '';
 $aErrors[] = (ini_get('short_open_tag') == 0 && version_compare(phpversion(), "5.4",
         "<") == 1) ? '<font color="red">short_open_tag is Off (must be On!)<b>Warning!</b> Cheetah cannot work without <b>short_open_tag</b>.</font>' : '';
 $aErrors[] = (ini_get('allow_url_include') == 0) ? '' : '<font color="red">allow_url_include is On (warning, you should have this param in the Off state, or your site will be unsafe)</font>';
-$aErrors[] = ($iMemoryLimitBytes == -1 || $iMemoryLimitBytes >= 128 * 1024 * 1024) ? '' : '<font color="red"><b>memory_limit</b> must be at least 128M</font>';
+$aErrors[] = ($iMemoryLimitBytes == -1 || $iMemoryLimitBytes >= 256 * 1024 * 1024) ? '' : '<font color="red"><b>memory_limit</b> must be at least 256M</font>';
+$aErrors[] = ($iUploadLimitBytes == -1 || $iUploadLimitBytes >= 1024 * 1024 * 1024) ? '' : '<font color="red"><b>upload_max_filesize </b> must be at least 1024M</font>';
 
 foreach ($aPhpExtensions as $sExtension) {
-    $aErrors[] = !extension_loaded($sExtension) ? '<font color="red"><b>' . $sExtension . '</b> extension isn\'t installed. <b>Warning!</b> Cheetah can\'t work properly without it.</font>' : '';
+    $aErrors[] = !extension_loaded($sExtension) ? '<font color="red"><b>' . $sExtension . '</b> extension isn\'t installed. <b>Warning!</b> Cheetah won\'t work properly without it.</font>' : '';
 }
 
 $aErrors = array_diff($aErrors, array('')); //delete empty
@@ -57,7 +74,7 @@ if (count($aErrors)) {
         echo <<<EOF
 {$sErrors} <br />
 Please go to the <br />
-<a href="https://www.cheetahwsb.com/trac/cheetah/wiki/GenDol7TShooter">Cheetah Troubleshooter</a> <br />
+<a href="https://www.cheetahwsb.com/m/cheetah_docs/chapter/cheetah-troubleshooter">Cheetah Troubleshooter</a> <br />
 and solve the problem.
 EOF;
         exit;
@@ -283,6 +300,9 @@ $confFirst['dir_root']  = array(
     },
     'check'   => function ($arg0) { return strlen($arg0) >= 1 ? true : false; }
 );
+
+$sPleskPath = '/opt/plesk/php/' . PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION . '/bin/php';
+
 $confFirst['dir_php']   = array(
     'name'    => "Path to php binary",
     'ex'      => "/usr/local/bin/php",
@@ -291,6 +311,7 @@ $confFirst['dir_php']   = array(
     'def_exp' => function () {
             if ( file_exists("/usr/local/bin/php") ) return "/usr/local/bin/php";
             if ( file_exists("/usr/bin/php") ) return "/usr/bin/php";
+            if ( file_exists($sPleskPath) ) return $sPleskPath;
             $fp = popen ( "whereis php", "r");
             if ( $fp ) {
                 $s = fgets($fp);
