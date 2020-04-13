@@ -31,6 +31,7 @@ if (isset($_POST['license_code']) && isset($_POST['register'])) {
     $sLicense = $_POST['license_code'];
     if ($sLicense != '') {
         setParam('license_code', $sLicense);
+        setParam('license_keydata', '');
         chCheckLicense(false, true, false);
     }
     //echo '<pre>' . print_r($_POST, true) . '</pre><br>';
