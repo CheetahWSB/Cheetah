@@ -922,7 +922,7 @@ $LANG= array(
   '_adm_admtools_Non_Writable' => 'Неизменяемый',
   '_adm_admtools_Not_Exists' => 'Не существует',
   '_adm_admtools_Only_bad_files' => 'Показать только файлы и директории с неправильными разрешениями',
-  '_adm_admtools_Perm_description' => 'Дельфину нужен особый доступ к определённым файлам и директориям. Пожалуйста, измените разрешения так, как указано в таблице ниже. Полезная информация о разрешениях находится <a href="https://www.cheetahwsb.com/trac/cheetah/wiki/DetailedInstall#InstallScript-Step1-Permissions" target="_blank">здесь</a>.',
+  '_adm_admtools_Perm_description' => 'Дельфину нужен особый доступ к определённым файлам и директориям. Пожалуйста, измените разрешения так, как указано в таблице ниже. Полезная информация о разрешениях находится <a href="https://www.cheetahwsb.com/m/cheetah_docs/chapter/cheetah-detailed-install-guide#InstallScript-Step1-Permissions" target="_blank">здесь</a>.',
   '_adm_admtools_Permissions' => 'Разрешения',
   '_adm_admtools_Writable' => 'Изменяемый',
   '_adm_admtools_cache_engines' => 'Кэш-инструменты',
@@ -1341,7 +1341,7 @@ $LANG= array(
     <li>
         Как изменить логотип сайта на собственный
         <a href="{0}basic_settings.php">здесь</a>
-        <a target="_blank" href="https://www.cheetahwsb.com/trac/cheetah/wiki/TutorialHowToPersonalizeYourCheetahSite#Logo"><i class="sys-icon question-sign"></i></a>
+        <a target="_blank" href="https://www.cheetahwsb.com/m/cheetah_docs/chapter/TutorialHowToPersonalizeYourCheetahSite#Logo"><i class="sys-icon question-sign"></i></a>
     </li>
     <li>
         <a target="_blank" href="http://www.google.com/recaptcha">Как сгенерировать собственные коды для капчи</a> and fill them in
@@ -1350,17 +1350,17 @@ $LANG= array(
     <li>
         Как написать свой текст для копирайта
         <a href="{0}lang_file.php">здесь</a>
-        <a target="_blank" href="https://www.cheetahwsb.com/trac/cheetah/wiki/TutorialHowToPersonalizeYourCheetahSite#Copyright"><i class="sys-icon question-sign"></i></a>
+        <a target="_blank" href="https://www.cheetahwsb.com/m/cheetah_docs/chapter/TutorialHowToPersonalizeYourCheetahSite#Copyright"><i class="sys-icon question-sign"></i></a>
     </li>
     <li>
         Как изменить \'о нас\' и другой информационный текст
         <a href="{0}lang_file.php">здесь</a>
-        <a target="_blank" href="https://www.cheetahwsb.com/trac/cheetah/wiki/TutorialHowToPersonalizeYourCheetahSite#PersonalizingText"><i class="sys-icon question-sign"></i></a>
+        <a target="_blank" href="https://www.cheetahwsb.com/m/cheetah_docs/chapter/TutorialHowToPersonalizeYourCheetahSite#PersonalizingText"><i class="sys-icon question-sign"></i></a>
     </li>
     <li>
         Как установить модули на выбор
         <a href="{0}modules.php">здесь</a>
-        <a target="_blank" href="https://www.cheetahwsb.com/trac/cheetah/wiki/CheetahAdminModules"><i class="sys-icon question-sign"></i></a>
+        <a target="_blank" href="https://www.cheetahwsb.com/m/cheetah_docs/chapter/CheetahAdminModules"><i class="sys-icon question-sign"></i></a>
     </li>
     <li>
         Как при использовании Facebook Connect сгенерировать свои Facebook ключи и ввести их
@@ -1369,12 +1369,12 @@ $LANG= array(
     <li>
         Как создать блоки для домашней страницы сайта
         <a href="{0}pageBuilder.php?Page=index">здесь</a>
-        <a target="_blank" href="https://www.cheetahwsb.com/trac/cheetah/wiki/CheetahAdminPagesBlocks"><i class="sys-icon question-sign"></i></a>
+        <a target="_blank" href="https://www.cheetahwsb.com/m/cheetah_docs/chapter/CheetahAdminPagesBlocks"><i class="sys-icon question-sign"></i></a>
     </li>
     <li>
         Как настроить доступ к функциям сайта
         <a href="{0}memb_levels.php">здесь</a>
-        <a target="_blank" href="https://www.cheetahwsb.com/trac/cheetah/wiki/CheetahAdminMembershipLevels"><i class="sys-icon question-sign"></i></a>
+        <a target="_blank" href="https://www.cheetahwsb.com/m/cheetah_docs/chapter/CheetahAdminMembershipLevels"><i class="sys-icon question-sign"></i></a>
     </li>
     <li>
         Приобрести полноценную лицензию можно

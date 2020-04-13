@@ -150,7 +150,7 @@ CREATE TABLE `sys_menu_admin_top` (
 INSERT INTO `sys_menu_admin_top`(`name`, `caption`, `url`, `target`, `icon`, `order`) VALUES
 ('home', '_adm_tmi_home', '{site_url}index.php', '_blank', 'external-link-square', 1),
 ('extensions', '_adm_tmi_extensions', 'https://www.cheetahwsb.com/m/market', '', 'puzzle-piece', 2),
-('info', '_adm_tmi_info', 'https://www.cheetahwsb.com/trac/cheetah/wiki', '', 'question-circle', 3),
+('info', '_adm_tmi_info', 'https://www.cheetahwsb.com/m/cheetah_docs/chapter/', '', 'question-circle', 3),
 ('logout', '_adm_tmi_logout', '{site_url}logout.php', '', 'sign-out', 4);
 
 -- --------------------------------------------------------
