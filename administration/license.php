@@ -48,7 +48,7 @@ $sLicenseData = getParam('license_keydata');
 if ($sLicenseData != '') {
     $aLicenseData = chJsonDecode($sLicenseData);
 }
-echo '<pre>' . print_r($aLicenseData, true) . '</pre><br>';
+//echo '<pre>' . print_r($aLicenseData, true) . '</pre><br>';
 //exit;
 //$bLicense = $sLicense != '';
 //$bFooter = getParam('enable_cheetah_footer') == 'on';
