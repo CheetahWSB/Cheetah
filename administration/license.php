@@ -31,9 +31,6 @@ if (isset($_POST['license_code']) && isset($_POST['register'])) {
     $sLicense = $_POST['license_code'];
     if ($sLicense != '') {
         setParam('license_code', $sLicense);
-        // Still don't know why i have to run this twice.
-        // Will fix it later, too much time spent on it.
-        chCheckLicense(false, true, false);
         chCheckLicense(false, true, false);
     }
     //echo '<pre>' . print_r($_POST, true) . '</pre><br>';
@@ -41,7 +38,6 @@ if (isset($_POST['license_code']) && isset($_POST['register'])) {
 
 if (isset($_POST['recheck'])) {
     // Recheck server and update stored license_keydata.
-    chCheckLicense(false, true, false);
     chCheckLicense(false, true, false);
     //echo '<pre>' . print_r($_POST, true) . '</pre><br>';
 }
@@ -52,7 +48,7 @@ $sLicenseData = getParam('license_keydata');
 if ($sLicenseData != '') {
     $aLicenseData = chJsonDecode($sLicenseData);
 }
-//echo '<pre>' . print_r($aLicenseData, true) . '</pre><br>';
+echo '<pre>' . print_r($aLicenseData, true) . '</pre><br>';
 //exit;
 //$bLicense = $sLicense != '';
 //$bFooter = getParam('enable_cheetah_footer') == 'on';
@@ -67,12 +63,16 @@ if ((int)$aLicenseData['suspended'] == 1) {
 if ((int)$aLicenseData['revoked'] == 1) {
     $chLicenseStatus = '<span style="color: #800000">Revoked</span>';
 }
-//if ((int)$aLicenseData['active'] == 0) {
-//    $chLicenseStatus = '<span style="color: #000080">Unregistered</span>';
-//}
+if ($aLicenseData['status'] == 'Invalid') {
+    $chLicenseStatus = '<span style="color: #800000">Invalid</span>';
+    $aLicenseData['site_url'] = '';
+    $aLicenseData['server_ip'] = '';
+    $aLicenseData['key_type'] = '';
+}
 if ($sLicense == '') {
     $chLicenseStatus = '<span style="color: #000080">Unregistered</span>';
 }
+
 
 $iIssueDate = chDateToTimestamp($aLicenseData['issue_date']);
 $iExpiresDate = chDateToTimestamp($aLicenseData['expire_date']);
@@ -89,17 +89,12 @@ if ($aLicenseData['key_type'] == 'Permanent') {
     $aLicenseData['expire_date'] = date("F d, Y", $iExpiresDate);
 }
 
-
-
 $aVars = array(
     'license_status' => $chLicenseStatus,
     'license_key' => $aLicenseData['license_key'],
     'site_url' => $aLicenseData['site_url'],
     'server_ip' => $aLicenseData['server_ip'],
     'key_type' => $aLicenseData['key_type'],
-    //'payment_type' => $aLicenseData['payment_type'],
-    //'issue_date' => $aLicenseData['issue_date'],
-    //'expire_date' => $aLicenseData['expire_date'],
     'ch_if:suspended' => array(
         'condition' => $aLicenseData['subscription_canceled'],
         'content' => array(
@@ -110,8 +105,6 @@ $aVars = array(
         'condition' => $aLicenseData['key_type'] == 'Prepaid',
         'content' => array()
     ),
-
-
 
     'license' => $sLicense,
     'license_status' => $chLicenseStatus,
@@ -153,15 +146,10 @@ $aVars = array(
     )
 );
 
-
-if ($sLicense == '') {
-    $aVars['license_key'] = 'No key has been registered.';
-    $aVars['site_url'] = 'Not available until key registered to site.';
-    $aVars['server_ip'] = 'Not available until key registered to site.';
-    $aVars['key_type'] = 'Not available until key has been purchased.';
-    //$aVars['payment_type'] = 'Not available until key has been purchased.';
-    //$aVars['issue_date'] = 'Not available until key has been issued.';
-    //$aVars['expire_date'] = 'Not available until payment on key has been made.';
+if ($sLicense == '' || $aLicenseData['status'] == 'Invalid') {
+    $aVars['site_url'] = 'Not available until valid key registered to site.';
+    $aVars['server_ip'] = 'Not available until valid key registered to site.';
+    $aVars['key_type'] = 'Not available until valid key has been purchased.';
 }
 
 $sContent = $GLOBALS['oAdmTemplate']->parseHtmlByName('license.html', $aVars);
