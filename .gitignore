@@ -24,6 +24,7 @@ Thumbs.db
 media/images/membership/[0-9]*
 media/images/blog/*.jpg
 
+modules/deano
 modules/cheetah/moxie
 
 modules/cheetah/forum/classes/en/*
