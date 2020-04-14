@@ -14,7 +14,7 @@ if (!file_exists("inc/header.inc.php")) {
     header("Cache-Control: no-cache, must-revalidate");
     header("Pragma: no-cache");
 
-    echo "It seems to be script is <b>not</b> installed.<br />\n";
+    echo "It looks like Cheetah is <b>not</b> installed.<br />\n";
     if ( file_exists( "install/index.php" ) ) {
         echo "Please, wait. Redirecting you to installation form...<br />\n";
         echo "<script language=\"Javascript\">location.href = 'install/index.php';</script>\n";
