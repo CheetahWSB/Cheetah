@@ -205,7 +205,7 @@ $(document).ready(function() {
             var $inputParent = $input.parent();
             var $wrapper = $inputParent.clone().children().remove().end();
             var $fOnChange = function() {
-            	$(this).parents('.ch-btn:first').nextAll('.form_input_multiply_path:first').html($(this).val());
+            	$(this).parents('.ch-btn:first').nextAll('.form_input_multiply_path:first').html($(this).val().replace("C:\\fakepath\\", ""));
             };
 
             $input.change($fOnChange);
