@@ -8,7 +8,7 @@ function check_album_name_for_fields(oSelect) {
     var oTitle = oForm.find('.ch-form-element:has(input[name=title])');
     var oPrivacy = oForm.find('.ch-form-element:has(select[name=AllowAlbumView])');
 
-    if ($(oSelect).val() != 100) {
+    if ($(oSelect).val() != 0) {
         oTitle.hide();
         oPrivacy.hide();
     }
@@ -40,6 +40,9 @@ window.setTimeout(function () {
 	var oForm = $('.form_input_select').parents('form:first');
 	var oTitle = oForm.find('.ch-form-element:has(input[name=title])');
 	var oPrivacy = oForm.find('.ch-form-element:has(select[name=AllowAlbumView])');
+  // Locate and set the value of the last option in the album list to 0.
+  $('#albumList option:last-child').val(0);
+  // Hide the title and privacy options.
 	oTitle.hide();
 	oPrivacy.hide();
 }, 50);

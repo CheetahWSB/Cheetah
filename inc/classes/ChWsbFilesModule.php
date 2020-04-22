@@ -1453,7 +1453,7 @@ class ChWsbFilesModule extends ChWsbModule
         $sAlbumTitleCaption = false,
         $sCreateNewAlbumCaption = false
     ) {
-        $aAlbums[100] = $sCreateNewAlbumCaption ? $sCreateNewAlbumCaption : _t('_sys_album_create_new');
+        $aAlbums[] = $sCreateNewAlbumCaption ? $sCreateNewAlbumCaption : _t('_sys_album_create_new');
         ksort($aAlbums);
 
         $aForm = array(
@@ -1475,7 +1475,8 @@ class ChWsbFilesModule extends ChWsbModule
                     'name'    => 'album',
                     'values'  => $aAlbums,
                     'attrs'   => array(
-                        'onchange' => 'check_album_name_for_fields(this)'
+                        'onchange' => 'check_album_name_for_fields(this)',
+                        'id' => 'albumList',
                     )
                 ),
                 'title'      => array(
