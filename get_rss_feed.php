@@ -10,12 +10,12 @@ require_once( './inc/db.inc.php' );
 require_once( './inc/profiles.inc.php' );
 
 $aPredefinedRssFeeds = array (
-    'cheetah_news' => 'https://www.cheetahwsb.com/newsfeed.rss',
+    'cheetah_news' => 'https://www.cheetahwsb.com/m/news/act_rss',
     'cheetah_version' => 'https://www.cheetahwsb.com/version.rss',
-    'cheetah_unity_market' => 'https://www.cheetahwsb.com/market.rss',
-    'cheetah_unity_lang_files' => 'https://www.cheetahwsb.com/lang.rss',
-    'cheetah_unity_market_templates' => 'https://www.cheetahwsb.com/templates.rss',
-    'cheetah_unity_market_featured' => 'https://www.cheetahwsb.com/mfeatured.rss',
+    'cheetah_market' => 'https://www.cheetahwsb.com/m/market/act_rss',
+    'cheetah_market_lang_files' => 'https://www.cheetahwsb.com/m/market/act_rss/language',
+    'cheetah_market_templates' => 'https://www.cheetahwsb.com/m/market/act_rss/template',
+    'cheetah_market_featured' => 'https://www.cheetahwsb.com/m/market/act_rss/featured',
 );
 
 if (isset($aPredefinedRssFeeds[$_GET['ID']])) {

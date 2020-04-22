@@ -75,7 +75,7 @@ function PageMainCode()
 
     if (getParam('feeds_enable') == 'on') {
         $GLOBALS['_page_cont'][$iNameIndex]['page_main_code'] .= DesignBoxAdmin(_t('_adm_box_cpt_featured_modules'), '
-            <div class="RSSAggrCont" rssid="cheetah_unity_market_featured" rssnum="5" member="0">' . $GLOBALS['oFunctions']->loadingBoxInline() . '</div>');
+            <div class="RSSAggrCont" rssid="cheetah_market_featured" rssnum="5" member="0">' . $GLOBALS['oFunctions']->loadingBoxInline() . '</div>');
     }
 }
 

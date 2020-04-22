@@ -1744,7 +1744,7 @@ INSERT INTO `sys_page_compose` (`Page`, `PageWidth`, `Desc`, `Caption`, `Column`
 ('index', '1140px', 'Site Categories', '_Categories', 0, 0, 'Categories', '', 1, 71.9, 'non,memb', 0, 0),
 ('index', '1140px', 'List of profiles', '_Members', 2, 0, 'Members', '', 1, 28.1, 'non,memb', 0, 0),
 ('index', '1140px', 'Shows Login Form', '_Member_Login', 0, 0, 'LoginSection', '', 11, 28.1, 'non', 0, 86400),
-('index', '1140px', '', '_Cheetah News', 1, 0, 'RSS', 'https://www.cheetahwsb.com/mfeatured.rss', 1, 71.9, 'non,memb', 0, 86400),
+('index', '1140px', '', '_Cheetah News', 1, 0, 'RSS', 'https://www.cheetahwsb.com/m/news/act_rss/4', 1, 71.9, 'non,memb', 0, 86400),
 ('index', '1140px', 'Download', '_sys_box_title_download', 0, 0, 'Download', '', 1, 28.1, 'non,memb', 0, 86400),
 
 ('member', '1140px', 'Quick Links', '_Quick Links', 1, 0, 'QuickLinks', '', 1, 71.9, 'memb', 0, 0),

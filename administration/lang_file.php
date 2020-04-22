@@ -146,7 +146,7 @@ $_page = array(
     'header' => _t('_adm_page_cpt_lang_file'),
 );
 
-$sLangRssFeed = 'on' == getParam('feeds_enable') ?  DesignBoxAdmin (_t('_adm_box_cpt_lang_files'), '<div class="RSSAggrCont" rssid="cheetah_unity_lang_files" rssnum="5" member="0">' . $GLOBALS['oFunctions']->loadingBoxInline() . '</div>') : '';
+$sLangRssFeed = 'on' == getParam('feeds_enable') ?  DesignBoxAdmin (_t('_adm_box_cpt_lang_files'), '<div class="RSSAggrCont" rssid="cheetah_market_lang_files" rssnum="5" member="0">' . $GLOBALS['oFunctions']->loadingBoxInline() . '</div>') : '';
 
 $_page_cont[$iNameIndex] = array(
     'page_result_code' => '',

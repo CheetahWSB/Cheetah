@@ -130,7 +130,7 @@ function PageCodeTemplates($sResult)
     $sCode =  DesignBoxAdmin ($GLOBALS['sPageTitle'], $s, $GLOBALS['aTopItems'], '', 11);
 
     if ('on' == getParam('feeds_enable'))
-        $sCode = $sCode . DesignBoxAdmin (_t('_adm_box_cpt_design_templates'), '<div class="RSSAggrCont" rssid="cheetah_unity_market_templates" rssnum="5" member="0">' . $GLOBALS['oFunctions']->loadingBoxInline() . '</div>');
+        $sCode = $sCode . DesignBoxAdmin (_t('_adm_box_cpt_design_templates'), '<div class="RSSAggrCont" rssid="cheetah_market_templates" rssnum="5" member="0">' . $GLOBALS['oFunctions']->loadingBoxInline() . '</div>');
 
     $GLOBALS['oAdmTemplate']->addJsTranslation(array('_Are_you_sure'));
 
