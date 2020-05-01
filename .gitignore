@@ -19,6 +19,8 @@ inc/header*
 Thumbs.db
 .*.swp
 
+# Exclude my backups.
+*.orig
 
 # Excludes from modules
 media/images/membership/[0-9]*
