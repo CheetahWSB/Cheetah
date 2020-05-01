@@ -133,7 +133,7 @@ class ChWsbPaginate extends ChWsbTemplate
         $this->_sPerPageType = isset($aParams['per_page_type']) ? $aParams['per_page_type'] : CH_WSB_PAGINATE_PER_PAGE_TYPE_STATIC;
         $this->_iPerPageStep = isset($aParams['per_page_step']) ? (int)$aParams['per_page_step'] : CH_WSB_PAGINATE_PER_PAGE_STEP;
         $this->_iPerPageInterval = isset($aParams['per_page_interval']) ? (int)$aParams['per_page_interval'] : CH_WSB_PAGINATE_PER_PAGE_INTERVAL;
-        $this->_sPerPageValues = isset($aParams['per_page_values']) ? (int)$aParams['per_page_values'] : '&#8230;,'.CH_WSB_PAGINATE_PER_PAGE_VALUES;
+        $this->_sPerPageValues = isset($aParams['per_page_values']) ? $aParams['per_page_values'] : '&#8230;,'.CH_WSB_PAGINATE_PER_PAGE_VALUES;
 
         //--- Paginate's layout ---//
         $this->_bInfo = isset($aParams['info']) && $aParams['info'] === true;
