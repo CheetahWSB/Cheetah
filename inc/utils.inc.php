@@ -748,6 +748,8 @@ function clear_xss($val)
         array('oHtmlPurifier' => $oHtmlPurifier, 'return_data' => &$val));
     $oZ->alert();
 
+    $val = wrapVideoFrame($val);
+
     return $val;
 }
 
@@ -1942,4 +1944,21 @@ function getPostFieldIfSet($sField)
 function getGetFieldIfSet($sField)
 {
     return (!isset($_GET[$sField])) ? null : $_GET[$sField];
+}
+
+function wrapVideoFrame($sData) {
+    $iFound = stripos($sData, '<iframe');
+    if($iFound === false) return $sData;
+
+    // Reverse any that have allready been wrapped so it's not done twice.
+    $pattern = '/(<div class="video-responsive">(<iframe.*(youtube\.com|youtu\.be|youtube-nocookie\.com).*iframe>)<\/div>)/i';
+    $replacement = '$2';
+    $sData = preg_replace($pattern, $replacement, $sData);
+
+    // Now wrap it.
+    $pattern = '/(<iframe.*(youtube\.com|youtu\.be|youtube-nocookie\.com).*iframe>)/i';
+    $replacement = '<div class="video-responsive">$1</div>';
+    $sData = preg_replace($pattern, $replacement, $sData);
+
+    return $sData;
 }
