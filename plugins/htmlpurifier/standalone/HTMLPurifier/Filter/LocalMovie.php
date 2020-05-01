@@ -5,12 +5,12 @@ class HTMLPurifier_Filter_LocalMovie extends HTMLPurifier_Filter
     public $name = 'LocalMovie';
 
     public function preFilter($html, $config, $context) {
-        $localhost = CH_WSB_URL_ROOT . "flash/XML.php"; 
+        $localhost = CH_WSB_URL_ROOT . "flash/XML.php";
         $pre_regex = '#<object[^>]+>.+?'.$localhost.'([A-Za-z0-9\-_;&=\.]+).+?</object>#s';
         $pre_replace = '<span class="localmovie-embed">\1</span>';
         return preg_replace($pre_regex, $pre_replace, $html);
     }
-    
+
     public function postFilter($html, $config, $context) {
         $localhost = CH_WSB_URL_ROOT . "flash/XML.php";
         $post_regex = '#<span class="localmovie-embed">([A-Za-z0-9\-_;&=\.]+)(module=)([A-Za-z0-9]+)([A-Za-z0-9\-_;&=\.]+)</span>#';
@@ -32,5 +32,5 @@ class HTMLPurifier_Filter_LocalMovie extends HTMLPurifier_Filter
             '</object>';
         return preg_replace($post_regex, $post_replace, $html);
     }
-    
+
 }

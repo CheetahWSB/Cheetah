@@ -2,7 +2,7 @@
 
 class HTMLPurifier_Filter_AddChLinksClass extends HTMLPurifier_Filter
 {
-    public $name = 'AddBxLinksClass';
+    public $name = 'AddChLinksClass';
     protected $class = CH_WSB_LINK_CLASS;
 
     public function preFilter($sHtml, $config, $context)
@@ -10,7 +10,7 @@ class HTMLPurifier_Filter_AddChLinksClass extends HTMLPurifier_Filter
         if (false === strstr($sHtml, '<a '))
             return $sHtml;
 
-        $sId = 'bx-links-' . md5(microtime());
+        $sId = 'ch-links-' . md5(microtime());
         $dom = new DOMDocument();
         @$dom->loadHTML('<?xml encoding="UTF-8"><div id="' . $sId . '">' . $sHtml . '</div>');
         $xpath = new DOMXpath($dom);
