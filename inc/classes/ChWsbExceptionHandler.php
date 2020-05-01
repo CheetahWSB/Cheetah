@@ -20,8 +20,9 @@ class ChWsbExceptionHandler
             return;
         }
 
-        if (!defined('CH_WSB_LOG_ERROR') || CH_WSB_LOG_ERROR)
+        if (!defined('CH_WSB_LOG_ERROR') || CH_WSB_LOG_ERROR) {
             $this->log($e);
+        }
 
         $bFullError = (!defined('CH_WSB_FULL_ERROR')) ? false : CH_WSB_FULL_ERROR;
         $this->render($e, $bFullError);
@@ -40,7 +41,9 @@ class ChWsbExceptionHandler
         $s .= "File: " . $e->getFile() . "\n";
         $s .= "Line: " . $e->getLine() . "\n";
         $s .= "Trace: \n";
-        $s .= nl2br($e->getTraceAsString());
+        //$s .= nl2br($e->getTraceAsString());
+        $s .= $this->getExceptionTraceAsString($e);
+
         file_put_contents($GLOBALS['dir']['tmp'] . 'error.log', $s, FILE_APPEND);
     }
 
@@ -56,9 +59,7 @@ class ChWsbExceptionHandler
             return;
         }
 
-        ob_start();
-
-        ?>
+        ob_start(); ?>
         <html>
         <body>
         <?php if (!$bFullMsg): ?>
@@ -91,7 +92,8 @@ class ChWsbExceptionHandler
                 </table>
                 <h3>Trace</h3>
                 <code>
-                    <?= nl2br($e->getTraceAsString()) ?>
+                    <!--<?= nl2br($e->getTraceAsString()) ?>-->
+                    <?= nl2br($this->getExceptionTraceAsString($e)) ?>
                 </code>
             </div>
         <?php endif; ?>
@@ -113,7 +115,8 @@ class ChWsbExceptionHandler
         $sMailBody .= "Message: " . $e->getMessage() . "<br /><br /> ";
         $sMailBody .= "File: " . $e->getFile() . "<br /><br /> ";
         $sMailBody .= "Line: " . $e->getLine() . "<br /><br /> ";
-        $sMailBody .= "Debug backtrace:\n <pre>" . htmlspecialchars_adv(nl2br($e->getTraceAsString())) . "</pre> ";
+        //$sMailBody .= "Debug backtrace:\n <pre>" . htmlspecialchars_adv(nl2br($e->getTraceAsString())) . "</pre> ";
+        $sMailBody .= "Debug backtrace:\n <pre>" . htmlspecialchars_adv(nl2br($this->getExceptionTraceAsString($e))) . "</pre> ";
         $sMailBody .= "<hr />Called script: " . $_SERVER['PHP_SELF'] . "<br /> ";
         $sMailBody .= "<hr />Request parameters: <pre>" . print_r($_REQUEST, true) . " </pre>";
         $sMailBody .= "--\nAuto-report system\n";
@@ -135,5 +138,45 @@ class ChWsbExceptionHandler
             false,
             true
         );
+    }
+
+    protected function getExceptionTraceAsString($exception)
+    {
+        $rtn = "";
+        $count = 0;
+        foreach ($exception->getTrace() as $frame) {
+            $args = "";
+            if (isset($frame['args'])) {
+                $args = array();
+                foreach ($frame['args'] as $arg) {
+                    if (is_string($arg)) {
+                        $args[] = "'" . $arg . "'";
+                    } elseif (is_array($arg)) {
+                        $args[] = "Array";
+                    } elseif (is_null($arg)) {
+                        $args[] = 'NULL';
+                    } elseif (is_bool($arg)) {
+                        $args[] = ($arg) ? "true" : "false";
+                    } elseif (is_object($arg)) {
+                        $args[] = get_class($arg);
+                    } elseif (is_resource($arg)) {
+                        $args[] = get_resource_type($arg);
+                    } else {
+                        $args[] = $arg;
+                    }
+                }
+                $args = join(", ", $args);
+            }
+            $rtn .= sprintf(
+                "#%s %s(%s): %s(%s)\n",
+                $count,
+                $frame['file'],
+                $frame['line'],
+                $frame['function'],
+                $args
+            );
+            $count++;
+        }
+        return $rtn;
     }
 }
