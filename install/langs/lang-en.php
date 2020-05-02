@@ -10,7 +10,7 @@ $LANG_INFO = array(
 );
 
 $LANG= array(
-  '_ABOUT_US' => 'This site is powered by <a href="https://www.cheetahwsb.com/features" target="_blank">Cheetah Cheetah</a>. The rest is a mystery.',
+  '_ABOUT_US' => 'This site is powered by <a href="https://www.cheetahwsb.com/features" target="_blank">Cheetah</a>. The rest is a mystery.',
   '_ABOUT_US_H' => 'About Us',
   '_ACTION_EVERY_PERIOD' => ' every {4} hours',
   '_ACTION_LIMIT_REACHED' => 'Limit reached. Your current membership (<b>{2}</b>) allows you to {1} no more than {3} times',
