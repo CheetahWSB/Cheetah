@@ -1759,7 +1759,7 @@ For any further information please <a href="{1}contact.php">contact us</a>
   '_please_fill_next_fields_first' => 'please fill in these fields first',
   '_popular_tags' => 'Popular Tags',
   '_post_successfully_deleted' => 'post successfully deleted',
-  '_powered_by_Cheetah' => 'Our website is powered by <a href="https://www.cheetahwsb.com/features">Cheetah Cheetah</a>. Anyone can create their own niche social network using Cheetah software.',
+  '_powered_by_Cheetah' => 'Our website is powered by <a href="https://www.cheetahwsb.com/features">Cheetah</a>. Anyone can create their own niche social network using Cheetah software.',
   '_prof_status' => '{0} is {1} now',
   '_profile_comments' => 'Profile Comments',
   '_profile_info' => 'Info',

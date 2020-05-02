@@ -10,7 +10,7 @@ $LANG_INFO = array(
 );
 
 $LANG= array(
-    '_ABOUT_US' => 'Этот сайт создан с помощью <a href="https://www.cheetahwsb.com/features" target="_blank">Cheetah Cheetah</a>. Остальное - тайна, покрытая мраком.',
+    '_ABOUT_US' => 'Этот сайт создан с помощью <a href="https://www.cheetahwsb.com/features" target="_blank">Cheetah</a>. Остальное - тайна, покрытая мраком.',
     '_ABOUT_US_H' => 'О сайте',
     '_ACTION_EVERY_PERIOD' => ' каждые {4} часа',
     '_ACTION_LIMIT_REACHED' => 'Достигнуто ограничение. Ваше текущее членство (<b>{2}</b>) позволяет {1} не более {3} раз',
@@ -1145,7 +1145,7 @@ $LANG= array(
   '_adm_ipbl_Type0_desc' => 'Тип списка IP 0 : отключено',
   '_adm_ipbl_Type1_desc' => 'Тип списка IP 1 : Все IP разрешены, кроме тех, что в списке',
   '_adm_ipbl_Type2_desc' => 'Тип списка IP 2 : Все IP заблокированы, кроме тех, что в списке',
-  '_adm_license_trial_copy_login_text' => 'Это пробная копия Дельфина. <a href="https://www.cheetahwsb.com/start" target="_blank">Получить лицензию у Cheetah.</a>',
+  '_adm_license_trial_copy_login_text' => 'Это пробная копия Дельфина. <a href="https://www.cheetahwsb.com/m/license_server/buy_license/" target="_blank">Получить лицензию у Cheetah.</a>',
   '_adm_license_note_permanent' => 'Постоянная лицензия',
   '_adm_license_note_monthly' => 'Ежемесячная лицензия',
   '_adm_license_note_yearly' => 'Годовая лицензия',
@@ -1154,7 +1154,7 @@ $LANG= array(
   '_adm_license_continue' => 'или <a href="{0}">продолжать незарегистрированные</a>',
   '_adm_license_popup_continue' => 'продолжать незарегистрированные',
   '_adm_license_popup_license' => 'Лицензия:',
-  '_adm_license_popup_note' => 'Пробная копия! <b><a href="https://www.cheetahwsb.com/start">Получить лицензию</a></b> и зарегистрировать:',
+  '_adm_license_popup_note' => 'Пробная копия! <b><a href="https://www.cheetahwsb.com/m/license_server/buy_license/">Получить лицензию</a></b> и зарегистрировать:',
   '_adm_license_popup_or' => 'или',
   '_adm_license_popup_register' => 'Отправить',
   '_adm_license_register' => 'Отправить',
@@ -1378,7 +1378,7 @@ $LANG= array(
     </li>
     <li>
         Приобрести полноценную лицензию можно
-        <a target="_blank" href="https://www.cheetahwsb.com/start">здесь</a>
+        <a target="_blank" href="https://www.cheetahwsb.com/m/license_server/buy_license/">здесь</a>
     </li>
     <li>
         Зарегистрируйте свою лицензию <a href="{0}license.php">здесь</a>
@@ -1744,7 +1744,7 @@ $LANG= array(
   '_please_fill_next_fields_first' => 'сначала, заполните эти поля',
   '_popular_tags' => 'Популярные теги',
   '_post_successfully_deleted' => 'пост удачно удалён',
-  '_powered_by_Cheetah' => 'Наш вебсайт построен на <a href="https://www.cheetahwsb.com/features">Cheetah Cheetah</a>. Любой желающий может создать свою собственную социальную сеть на основе программного обеспечения от Cheetah.',
+  '_powered_by_Cheetah' => 'Наш вебсайт построен на <a href="https://www.cheetahwsb.com/features">Cheetah</a>. Любой желающий может создать свою собственную социальную сеть на основе программного обеспечения от Cheetah.',
   '_prof_status' => '{0} теперь {1}',
   '_profile_comments' => 'Комментарии к профилю',
   '_profile_info' => 'Инфо',
