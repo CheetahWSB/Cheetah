@@ -191,7 +191,7 @@ class ChWsbCronCmd extends ChWsbCron
 
         $aAdmins = $GLOBALS['MySQL']->getAll("SELECT * FROM `Profiles` WHERE `Role`&" . CH_WSB_ROLE_ADMIN . "<>0 AND `EmailNotify`='1'");
         if (!empty($sMessage) && !empty($aAdmins)) {
-            $oEmailTemplate = new BxDolEmailTemplates();
+            $oEmailTemplate = new ChWsbEmailTemplates();
             $aEmailParams = array(
                 'MessageText' => $sMessage,
                 'ViewLink' => CH_WSB_URL_ADMIN
