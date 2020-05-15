@@ -44,6 +44,7 @@ div.news-text-snippet {
     white-space: nowrap;
     overflow: hidden;
 	*/
+	word-break: break-word;
 }
 div.news-comments {
     position: relative;
