@@ -65,7 +65,7 @@ class ChWsbExceptionHandler
         <?php if (!$bFullMsg): ?>
             <div style="border:2px solid red;padding:4px;width:600px;margin:0px auto;">
                 <div style="text-align:center;background-color:transparent;color:#000;font-weight:bold;">
-                    <?= (function_exists('_t') ? _t('_Exception_user_msg') : 'Something went wrong! Please try reloading the page.') ?>
+                    <?= (function_exists('_t') ? _t('_Exception_user_msg') : 'A database error has occurred while loading the page. The system administrator has been notified.') ?>
                 </div>
             </div>
         <?php else: ?>

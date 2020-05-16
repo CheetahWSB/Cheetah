@@ -6,7 +6,6 @@ $aLangContent = array(
 
 
   // ================ CHANGED KEYS ==================
+  '_Exception_user_msg' => 'A database error has occurred while loading the page. The system administrator has been notified.',
 
 );
-
-
