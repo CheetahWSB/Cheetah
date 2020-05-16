@@ -548,7 +548,7 @@ EOF;
 
         $sEmailToCkeckMailSending = getParam('site_email');
 
-        $sLatestCheetahVer = file_get_contents("http://rss.cheetah.com/");
+        $sLatestCheetahVer = file_get_contents("https://www.cheetahwsb.com/version.rss");
         if (preg_match ('#<cheetah>([\.0-9]+)</cheetah>#', $sLatestCheetahVer, $m))
             $sLatestCheetahVer = $m[1];
         else
