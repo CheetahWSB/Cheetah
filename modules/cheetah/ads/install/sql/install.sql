@@ -232,8 +232,8 @@ INSERT INTO `sys_menu_top` (`ID`, `Parent`, `Name`, `Caption`, `Link`, `Order`, 
 SET @menu_id = (SELECT LAST_INSERT_ID());
 
 INSERT INTO `sys_menu_top` (`ID`, `Parent`, `Name`, `Caption`, `Link`, `Order`, `Visible`, `Target`, `Onclick`, `Check`, `Editable`, `Deletable`, `Active`, `Type`, `Picture`, `BQuickLink`, `Statistics`) VALUES
-(NULL, 9, 'Profile Ads', '_ch_ads_Ads', 'modules/cheetah/ads/classifieds.php?UsersOtherListing=1&IDProfile={profileID}', 4, 'non,memb', '', '', '', 1, 1, 1, 'custom', '', 0, ''),
-(NULL, 4, 'Profile Ads', '_ch_ads_Ads', 'modules/cheetah/ads/classifieds.php?action=my_page|ads/my_page/', 4, 'non,memb', '', '', '', 1, 1, 1, 'custom', '', 0, ''),
+(NULL, 9, 'Profile Ads', '_ch_ads_Ads_profile', 'modules/cheetah/ads/classifieds.php?UsersOtherListing=1&IDProfile={profileID}', 4, 'non,memb', '', '', '', 1, 1, 1, 'custom', '', 0, ''),
+(NULL, 4, 'Profile Ads', '_ch_ads_Ads_profile', 'modules/cheetah/ads/classifieds.php?action=my_page|ads/my_page/', 4, 'non,memb', '', '', '', 1, 1, 1, 'custom', '', 0, ''),
 (NULL, @menu_id, 'Ads Calendar', '_ch_ads_Calendar', 'modules/cheetah/ads/classifieds.php?action=show_calendar', 6, 'non,memb', '', '', '', 1, 1, 1, 'custom', '', 0, ''),
 (NULL, @menu_id, 'Ads Categories', '_ch_ads_Categories', 'modules/cheetah/ads/classifieds.php?action=show_categories', 5, 'non,memb', '', '', '', 1, 1, 1, 'custom', '', 0, ''),
 (NULL, @menu_id, 'Popular Ads', '_ch_ads_Popular', 'modules/cheetah/ads/classifieds.php?action=show_popular', 3, 'non,memb', '', '', '', 1, 1, 1, 'custom', '', 0, ''),
@@ -361,4 +361,3 @@ INSERT INTO `sys_objects_charts` (`object`, `title`, `table`, `field_date_ts`, `
 SET @iMaxOrderExports = (SELECT MAX(`order`)+1 FROM `sys_objects_exports`);
 INSERT INTO `sys_objects_exports` (`object`, `title`, `class_name`, `class_file`, `order`, `active`) VALUES
 ('ch_ads', '_ch_ads_Ads', 'ChAdsExport', 'modules/cheetah/ads/classes/ChAdsExport.php', @iMaxOrderExports, 1);
-

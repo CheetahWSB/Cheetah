@@ -19,6 +19,7 @@ $aLangContent = array(
   '_ch_ads_Add_ad' => 'Добавить объявление',
   '_ch_ads_Administration' => 'Администрирование',
   '_ch_ads_Ads' => 'Объявления',
+  '_ch_ads_Ads_profile' => 'Объявления',
   '_ch_ads_Ads_Home' => 'Главная',
   '_ch_ads_Ads_adm_stats' => 'Ожидающие объявления',
   '_ch_ads_All_ads' => 'Все',

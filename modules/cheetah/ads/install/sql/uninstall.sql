@@ -42,6 +42,7 @@ SET @iCatRoot := (SELECT `ID` FROM `sys_menu_top` WHERE `Name` = 'Ads' LIMIT 1);
 DELETE FROM `sys_menu_top` WHERE `Parent` = @iCatRoot;
 DELETE FROM `sys_menu_top` WHERE `ID` = @iCatRoot;
 DELETE FROM `sys_menu_top` WHERE `Caption` = '_ch_ads_Ads';
+DELETE FROM `sys_menu_top` WHERE `Caption` = '_ch_ads_Ads_profile';
 
 -- member menu
 DELETE FROM `sys_menu_member` WHERE `Name` = 'ch_ads';
@@ -92,4 +93,3 @@ DELETE FROM `sys_objects_charts` WHERE `object` = 'ch_ads';
 
 -- export
 DELETE FROM `sys_objects_exports` WHERE `object` = 'ch_ads';
-

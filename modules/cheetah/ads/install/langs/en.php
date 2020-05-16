@@ -19,6 +19,7 @@ $aLangContent = array(
   '_ch_ads_Add_ad' => 'Add ad',
   '_ch_ads_Administration' => 'Administration',
   '_ch_ads_Ads' => 'Ads',
+  '_ch_ads_Ads_profile' => 'Ads',
   '_ch_ads_Ads_Home' => 'Ads Home',
   '_ch_ads_Ads_adm_stats' => 'Pending Ads',
   '_ch_ads_All_ads' => 'All Ads',

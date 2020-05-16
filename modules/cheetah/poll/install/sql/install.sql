@@ -300,7 +300,7 @@
     SET
         `Parent`     = 4,
         `Name`       = 'My Polls',
-        `Caption`    = '_ch_polls',
+        `Caption`    = '_ch_polls_profile',
         `Link`       = 'modules/?r=poll/&action=my',
         `Order`      = 4,
         `Visible`    = 'memb',
@@ -607,4 +607,3 @@
     SET @iMaxOrderExports = (SELECT MAX(`order`)+1 FROM `sys_objects_exports`);
     INSERT INTO `sys_objects_exports` (`object`, `title`, `class_name`, `class_file`, `order`, `active`) VALUES
     ('ch_poll', '_sys_module_poll', 'ChPollExport', 'modules/cheetah/poll/classes/ChPollExport.php', @iMaxOrderExports, 1);
-

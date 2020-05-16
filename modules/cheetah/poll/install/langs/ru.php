@@ -93,6 +93,7 @@ $aLangContent = array(
   '_ch_poll_was_deleted' => 'Опрос был удачно удален',
   '_ch_poll_was_edited' => 'Опрос был удачно изменен',
   '_ch_polls' => 'Опросы',
+  '_ch_polls_profile' => 'Опросы',  
   '_ch_polls_adm_stats' => 'Ожидающие опросы',
   '_ch_polls_profile' => 'Опросы профиля',
   '_ch_polls_public' => 'Публичные опросы',

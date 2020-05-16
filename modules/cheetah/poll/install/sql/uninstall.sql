@@ -32,7 +32,7 @@
 
     SET @iMenuParentId := (SELECT `ID` FROM `sys_menu_top` WHERE `Name` = 'Polls' AND `Caption` = '_ch_polls' LIMIT 1);
     DELETE FROM `sys_menu_top` WHERE `Parent` = @iMenuParentId OR `ID` = @iMenuParentId;
-    DELETE FROM `sys_menu_top` WHERE `Parent` = 4 AND `Name` = 'My Polls' AND `Caption` = '_ch_polls';
+    DELETE FROM `sys_menu_top` WHERE `Parent` = 4 AND `Name` = 'My Polls' AND `Caption` = '_ch_polls_profile';
     DELETE FROM `sys_menu_top` WHERE `Parent` = 9 AND `Name` = 'Polls' AND `Caption` = '_ch_poll';
     DELETE FROM `sys_menu_top` WHERE `Parent` = 0 AND `Name` = 'Poll unit' AND `Type` = 'system';
 
@@ -157,4 +157,3 @@
     -- export
 
     DELETE FROM `sys_objects_exports` WHERE `object` = 'ch_poll';
-

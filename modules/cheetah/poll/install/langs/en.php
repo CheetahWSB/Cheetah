@@ -93,6 +93,7 @@ $aLangContent = array(
   '_ch_poll_was_deleted' => 'Poll successfully deleted',
   '_ch_poll_was_edited' => 'Poll successfully edited',
   '_ch_polls' => 'Polls',
+  '_ch_polls_profile' => 'Polls',
   '_ch_polls_adm_stats' => 'Pending Polls',
   '_ch_polls_profile' => 'Profile\'s polls',
   '_ch_polls_public' => 'Public polls',
