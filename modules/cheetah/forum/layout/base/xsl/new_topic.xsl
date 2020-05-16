@@ -31,21 +31,21 @@
 
 
                     <div class="ch-def-margin-bottom">
-                       [L[Topic subject:]] 
+                       [L[Topic subject:]]
                         <div class="forum_field_error_message" style="display:none" id="err_topic_subject">[L[Topic subject Error]]</div>
                         <div>
-                            <input class="forum_form_field ch-def-font-large ch-def-round-corners-with-border" type="text" name="topic_subject" size="50" maxlength="50" /> 
+                            <input class="forum_form_field ch-def-font-large ch-def-round-corners-with-border" type="text" name="topic_subject" size="50" maxlength="50" />
                         </div>
                     </div>
-					
-					
+
+
 					<xsl:if test="1 = @sticky">
                         <div class="ch-def-margin-bottom">
 					        <span class="sticky"><input type="checkbox" name="topic_sticky" id="sticky" /><label for="sticky">[L[Sticky]]</label></span>
                         </div>
 					</xsl:if>
 
-                    [L[Topic text:]] 
+                    [L[Topic text:]]
                     <div class="forum_field_error_message" style="display:none" id="err_topic_text">[L[Topic text Error]]</div>
 					<textarea id="tinyEditor" name="topic_text" class="forum_new_topic_area">&#160;</textarea>
 
@@ -58,7 +58,7 @@
                     </xsl:call-template>
 
 					<div class="ch-def-margin-top">
-                        <input type="submit" name="post_submit" value="[L[Submit]]" onclick="tinyMCE.triggerSave(); if (!f.checkPostTopicValues(document.forms['new_topic'].topic_subject, document.forms['new_topic'].topic_text, document.forms['new_topic'].signature, document.forms['new_topic'].forum, true)) return false;" class="ch-btn" />
+                        <input type="submit" name="post_submit" value="[L[Submit]]" onclick="if(!f.disableSubmitButton(this, true, true, document.forms['new_topic'].topic_subject, document.forms['new_topic'].topic_text, document.forms['new_topic'].signature, document.forms['new_topic'].forum, true)) return false;" class="ch-btn" />
                         <input type="reset" name="cancel" value="[L[Cancel]]" onclick="return f.cancelNewTopic('{forum/uri}', 0)" class="ch-btn" />
                         <div class="clear_both"></div>
 					</div>
@@ -79,7 +79,7 @@
         <xsl:with-param name="link2">
             <a href="{$rw_forum}{forum/uri}{$rw_forum_page}0{$rw_forum_ext}" onclick="return f.selectForum('{forum/uri}', 0);"><xsl:value-of select="forum/title" disable-output-escaping="yes" /></a>
         </xsl:with-param>
-    </xsl:call-template>    
+    </xsl:call-template>
 
 
 </xsl:template>
@@ -103,5 +103,3 @@
 </xsl:template>
 
 </xsl:stylesheet>
-
-

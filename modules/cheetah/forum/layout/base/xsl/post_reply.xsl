@@ -23,7 +23,7 @@
 					<xsl:element name="input">
 						<xsl:attribute name="type">hidden</xsl:attribute>
 						<xsl:attribute name="name">topic_id</xsl:attribute>
-						<xsl:attribute name="value"><xsl:value-of select="topic/id" /></xsl:attribute>		
+						<xsl:attribute name="value"><xsl:value-of select="topic/id" /></xsl:attribute>
 					</xsl:element>
 
                     <div class="forum_field_error_message" style="display:none" id="err_topic_text">[L[Topic text Error]]</div>
@@ -39,11 +39,9 @@
                     </xsl:call-template>
 
                     <div class="ch-def-margin-top">
-
-                        <input type="submit" name="post_submit" value="[L[Submit]]" onclick="tinyMCE.triggerSave();" class="ch-btn" />
+                        <input type="submit" name="post_submit" value="[L[Submit]]" onclick="f.disableSubmitButton(this, true, false);" class="ch-btn" />
                         <input type="reset" name="cancel" value="[L[Cancel]]" onclick="return f.cancelReply()" class="ch-btn" />
                         <div class="clear_both"></div>
-
                     </div>
 
     			</form>
@@ -58,5 +56,3 @@
 </xsl:template>
 
 </xsl:stylesheet>
-
-

@@ -20,6 +20,38 @@ function Forum (base, min_points) {
     this._idEditPostTimer = 0;
 }
 
+Forum.prototype.disableSubmitButton = function (id, saveTinyMCE, checkPost, s, t, g, f, n) {
+
+    if (undefined == saveTinyMCE) saveTinyMCE = false;
+    if (undefined == checkPost) checkPost = false;
+
+    if(saveTinyMCE == true && checkPost == true) {
+        if(!this.checkPostTopicValues(s, t, g, f, n)) {
+            return false;
+        } else {
+            $(id).prop('disabled', true);
+            $(id).addClass("ch-btn-disabled");
+            setTimeout(tinyMCE.triggerSave(), 250);
+        }
+    }
+
+    if(saveTinyMCE == true  && checkPost == false) {
+        $(id).prop('disabled', true);
+        $(id).addClass("ch-btn-disabled");
+        setTimeout(tinyMCE.triggerSave(), 250);
+    }
+
+    return true;
+}
+
+Forum.prototype.enableSubmitButton = function (id) {
+    $(id).prop('disabled', false);
+    $(id).removeClass("ch-btn-disabled");
+    return true;
+}
+
+
+
 /**
  * edit post
  * @param id	post id
