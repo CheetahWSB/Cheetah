@@ -44,6 +44,13 @@ class ChWsbTemplateAdmin extends ChWsbTemplate
             case 'current_version':
                 $sRet = $GLOBALS['site']['ver'] . '.' . $GLOBALS['site']['build'];
                 break;
+            case 'pre_release':
+                if($GLOBALS['site']['pre-release'] != '') {
+                    $sRet = '.' . $GLOBALS['site']['pre-release'];
+                } else {
+                    $sRet = '';
+                }
+                break;
             case 'dir':
                 $a = ch_lang_info();
                 return $a['Direction'];

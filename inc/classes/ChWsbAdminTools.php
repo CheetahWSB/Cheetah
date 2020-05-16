@@ -626,7 +626,7 @@ EOF;
     color: #d00;
 }
 .warn {
-    color: #000000;
+    color: #800080;
 }
 .undef {
     color: #cccccc;
@@ -711,11 +711,20 @@ EOF;
         <b>Cheetah version</b> =
         <?php
             $sCheetahVer = $GLOBALS['site']['ver'] . '.' . $GLOBALS['site']['build'];
-            echo $sCheetahVer . ' - ';
-            if (!version_compare($sCheetahVer, $sLatestCheetahVer, '>='))
+            if($GLOBALS['site']['pre-release'] != '') {
+              echo $sCheetahVer . '.' . $GLOBALS['site']['pre-release'] . ' - ';
+            } else {
+              echo $sCheetahVer . ' - ';
+            }
+            if (!version_compare($sCheetahVer, $sLatestCheetahVer, '>=')) {
                 echo '<b class="warn">WARNING</b> (your Cheetah version is outdated please upgrade to the latest ' . $sLatestCheetahVer . ' version)';
-            else
-                echo '<b class="ok">OK</b>';
+            } else {
+                if($GLOBALS['site']['pre-release'] != '') {
+                    echo '<b class="warn">Pre-Release</b>';
+                } else {
+                    echo '<b class="ok">OK</b>';
+                }
+            }
         ?>
     </li>
     <li>
