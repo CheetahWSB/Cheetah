@@ -41,7 +41,7 @@ class ChWsbDb
     /**
      * Cache engine selected for db
      *
-     * @var ChWsbCacheFile|ChWsbCacheAPC|ChWsbCacheMemcache|ChWsbCacheXCache
+     * @var ChWsbCacheFile|ChWsbCacheMemcache
      */
     public $oDbCacheObject = null;
 

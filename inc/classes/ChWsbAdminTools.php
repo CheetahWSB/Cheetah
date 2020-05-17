@@ -440,7 +440,7 @@ EOF;
     <td class="center_aligned">' . _t('_sys_adm_cache_support') . '</td>
 </tr>';
 
-        $aEngines = array ('File', 'Memcache', 'APC', 'XCache');
+        $aEngines = array ('File', 'Memcache');
         foreach ($aEngines as $sEngine) {
             $oCacheObject = @ch_instance ('ChWsbCache' . $sEngine);
             $sRet .= '
@@ -796,6 +796,28 @@ EOF;
             </li>
         </ul>
     </li>
+    <?php
+        $d = ini_get('disable_functions');
+        $b1 = false;
+        $b2 = false;
+        $s = '';
+        if(strpos($d, 'opcache_get_status') !== false) {
+            $b1 = true;
+            $s .= '<ul><li><span class="fail">opcache_get_status</li></ul>';
+        }
+        if(strpos($d, 'opcache_get_configuration') !== false) {
+            $b2 = true;
+            $s .= '<ul><li><span class="fail">opcache_get_configuration</li></ul>';
+        }
+        if($b1 == true || $b2 == true) {
+            echo '<ul>';
+            echo '    <li>';
+            echo '<b>These OPcache functions are in the php.ini disable_functions and should be removed for proper operation of Cheetah:</b>';
+            echo $s;
+            echo '    </li>';
+            echo '</ul>';
+        }
+    ?>
     <li><b>MySQL</b>:
         <ul>
             <?php
@@ -992,12 +1014,23 @@ EOF;
 
     function getPhpAccelerator ()
     {
-        $aAccelerators = array (
-            'eAccelerator' => array('op' => 'module', 'val' => 'eaccelerator'),
-            'APC' => array('op' => 'module', 'val' => 'apc'),
-            'XCache' => array('op' => 'module', 'val' => 'xcache'),
-            'OPcache' => array('op' => 'val', 'val' => function_exists('opcache_get_status') && ($a = opcache_get_status(false)) ? $a['opcache_enabled'] : false),
-        );
+        if(function_exists('opcache_get_configuration') && !function_exists('opcache_get_status')) {
+            $a = opcache_get_configuration();
+            $aAccelerators = array (
+                'eAccelerator' => array('op' => 'module', 'val' => 'eaccelerator'),
+                'APC' => array('op' => 'module', 'val' => 'apc'),
+                'XCache' => array('op' => 'module', 'val' => 'xcache'),
+                'OPcache' => array('op' => 'val', 'val' => $a['directives']['opcache.enable'] ? true : false),
+            );
+        } else {
+            $aAccelerators = array (
+                'eAccelerator' => array('op' => 'module', 'val' => 'eaccelerator'),
+                'APC' => array('op' => 'module', 'val' => 'apc'),
+                'XCache' => array('op' => 'module', 'val' => 'xcache'),
+                'OPcache' => array('op' => 'val', 'val' => function_exists('opcache_get_status') && ($a = opcache_get_status(false)) ? $a['opcache_enabled'] : false),
+            );
+        }
+
         foreach ($aAccelerators as $sName => $r) {
             $a = $this->checkPhpSetting($sName, $r);
             if ($a['res'])
