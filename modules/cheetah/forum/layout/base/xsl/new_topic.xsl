@@ -57,10 +57,11 @@
                         <xsl:with-param name="text" select="signature" />
                     </xsl:call-template>
 
-					<div class="ch-def-margin-top">
-                        <input type="submit" name="post_submit" value="[L[Submit]]" onclick="if(!f.disableSubmitButton(this, true, true, document.forms['new_topic'].topic_subject, document.forms['new_topic'].topic_text, document.forms['new_topic'].signature, document.forms['new_topic'].forum, true)) return false;" class="ch-btn" />
-                        <input type="reset" name="cancel" value="[L[Cancel]]" onclick="return f.cancelNewTopic('{forum/uri}', 0)" class="ch-btn" />
-                        <div class="clear_both"></div>
+					<div class="ch-def-margin-top" style="position: relative;">
+              <input type="submit" name="post_submit" value="[L[Submit]]" onclick="f.disableSubmitButton(); tinyMCE.triggerSave(); if (!f.checkPostTopicValues(document.forms['new_topic'].topic_subject, document.forms['new_topic'].topic_text, document.forms['new_topic'].signature, document.forms['new_topic'].forum, true)) return false;" class="ch-btn" />
+              <input type="reset" name="cancel" value="[L[Cancel]]" onclick="return f.cancelNewTopic('{forum/uri}', 0)" class="ch-btn" />
+              <div class="clear_both"></div>
+              <div id="submit_btn_overlay"></div>
 					</div>
 
 				</form>

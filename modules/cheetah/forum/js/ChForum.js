@@ -20,37 +20,13 @@ function Forum (base, min_points) {
     this._idEditPostTimer = 0;
 }
 
-Forum.prototype.disableSubmitButton = function (id, saveTinyMCE, checkPost, s, t, g, f, n) {
-
-    if (undefined == saveTinyMCE) saveTinyMCE = false;
-    if (undefined == checkPost) checkPost = false;
-
-    if(saveTinyMCE == true && checkPost == true) {
-        if(!this.checkPostTopicValues(s, t, g, f, n)) {
-            return false;
-        } else {
-            $(id).prop('disabled', true);
-            $(id).addClass("ch-btn-disabled");
-            setTimeout(tinyMCE.triggerSave(), 250);
-        }
-    }
-
-    if(saveTinyMCE == true  && checkPost == false) {
-        $(id).prop('disabled', true);
-        $(id).addClass("ch-btn-disabled");
-        setTimeout(tinyMCE.triggerSave(), 250);
-    }
-
-    return true;
+Forum.prototype.disableSubmitButton = function (id) {
+    $('#submit_btn_overlay').show();
 }
 
 Forum.prototype.enableSubmitButton = function (id) {
-    $(id).prop('disabled', false);
-    $(id).removeClass("ch-btn-disabled");
-    return true;
+    $('#submit_btn_overlay').hide();
 }
-
-
 
 /**
  * edit post
@@ -696,7 +672,11 @@ Forum.prototype.checkPostTopicValues = function (s, t, g, f, n) {
 		ret3 = true;
 	}
 
-	return (n ? (ret1 && ret2 && ret3 && ret4) : (ret2 && ret3));
+  var rt = (n ? (ret1 && ret2 && ret3 && ret4) : (ret2 && ret3));
+
+  if(!rt) this.enableSubmitButton();
+
+	return rt;
 }
 
 /**

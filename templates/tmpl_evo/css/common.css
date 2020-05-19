@@ -102,6 +102,10 @@ div.paginate {
     background-color: transparent;
 }
 
+#submit_btn_overlay {
+	background-color: rgba(234, 239, 243, 0.5);
+}
+
 /*--- Button ---*/
 .ch-btn {
 	position: relative;

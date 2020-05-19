@@ -38,15 +38,16 @@
                         <xsl:with-param name="text" select="signature" />
                     </xsl:call-template>
 
-                    <div class="ch-def-margin-top">
-                        <input type="submit" name="post_submit" value="[L[Submit]]" onclick="f.disableSubmitButton(this, true, false);" class="ch-btn" />
+                    <div class="ch-def-margin-top" style="position: relative;">
+                        <input type="submit" name="post_submit" value="[L[Submit]]" onclick="f.disableSubmitButton(); tinyMCE.triggerSave();" class="ch-btn" />
                         <input type="reset" name="cancel" value="[L[Cancel]]" onclick="return f.cancelReply()" class="ch-btn" />
                         <div class="clear_both"></div>
+                        <div id="submit_btn_overlay"></div>
                     </div>
 
     			</form>
 
-			    <iframe width="1" height="1" border="0" name="post_reply" style="border:none;" ></iframe>
+			    <iframe width="0" height="0" border="0" name="post_reply" style="border:none;" ></iframe>
 
             </div>
 
