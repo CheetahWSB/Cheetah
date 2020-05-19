@@ -133,7 +133,9 @@ input,
 input.no,
 textarea,
 textarea.no,
-button {}
+button {
+  outline: none;  
+}
 
 div.sys_root {
 	position: relative;
