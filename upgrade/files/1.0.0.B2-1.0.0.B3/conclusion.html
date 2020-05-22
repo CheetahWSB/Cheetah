@@ -6,21 +6,21 @@
 </style>
 <span class="dbboldred">IMPORTANT!!!</span><br />
 <br />
-Automatic part of upgrade is completed. Please do the following to complete upgrade 
+Automatic part of upgrade is completed. Please do the following to complete upgrade
 process:
-<p>The desktop module has been removed from Cheetah, so it must be removed from your site. Do the 
-following to remove it.</p>
 <ul>
-	<li>Delete the folder <b>modules/cheetah/desktop</b> via FTP or SSH</li>
+	<li>Delete the file <b>inc/classes/ChWsbCacheAPC.php</b> via FTP or SSH</li>
+	<li>Delete the file <b>inc/classes/ChWsbCacheXCache.php</b> via FTP or SSH</li>
+
 </ul>
 <p>Now perform the following cleanup steps and the upgrade will be complete.</p>
 <ul>
-	<li>Clean the <b>/cache/</b>, <b>/cache_public/</b> and <b>/tmp/</b> folders 
+	<li>Clean the <b>/cache/</b>, <b>/cache_public/</b> and <b>/tmp/</b> folders
 	via FTP or SSH, leave only .htaccess file there if one exists</li>
-	<li>Recompile system language file from Admin Panel -&gt; Settings -&gt; Languages 
+	<li>Recompile system language file from Admin Panel -&gt; Settings -&gt; Languages
 	Settings -&gt; Languages</li>
 	<li>Clean <b>/cache/</b> folder again</li>
-	<li>Recompile Forum language file for all templates from Admin Panel -&gt; Modules 
+	<li>Recompile Forum language file for all templates from Admin Panel -&gt; Modules
 	-&gt; Forum -&gt; Manage Forum</li>
 	<li>Remove <b>/upgrade/</b> directory</li>
 </ul>

@@ -50,6 +50,158 @@ class ChWsbProfileFields extends Thing
                 return false;
         }
 
+        // Deano botdetection start.
+        $bMode = getParam('sys_antispam_bot_check') == 'on';
+        if($bMode) {
+            $iJoinBlock = $GLOBALS['MySQL']->getOne("SELECT `JoinBlock` FROM `sys_profile_fields` WHERE `Name` = 'Password'");
+            if($this -> iAreaID == 1) {
+                $this -> aCache[1][0][$iJoinBlock]['Items'][] = array(
+                    'Name' => 'starttime',
+                    'Type' => 'text',
+                    'Control' => '',
+                    'Extra' => '',
+                    'Min' => '0',
+                    'Max' => '512',
+                    'Values' => '',
+                    'Check' => '',
+                    'Unique' => '',
+                    'Mandatory' => '',
+                    'UseLKey' => 'LKey',
+                    'Default' => 'spam',
+                    'Caption' => '_FieldCaption_starttime_Join',
+                    'Desc' => '_FieldDesc_starttime_Join',
+                    'MandatoryMsg' => '_FieldError_starttime_Mandatory',
+                    'MinMsg' => '_FieldError_starttime_Min',
+                    'MaxMsg' => '_FieldError_starttime_Max',
+                    'UniqueMsg' => '_FieldError_starttime_Unique',
+                    'CheckMsg' => '_FieldError_starttime_Check',
+                );
+                $this -> aCache[1][0][$iJoinBlock]['Items'][] = array(
+                    'Name' => 'youremail',
+                    'Type' => 'text',
+                    'Control' => '',
+                    'Extra' => '',
+                    'Min' => '0',
+                    'Max' => '512',
+                    'Values' => '',
+                    'Check' => '',
+                    'Unique' => '',
+                    'Mandatory' => '',
+                    'UseLKey' => 'LKey',
+                    'Default' => 'spam',
+                    'Caption' => '_FieldCaption_youremail_Join',
+                    'Desc' => '_FieldDesc_youremail_Join',
+                    'MandatoryMsg' => '_FieldError_youremail_Mandatory',
+                    'MinMsg' => '_FieldError_youremail_Min',
+                    'MaxMsg' => '_FieldError_youremail_Max',
+                    'UniqueMsg' => '_FieldError_youremail_Unique',
+                    'CheckMsg' => '_FieldError_youremail_Check',
+                );
+                $this -> aCache[1][0][$iJoinBlock]['Items'][] = array(
+                    'Name' => 'reg_email',
+                    'Type' => 'text',
+                    'Control' => '',
+                    'Extra' => '',
+                    'Min' => '0',
+                    'Max' => '512',
+                    'Values' => '',
+                    'Check' => '',
+                    'Unique' => '',
+                    'Mandatory' => '',
+                    'UseLKey' => 'LKey',
+                    'Default' => 'spam',
+                    'Caption' => '_FieldCaption_reg_email_Join',
+                    'Desc' => '_FieldDesc_reg_email_Join',
+                    'MandatoryMsg' => '_FieldError_reg_email_Mandatory',
+                    'MinMsg' => '_FieldError_reg_email_Min',
+                    'MaxMsg' => '_FieldError_reg_email_Max',
+                    'UniqueMsg' => '_FieldError_reg_email_Unique',
+                    'CheckMsg' => '_FieldError_reg_email_Check',
+                );
+                $this -> aCache[1][0][$iJoinBlock]['Items'][] = array(
+                    'Name' => 'reg_name',
+                    'Type' => 'text',
+                    'Control' => '',
+                    'Extra' => '',
+                    'Min' => '0',
+                    'Max' => '512',
+                    'Values' => '',
+                    'Check' => '',
+                    'Unique' => '',
+                    'Mandatory' => '',
+                    'UseLKey' => 'LKey',
+                    'Default' => 'spam',
+                    'Caption' => '_FieldCaption_reg_name_Join',
+                    'Desc' => '_FieldDesc_reg_name_Join',
+                    'MandatoryMsg' => '_FieldError_reg_name_Mandatory',
+                    'MinMsg' => '_FieldError_reg_name_Min',
+                    'MaxMsg' => '_FieldError_reg_name_Max',
+                    'UniqueMsg' => '_FieldError_reg_name_Unique',
+                    'CheckMsg' => '_FieldError_reg_name_Check',
+                );
+                $this -> aCache[1][0][$iJoinBlock]['Items'][] = array(
+                    'Name' => 'reg_nickname',
+                    'Type' => 'text',
+                    'Control' => '',
+                    'Extra' => '',
+                    'Min' => '0',
+                    'Max' => '512',
+                    'Values' => '',
+                    'Check' => '',
+                    'Unique' => '',
+                    'Mandatory' => '',
+                    'UseLKey' => 'LKey',
+                    'Default' => 'spam',
+                    'Caption' => '_FieldCaption_reg_nickname_Join',
+                    'Desc' => '_FieldDesc_reg_nickname_Join',
+                    'MandatoryMsg' => '_FieldError_reg_nickname_Mandatory',
+                    'MinMsg' => '_FieldError_reg_nickname_Min',
+                    'MaxMsg' => '_FieldError_reg_nickname_Max',
+                    'UniqueMsg' => '_FieldError_reg_nickname_Unique',
+                    'CheckMsg' => '_FieldError_reg_nickname_Check',
+                );
+
+                $this -> aCache[100][0]['Items'][] = array(
+                    'Name' => 'starttime',
+                    'Type' => 'text',
+                    'Default' => 'spam',
+                    'Unique' => '',
+                    'Extra' => '',
+                );
+                $this -> aCache[100][0]['Items'][] = array(
+                    'Name' => 'youremail',
+                    'Type' => 'text',
+                    'Default' => 'spam',
+                    'Unique' => '',
+                    'Extra' => '',
+                );
+                $this -> aCache[100][0]['Items'][] = array(
+                    'Name' => 'reg_email',
+                    'Type' => 'text',
+                    'Default' => 'spam',
+                    'Unique' => '',
+                    'Extra' => '',
+                );
+                $this -> aCache[100][0]['Items'][] = array(
+                    'Name' => 'reg_name',
+                    'Type' => 'text',
+                    'Default' => 'spam',
+                    'Unique' => '',
+                    'Extra' => '',
+                );
+                $this -> aCache[100][0]['Items'][] = array(
+                    'Name' => 'reg_nickname',
+                    'Type' => 'text',
+                    'Default' => 'spam',
+                    'Unique' => '',
+                    'Extra' => '',
+                );
+            }
+            //echo '<pre>' . print_r($this -> aCache, true) . '</pre>';
+            //exit;
+        }
+        // Deano botdetection end.
+
         $this -> aArea = $this -> aCache[ $this -> iAreaID ];
 
         //load blocks
@@ -481,12 +633,11 @@ class ChWsbProfileFields extends Thing
 
             case 'Agree':
             case 'TermsOfUse':
-                $i = getParam(base64_decode('c3lzX2FudGlzcGFtX3NtYXJ0X2NoZWNr')) && ch_get('do_submit');
                 ch_import('ChWsbStopForumSpam');
                 $oChWsbStopForumSpam = new ChWsbStopForumSpam();
                 if (2 == getParam('ipBlacklistMode') && ch_is_ip_blocked())
                     return _t('_Sorry, your IP been banned');
-                elseif (('on' == getParam('sys_dnsbl_enable') && 'block' == getParam('sys_dnsbl_behaviour') && ch_is_ip_dns_blacklisted('', 'join')) || $i || $oChWsbStopForumSpam->isSpammer(array('email' => $_POST['Email'][0], 'ip' => getVisitorIP(false)), 'join'))
+                elseif (('on' == getParam('sys_dnsbl_enable') && 'block' == getParam('sys_dnsbl_behaviour') && ch_is_ip_dns_blacklisted('', 'join')) || $oChWsbStopForumSpam->isSpammer(array('email' => $_POST['Email'][0], 'ip' => getVisitorIP(false)), 'join'))
                     return sprintf(_t('_sys_spam_detected'), CH_WSB_URL_ROOT . 'contact.php');
                 else
                     return $aItem['Name'] != 'TermsOfUse' || $mValue ? true : _t( '_You must agree with terms of use' );

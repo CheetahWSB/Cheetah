@@ -196,6 +196,11 @@ if (isset($_GET['popup'])) {
             $sPopupContent = PageCodeLog ('stopforumspam');
             break;
 
+        case 'botdetection_log':
+            $sPopupTitle = _t('_sys_adm_title_botdetection_log');
+            $sPopupContent = PageCodeLog ('botdetection');
+            break;
+
         case 'dnsbl_recheck':
             $sPopupTitle = _t('_sys_adm_title_dnsbl_recheck');
             $aChains = array(CH_WSB_DNSBL_CHAIN_SPAMMERS, CH_WSB_DNSBL_CHAIN_WHITELIST);
@@ -334,6 +339,13 @@ $aPages = array (
         'url' => CH_WSB_URL_ADMIN . 'antispam.php?mode=stopforumspam',
         'func' => 'PageCodeStopForumSpam',
         'func_params' => array('stopforumspam'),
+    ),
+    'botdetection' => array (
+        'option' => 'sys_antispam_bot_check',
+        'title' => _t('_sys_adm_page_cpt_botdetection'),
+        'url' => CH_WSB_URL_ADMIN . 'antispam.php?mode=botdetection',
+        'func' => 'PageCodeBotDetection',
+        'func_params' => array('botdetection'),
     ),
     'settings' => array (
         'option' => '',
@@ -474,6 +486,49 @@ function PageCodeStopForumSpam($sMode)
     return DesignBoxAdmin($GLOBALS['sPageTitle'], $s, $GLOBALS['aTopItems']);
 }
 
+function PageCodeBotDetection($sMode)
+{
+    global $aPages;
+
+    $bMode = getParam($aPages[$sMode]['option']) == 'on';
+    $sTopControls = $GLOBALS['oAdmTemplate']->parseHtmlByName('antispam_botdetection_top_controls.html', array(
+        'status' => $bMode ? _t('_sys_adm_enabled') : _t('_sys_adm_disabled'),
+        'status_class' => 'sys-adm-' . ($bMode ? 'enabled' : 'disabled')
+    ));
+
+    if($bMode) {
+        $iY = (int)date('Y');   // Year
+        $iM = (int)date('m');   // Month
+        $iD = (int)date('d');   // Day
+        $iN = (int)date('N');   // Day of week.
+        if($iN == 7) $iN = 0;   // 7 is sunday. Change 7 to 0 so week starts on sunday instead of monday.
+        $sT = date('Y-m-d');    // Todays full date.
+        $iTimeD = strtotime($sT . 'midnight');  // Time at midnight today.
+        $iTimeW = strtotime($sT . '- ' . $iN . ' day midnight');  // Time at midnight on sunday of this week.
+        $iTimeM = strtotime($iY . '-' . $iM . '-1 midnight'); // Time at midnight on first day of this month.
+
+        $iToday = $GLOBALS['MySQL']->getOne("SELECT COUNT(`ip`) FROM `sys_antispam_block_log` WHERE `type` = 'botdetection' AND `added` > '$iTimeD'");
+        $iWeek = $GLOBALS['MySQL']->getOne("SELECT COUNT(`ip`) FROM `sys_antispam_block_log` WHERE `type` = 'botdetection' AND `added` > '$iTimeW'");
+        $iMonth = $GLOBALS['MySQL']->getOne("SELECT COUNT(`ip`) FROM `sys_antispam_block_log` WHERE `type` = 'botdetection' AND `added` > '$iTimeM'");
+    }
+
+    $s = $GLOBALS['oAdmTemplate']->parseHtmlByName('antispam_botdetection.html', array(
+        'top_controls' => $sTopControls,
+        'key_status' => $sKeyStatus,
+        'key_status_class' => $sKeyStatusClass,
+        'ch_if:botdetection' => array(
+            'condition' => $bMode,
+            'content' => array (
+                'blocked_today' => $iToday,
+                'blocked_week' => $iWeek,
+                'blocked_month' => $iMonth,
+            ),
+        ),
+    ));
+
+    return DesignBoxAdmin($GLOBALS['sPageTitle'], $s, $GLOBALS['aTopItems']);
+}
+
 function PageCodeRecheckPopup ($aChains, $sFieldTitle, $sId, $sAction)
 {
     $sPlaceholders = implode(',', array_fill(0, count($aChains), '?'));
@@ -497,6 +552,7 @@ function PageCodeLog ($sMode)
         case 'dnsbluri':
         case 'akismet':
         case 'stopforumspam':
+        case 'botdetection':
             break;
         default:
             $sMode = 'dnsbl';

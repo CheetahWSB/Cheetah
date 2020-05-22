@@ -847,8 +847,13 @@ class ChWsbPFM
 
             $sName = trim( strip_tags( process_pass_data( $aData['Name'] ) ) );
 
+            $aReservedNames = array('starttime', 'youremail', 'reg_email', 'reg_name', 'reg_nickname');
+
             if( $sName === '' ) {
                 $this -> genSaveItemError( _t('_adm_fields_error_you_must_enter_name'), 'Name' );
+                $bHaveErrors = true;
+            } elseif( in_array($sName, $aReservedNames) ) {
+                $this -> genSaveItemError( _t('_adm_fields_error_reserved_name'), 'Name' );
                 $bHaveErrors = true;
             } elseif( $aItem['Type'] != 'block' and !preg_match( '/^[a-z][a-z0-9_]*$/i', $sName ) ) {
                 $this -> genSaveItemError( _t('_adm_fields_error_name_latin'), 'Name' );

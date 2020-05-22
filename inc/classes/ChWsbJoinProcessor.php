@@ -236,6 +236,65 @@ class ChWsbJoinProcessor
         if (empty($aProfile1['NickName']))
             $aProfile1['NickName'] = uriGenerate((empty($aProfile1['FirstName']) ? genRndPwd(10, false) : $aProfile1['FirstName']), 'Profiles', 'NickName');
 
+            // Begin Bot Detection.
+            $aProfile1['endtime']  = (int)time();
+            $aProfile1['timediff'] = $aProfile1['endtime'] - $aProfile1['starttime'];
+            $bBotCheck = ('on' == getParam(sys_antispam_bot_check) ? true : false);
+            if($bBotCheck) {
+                // Check hidden fields for content. If there, we have a bot. If bot, do not create account.
+                $bBot = false;
+                if (isset($aProfile1['youremail']) && !empty($aProfile1['youremail'])) {
+                    $bBot = true;
+                }
+                if (isset($aProfile1['reg_email']) && !empty($aProfile1['reg_email'])) {
+                    $bBot = true;
+                }
+                if (isset($aProfile1['reg_name']) && !empty($aProfile1['reg_name'])) {
+                    $bBot = true;
+                }
+                if (isset($aProfile1['reg_nickname']) && !empty($aProfile1['reg_nickname'])) {
+                    $bBot = true;
+                }
+
+                // Check DescriptionMe for links and images.
+                if (strpos($aProfile1['DescriptionMe'], '<img src=') !== false) {
+                    $bBot = true;
+                }
+                if (strpos($aProfile1['DescriptionMe'], '<a href=') !== false) {
+                    $bBot = true;
+                }
+                if (strpos($aProfile1['DescriptionMe'], 'https://') !== false) {
+                    $bBot = true;
+                }
+                if (strpos($aProfile1['DescriptionMe'], 'http://') !== false) {
+                    $bBot = true;
+                }
+
+                // Check time. Bots can usally submit the join form in less than 5 seconds. Humans cannot.
+                if ((int)$aProfile1['timediff'] <= 5) {
+                    $bBot = true;
+                }
+
+                if ($bBot) {
+                    // Log detection.
+                    $o = ch_instance('ChWsbDNSBlacklists');
+                    $o->onPositiveDetection (getVisitorIP(false), 'Bot blocked on join.', 'botdetection');
+                    // Fail join.
+                    return array(false, 'Fail');
+                }
+
+                // Remove bot detection fields from $aProfile1 before creating the new account
+                // because these fields don't actually exist in the Profiles table.
+                unset($aProfile1['endtime']);
+                unset($aProfile1['timediff']);
+                unset($aProfile1['starttime']);     // This field is in the sys_profile_fields table
+                unset($aProfile1['youremail']);     // This field is in the sys_profile_fields table
+                unset($aProfile1['reg_email']);     // This field is in the sys_profile_fields table
+                unset($aProfile1['reg_name']);      // This field is in the sys_profile_fields table
+                unset($aProfile1['reg_nickname']);  // This field is in the sys_profile_fields table
+            }
+            // End Bot Detection.
+
         list($iId1, $sStatus1) = $oPC->createProfile($aProfile1);
 
         //--- check whether profile was created successfully or not

@@ -1225,17 +1225,17 @@ INSERT INTO `sys_options` VALUES
 -- CAT: Antispam
 SET @iCatAntispam = 23;
 INSERT INTO `sys_options` VALUES
-('sys_dnsbl_enable', '', @iCatAntispam, 'Enable DNS Block Lists', 'checkbox', '', '', 10, ''),
-('sys_dnsbl_behaviour', 'approval', @iCatAntispam, 'User join behaviour if listed in DNS Block Lists', 'select', '', '', 11, 'block,approval'),
-('sys_uridnsbl_enable', '', @iCatAntispam, 'Enable URI DNS Block Lists', 'checkbox', '', '', 20, ''),
-('sys_akismet_enable', '', @iCatAntispam, 'Enable Akismet', 'checkbox', '', '', 30, ''),
-('sys_akismet_api_key', '', @iCatAntispam, 'Akismet API Key', 'digit', '', '', 40, ''),
-('sys_stopforumspam_enable', '', @iCatAntispam, 'Enable "Stop Forum Spam"', 'checkbox', '', '', 45, ''),
-('sys_stopforumspam_api_key', '', @iCatAntispam, '"Stop Forum Spam" API Key', 'digit', '', '', 46, ''),
-('sys_antispam_block', '', @iCatAntispam, 'Total block all spam content', 'checkbox', '', '', 50, ''),
-('sys_antispam_report', 'on', @iCatAntispam, 'Send report to admin if spam content discovered', 'checkbox', '', '', 60, ''),
-('sys_antispam_smart_check', '', @iCatAntispam, 'Smart antispam check', 'checkbox', '', '', 70, ''),
-('sys_antispam_add_nofollow', '', @iCatAntispam, 'Add "nofollow" attribute for external links', 'checkbox', '', '', 80, '');
+('sys_antispam_bot_check', '', @iCatAntispam, 'Block Detected Spam Bots', 'checkbox', '', '', 10, ''),
+('sys_dnsbl_enable', '', @iCatAntispam, 'Enable DNS Block Lists', 'checkbox', '', '', 20, ''),
+('sys_dnsbl_behaviour', 'approval', @iCatAntispam, 'User join behaviour if listed in DNS Block Lists', 'select', '', '', 30, 'block,approval'),
+('sys_uridnsbl_enable', '', @iCatAntispam, 'Enable URI DNS Block Lists', 'checkbox', '', '', 40, ''),
+('sys_akismet_enable', '', @iCatAntispam, 'Enable Akismet', 'checkbox', '', '', 50, ''),
+('sys_akismet_api_key', '', @iCatAntispam, 'Akismet API Key', 'digit', '', '', 60, ''),
+('sys_stopforumspam_enable', '', @iCatAntispam, 'Enable "Stop Forum Spam"', 'checkbox', '', '', 70, ''),
+('sys_stopforumspam_api_key', '', @iCatAntispam, '"Stop Forum Spam" API Key', 'digit', '', '', 80, ''),
+('sys_antispam_block', '', @iCatAntispam, 'Total block all spam content', 'checkbox', '', '', 90, ''),
+('sys_antispam_report', 'on', @iCatAntispam, 'Send report to admin if spam content discovered', 'checkbox', '', '', 100, ''),
+('sys_antispam_add_nofollow', '', @iCatAntispam, 'Add "nofollow" attribute for external links', 'checkbox', '', '', 110, '');
 
 
 -- CAT: Caching
