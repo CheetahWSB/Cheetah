@@ -8,6 +8,9 @@ UPDATE `sys_options` SET `AvailableValues` = 'File,Memcache' WHERE `Name` = 'sys
 UPDATE `sys_options` SET `AvailableValues` = 'FileHtml,Memcache' WHERE `Name` = 'sys_template_cache_engine';
 
 DELETE FROM `sys_options` WHERE `Name` = 'sys_antispam_smart_check';
+
+INSERT IGNORE INTO `sys_options` VALUES ('sys_antispam_bot_check', '', 23, 'Block Detected Spam Bots', 'checkbox', '', '', 10, '');
+
 UPDATE `sys_options` SET `order_in_kateg` = '10' WHERE `Name` = 'sys_antispam_bot_check';
 UPDATE `sys_options` SET `order_in_kateg` = '20' WHERE `Name` = 'sys_dnsbl_enable';
 UPDATE `sys_options` SET `order_in_kateg` = '30' WHERE `Name` = 'sys_dnsbl_behaviour';
