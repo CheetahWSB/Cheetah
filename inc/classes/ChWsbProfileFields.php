@@ -50,9 +50,8 @@ class ChWsbProfileFields extends Thing
                 return false;
         }
 
-        // Deano botdetection start.
-        $bMode = getParam('sys_antispam_bot_check') == 'on';
-        if($bMode) {
+        $bBotCheck = ('on' == getParam(sys_antispam_bot_check) ? true : false);
+        if($bBotCheck) {
             $iJoinBlock = $GLOBALS['MySQL']->getOne("SELECT `JoinBlock` FROM `sys_profile_fields` WHERE `Name` = 'Password'");
             if($this -> iAreaID == 1) {
                 $this -> aCache[1][0][$iJoinBlock]['Items'][] = array(
@@ -197,10 +196,7 @@ class ChWsbProfileFields extends Thing
                     'Extra' => '',
                 );
             }
-            //echo '<pre>' . print_r($this -> aCache, true) . '</pre>';
-            //exit;
         }
-        // Deano botdetection end.
 
         $this -> aArea = $this -> aCache[ $this -> iAreaID ];
 
@@ -1487,9 +1483,9 @@ EOF;
                     ),
                 );
 
-                $aInputsTemp = $this->convertJoinField2Input($aItem, $aInputParams, 0);
                 $bBotCheck = ('on' == getParam(sys_antispam_bot_check) ? true : false);
                 if($bBotCheck) {
+                    $aInputsTemp = $this->convertJoinField2Input($aItem, $aInputParams, 0);
                     if($aItem['Default'] == 'spam') {
                       $aInputsTemp['value'] = '';
                       $aInputsTemp['Default'] = '';
@@ -1498,8 +1494,10 @@ EOF;
                     if($aItem['Name'] == 'starttime') {
                       $aInputsTemp['value'] = (int)time();
                     }
+                    $aInputs[] = $aInputsTemp;
+                } else {
+                    $aInputs[] = $this->convertJoinField2Input($aItem, $aInputParams, 0);
                 }
-                $aInputs[] = $aInputsTemp;
 
                 if ($bCoupleEnabled && !in_array( $aItem['Name'], $this -> aCoupleMutual ))
                     $aAddInputs[] = $this->convertJoinField2Input($aItem, $aInputParams, 1);
