@@ -68,13 +68,13 @@ class ChWsbProfileFields extends Thing
                     'Mandatory' => '',
                     'UseLKey' => 'LKey',
                     'Default' => 'spam',
-                    'Caption' => '_FieldCaption_starttime_Join',
-                    'Desc' => '_FieldDesc_starttime_Join',
-                    'MandatoryMsg' => '_FieldError_starttime_Mandatory',
-                    'MinMsg' => '_FieldError_starttime_Min',
-                    'MaxMsg' => '_FieldError_starttime_Max',
-                    'UniqueMsg' => '_FieldError_starttime_Unique',
-                    'CheckMsg' => '_FieldError_starttime_Check',
+                    'Caption' => '',
+                    'Desc' => '',
+                    'MandatoryMsg' => '',
+                    'MinMsg' => '',
+                    'MaxMsg' => '',
+                    'UniqueMsg' => '',
+                    'CheckMsg' => '',
                 );
                 $this -> aCache[1][0][$iJoinBlock]['Items'][] = array(
                     'Name' => 'youremail',
@@ -89,13 +89,13 @@ class ChWsbProfileFields extends Thing
                     'Mandatory' => '',
                     'UseLKey' => 'LKey',
                     'Default' => 'spam',
-                    'Caption' => '_FieldCaption_youremail_Join',
-                    'Desc' => '_FieldDesc_youremail_Join',
-                    'MandatoryMsg' => '_FieldError_youremail_Mandatory',
-                    'MinMsg' => '_FieldError_youremail_Min',
-                    'MaxMsg' => '_FieldError_youremail_Max',
-                    'UniqueMsg' => '_FieldError_youremail_Unique',
-                    'CheckMsg' => '_FieldError_youremail_Check',
+                    'Caption' => '',
+                    'Desc' => '',
+                    'MandatoryMsg' => '',
+                    'MinMsg' => '',
+                    'MaxMsg' => '',
+                    'UniqueMsg' => '',
+                    'CheckMsg' => '',
                 );
                 $this -> aCache[1][0][$iJoinBlock]['Items'][] = array(
                     'Name' => 'reg_email',
@@ -110,13 +110,13 @@ class ChWsbProfileFields extends Thing
                     'Mandatory' => '',
                     'UseLKey' => 'LKey',
                     'Default' => 'spam',
-                    'Caption' => '_FieldCaption_reg_email_Join',
-                    'Desc' => '_FieldDesc_reg_email_Join',
-                    'MandatoryMsg' => '_FieldError_reg_email_Mandatory',
-                    'MinMsg' => '_FieldError_reg_email_Min',
-                    'MaxMsg' => '_FieldError_reg_email_Max',
-                    'UniqueMsg' => '_FieldError_reg_email_Unique',
-                    'CheckMsg' => '_FieldError_reg_email_Check',
+                    'Caption' => '',
+                    'Desc' => '',
+                    'MandatoryMsg' => '',
+                    'MinMsg' => '',
+                    'MaxMsg' => '',
+                    'UniqueMsg' => '',
+                    'CheckMsg' => '',
                 );
                 $this -> aCache[1][0][$iJoinBlock]['Items'][] = array(
                     'Name' => 'reg_name',
@@ -131,13 +131,13 @@ class ChWsbProfileFields extends Thing
                     'Mandatory' => '',
                     'UseLKey' => 'LKey',
                     'Default' => 'spam',
-                    'Caption' => '_FieldCaption_reg_name_Join',
-                    'Desc' => '_FieldDesc_reg_name_Join',
-                    'MandatoryMsg' => '_FieldError_reg_name_Mandatory',
-                    'MinMsg' => '_FieldError_reg_name_Min',
-                    'MaxMsg' => '_FieldError_reg_name_Max',
-                    'UniqueMsg' => '_FieldError_reg_name_Unique',
-                    'CheckMsg' => '_FieldError_reg_name_Check',
+                    'Caption' => '',
+                    'Desc' => '',
+                    'MandatoryMsg' => '',
+                    'MinMsg' => '',
+                    'MaxMsg' => '',
+                    'UniqueMsg' => '',
+                    'CheckMsg' => '',
                 );
                 $this -> aCache[1][0][$iJoinBlock]['Items'][] = array(
                     'Name' => 'reg_nickname',
@@ -152,13 +152,13 @@ class ChWsbProfileFields extends Thing
                     'Mandatory' => '',
                     'UseLKey' => 'LKey',
                     'Default' => 'spam',
-                    'Caption' => '_FieldCaption_reg_nickname_Join',
-                    'Desc' => '_FieldDesc_reg_nickname_Join',
-                    'MandatoryMsg' => '_FieldError_reg_nickname_Mandatory',
-                    'MinMsg' => '_FieldError_reg_nickname_Min',
-                    'MaxMsg' => '_FieldError_reg_nickname_Max',
-                    'UniqueMsg' => '_FieldError_reg_nickname_Unique',
-                    'CheckMsg' => '_FieldError_reg_nickname_Check',
+                    'Caption' => '',
+                    'Desc' => '',
+                    'MandatoryMsg' => '',
+                    'MinMsg' => '',
+                    'MaxMsg' => '',
+                    'UniqueMsg' => '',
+                    'CheckMsg' => '',
                 );
 
                 $this -> aCache[100][0]['Items'][] = array(
@@ -1487,7 +1487,19 @@ EOF;
                     ),
                 );
 
-                $aInputs[] = $this->convertJoinField2Input($aItem, $aInputParams, 0);
+                $aInputsTemp = $this->convertJoinField2Input($aItem, $aInputParams, 0);
+                $bBotCheck = ('on' == getParam(sys_antispam_bot_check) ? true : false);
+                if($bBotCheck) {
+                    if($aItem['Default'] == 'spam') {
+                      $aInputsTemp['value'] = '';
+                      $aInputsTemp['Default'] = '';
+                      $aInputsTemp['tr_attrs'] = array('class' => 'hidable');
+                    }
+                    if($aItem['Name'] == 'starttime') {
+                      $aInputsTemp['value'] = (int)time();
+                    }
+                }
+                $aInputs[] = $aInputsTemp;
 
                 if ($bCoupleEnabled && !in_array( $aItem['Name'], $this -> aCoupleMutual ))
                     $aAddInputs[] = $this->convertJoinField2Input($aItem, $aInputParams, 1);
