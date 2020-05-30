@@ -356,14 +356,14 @@ class ChWsbInstaller extends ChWsbInstallerUtils
         $sFile = $this->_aConfig[($bInstall ? 'install_info' : 'uninstall_info')]['introduction'];
         $sPath = $this->_sHomePath . 'install/info/' . $sFile;
 
-        return file_exists($sPath) ? array("code" => CH_WSB_INSTALLER_SUCCESS, "content" => "<pre>" . file_get_contents($sPath) . "</pre>") : CH_WSB_INSTALLER_FAILED;
+        return file_exists($sPath) ? array("code" => CH_WSB_INSTALLER_SUCCESS, "content" => "<pre>" . file_get_contents($sPath) . "</pre>") : array("code" => CH_WSB_INSTALLER_FAILED, "content" => "<pre>Could not show Introduction. Does not exist.</pre>");
     }
     function actionShowConclusion($bInstall = true)
     {
         $sFile = $this->_aConfig[($bInstall ? 'install_info' : 'uninstall_info')]['conclusion'];
         $sPath = $this->_sHomePath . 'install/info/' . $sFile;
 
-        return file_exists($sPath) ? array("code" => CH_WSB_INSTALLER_SUCCESS, "content" => "<pre>" . file_get_contents($sPath) . "</pre>") : CH_WSB_INSTALLER_FAILED;
+        return file_exists($sPath) ? array("code" => CH_WSB_INSTALLER_SUCCESS, "content" => "<pre>" . file_get_contents($sPath) . "</pre>") : array("code" => CH_WSB_INSTALLER_FAILED, "content" => "<pre>Could not show Conclusion. Does not exist.</pre>");
     }
     function actionCheckPermissions($bInstall = true)
     {
