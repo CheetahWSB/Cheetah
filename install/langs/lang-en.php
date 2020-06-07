@@ -1873,6 +1873,8 @@ More info about URI DNSBL: <br />
   '_sys_adm_title_dnsbluri_log' => 'DNSBL URI Block Log',
   '_sys_adm_title_dnsbluri_recheck' => 'Recheck URL',
   '_sys_adm_title_stopforumspam_log' => 'Stop Forum Spam Block Log',
+  '_sys_adm_page_cpt_botdetection' => 'Bot Detection',
+  '_sys_adm_title_botdetection_log' => 'Bot Detection Log',
   '_sys_admin_apply' => 'Apply',
   '_sys_admin_filter' => 'Filter:',
   '_sys_album' => 'Album',
