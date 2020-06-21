@@ -1875,6 +1875,7 @@ More info about URI DNSBL: <br />
   '_sys_adm_title_stopforumspam_log' => 'Stop Forum Spam Block Log',
   '_sys_adm_page_cpt_botdetection' => 'Bot Detection',
   '_sys_adm_title_botdetection_log' => 'Bot Detection Log',
+  '_adm_fields_error_reserved_name' => 'Name entered is a reserved name and cannot be used.',  
   '_sys_admin_apply' => 'Apply',
   '_sys_admin_filter' => 'Filter:',
   '_sys_album' => 'Album',
