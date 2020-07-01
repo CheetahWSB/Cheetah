@@ -274,11 +274,8 @@ div.adm-menu-header .adm-menu-icon {
 	position: relative;
 	display: inline-block;
 	vertical-align: middle;
-
 	width: 24px;
 	height: 24px;
-
-	color: #333333;
 }
 
 div.adm-menu-header .adm-menu-icon.sys-icon {
@@ -358,8 +355,7 @@ img.adm-menu-item-icon {
 
 div.adm-menu-item-wrapper .sys-icon {
 	line-height: normal;
-    font-size: 18px;
-	color: #333333;
+  font-size: 18px;
 }
 div.adm-menu-item-wrapper.adm-mmi-active .sys-icon {
 	color: #333333;
