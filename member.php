@@ -7,6 +7,10 @@
 
 define('CH_MEMBER_PAGE', 1);
 
+define('CH_LOGIN_BY_ID', true);
+define('CH_LOGIN_BY_NICK', true);
+define('CH_LOGIN_BY_EMAIL', true);
+
 require_once('inc/header.inc.php');
 require_once(CH_DIRECTORY_PATH_INC . 'design.inc.php');
 require_once(CH_DIRECTORY_PATH_INC . 'profiles.inc.php');
@@ -48,6 +52,31 @@ if (!(isset($_POST['ID']) && $_POST['ID'] && isset($_POST['Password']) && $_POST
         $oZ = new ChWsbAlerts('profile', 'before_login', 0, 0, array('login' => $member['ID'], 'password' => $member['Password'], 'ip' => getVisitorIP()));
         $oZ->alert();
 
+        if(!CH_LOGIN_BY_ID) {
+            // Do not allow logins by ID.
+            if(ctype_digit($member['ID'])) {
+                echo 'Fail';
+                exit;
+            }
+        }
+
+        if(!CH_LOGIN_BY_NICK) {
+            // Do not allow logins by nickname.
+            $sNickName = $GLOBALS['MySQL']->getOne("SELECT `NickName` FROM `Profiles` WHERE `NickName`= ? LIMIT 1", [$member['ID']]);
+            if($sNickName == $member['ID']) {
+                echo 'Fail';
+                exit;
+            }
+        }
+
+        if(!CH_LOGIN_BY_EMAIL) {
+            // Do not allow logins by email.
+            if(filter_var($member['ID'], FILTER_VALIDATE_EMAIL)) {
+                echo 'Fail';
+                exit;
+            }
+        }
+        
         $member['ID'] = getID($member['ID']);
 
         // Ajaxy check
