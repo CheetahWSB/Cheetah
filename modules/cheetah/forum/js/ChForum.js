@@ -371,8 +371,11 @@ Forum.prototype.postReply = function (id_f, id_t) {
 
 	this.loading ('[L[LOADING POST REPLY PAGE]]');
 
-  $('body').scrollTop(180);
-
+  $('html, body')
+      .animate({
+          scrollTop: (0)
+      }, 250);
+      
 	var m = $('#reply_container');
 	if (!m.size())
 		new ChError("[L[orca_main div is not defined]]", "[L[please name orca_main content container]]");
