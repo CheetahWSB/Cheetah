@@ -64,7 +64,7 @@ class TagsCalendar extends ChTemplCalendar
         parent::__construct($iYear, $iMonth);
     }
 
-    function display()
+    function display($isMiniMode = false)
     {
         $sTopControls = $GLOBALS['oSysTemplate']->parseHtmlByName('calendar_top_controls.html', array(
             'month_prev_url' => $this->getBaseUri () . "&year={$this->iPrevYear}&month={$this->iPrevMonth}",
