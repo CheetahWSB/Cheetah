@@ -1,0 +1,101 @@
+<div id="emaillogpopupcont" style="position: relative;">
+	<table cellpadding="0" cellspacing="0" style="width: 100%">
+		<tr class="emaillogheader">
+			<td><ch_text:_adm_txt_emaillog_to /></td>
+			<td><ch_text:_adm_txt_emaillog_notify /></td>
+			<td><ch_text:_adm_txt_emaillog_subject /></td>
+			<td><ch_text:_adm_txt_emaillog_type /></td>
+			<td><ch_text:_adm_txt_emaillog_body /></td>
+			<td><ch_text:_adm_txt_emaillog_params /></td>
+			<td><ch_text:_adm_txt_emaillog_recipient_info /></td>
+			<td><ch_text:_adm_txt_emaillog_debug /></td>
+			<td><ch_text:_adm_txt_emaillog_date /></td>
+		</tr>
+     <ch_repeat:emaillog>
+        <tr>
+			<td>__email__</td>
+			<td>__emailnotify__</td>
+			<td>__subject__</td>
+			<td>__html__</td>
+			<td>
+			<a href="javascript: void(0);" onclick="$('.emaillogpopup').hide(); $('#log_id_body__id__').show();">
+			<ch_text:_adm_txt_emaillog_view /></a><div id="log_id_body__id__" class="emaillogpopup">
+				<div onclick="$('#log_id_body__id__').hide();" style="position: absolute; top: 1px; right: 4px; font-size: 24px; font-weight: bold; color: #fff; cursor: pointer;">
+					X</div>
+				<div style="width: 640px; background-color: #eee;">
+					__body__</div>
+			</div>
+			</td>
+			<td>
+			<a href="javascript: void(0);" onclick="$('.emaillogpopup').hide(); $('#log_id_params__id__').show();">
+			<ch_text:_adm_txt_emaillog_view /></a><div id="log_id_params__id__" class="emaillogpopup">
+				<div onclick="$('#log_id_params__id__').hide();" style="position: absolute; top: 1px; right: 4px; font-size: 24px; font-weight: bold; color: #fff; cursor: pointer;">
+					X</div>
+				<div style="width: 640px; background-color: #eee;">
+					__params__</div>
+			</div>
+			</td>
+			<td>
+			<a href="javascript: void(0);" onclick="$('.emaillogpopup').hide(); $('#log_id_recipientinfo__id__').show();">
+			<ch_text:_adm_txt_emaillog_view /></a><div id="log_id_recipientinfo__id__" class="emaillogpopup">
+				<div onclick="$('#log_id_recipientinfo__id__').hide();" style="position: absolute; top: 1px; right: 4px; font-size: 24px; font-weight: bold; color: #fff; cursor: pointer;">
+					X</div>
+				<div style="width: 640px; background-color: #eee;">
+					__recipientinfo__</div>
+			</div>
+			</td>
+			<td>
+			<a href="javascript: void(0);" onclick="$('.emaillogpopup').hide(); $('#log_id_debug__id__').show();">
+			<ch_text:_adm_txt_emaillog_view /></a><div id="log_id_debug__id__" class="emaillogpopup">
+				<div onclick="$('#log_id_debug__id__').hide();" style="position: absolute; top: 1px; right: 4px; font-size: 24px; font-weight: bold; color: #fff; cursor: pointer;">
+					X</div>
+				<div style="width: 640px; background-color: #eee;">
+					__debug__</div>
+			</div>
+			</td>
+			<td>__phptime__</td>
+		</tr>
+     </ch_repeat:emaillog>
+    </table>
+</div>
+<style>
+#emaillogpopupcont p {
+	white-space: normal;
+}
+#emaillogpopupcont pre {
+	white-space: pre-wrap;
+}
+#emaillogpopupcont td {
+	padding: 2px;
+}
+.quote_post {
+	font-style: italic;
+	border: 1px solid #666666;
+	display: block;
+	padding: 2px;
+	margin: 0;
+	margin-left: 20px;
+	margin-bottom: 10px;
+}
+.emaillogheader {
+	background-color: #276cbc;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+#emaillogpopupcont .emaillogheader td {
+	padding-top: 6px;
+	padding-bottom: 6px;
+}
+.emaillogpopup {
+	position: fixed;
+	display: none;
+	top: 103px;
+	left: 50%;
+	margin-left: -320px;
+	padding: 30px 4px 4px 4px;
+	background-color: #276cbc;
+	border-radius: 6px;
+	-webkit-box-shadow: 5px 5px 15px 5px #000000;
+	box-shadow: 5px 5px 15px 5px #000000;
+}
+</style>

@@ -37,6 +37,7 @@ class ChWsbCronCmd extends ChWsbCron
         $db_clean_visits = (int) getParam("db_clean_members_visits");
         $db_clean_banners_info = (int) getParam("db_clean_banners_info");
         $db_clean_mem_levels = (int) getParam("db_clean_mem_levels");
+        $db_clean_email_log = (int) getParam("email_log_ttl_days");
 
         //clear from `sys_acl_levels_members`
         if (db_res("DELETE FROM `sys_acl_levels_members` WHERE `DateExpires` < NOW() - INTERVAL $db_clean_mem_levels DAY")) {
@@ -66,6 +67,13 @@ class ChWsbCronCmd extends ChWsbCron
         // clear ban table
         if (db_res("DELETE FROM `sys_admin_ban_list` WHERE `DateTime` + INTERVAL `Time` SECOND < NOW()")) {
             db_res("OPTIMIZE TABLE `sys_admin_ban_list`");
+        }
+
+        //clear from `sys_email_log`
+        if ($db_clean_email_log > 0) {
+            if (db_res("DELETE FROM `sys_email_log` WHERE `timestamp` < NOW() - INTERVAL $db_clean_email_log DAY")) {
+                db_res("OPTIMIZE TABLE `sys_email_log`");
+            }
         }
 
         // profile_delete

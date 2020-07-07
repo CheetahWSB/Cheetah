@@ -5,7 +5,7 @@
 -- --------------------------------------------------------
 
 SET NAMES 'utf8';
-DROP TABLE IF EXISTS `sys_account_custom_stat_elements`, `sys_admin_ban_list`, `sys_menu_admin`, `sys_menu_admin_top`, `sys_menu_bottom`, `sys_menu_service`, `sys_albums`, `sys_albums_objects`,`sys_banners`, `sys_banners_clicks`, `sys_banners_shows`, `sys_block_list`, `sys_categories`, `sys_objects_categories`, `sys_objects_cmts`, `sys_cmts_profile`, `sys_cmts_track`, `sys_color_base`, `sys_countries`, `sys_email_templates`, `sys_menu_member`, `sys_friend_list`, `sys_options`, `sys_options_cats`, `sys_fave_list`, `sys_ip_list`, `sys_ip_members_visits`, `sys_localization_categories`, `sys_localization_keys`, `sys_localization_languages`, `sys_localization_string_params`, `sys_localization_strings`, `sys_acl_actions`, `sys_acl_actions_track`, `sys_acl_matrix`, `sys_acl_level_prices`, `sys_acl_levels`, `sys_messages`, `sys_page_compose`, `sys_page_compose_pages`, `sys_page_compose_privacy`, `sys_sessions`, `sys_stat_member`, `sys_pre_values`, `sys_profile_fields`, `sys_acl_levels_members`, `Profiles`, `sys_profile_views_track`, `sys_profiles_match`, `sys_profile_rating`, `sys_profile_voting_track`, `RayBoardCurrentUsers`, `RayBoardBoards`, `RayBoardUsers`, `RayChatCurrentUsers`, `RayChatMessages`, `RayChatHistory`, `RayChatProfiles`, `RayChatRooms`, `RayChatRoomsUsers`, `RayChatMembershipsSettings`, `RayChatMemberships`, `RayImContacts`, `RayImMessages`, `RayImPendings`, `RayImProfiles`, `RayMp3Files`, `RayMp3Tokens`, `RayShoutboxMessages`, `RayVideoFiles`, `RayVideoTokens`, `RayVideo_commentsFiles`, `RayVideo_commentsTokens`, `sys_objects_search`, `sys_shared_sites`, `sys_stat_site`, `sys_alerts`, `sys_alerts_handlers`, `sys_injections`, `sys_injections_admin`, `sys_modules`, `sys_modules_file_tracks`, `sys_permalinks`, `sys_privacy_actions`, `sys_privacy_defaults`, `sys_privacy_groups`, `sys_privacy_members`, `sys_tags`, `sys_objects_tag`, `sys_menu_top`, `sys_objects_actions`, `sys_objects_auths`, `sys_greetings`, `sys_objects_vote`, `sys_objects_views`, `sys_box_download`, `sys_cron_jobs`, `sys_sbs_users`, `sys_sbs_entries`, `sys_sbs_types`, `sys_sbs_queue`, `sys_sbs_messages`, `sys_profiles_match_mails`, `sys_dnsbl_rules`, `sys_dnsbl_block_log`, `sys_dnsbluri_zones`, `sys_antispam_block_log`, `sys_menu_mobile`, `sys_menu_mobile_pages`, `sys_objects_social_sharing`, `sys_objects_site_maps`, `sys_objects_charts`, `sys_objects_captcha`, `sys_objects_editor`, `sys_objects_exports`;
+DROP TABLE IF EXISTS `sys_account_custom_stat_elements`, `sys_admin_ban_list`, `sys_menu_admin`, `sys_menu_admin_top`, `sys_menu_bottom`, `sys_menu_service`, `sys_albums`, `sys_albums_objects`,`sys_banners`, `sys_banners_clicks`, `sys_banners_shows`, `sys_block_list`, `sys_categories`, `sys_objects_categories`, `sys_objects_cmts`, `sys_cmts_profile`, `sys_cmts_track`, `sys_color_base`, `sys_countries`, `sys_email_templates`, `sys_email_log`, `sys_menu_member`, `sys_friend_list`, `sys_options`, `sys_options_cats`, `sys_fave_list`, `sys_ip_list`, `sys_ip_members_visits`, `sys_localization_categories`, `sys_localization_keys`, `sys_localization_languages`, `sys_localization_string_params`, `sys_localization_strings`, `sys_acl_actions`, `sys_acl_actions_track`, `sys_acl_matrix`, `sys_acl_level_prices`, `sys_acl_levels`, `sys_messages`, `sys_page_compose`, `sys_page_compose_pages`, `sys_page_compose_privacy`, `sys_sessions`, `sys_stat_member`, `sys_pre_values`, `sys_profile_fields`, `sys_acl_levels_members`, `Profiles`, `sys_profile_views_track`, `sys_profiles_match`, `sys_profile_rating`, `sys_profile_voting_track`, `RayBoardCurrentUsers`, `RayBoardBoards`, `RayBoardUsers`, `RayChatCurrentUsers`, `RayChatMessages`, `RayChatHistory`, `RayChatProfiles`, `RayChatRooms`, `RayChatRoomsUsers`, `RayChatMembershipsSettings`, `RayChatMemberships`, `RayImContacts`, `RayImMessages`, `RayImPendings`, `RayImProfiles`, `RayMp3Files`, `RayMp3Tokens`, `RayShoutboxMessages`, `RayVideoFiles`, `RayVideoTokens`, `RayVideo_commentsFiles`, `RayVideo_commentsTokens`, `sys_objects_search`, `sys_shared_sites`, `sys_stat_site`, `sys_alerts`, `sys_alerts_handlers`, `sys_injections`, `sys_injections_admin`, `sys_modules`, `sys_modules_file_tracks`, `sys_permalinks`, `sys_privacy_actions`, `sys_privacy_defaults`, `sys_privacy_groups`, `sys_privacy_members`, `sys_tags`, `sys_objects_tag`, `sys_menu_top`, `sys_objects_actions`, `sys_objects_auths`, `sys_greetings`, `sys_objects_vote`, `sys_objects_views`, `sys_box_download`, `sys_cron_jobs`, `sys_sbs_users`, `sys_sbs_entries`, `sys_sbs_types`, `sys_sbs_queue`, `sys_sbs_messages`, `sys_profiles_match_mails`, `sys_dnsbl_rules`, `sys_dnsbl_block_log`, `sys_dnsbluri_zones`, `sys_antispam_block_log`, `sys_menu_mobile`, `sys_menu_mobile_pages`, `sys_objects_social_sharing`, `sys_objects_site_maps`, `sys_objects_charts`, `sys_objects_captcha`, `sys_objects_editor`, `sys_objects_exports`;
 ALTER DATABASE DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';
 
 -- --------------------------------------------------------
@@ -86,7 +86,8 @@ INSERT INTO `sys_menu_admin`(`parent_id`, `name`, `title`, `url`, `description`,
 (@iParentId, 'host_tools', '_adm_mmi_host_tools', '{siteAdminUrl}host_tools.php', 'Admin Host Tools', 'hdd-o col-green3', '', '', 8),
 (@iParentId, 'antispam', '_adm_mmi_antispam', '{siteAdminUrl}antispam.php', 'Antispam Tools', 'gavel col-green3', '', '', 9),
 (@iParentId, 'sitemap', '_adm_mmi_sitemap', '{siteAdminUrl}sitemap.php', 'Sitemap', 'sitemap col-green3', '', '', 10),
-(@iParentId, 'cache', '_adm_mmi_cache', '{siteAdminUrl}cache.php', 'Cache', 'bolt col-green3', '', '', 11);
+(@iParentId, 'cache', '_adm_mmi_cache', '{siteAdminUrl}cache.php', 'Cache', 'bolt col-green3', '', '', 11),
+(@iParentId, 'emaillog', '_adm_mmi_emaillog', '{siteAdminUrl}emaillog.php', 'Email Log', 'history col-green3', '', '', 12);
 
 -- Builders menu item
 INSERT INTO `sys_menu_admin`(`parent_id`, `name`, `title`, `url`, `description`, `icon`, `icon_large`, `check`, `order`) VALUES
@@ -925,6 +926,24 @@ INSERT INTO `sys_countries` VALUES('ZW', 'ZWE', 716, 'Zimbabwe', 'Africa', 'Zimb
 
 -- --------------------------------------------------------
 
+CREATE TABLE IF NOT EXISTS `sys_email_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `encodedsubject` varchar(255) NOT NULL,
+  `body` text NOT NULL,
+  `header` text NOT NULL,
+  `emailnotify` varchar(255) NOT NULL,
+  `params` text NOT NULL,
+  `recipientinfo` text NOT NULL,
+  `html` varchar(32) NOT NULL,
+  `debug` text NOT NULL,
+  `timestamp` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+-- --------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS `sys_email_templates` (
   `ID` int(11) unsigned NOT NULL auto_increment,
@@ -1279,6 +1298,13 @@ INSERT INTO `sys_options` VALUES
 ('categ_show_limit', '50', @iCatCategories, 'Number of categories to show limit', 'digit', '', '', 20, ''),
 ('categ_show_columns', '3', @iCatCategories, 'Number of columns to show categories', 'digit', '', '', 30, '');
 
+-- CAT: Email Log
+SET @iCatCategories = 28;
+INSERT INTO `sys_options` VALUES
+('email_log_emabled', '', @iCatCategories, 'Log outbound emails', 'checkbox', '', '', 10, ''),
+('email_log_perpage', '50', @iCatCategories, 'Email log entries per page', 'digit', '', '', 20, ''),
+('email_log_ttl_days', '30', @iCatCategories, 'Number of days to keep email log', 'digit', '', '', 30, '');
+
 
 -- CAT: Hidden
 SET @iCatHidden = 0;
@@ -1346,6 +1372,7 @@ INSERT INTO `sys_options_cats` VALUES(24, 'Caching', 24);
 INSERT INTO `sys_options_cats` VALUES(25, 'Tags Settings', 25);
 INSERT INTO `sys_options_cats` VALUES(26, 'Permalinks', 26);
 INSERT INTO `sys_options_cats` VALUES(27, 'Categories Settings', 27);
+INSERT INTO `sys_options_cats` VALUES(28, 'Email Log Settings', 28);
 
 -- --------------------------------------------------------
 

@@ -455,91 +455,113 @@ function isRWAccessible($sFileName)
  * @param array   $aPlus           - Array of additional information
  *
  *
- * @return boolean                        - trie if message was send
+ * @return boolean                        - true if message was sent
  *                                        - false if not
  */
-function sendMail(
-    $sRecipientEmail,
-    $sMailSubject,
-    $sMailBody,
-    $iRecipientID = 0,
-    $aPlus = array(),
-    $sEmailFlag = 'html',
-    $isDisableAlert = false,
-    $bForceSend = false
-) {
-    global $site;
+ function sendMail(
+     $sRecipientEmail,
+     $sMailSubject,
+     $sMailBody,
+     $iRecipientID = 0,
+     $aPlus = array(),
+     $sEmailFlag = 'html',
+     $isDisableAlert = false,
+     $bForceSend = false
+ ) {
+     global $site;
 
-    if (!$sRecipientEmail || preg_match('/\(2\)$/', $sRecipientEmail)) {
-        return false;
+     if (!$sRecipientEmail || preg_match('/\(2\)$/', $sRecipientEmail)) {
+         return false;
+     }
+
+     $aRecipientInfo = $iRecipientID ? getProfileInfo($iRecipientID) : array();
+
+     // don't send mail to the user if he/she decided to not receive any site's notifications, unless it is critical emails (like email confirmation)
+     if (!$bForceSend) {
+         $aRealRecipient = $GLOBALS['MySQL']->getRow("SELECT * FROM `Profiles` WHERE `Email`= ? LIMIT 1",
+             [$sRecipientEmail]);
+         if ($aRealRecipient && 1 != $aRealRecipient['EmailNotify']) {
+             return true;
+         }
+     }
+
+     $sEmailNotify    = isset($GLOBALS['site']['email_notify']) ? $GLOBALS['site']['email_notify'] : getParam('site_email_notify');
+     $sSiteTitle      = isset($GLOBALS['site']['title']) ? $GLOBALS['site']['title'] : getParam('site_title');
+     $sMailHeader     = "From: =?UTF-8?B?" . base64_encode($sSiteTitle) . "?= <{$sEmailNotify}>";
+     $sMailParameters = "-f{$sEmailNotify}";
+
+     if ($aPlus || $iRecipientID) {
+         if (!is_array($aPlus)) {
+             $aPlus = array();
+         }
+         ch_import('ChWsbEmailTemplates');
+         $oEmailTemplates = new ChWsbEmailTemplates();
+         $sMailSubject    = $oEmailTemplates->parseContent($sMailSubject, $aPlus, $iRecipientID);
+         $sMailBody       = $oEmailTemplates->parseContent($sMailBody, $aPlus, $iRecipientID);
+     }
+
+     $sMailSubjectEncoded = '=?UTF-8?B?' . base64_encode($sMailSubject) . '?=';
+
+     $sMailHeader = "MIME-Version: 1.0\r\n" . $sMailHeader;
+
+     if('on' == getParam('email_log_emabled')) {
+         $sLogDate = date("F j, Y, g:i a");
+         $sHttpRefererLog = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'Empty';
+         $sMailSubjectLog = ($sMailSubject == '' ? 'Empty' : $sMailSubject);
+         $sMailSubjectEncodedLog = ($sMailSubjectEncoded == '' ? 'Empty' : $sMailSubjectEncoded);
+         $sRecipientEmailLog = ($sRecipientEmail == '' ? 'Empty' : $sRecipientEmail);
+         $sMailBodyLog = ($sMailBody == '' ? 'Empty' : $sMailBody);
+         $iRecipientIDLog = $iRecipientID;
+         $aPlusLog = serialize($aPlus);
+         $sEmailFlagLog = $sEmailFlag;
+         $isDisableAlertLog = ($isDisableAlert == true ? 'True' : 'False');
+         $bForceSendLog = ($bForceSend == true ? 'True' : 'False');
+         $sBt = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 4);
+         $sDebugTraceLog = serialize($sBt);
+         $sMailHeaderLog = ($sMailHeader == '' ? 'Empty' : $sMailHeader);
+         $sEmailNotifyLog = ($sEmailNotify == '' ? 'Empty' : $sEmailNotify);
+         $aRecipientInfoLog = serialize($aRecipientInfo);
+         $sQuery = "INSERT INTO `sys_email_log` (`email`, `subject`, `encodedsubject`, `body`, `header`, `emailnotify`, `params`, `recipientinfo`, `html`, `debug`, `timestamp`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())";
+         $GLOBALS['MySQL']->query($sQuery, [$sRecipientEmailLog, $sMailSubjectLog, $sMailSubjectEncodedLog, $sMailBodyLog, $sMailHeaderLog, $sEmailNotifyLog, $aPlusLog, $aRecipientInfoLog, $sEmailFlagLog, $sDebugTraceLog]);
     }
 
-    $aRecipientInfo = $iRecipientID ? getProfileInfo($iRecipientID) : array();
 
-    // don't send mail to the user if he/she decided to not receive any site's notifications, unless it is critical emails (like email confirmation)
-    if (!$bForceSend) {
-        $aRealRecipient = $GLOBALS['MySQL']->getRow("SELECT * FROM `Profiles` WHERE `Email`= ? LIMIT 1",
-            [$sRecipientEmail]);
-        if ($aRealRecipient && 1 != $aRealRecipient['EmailNotify']) {
-            return true;
-        }
-    }
+     if (!$isDisableAlert && 'on' == getParam('ch_smtp_on')) {
+         return ChWsbService::call('smtpmailer', 'send', array(
+             $sRecipientEmail,
+             $sMailSubjectEncoded,
+             $sMailBody,
+             $sMailHeader,
+             $sMailParameters,
+             'html' == $sEmailFlag,
+             $aRecipientInfo
+         ));
+     }
 
-    $sEmailNotify    = isset($GLOBALS['site']['email_notify']) ? $GLOBALS['site']['email_notify'] : getParam('site_email_notify');
-    $sSiteTitle      = isset($GLOBALS['site']['title']) ? $GLOBALS['site']['title'] : getParam('site_title');
-    $sMailHeader     = "From: =?UTF-8?B?" . base64_encode($sSiteTitle) . "?= <{$sEmailNotify}>";
-    $sMailParameters = "-f{$sEmailNotify}";
+     if ('html' == $sEmailFlag) {
+         $sMailHeader    = "Content-type: text/html; charset=UTF-8\r\n" . $sMailHeader;
+         $iSendingResult = mail($sRecipientEmail, $sMailSubjectEncoded, $sMailBody, $sMailHeader, $sMailParameters);
+     } else {
+         $sMailHeader    = "Content-type: text/plain; charset=UTF-8\r\n" . $sMailHeader;
+         $sMailBody      = html2txt($sMailBody);
+         $iSendingResult = mail($sRecipientEmail, $sMailSubjectEncoded, html2txt($sMailBody), $sMailHeader, $sMailParameters);
+     }
 
-    if ($aPlus || $iRecipientID) {
-        if (!is_array($aPlus)) {
-            $aPlus = array();
-        }
-        ch_import('ChWsbEmailTemplates');
-        $oEmailTemplates = new ChWsbEmailTemplates();
-        $sMailSubject    = $oEmailTemplates->parseContent($sMailSubject, $aPlus, $iRecipientID);
-        $sMailBody       = $oEmailTemplates->parseContent($sMailBody, $aPlus, $iRecipientID);
-    }
+     if (!$isDisableAlert) {
+         //--- create system event
+         ch_import('ChWsbAlerts');
+         $aAlertData = array(
+             'email'   => $sRecipientEmail,
+             'subject' => $sMailSubjectEncoded,
+             'body'    => $sMailBody,
+             'header'  => $sMailHeader,
+             'params'  => $sMailParameters,
+             'html'    => 'html' == $sEmailFlag ? true : false,
+         );
 
-    $sMailSubject = '=?UTF-8?B?' . base64_encode($sMailSubject) . '?=';
-
-    $sMailHeader = "MIME-Version: 1.0\r\n" . $sMailHeader;
-
-    if (!$isDisableAlert && 'on' == getParam('ch_smtp_on')) {
-        return ChWsbService::call('smtpmailer', 'send', array(
-            $sRecipientEmail,
-            $sMailSubject,
-            $sMailBody,
-            $sMailHeader,
-            $sMailParameters,
-            'html' == $sEmailFlag,
-            $aRecipientInfo
-        ));
-    }
-
-    if ('html' == $sEmailFlag) {
-        $sMailHeader    = "Content-type: text/html; charset=UTF-8\r\n" . $sMailHeader;
-        $iSendingResult = mail($sRecipientEmail, $sMailSubject, $sMailBody, $sMailHeader, $sMailParameters);
-    } else {
-        $sMailHeader    = "Content-type: text/plain; charset=UTF-8\r\n" . $sMailHeader;
-        $sMailBody      = html2txt($sMailBody);
-        $iSendingResult = mail($sRecipientEmail, $sMailSubject, html2txt($sMailBody), $sMailHeader, $sMailParameters);
-    }
-
-    if (!$isDisableAlert) {
-        //--- create system event
-        ch_import('ChWsbAlerts');
-        $aAlertData = array(
-            'email'   => $sRecipientEmail,
-            'subject' => $sMailSubject,
-            'body'    => $sMailBody,
-            'header'  => $sMailHeader,
-            'params'  => $sMailParameters,
-            'html'    => 'html' == $sEmailFlag ? true : false,
-        );
-
-        $oZ = new ChWsbAlerts('profile', 'send_mail', $iRecipientID, '', $aAlertData);
-        $oZ->alert();
-    }
+         $oZ = new ChWsbAlerts('profile', 'send_mail', $iRecipientID, '', $aAlertData);
+         $oZ->alert();
+     }
 
     return $iSendingResult;
 }
