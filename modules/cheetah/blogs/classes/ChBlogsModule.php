@@ -1059,6 +1059,11 @@ EOF;
         }
 
         $iOwnerID = $aBlogsRes['OwnerID'];
+
+    		if(isBlocked($iOwnerID, $this->_iVisitorID)) {
+    		    return MsgBox(_t('_sys_txt_error_you_are_blocked'));
+    		}
+
         if ((!$this->_iVisitorID || $iOwnerID != $this->_iVisitorID) && !$this->isAllowedBlogView($iOwnerID, true)) {
             return $this->_oTemplate->displayAccessDenied();
         }
@@ -1807,6 +1812,10 @@ EOF;
 
             return DesignBoxContent($sMsg, MsgBox($sMsg), 1);
         }
+
+    		if(isBlocked($this->aViewingPostInfo['OwnerID'], $this->_iVisitorID)) {
+    		    return MsgBox(_t('_sys_txt_error_you_are_blocked'));
+    		}
 
         $iBlogLimitChars = (int)getParam('max_blog_preview');
         $sPostText = htmlspecialchars_adv(mb_substr(trim(strip_tags($this->aViewingPostInfo['PostText'])), 0,

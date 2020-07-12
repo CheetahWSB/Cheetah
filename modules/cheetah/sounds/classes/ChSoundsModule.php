@@ -91,4 +91,39 @@ class ChSoundsModule extends ChWsbFilesModule
     {
         return $this->getWallPostOutline($aEvent, 'music');
     }
+    
+		function actionView ($sUri) {
+			$aInfo = $this->_oDb->getFileInfo(array('fileUri' => $sUri));
+			if(isBlocked($aInfo['medProfId'], getLoggedId())) {
+			    $this->_oTemplate->pageCode($this->aPageTmpl, array('page_main_code' => MsgBox(_t('_sys_txt_error_you_are_blocked'))));
+			    return;
+			}
+
+			parent::actionView($sUri);
+		}
+
+		function actionBrowse ($sParamName = '', $sParamValue = '', $sParamValue1 = '', $sParamValue2 = '', $sParamValue3 = '') {
+			if ($sParamName == 'album' && $sParamValue1 == 'owner') {
+			    $iOwnerId = getID($sParamValue2);
+			    if(isBlocked($iOwnerId, getLoggedId())) {
+				$this->_oTemplate->pageCode($this->aPageTmpl, array('page_main_code' => MsgBox(_t('_sys_txt_error_you_are_blocked'))));
+				return;
+				}
+			}
+
+			parent::actionBrowse($sParamName, $sParamValue, $sParamValue1, $sParamValue2, $sParamValue3);
+		}
+
+		function actionAlbums ($sParamName = '', $sParamValue = '', $sParamValue1 = '', $sParamValue2 = '', $sParamValue3 = '') {
+			if($sParamName == 'browse' && $sParamValue == 'owner') {
+			    $iOwnerId = getID($sParamValue1);
+			    if(isBlocked($iOwnerId, getLoggedId())) {
+				$this->_oTemplate->pageCode($this->aPageTmpl, array('page_main_code' => MsgBox(_t('_sys_txt_error_you_are_blocked'))));
+				return;
+				}
+			}
+
+			parent::actionAlbums($sParamName, $sParamValue, $sParamValue1, $sParamValue2, $sParamValue3);
+		}
+
 }

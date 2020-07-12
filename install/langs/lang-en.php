@@ -2097,6 +2097,7 @@ You can do this by:
   '_sys_txt_upload_abort' => 'Interrupted',
   '_sys_txt_upload_done' => 'Done',
   '_sys_txt_wrong_file_extension' => 'Wrong file extension',
+  '_sys_txt_error_you_are_blocked' => 'You cannot view the page because you are blocked by this member.',
   '_sys_upload' => 'Upload',
   '_sys_media_disapproved' => 'File not approved yet',
   '_sys_media_processing' => 'File not processed yet',

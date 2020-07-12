@@ -153,6 +153,14 @@ class ChFilesModule extends ChWsbFilesModule
     {
         $sCode = '';
 
+    	  if($sParamName == 'browse' && $sParamValue == 'owner') {
+    		    $iOwnerId = getID($sParamValue1);
+    		    if(isBlocked($iOwnerId, getLoggedId())) {
+    			       $this->_oTemplate->pageCode($this->aPageTmpl, array('page_main_code' => MsgBox(_t('_sys_txt_error_you_are_blocked'))));
+    			       return;
+    			  }
+    		}
+
         switch ($sParamName) {
             case 'my':
                 $this->actionAlbumsViewMy($sParamValue, $sParamValue1, $sParamValue2, $sParamValue3);
@@ -179,6 +187,14 @@ class ChFilesModule extends ChWsbFilesModule
 
     function actionBrowse ($sParamName = '', $sParamValue = '', $sParamValue1 = '', $sParamValue2 = '', $sParamValue3 = '')
     {
+        if ($sParamName == 'album' && $sParamValue1 == 'owner') {
+            $iOwnerId = getID($sParamValue2);
+            if(isBlocked($iOwnerId, getLoggedId())) {
+                $this->_oTemplate->pageCode($this->aPageTmpl, array('page_main_code' => MsgBox(_t('_sys_txt_error_you_are_blocked'))));
+                return;
+            }
+        }
+
         $bAlbumView = false;
         if ($sParamName == 'album' && $sParamValue1 == 'owner') {
             $bAlbumView = true;
@@ -438,5 +454,15 @@ class ChFilesModule extends ChWsbFilesModule
         $sLangPref = '_' . $this->_oConfig->getMainPrefix();
         return parent::getInstanceUploadFormArray($aAlbums, $aPrivFieldView, _t($sLangPref . '_album'), _t($sLangPref . '_album_title'), _t($sLangPref . '_albums_add_new'));
     }
+
+		function actionView ($sUri) {
+			$aInfo = $this->_oDb->getFileInfo(array('fileUri' => $sUri));
+			if(isBlocked($aInfo['medProfId'], getLoggedId())) {
+			    $this->_oTemplate->pageCode($this->aPageTmpl, array('page_main_code' => MsgBox(_t('_sys_txt_error_you_are_blocked'))));
+			    return;
+			}
+
+			parent::actionView($sUri);
+		}
 
 }

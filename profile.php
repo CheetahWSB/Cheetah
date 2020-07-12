@@ -19,6 +19,13 @@ ch_import('ChWsbInstallerUtils');
 $profileID = getID( $_GET['ID'] );
 $memberID = getLoggedId();
 
+if(isBlocked($profileID, $memberID)) {
+    $_page['name_index'] = 0;
+    $_page_cont[0]['page_main_code'] = MsgBox(_t('_sys_txt_error_you_are_blocked'));
+    PageCode();
+    exit;
+}
+
 $sCodeLang = 'lang';
 $sCodeTempl = $GLOBALS['oSysTemplate']->getCodeKey();
 if(isset($_GET[$sCodeLang]) || isset($_GET[$sCodeTempl])) {
