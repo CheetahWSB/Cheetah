@@ -72,6 +72,8 @@ class ChWsbCategories extends ChWsbTags
 
         $aAddSql = array();
 
+        // Deano notice. This added query is above as well. May be a bug in dolphin code. I'll wait for
+        // bug report on auto approve.
         if (getParam($this->sAutoApprovePrefix . $sType) != 'on')
             $aAddSql[] = " AND `cat`.`{$this->aTagFields['status']}` = 'active'";
 
