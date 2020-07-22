@@ -354,7 +354,6 @@ class ChBaseProfileGenerator extends ChWsbProfile
         $bProfileCoverHref = false;
 
         if (ChWsbRequest::serviceExists('photos', 'profile_cover', 'Search')) {
-            //if(ChWsbRequest::serviceExists('photos', 'profile_cover')) {
             $sProfileCoverHref = ChWsbService::call('photos', 'profile_cover', array($p_arr['ID'], 'file'), 'Search');
             $bProfileCoverHref = !empty($sProfileCoverHref);
         }
@@ -362,7 +361,7 @@ class ChBaseProfileGenerator extends ChWsbProfile
         $sProfileCoverChangeHref = '';
         $bProfileCoverChangeHref = false;
         if ($bProfileOwner && ChWsbRequest::serviceExists('photos', 'get_album_uploader_url')) {
-            $sProfileCoverChangeHref = ChWsbService::call('photos', 'get_album_uploader_url', array($p_arr['ID'], 'profile_cover_album_name'));
+            $sProfileCoverChangeHref = ChWsbService::call('photos', 'get_manage_profile_photo_url', array($p_arr['ID'], 'profile_cover_album_name'));
             $bProfileCoverChangeHref = !empty($sProfileCoverChangeHref);
         }
 
@@ -495,7 +494,7 @@ class ChBaseProfileGenerator extends ChWsbProfile
         $sContent = MsgBox($sContent);
         return array($sContent, array(), array(), false);
     }
-    
+
     public function showBlockRateProfile($sCaption, $bNoDB = false)
     {
         $votes = getParam('votes');
