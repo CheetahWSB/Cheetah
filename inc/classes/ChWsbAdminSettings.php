@@ -77,7 +77,7 @@ class ChWsbAdminSettings
     }
     function saveChanges(&$aData)
     {
-        $aCategories = explode(',', process_db_input($aData['cat'], CH_TAGS_STRIP));
+        $aCategories = explode(',', strip_tags($aData['cat']));
         foreach($aCategories as $mixedCategory) {
             if(!is_numeric($mixedCategory) || isset($this->_aCustomCategories[$mixedCategory]['save'])) {
                 $mixedResult = $this->{$this->_aCustomCategories[$mixedCategory]['save']}($aData);
@@ -90,9 +90,9 @@ class ChWsbAdminSettings
                 foreach($aItems as $aItem) {
                     if(is_array($aData[$aItem['name']]))
                         foreach($aData[$aItem['name']] as $sKey => $sValue)
-                            $aItemsData[$aItem['name']][$sKey] = process_db_input($sValue, CH_TAGS_STRIP);
+                            $aItemsData[$aItem['name']][$sKey] = strip_tags($sValue);
                     else
-                        $aItemsData[$aItem['name']] = process_db_input($aData[$aItem['name']], CH_TAGS_STRIP);
+                        $aItemsData[$aItem['name']] = strip_tags($aData[$aItem['name']]);
 
                     if(!empty($aItem['check'])) {
                         $oFunction = function($arg0) use ($aItem) {
