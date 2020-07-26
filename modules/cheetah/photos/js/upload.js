@@ -204,7 +204,7 @@ ChPhotoUpload.prototype.resetEmbed = function () {
 ChPhotoUpload.prototype.checkEmbed = function (bAlert) {
     var sText = $('#photo_upload_form [name="embed"]').attr("value").split(" ").join("");
 
-    var bResult = /^https?:\/\/(www.)?flickr.com\/photos\/([0-9A-Za-z_@-]+)\/([0-9]{11})\/$/.test(sText) && $('#photo_accepted_files_block').text() == "";
+    var bResult = /^https?:\/\/(www.)?flickr.com\/photos\/([0-9A-Za-z_@-]+)\/([0-9]{10}|[0-9]{11})\/.*$/.test(sText) && $('#photo_accepted_files_block').text() == "";
     if(bAlert && !bResult)
         alert(_t('_ch_photos_emb_err'));
 

@@ -81,7 +81,7 @@ class ChPhotosUploader extends ChWsbFilesUploader
         $sEmbed = process_db_input(ch_get('embed'));
 
         $aMatches = array();
-        if(!preg_match("/^https?:\/\/(www.)?flickr.com\/photos\/([0-9A-Za-z_@-]+)\/([0-9]{11})\/$/i", $sEmbed, $aMatches))
+        if(!preg_match("/^https?:\/\/(www.)?flickr.com\/photos\/([0-9A-Za-z_@-]+)\/([0-9]{10}|[0-9]{11})\/.*$/i", $sEmbed, $aMatches))
             return $sErrorReturn;
 
         if(empty($aMatches[3]))
