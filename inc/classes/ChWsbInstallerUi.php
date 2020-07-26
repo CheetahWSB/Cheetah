@@ -65,7 +65,8 @@ class ChWsbInstallerUi extends ChWsbDb
                 'update' => array(
                     'type' => 'file',
                     'name' => 'update',
-                    'caption' => _t('_adm_btn_modules_update'),
+                    //'caption' => _t('_adm_btn_modules_update'), // Deano - Temporarily disable until update system can be changed for Cheetahs use.
+                    'caption' => '',
                 ),
                 'header2' => array(
                     'type' => 'block_header',
@@ -160,8 +161,11 @@ class ChWsbInstallerUi extends ChWsbDb
             'controls' => ChTemplSearchResult::showAdminActionsPanel('modules-installed-form', $aButtons, 'pathes')
         ));
 
+        // Deano - Temporarily disable until update system can be changed for Cheetahs use.
+        //$aTopMenu = array(
+        //	'modules-update' => array('title' => '_adm_btn_modules_update', 'href' => 'javascript:void(0)', 'onclick' => 'javascript:' . CH_WSB_ADM_MM_JS_NAME . '.checkForUpdates(this);')
+        //);
         $aTopMenu = array(
-        	'modules-update' => array('title' => '_adm_btn_modules_update', 'href' => 'javascript:void(0)', 'onclick' => 'javascript:' . CH_WSB_ADM_MM_JS_NAME . '.checkForUpdates(this);')
         );
 
         $GLOBALS['oAdmTemplate']->addJsTranslation(array('_adm_txt_modules_data_will_be_lost'));
