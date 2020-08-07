@@ -55,7 +55,20 @@ class ChBaseFormView extends ChWsbForm
      */
     function getCode()
     {
-        return ($this->sCode = $this->genForm());
+      $sExtraScript .= "
+          <script>
+          function toggle_password(a) {
+              $(a).toggleClass('eye eye-slash');
+              var b = $(a).parent().find('.form_input_password');
+              if ($(b).attr('type') == 'password') {
+                  $(b).attr('type', 'text');
+              } else {
+                  $(b).attr('type', 'password');
+              }
+          };
+          </script>
+      ";
+        return ($this->sCode = $this->genForm() . $sExtraScript);
     }
 
     /**
@@ -369,12 +382,16 @@ class ChBaseFormView extends ChWsbForm
             case 'checkbox':
             case 'radio':
             case 'image':
-            case 'password':
             case 'slider':
             case 'range':
             case 'doublerange':
             case 'hidden':
                 $sInput = $this->genInputStandard($aInput);
+            break;
+
+            case 'password':
+                $sInput = $this->genInputStandard($aInput);
+                $sInput .= '<i class="sys-icon eye toogle-password" onclick="toggle_password();"></i>';
             break;
 
             case 'file':
