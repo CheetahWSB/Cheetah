@@ -176,6 +176,12 @@ function MsgBox($sText, $iTimer = 0)
 {
     return $GLOBALS['oFunctions'] -> msgBox($sText, $iTimer);
 }
+
+function AdvMsgBox($sText, $aOptions = array())
+{
+    return $GLOBALS['oFunctions'] -> advMsgBox($sText, $aOptions);
+}
+
 function LoadingBox($sName)
 {
     return $GLOBALS['oFunctions'] -> loadingBox($sName);
@@ -356,6 +362,7 @@ function getMemberLoginFormCode($sID = 'member_login_form', $sParams = '')
     );
 
     $oForm = new ChTemplFormView($aForm);
+
 
     ch_import('ChWsbAlerts');
     $sCustomHtmlBefore = '';

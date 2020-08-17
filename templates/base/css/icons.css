@@ -13,6 +13,10 @@
     font-style:normal;
 }
 
+.icon-large {
+    font-size: 26px;
+}
+
 .sys-icon.glass:before {
   content: "\f000";
 }
@@ -1918,4 +1922,3 @@
 .sys-icon.percent:before {
   content: "\f295";
 }
-

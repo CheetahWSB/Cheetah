@@ -217,16 +217,99 @@ table.MsgBox tr td {
     border:none;
 }
 .MsgBox .msgbox_content {
-    background-color:#F8F8F8;
-    border:3px solid #e2e2e2;
+  background-color:#F8F8F8;
+  border:3px solid #e2e2e2;
 	border-radius:4px;
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
-
-    color:#ccc;
+  color:#ccc;
 	text-align:center;
 	font-weight:bold;
 	text-transform:uppercase;
+}
+
+.MsgBoxAlert {
+  background-color:#f44336;
+  border:3px solid #da190b;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+  color:#FFFFFF;
+	text-align:center;
+	font-weight:bold;
+	text-transform:uppercase;
+}
+
+.MsgBoxWarning {
+  background-color:#ffba54;
+  border:3px solid #ffa31a;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+  color:#FFFFFF;
+	text-align:center;
+	font-weight:bold;
+	text-transform:uppercase;
+}
+
+.MsgBoxSuccess {
+  background-color:#4caf50;
+  border:3px solid #367c39;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+  color:#FFFFFF;
+	text-align:center;
+	font-weight:bold;
+	text-transform:uppercase;
+}
+
+.MsgBoxInfo {
+  background-color:#2196F3;
+  border:3px solid #0a6fc2;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+  color:#FFFFFF;
+	text-align:center;
+	font-weight:bold;
+	text-transform:uppercase;
+}
+
+.MsgBoxTitle {
+	position: relative;
+	text-align: left;
+	border-bottom: 1px solid #e2e2e2;
+}
+
+.MsgBoxTitleAlert {
+	position: relative;
+	text-align: left;
+	border-bottom: 3px solid #da190b;
+}
+
+.MsgBoxTitleWarning {
+	position: relative;
+	text-align: left;
+	border-bottom: 3px solid #ffa31a;
+}
+
+.MsgBoxTitleSuccess {
+	position: relative;
+	text-align: left;
+	border-bottom: 3px solid #367c39;
+}
+
+.MsgBoxTitleInfo {
+	position: relative;
+	text-align: left;
+	border-bottom: 3px solid #0a6fc2;
+}
+
+.MsgBoxTitleClose {
+	position: absolute;
+	right: 10px;
+	cursor: pointer;
 }
 
 /* * * * Modal window * * * */
@@ -325,6 +408,11 @@ body .disignBoxFirst {
     position: relative;
     float: left;
 }
+
+.dbPopUpTitle {
+    margin-right: 10px;margin-left: 10px;
+}
+
 .disignBoxFirst .boxFirstHeader .dbTopMenu,
 .disignBoxFirst .boxFirstHeader .caption_item {
 	position: relative;
@@ -552,6 +640,11 @@ div.disignBoxFirst div.dbClose .sys-icon {
     min-width:16px;
     min-height:16px;
     font-size:16px;
+		margin-top: -15px;margin-right: -15px;
+}
+
+.dbPopupClose {
+		margin-top: -15px;margin-right: -15px;
 }
 
 div.top_settings_block {

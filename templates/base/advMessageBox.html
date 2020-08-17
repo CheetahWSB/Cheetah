@@ -1,0 +1,34 @@
+<div id="__id__" class="MsgBox">
+	<table class="MsgBox ch-def-margin-top ch-def-margin-bottom">
+		<tr>
+			<td>
+			  <div class="__class__">
+					<ch_if:showtitle>
+					<div class="__titleclass__ ch-def-padding-sec">__title__
+						<ch_if:showtitleclose>
+							<span class="MsgBoxTitleClose" onclick="__remove_fog__$('#__id__').remove()">X</span>
+						</ch_if:showtitleclose>
+					</div>
+					</ch_if:showtitle>
+					<div class="ch-def-padding-sec">
+						<ch_if:showicon>
+							<i class="__iconclass__ __icon__"></i>
+						</ch_if:showicon>
+						__msgText__
+          	<ch_if:closebtn>
+            	<div class="clearfix" style="padding-top: 20px;">
+              	<input class="__button_class__" style="display: inline; float: none;" type="button" name="close" value="__btn_text__" onclick="__remove_fog__$('#__id__').remove()">
+            	</div>
+          	</ch_if:closebtn>
+					</div>
+        </div>
+			</td>
+		</tr>
+
+	</table>
+	<ch_if:timer>
+    <script language="javascript" type="text/javascript">
+        setTimeout("$('#__id__').ch_anim('hide', 'fade', 'slow', function() { __remove_fog__$(this).remove(); __on_timer__ } )", __time__);
+    </script>
+  </ch_if:timer>
+</div>

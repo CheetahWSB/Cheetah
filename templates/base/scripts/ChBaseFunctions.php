@@ -214,7 +214,7 @@ class ChBaseFunctions
      *
      * @param $aMemberSettings (array) : all available member's information
      * @param $sTransformText (text) : string that will to parse
-     * @param $bTranslate (boolean) : if isset this param - script will try to translate it used cheetah language file
+     * @param $bTranslate (boolean) : if isset this param - script will try to translate it used dolphin language file
      * @return (string) : parsed string
     */
     function markerReplace( &$aMemberSettings, $sTransformText, $sExecuteCode = null, $bTranslate = false )
@@ -283,6 +283,98 @@ class ChBaseFunctions
                 )
             )
         ));
+    }
+
+    /**
+    * Function will generate an advanced Message Box. ;
+    *
+    * @param  		: $sText (string) Text to display in the message box. (Required) ;
+    * @param  		: $aOptions (array) Array of additional options to pass to function. (Optional) ;
+    *
+    * All params in the $aOptions array are optional. Below is the option arrays defaults.
+    *
+    * $aOptions = array(
+    *   'timer' => 0,   // Time in seconds before box is closed automatically.
+    *   'onTimer' => '',  // Javascript function to be called when close timer expires.
+    *   'showclosebtn' => false,  // Show a close button at the bottom of the message box.
+    *   'removefog' => false, // Remove background fog when clicking the close button.
+    *   'class' => 'msgbox_content ch-def-font-large',  // Class to use for the message box.
+    *   'buttonclass' => 'ch-btn',  // Class to use for the message box close button.
+    *   'showtitle' => false, // Show a title on the message box.
+    *   'showtitleclose' => false,  // Show a close X in the message box title area.
+    *   'titletext' => '',  // The text to display for the title.
+    *   'titleclass' => 'MsgBoxTitle',  // Class to use for the title.
+    *   'showicon' => false,  // So a icon to the left of the message.
+    *   'icon' => 'info-circle',  // The icon to display.
+    *   'iconclass' => 'sys-icon icon-large', // The class to use for the icon.
+    * );
+    */
+    function advMsgBox($sText, $aOptions = array())
+    {
+      $iId = str_replace('.', '', 'AMB-' . microtime(true));
+
+      $iTimer = (int)$aOptions['timer'];
+      $sOnTimer = $aOptions['onTimer'];
+      $bShowCloseBtn = ($aOptions['showclosebtn'] == '' ? false : $aOptions['showclosebtn']);
+      $bShowTitle = ($aOptions['showtitle'] == '' ? false : $aOptions['showtitle']);
+      $bShowTitleClose = ($aOptions['showtitleclose'] == '' ? false : $aOptions['showtitleclose']);
+      $bShowIcon = ($aOptions['showicon'] == '' ? false : $aOptions['showicon']);
+      $sIcon = ($aOptions['icon'] == '' ? 'info-circle' : $aOptions['icon']);
+      $sIconClass = ($aOptions['iconclass'] == '' ? 'sys-icon icon-large' : $aOptions['iconclass']);
+      $sTitleText = $aOptions['titletext'];
+      $sTitleClass = ($aOptions['titleclass'] == '' ? 'MsgBoxTitle' : $aOptions['titleclass']);
+      $bRemoveFog = ($aOptions['removefog'] == '' ? false : $aOptions['removefog']);
+      $sClass = ($aOptions['class'] == '' ? 'msgbox_content ch-def-font-large' : $aOptions['class']);
+      $sButtonClass = ($aOptions['buttonclass'] == '' ? 'ch-btn' : $aOptions['buttonclass']);
+
+      $sRemoveFog = ($bRemoveFog ? "$('#ch-popup-fog').remove(); " : '');
+
+      return $GLOBALS['oSysTemplate']->parseHtmlByName('advMessageBox.html', array(
+          'id' => $iId,
+          'msgText' => $sText,
+          'extracss' => $sExtraCss,
+          'class' => $sClass,
+
+          'ch_if:timer' => array(
+              'condition' => $iTimer > 0,
+              'content' => array(
+                  'id' => $iId,
+                  'remove_fog' => $sRemoveFog,
+                  'time' => 1000 * $iTimer,
+                  'on_timer' => ch_js_string($sOnTimer, CH_ESCAPE_STR_QUOTE),
+              )
+          ),
+          'ch_if:closebtn' => array(
+              'condition' => $bShowCloseBtn,
+              'content' => array(
+                  'id' => $iId,
+                  'button_class' => $sButtonClass,
+                  'btn_text' => _t('_Close'),
+                  'remove_fog' => $sRemoveFog,
+              )
+          ),
+          'ch_if:showtitle' => array(
+              'condition' => $bShowTitle,
+              'content' => array(
+                  'title' => $sTitleText,
+                  'titleclass' => $sTitleClass,
+              )
+          ),
+          'ch_if:showtitleclose' => array(
+              'condition' => $bShowTitleClose,
+              'content' => array(
+                  'id' => $iId,
+                  'remove_fog' => $sRemoveFog,
+              )
+          ),
+          'ch_if:showicon' => array(
+              'condition' => $bShowIcon,
+              'content' => array(
+                  'icon' => $sIcon,
+                  'iconclass' => $sIconClass,
+              )
+          )
+      ));
     }
 
     function isAllowedShare(&$aDataEntry)
