@@ -490,8 +490,24 @@ class ChWsbPageViewAdmin
 
         $sQuery = "SELECT * FROM `{$this -> sDBTable}` WHERE `Page` = '{$this -> sPage_db}' AND `ID` = $iBlockID";
         $aItem = db_assoc_arr($sQuery);
-        if(!$aItem)
-            return MsgBox($sNoPropertiesC);
+        if(!$aItem) {
+          $aOptions = array(
+            //'timer' => 0,
+            //'onTimer' => '',
+            'showclosebtn' => true,
+            'removefog' => true,
+            'class' => 'MsgBoxInfo ch-def-font-large',
+            'buttonclass' => 'ch-btn',
+            'showtitle' => true,
+            'showtitleclose' => true,
+            'titletext' => 'Info!',
+            'titleclass' => 'MsgBoxTitleInfo ch-def-font-large',
+            'showicon' => true,
+            'icon' => 'info-circle',
+            'iconclass' => 'sys-icon icon-large',
+          );
+          return AdvMsgBox($sNoPropertiesC, $aOptions);
+        }
 
         $sPageName = htmlspecialchars($this->oPage->sName);
 
