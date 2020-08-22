@@ -167,6 +167,13 @@ class ChWsbPageViewAdmin
 
     function createUserPage()
     {
+        // Make sure page does not already exist.
+        $s = uriFilter($_REQUEST['uri']);
+        if (!uriCheckUniq($s, $this -> sDBTable . '_pages', 'Name')) {
+          return array('code' => '1', 'message' => 'Page with the name ' . $_REQUEST['uri'] . ' already exists.');
+        }
+
+        // If here, then page name is ok, so create the new page.
         $sUri = uriGenerate(process_db_input($_REQUEST['uri']), $this -> sDBTable . '_pages', 'Name');
         $sTitle = process_db_input($_REQUEST['title']);
 
