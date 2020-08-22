@@ -872,6 +872,22 @@ class ChWsbTemplate
             case 'is_profile_page':
                 $sRet = (defined('CH_PROFILE_PAGE')) ? 'true' : 'false';
                 break;
+            // Below system keys unique to Cheetah. Not ava in Dolphin.
+            case 'logged_member_id':
+                $sRet = getLoggedId();
+                break;
+            case 'logged_nickname':
+                $sRet = getUsername();
+                break;
+            case 'logged_usertitle':
+                $sRet = getNickName();
+                break;
+            case 'current_date_short':
+                $sRet = getLocaleDate(time(), CH_WSB_LOCALE_DATE_SHORT);
+                break;
+            case 'current_date_long':
+                $sRet = getLocaleDate(time(), CH_WSB_LOCALE_DATE);
+                break;                
             default:
                 $sRet = ($sTemplAdd = $oFunctions->TemplPageAddComponent($sKey)) !== false ? $sTemplAdd : $aKeyWrappers['left'] . $sKey . $aKeyWrappers['right'];
             }
