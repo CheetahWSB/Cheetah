@@ -102,7 +102,7 @@ INSERT INTO `sys_menu_admin`(`parent_id`, `name`, `title`, `url`, `description`,
 (@iParentId, 'admin_menu', '_adm_mmi_admin_menu', '{siteAdminUrl}menu_compose_admin.php', 'For top admin''s menu items management', 'list col-red2', '', '', 5),
 (@iParentId, 'profile_fields', '_adm_mmi_profile_fields', '{siteAdminUrl}fields.php', 'For member profile fields management', 'list-alt col-red2', '', '', 10),
 (@iParentId, 'pages_blocks', '_adm_mmi_pages_blocks', '{siteAdminUrl}pageBuilder.php', 'Compose blocks for the site pages here', 'th-large col-red2', '', '', 20),
-(@iParentId, 'mobile_pages', '_adm_mmi_mobile_pages', '{siteAdminUrl}mobileBuilder.php', 'Mobile pages builder', 'th col-red2', '', '', 21),
+-- (@iParentId, 'mobile_pages', '_adm_mmi_mobile_pages', '{siteAdminUrl}mobileBuilder.php', 'Mobile pages builder', 'th col-red2', '', '', 21),
 (@iParentId, 'predefined_values', '_adm_mmi_predefined_values', '{siteAdminUrl}preValues.php', '', 'list-ol col-red2', '', '', 30);
 
 -- Settings menu item
