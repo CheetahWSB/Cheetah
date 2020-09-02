@@ -33,26 +33,34 @@ if (isset($_POST['license_code']) && isset($_POST['register'])) {
         setParam('license_code', $sLicense);
         setParam('license_keydata', '');
         chCheckLicense(false, true, false);
+        header('Location: ' . $_SERVER['PHP_SELF']);
+        die;
     }
-    //echo '<pre>' . print_r($_POST, true) . '</pre><br>';
 }
 
 if (isset($_POST['recheck'])) {
     // Recheck server and update stored license_keydata.
     chCheckLicense(false, true, false);
-    //echo '<pre>' . print_r($_POST, true) . '</pre><br>';
+    header('Location: ' . $_SERVER['PHP_SELF']);
+    die;
+}
+
+if (isset($_POST['reset'])) {
+    // Reset license.
+    setParam('license_code', '');
+    setParam('license_keydata', '');
+    setcookie('aun', time(), time() + 3600, "/"); // Expires in 1 hour.
+    header('Location: ' . $_SERVER['PHP_SELF']);
+    die;
 }
 
 $sLicense = getParam('license_code');
-//$sLicense = '';
 $sLicenseData = getParam('license_keydata');
 if ($sLicenseData != '') {
     $aLicenseData = chJsonDecode($sLicenseData);
+} else {
+    $sLicense = '';
 }
-//echo '<pre>' . print_r($aLicenseData, true) . '</pre><br>';
-//exit;
-//$bLicense = $sLicense != '';
-//$bFooter = getParam('enable_cheetah_footer') == 'on';
 
 $chLicenseStatus = '<span style="color: #008000">Valid</span>';
 if ((int)$aLicenseData['subscription_canceled'] == 1) {
@@ -84,7 +92,7 @@ if ($aLicenseData['server_ip'] == '') {
     $aLicenseData['server_ip'] = 'Unregistered';
 }
 $aLicenseData['issue_date'] = date("F d, Y", $iIssueDate);
-if ($aLicenseData['key_type'] == 'Permanent') {
+if ($aLicenseData['key_type'] == 'Permanent' || $aLicenseData['key_type'] == 'Free') {
     $aLicenseData['expire_date'] = 'Never';
 } else {
     $aLicenseData['expire_date'] = date("F d, Y", $iExpiresDate);
@@ -96,6 +104,9 @@ $aVars = array(
     'site_url' => $aLicenseData['site_url'],
     'server_ip' => $aLicenseData['server_ip'],
     'key_type' => $aLicenseData['key_type'],
+    'warning' => ch_js_string(_t('_adm_license_warning')),
+    'reset_warning' => ch_js_string(_t('_adm_license_reset_warning')),
+
     'ch_if:suspended' => array(
         'condition' => $aLicenseData['subscription_canceled'],
         'content' => array(
@@ -120,6 +131,12 @@ $aVars = array(
             'license' => $sLicense
         )
     ),
+    'ch_if:show_free' => array(
+        'condition' => $aLicenseData['key_type'] == 'Free',
+        'content' => array(
+            'license' => $sLicense
+        )
+    ),
     'ch_if:show_monthly' => array(
         'condition' => $aLicenseData['key_type'] == 'Monthly',
         'content' => array(
@@ -138,13 +155,6 @@ $aVars = array(
             'license' => $sLicense
         )
     ),
-    'ch_if:show_warning' => array(
-        //'condition' => !$bFooter,
-        'condition' => true,
-        'content' => array(
-            'warning' => ch_js_string(_t('_adm_license_warning'))
-        )
-    )
 );
 
 if ($sLicense == '' || $aLicenseData['status'] == 'Invalid') {

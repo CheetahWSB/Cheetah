@@ -68,7 +68,7 @@
       </td>
       <td class="dbBoxTblRight">__expire_date__</td>
     </tr>
--->    
+-->
     <ch_if:suspended>
       <tr>
         <td class="dbBoxTblLeft">
@@ -115,6 +115,12 @@
     <ch_text:_adm_license_note_permanent />
   </div>
 </ch_if:show_permanent>
+<ch_if:show_free>
+  <div class="adm-license-text ch-def-font-h1">__license__</div>
+  <div class="ch-def-margin-thd-top">
+    <ch_text:_adm_license_note_free />
+  </div>
+</ch_if:show_free>
 <ch_if:show_monthly>
   <div class="adm-license-text ch-def-font-h1">__license__</div>
   <div class="ch-def-margin-thd-top">
@@ -145,11 +151,14 @@
         <input type="text" name="license_code" value="__license__" class="adm-license-input ch-def-round-corners-with-border ch-def-font-large">
       </div>
       <div class="admin_license_cell">
-        <button type="submit" name="register" class="adm-license-submit ch-btn" <ch_if:show_warning>onclick="return confirm('__warning__');"</ch_if:show_warning>>
+        <button type="submit" name="register" class="adm-license-submit ch-btn" onclick="return confirm('__warning__');">
           <ch_text:_adm_license_register />
         </button>
         <button type="submit" name="recheck" class="adm-license-submit ch-btn">
           <ch_text:_adm_license_recheck />
+        </button>
+        <button type="submit" name="reset" class="adm-license-submit ch-btn" onclick="return confirm('__reset_warning__');">
+          <ch_text:_adm_license_reset />
         </button>
       </div>
       <div class="clear_both"></div>
