@@ -58,17 +58,23 @@ class ChWsbModule
         $sClassPath = CH_DIRECTORY_PATH_MODULES . $aModule['path'] . 'classes/';
 
         $sClassName = $sClassPrefix . 'Config';
-        require_once($sClassPath . $sClassName . '.php');
-        $this->_oConfig = new $sClassName($aModule);
+        if(file_exists($sClassPath . $sClassName . '.php')) {
+            require_once($sClassPath . $sClassName . '.php');
+            $this->_oConfig = new $sClassName($aModule);
 
-        $sClassName = $sClassPrefix . 'Db';
-        require_once($sClassPath . $sClassName . '.php');
-        $this->_oDb = new $sClassName($this->_oConfig);
+            $sClassName = $sClassPrefix . 'Db';
+            require_once($sClassPath . $sClassName . '.php');
+            $this->_oDb = new $sClassName($this->_oConfig);
 
-        $sClassName = $sClassPrefix . 'Template';
-        require_once($sClassPath . $sClassName . '.php');
-        $this->_oTemplate = new $sClassName($this->_oConfig, $this->_oDb);
-        $this->_oTemplate->loadTemplates();
+            $sClassName = $sClassPrefix . 'Template';
+            require_once($sClassPath . $sClassName . '.php');
+            $this->_oTemplate = new $sClassName($this->_oConfig, $this->_oDb);
+            $this->_oTemplate->loadTemplates();
+        } else {
+            header("HTTP/1.0 404 Not Found");
+            $GLOBALS['oSysTemplate']->displayPageNotFound();
+            exit;
+        }
     }
 
     /**
