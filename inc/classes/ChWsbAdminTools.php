@@ -871,7 +871,7 @@ EOF;
                     echo ' - ';
 
                     if ('always_on' != $a['enabled'] && !getParam($a['enabled']))
-                        echo '<b class="fail">FAIL</b> (please enable this cache in Cheetah Admin Panel -> Settings -> Advanced Settings)';
+                        echo '<b class="fail">FAIL</b> (please enable this cache in Cheetah Admin Panel -> Tools -> Cache -> Settings)';
                     elseif ($a['check_accel'] && !$this->getPhpAccelerator() && 'File' == getParam($a['cache_engine']))
                         echo '<b class="warn">WARNING</b> (installing PHP accelerator will speed-up file cache)';
                     else
