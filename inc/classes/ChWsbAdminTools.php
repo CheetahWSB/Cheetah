@@ -637,6 +637,7 @@ EOF;
     <li><b>PHP</b>:
         <?php
         $sPhpVer = PHP_VERSION;
+        $sIniPath = php_ini_loaded_file();
         echo $sPhpVer . ' - ';
         if (version_compare($sPhpVer, $sMinPhpVer, '<'))
             echo '<b class="fail">FAIL</b> (your version is incompatible with Cheetah, must be at least ' . $sMinPhpVer . ')';
@@ -648,6 +649,8 @@ EOF;
         ?>
         <ul>
         <?php
+            echo '<li>php.ini file in use = ' . $sIniPath . '</li>';
+            echo '<ul><li>Make sure when you change php settings, they are done for the version of php and ini file thats being used by this site.</li></ul>';
         foreach ($aPhpSettings as $sName => $r) {
             $a = $this->checkPhpSetting($sName, $r);
             echo "<li>$sName = " . $this->format_output($a['real_val'], $r) ." - ";
@@ -870,10 +873,15 @@ EOF;
 
                     echo ' - ';
 
-                    if ('always_on' != $a['enabled'] && !getParam($a['enabled']))
-                        echo '<b class="fail">FAIL</b> (please enable this cache in Cheetah Admin Panel -> Tools -> Cache -> Settings)';
-                    elseif ($a['check_accel'] && !$this->getPhpAccelerator() && 'File' == getParam($a['cache_engine']))
-                        echo '<b class="warn">WARNING</b> (installing PHP accelerator will speed-up file cache)';
+                    if ('always_on' != $a['enabled'] && !getParam($a['enabled'])) {
+                        echo '<b class="fail">FAIL</b>';
+                        echo '<ul>';
+                        echo '<li style="margin-bottom: 0;">You should enable this cache in Cheetah Admin Panel -> Tools -> Cache -> Settings</li>';
+                        echo '<li>If your site is new and still under development, this cache settings should remain off.</li>';
+                        echo '</ul>';
+                    }
+                    //elseif ($a['check_accel'] && !$this->getPhpAccelerator() && 'File' == getParam($a['cache_engine']))
+                    //    echo '<b class="warn">WARNING</b> (installing PHP accelerator will speed-up file cache)';
                     else
                         echo '<b class="ok">OK</b>';
 
