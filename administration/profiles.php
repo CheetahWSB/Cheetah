@@ -59,6 +59,30 @@ if(isset($_POST['adm-mp-activate']) && (bool)$_POST['members']) {
 
     echo "<script>window.parent." . CH_WSB_ADM_MP_JS_NAME . ".reload();</script>";
     exit;
+
+} else if(isset($_POST['adm-mp-set-admin']) && (bool)$_POST['members']) {
+    $iIdCurr = getLoggedId();
+    foreach($_POST['members'] as $iId) {
+        $iId = (int)$iId;
+        if ($iIdCurr != $iId)
+            $GLOBALS['MySQL']->query("UPDATE `Profiles` SET `Role` = 3 WHERE `ID` = '$iId'");
+    }
+
+    echo "<script>window.parent." . CH_WSB_ADM_MP_JS_NAME . ".reload();</script>";
+    exit;
+
+  } else if(isset($_POST['adm-mp-unset-admin']) && (bool)$_POST['members']) {
+
+      $iIdCurr = getLoggedId();
+      foreach($_POST['members'] as $iId) {
+          $iId = (int)$iId;
+          if ($iIdCurr != $iId)
+              $GLOBALS['MySQL']->query("UPDATE `Profiles` SET `Role` = 1 WHERE `ID` = '$iId'");
+      }
+
+      echo "<script>window.parent." . CH_WSB_ADM_MP_JS_NAME . ".reload();</script>";
+      exit;
+
 } else if((isset($_POST['adm-mp-delete']) || isset($_POST['adm-mp-delete-spammer'])) && (bool)$_POST['members']) {
     $iIdCurr = getLoggedId();
     foreach($_POST['members'] as $iId) {
@@ -386,6 +410,8 @@ function getMembers($aParams)
         'adm-mp-confirm' => _t('_adm_btn_mp_confirm'),
         'adm-mp-delete' => _t('_adm_btn_mp_delete'),
         'adm-mp-delete-spammer' => _t('_adm_btn_mp_delete_spammer'),
+        'adm-mp-set-admin' => _t('_adm_btn_mp_set_admin'),
+        'adm-mp-unset-admin' => _t('_adm_btn_mp_unset_admin'),
     );
     $sControls = ChTemplSearchResult::showAdminActionsPanel('adm-mp-members-' . $aParams['view_type'], $aButtons, 'members');
 
