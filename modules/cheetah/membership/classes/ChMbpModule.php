@@ -272,7 +272,13 @@ class ChMbpModule extends ChWsbModule
         }
         //--- Process actions ---//
 
-        $sContent = DesignBoxAdmin(_t('_' . $sUri . '_bcaption_settings'), $GLOBALS['oAdmTemplate']->parseHtmlByName('design_box_content.html', array('content' => $this->getSettingsForm($mixedResultSettings))));
+        // If settings are set at default, do not display them.
+        // This is prep for removal of the pay to join feature.
+        if($this->_oConfig->_bDisableFreeJoin == false && $this->_oConfig->_bEnableStandardOnPaidJoin == true && $this->_oConfig->_bEnableCaptchaOnPaidJoin == true) {
+            $sContent = DesignBoxAdmin(_t('_' . $sUri . '_bcaption_settings'), msgBox('This module does not have any admin settings.'));
+        } else {
+            $sContent = DesignBoxAdmin(_t('_' . $sUri . '_bcaption_settings'), $GLOBALS['oAdmTemplate']->parseHtmlByName('design_box_content.html', array('content' => $this->getSettingsForm($mixedResultSettings))));
+        }
 
         $aParams = array(
             'title' => array(
