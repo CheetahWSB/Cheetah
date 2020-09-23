@@ -7,8 +7,9 @@ $aLangContent = array(
   '_adm_license_note_free' => 'Бесплатная лицензия. (Сгенерировано автоматически) <br /> Чтобы избавиться от незарегистрированных запросов в области администрирования и от интерфейса, использующего ссылки, вам понадобится лицензия на месяц или год. <a href="https://www.cheetahwsb.com/m/license_server/buy_license/"> Нажмите здесь, чтобы приобрести лицензию. </a>',  
   '_adm_license_reset' => 'Сброс',
   '_adm_license_reset_warning' => 'Вы уверены, что хотите сбросить лицензию? Текущая лицензия будет удалена!',  
-
-
+  '_adm_btn_mp_set_admin' => 'Set as Admin',
+  '_adm_btn_mp_unset_admin' => 'Un-Set as Admin',
+  '_adm_txt_hosting_text' => '90% of configuration and installation issues result from incorrect hosting setup. Cheetah will occasionally update a list of recommended hosting providers as i find ones that work best with Cheetah.',
 
   // ================ CHANGED KEYS ================
 
