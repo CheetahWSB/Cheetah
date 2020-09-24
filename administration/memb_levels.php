@@ -5,15 +5,15 @@
  * CC-BY License - http://creativecommons.org/licenses/by/3.0/
  */
 
-require_once( '../inc/header.inc.php' );
-require_once( CH_DIRECTORY_PATH_INC . 'profiles.inc.php' );
-require_once( CH_DIRECTORY_PATH_INC . 'design.inc.php' );
-require_once( CH_DIRECTORY_PATH_INC . 'admin_design.inc.php' );
-require_once( CH_DIRECTORY_PATH_INC . 'utils.inc.php' );
+require_once('../inc/header.inc.php');
+require_once(CH_DIRECTORY_PATH_INC . 'profiles.inc.php');
+require_once(CH_DIRECTORY_PATH_INC . 'design.inc.php');
+require_once(CH_DIRECTORY_PATH_INC . 'admin_design.inc.php');
+require_once(CH_DIRECTORY_PATH_INC . 'utils.inc.php');
 ch_import('ChWsbAdminSettings');
 ch_import('ChTemplSearchResult');
 
-$logged['admin'] = member_auth( 1, true, true );
+$logged['admin'] = member_auth(1, true, true);
 
 $oSettings = new ChWsbAdminSettings(5, CH_WSB_URL_ADMIN . 'memb_levels.php?tab=settings');
 
@@ -22,43 +22,48 @@ $aResults = array();
 $mixedResultActions = '';
 $mixedResultAction = '';
 $mixedResultPrices = '';
-if(isset($_POST['save']) && isset($_POST['cat'])) {
+if (isset($_POST['save']) && isset($_POST['cat'])) {
     $aResults['settings'] = $oSettings->saveChanges($_POST);
-} else if((isset($_POST['adm-mlevels-enable']) || isset($_POST['adm-mlevels-disable'])) && !empty($_POST['levels'])) {
-    if(isset($_POST['adm-mlevels-enable']))
+} elseif ((isset($_POST['adm-mlevels-enable']) || isset($_POST['adm-mlevels-disable'])) && !empty($_POST['levels'])) {
+    if (isset($_POST['adm-mlevels-enable'])) {
         $sValue = 'yes';
-    else if(isset($_POST['adm-mlevels-disable']))
+    } elseif (isset($_POST['adm-mlevels-disable'])) {
         $sValue = 'no';
+    }
 
     $GLOBALS['MySQL']->query("UPDATE `sys_acl_levels` SET `Active`='" . $sValue . "' WHERE `ID` IN ('" . implode("','", $_POST['levels']) . "')");
-} else if(isset($_POST['adm-mlevels-delete']) && !empty($_POST['levels'])) {
-    foreach($_POST['levels'] as $iId)
-        if(($aResults['levels'] = deleteMembership($iId)) !== true)
+} elseif (isset($_POST['adm-mlevels-delete']) && !empty($_POST['levels'])) {
+    foreach ($_POST['levels'] as $iId) {
+        if (($aResults['levels'] = deleteMembership($iId)) !== true) {
             break;
-} else if(isset($_POST['adm-mlevels-actions-enable']) || isset($_POST['adm-mlevels-actions-disable'])) {
+        }
+    }
+} elseif (isset($_POST['adm-mlevels-actions-enable']) || isset($_POST['adm-mlevels-actions-disable'])) {
     $iLevelId = (int)$_POST['level'];
 
-    foreach($_POST['actions'] as $iId) {
-        if(isset($_POST['adm-mlevels-actions-enable']))
+    foreach ($_POST['actions'] as $iId) {
+        if (isset($_POST['adm-mlevels-actions-enable'])) {
             $sQuery = "REPLACE INTO `sys_acl_matrix` SET `IDLevel`='" . $iLevelId . "', `IDAction`='" . $iId . "'";
-        else
+        } else {
             $sQuery = "DELETE FROM `sys_acl_matrix` WHERE `IDLevel`='" . $iLevelId . "' AND `IDAction`='" . $iId . "'";
+        }
 
         $GLOBALS['MySQL']->query($sQuery);
     }
-} else if(isset($_POST['adm-mlevels-prices-add'])) {
+} elseif (isset($_POST['adm-mlevels-prices-add'])) {
     $iLevelId = (int)$_POST['level'];
     $iDays = (int)$_POST['days'];
     $iPrice = (float)trim($_POST['price'], " $");
 
     $iLevelIdDb = (int)$GLOBALS['MySQL']->getOne("SELECT `id` FROM `sys_acl_level_prices` WHERE `IDLevel`='" . $iLevelId . "' AND `Days`='" . $iDays . "' LIMIT 1");
-    if($iLevelIdDb == 0)
+    if ($iLevelIdDb == 0) {
         $GLOBALS['MySQL']->query("INSERT INTO `sys_acl_level_prices`(`IDLevel`, `Days`, `Price`) VALUES('" . $iLevelId . "', '" . $iDays . "', '" . $iPrice . "')");
-    else
+    } else {
         $mixedResultPrices = _t('_adm_txt_mlevels_price_exists');
-} else if(isset($_POST['adm-mlevels-prices-delete'])) {
+    }
+} elseif (isset($_POST['adm-mlevels-prices-delete'])) {
     $GLOBALS['MySQL']->query("DELETE FROM `sys_acl_level_prices` WHERE `id` IN ('" . implode("','", $_POST['prices']) . "')");
-} else if(isset($_POST['adm-mlevels-action-save'])) {
+} elseif (isset($_POST['adm-mlevels-action-save'])) {
     $sQuery = "REPLACE INTO `sys_acl_matrix` SET `IDLevel`='" . (int)$_POST['levelId'] . "', `IDAction`='" . (int)$_POST['actionId'] . "'";
     $sQuery .= !empty($_POST['allowedCnt']) ? ", `AllowedCount`='" . (int)$_POST['allowedCnt'] . "'" : "";
     $sQuery .= !empty($_POST['period']) ? ", `AllowedPeriodLen`='" . (int)$_POST['period'] . "'" : "";
@@ -68,7 +73,7 @@ if(isset($_POST['save']) && isset($_POST['cat'])) {
 
     echo "<script>parent.onResult(" . json_encode($aResult) . ");</script>";
     exit;
-} else if(isset($_POST['action']) && $_POST['action'] == 'get_edit_form_action') {
+} elseif (isset($_POST['action']) && $_POST['action'] == 'get_edit_form_action') {
     echo json_encode(array('code' => PageCodeAction((int)$_POST['level_id'], (int)$_POST['action_id'], $mixedResultAction)));
     exit;
 }
@@ -100,8 +105,9 @@ function PageCodeMain($aResults, $iLevelId)
     $sTab = ch_get('tab') !== false ? process_db_input(ch_get('tab')) : 'levels';
 
     $bEdit = ch_get('action') !== false && ch_get('action') == 'edit';
-    if($bEdit)
+    if ($bEdit) {
         $sTab = 'levels_add';
+    }
 
     $aTopItems = array(
         'adm-mlevels-btn-levels' => array('href' => 'javascript:void(0)', 'onclick' => 'javascript:onChangeType(this)', 'title' => _t('_adm_txt_mlevels_levels'), 'active' => $sTab == 'levels' ? 1 : 0),
@@ -123,7 +129,7 @@ function _getLevelsList($mixedResult, $bActive = false)
     $sSubmitUrl = CH_WSB_URL_ADMIN . 'memb_levels.php?tab=levels';
 
     $sResult = '';
-    if($mixedResult !== true && !empty($mixedResult)) {
+    if ($mixedResult !== true && !empty($mixedResult)) {
         $bActive = true;
         $sResult = MsgBox(_t($mixedResult), 3) . $sResult;
     }
@@ -132,18 +138,19 @@ function _getLevelsList($mixedResult, $bActive = false)
     $aItemsSystem = $aItemsCustom = array();
 
     $aLevels = $GLOBALS['MySQL']->getAll("SELECT `ID` AS `id`, `Name` AS `title`, `Active` AS `active`, `Purchasable` AS `purchasable`, `Removable` AS `removable` FROM `sys_acl_levels` WHERE `Removable`='no' ORDER BY `ID` ASC");
-    foreach($aLevels as $aLevel)
+    foreach ($aLevels as $aLevel) {
         $aItemsSystem[] = array(
             'id' => $aLevel['id'],
             'title' => $aLevel['title'],
             'actions_link' => $GLOBALS['site']['url_admin'] . 'memb_levels.php?action=actions&level=' . $aLevel['id'] . '#actions' . $aLevel['id'],
         );
+    }
 
     $oModuleDb = new ChWsbModuleDb();
     $bPayment = $oModuleDb->isModule('payment');
 
     $aLevels = $GLOBALS['MySQL']->getAll("SELECT `ID` AS `id`, `Name` AS `title`, `Active` AS `active`, `Purchasable` AS `purchasable`, `Removable` AS `removable` FROM `sys_acl_levels` WHERE `Removable`='yes' ORDER BY `Order` ASC");
-    foreach($aLevels as $aLevel)
+    foreach ($aLevels as $aLevel) {
         $aItemsCustom[] = array(
             'id' => $aLevel['id'],
             'title' => $aLevel['title'],
@@ -162,6 +169,7 @@ function _getLevelsList($mixedResult, $bActive = false)
                 )
             )
         );
+    }
 
     //--- Get Controls ---//
     $aButtons = array(
@@ -186,8 +194,20 @@ function _getLevelsCreateForm($iLevelId, $bActive = false)
     $sSubmitUrl = CH_WSB_URL_ADMIN . 'memb_levels.php';
 
     $aLevel = array();
-    if(($bEdit = $iLevelId != 0) === true)
+    if (($bEdit = $iLevelId != 0) === true) {
         $aLevel = $GLOBALS['MySQL']->getRow("SELECT `Name` AS `Name`, `Description` AS `Description`, `Order` AS `Order` FROM `sys_acl_levels` WHERE `ID`= ? LIMIT 1", [$iLevelId]);
+    }
+
+    if (!$bEdit) {
+        $aLevels = $GLOBALS['MySQL']->getAll("SELECT `ID` AS `id`, `Name` AS `title`, `Active` AS `active`, `Purchasable` AS `purchasable`, `Removable` AS `removable` FROM `sys_acl_levels` WHERE `Removable`='no' ORDER BY `ID` ASC");
+        foreach ($aLevels as $aLevel2) {
+            $aItemsSystem[$aLevel2['id']] = $aLevel2['title'];
+        }
+        $sCopyFromCaption = _t('_adm_txt_mlevels_copy');
+    } else {
+        $aItemsSystem = array();
+        $sCopyFromCaption = '';
+    }
 
     $aForm = array(
         'form_attrs' => array(
@@ -196,7 +216,7 @@ function _getLevelsCreateForm($iLevelId, $bActive = false)
             'method' => 'post',
             'enctype' => 'multipart/form-data',
         ),
-        'params' => array (
+        'params' => array(
             'db' => array(
                 'table' => 'sys_acl_levels',
                 'key' => 'ID',
@@ -205,12 +225,12 @@ function _getLevelsCreateForm($iLevelId, $bActive = false)
                 'submit_name' => 'Submit'
             ),
         ),
-        'inputs' => array (
+        'inputs' => array(
             'Active' => array(
                 'type' => 'hidden',
                 'name' => 'Active',
                 'value' => 'no',
-                'db' => array (
+                'db' => array(
                     'pass' => 'Xss',
                 ),
             ),
@@ -218,7 +238,7 @@ function _getLevelsCreateForm($iLevelId, $bActive = false)
                 'type' => 'hidden',
                 'name' => 'Purchasable',
                 'value' => 'yes',
-                'db' => array (
+                'db' => array(
                     'pass' => 'Xss',
                 ),
             ),
@@ -226,7 +246,7 @@ function _getLevelsCreateForm($iLevelId, $bActive = false)
                 'type' => 'hidden',
                 'name' => 'Removable',
                 'value' => 'yes',
-                'db' => array (
+                'db' => array(
                     'pass' => 'Xss',
                 ),
             ),
@@ -236,10 +256,10 @@ function _getLevelsCreateForm($iLevelId, $bActive = false)
                 'caption' => _t('_adm_txt_mlevels_name'),
                 'value' => isset($aLevel['Name']) ? $aLevel['Name'] : '',
                 'required' => true,
-                'db' => array (
+                'db' => array(
                     'pass' => 'Xss',
                 ),
-                'checker' => array (
+                'checker' => array(
                     'func' => 'length',
                     'params' => array(3,100),
                     'error' => _t('_adm_txt_mlevels_name_err'),
@@ -250,7 +270,7 @@ function _getLevelsCreateForm($iLevelId, $bActive = false)
                 'name' => 'Icon',
                 'caption' => _t('_adm_txt_mlevels_icon'),
                 'required' => true,
-                'checker' => array (
+                'checker' => array(
                     'func' => '',
                     'params' => '',
                     'error' => _t('_adm_txt_mlevels_icon_err'),
@@ -261,7 +281,7 @@ function _getLevelsCreateForm($iLevelId, $bActive = false)
                 'name' => 'Description',
                 'caption' => _t('_adm_txt_mlevels_description'),
                 'value' => isset($aLevel['Description']) ? $aLevel['Description'] : '',
-                'db' => array (
+                'db' => array(
                     'pass' => 'XssHtml',
                 ),
             ),
@@ -269,16 +289,24 @@ function _getLevelsCreateForm($iLevelId, $bActive = false)
                 'type' => 'text',
                 'name' => 'Order',
                 'caption' => _t('_adm_txt_mlevels_order'),
-                'value' => isset($aLevel['Order']) ? $aLevel['Order'] : 0,
+                'value' => isset($aLevel['Order']) ? $aLevel['Order'] : $GLOBALS['MySQL']->getOne("SELECT MAX(`Order`)+1 FROM `sys_acl_levels`"),
                 'required' => true,
-                'db' => array (
+                'db' => array(
                     'pass' => 'Int',
                 ),
-                'checker' => array (
+                'checker' => array(
                     'func' => 'preg',
                     'params' => array('/^[1-9][0-9]*$/'),
                     'error' => _t('_adm_txt_mlevels_order_err'),
                 ),
+            ),
+            'CopyFrom' => array(
+                'type' => 'radio_set',
+                'name' => 'CopyFrom',
+                'caption' => $sCopyFromCaption,
+                'value' => $aItem['Target'] == '_blank' ? '_blank' : '_self',
+                'values' => $aItemsSystem,
+                'attrs' => array()
             ),
             'Submit' => array(
                 'type' => 'submit',
@@ -289,7 +317,7 @@ function _getLevelsCreateForm($iLevelId, $bActive = false)
     );
 
     //--- Convert Add to Edit
-    if($bEdit) {
+    if ($bEdit) {
         unset($aForm['inputs']['Active']);
         unset($aForm['inputs']['Purchasable']);
         unset($aForm['inputs']['Removable']);
@@ -303,57 +331,62 @@ function _getLevelsCreateForm($iLevelId, $bActive = false)
             'type' => 'hidden',
             'name' => 'ID',
             'value' => $iLevelId,
-            'db' => array (
+            'db' => array(
                 'pass' => 'Int',
             )
         );
     }
-
     $oForm = new ChTemplFormView($aForm);
     $oForm->initChecker();
 
-    if($oForm->isSubmittedAndValid()) {
+    if ($oForm->isSubmittedAndValid()) {
         $sFilePath = CH_DIRECTORY_PATH_ROOT . 'media/images/membership/';
         $sFileName = time();
         $sFileExt = '';
 
         //--- Add new level
-        if(!$bEdit) {
+        if (!$bEdit) {
             if ($GLOBALS['MySQL']->getOne("SELECT `Name` FROM `sys_acl_levels` WHERE `Name`='" . $oForm->getCleanValue('Name') . "' LIMIT 1")) {
                 $oForm->aInputs['Name']['error'] = _t('_adm_txt_mlevels_name_err_non_uniq');
-            }
-            else if (isImage($_FILES['Icon']['type'], $sFileExt) && !empty($_FILES['Icon']['tmp_name']) && move_uploaded_file($_FILES['Icon']['tmp_name'],  $sFilePath . $sFileName . '.' . $sFileExt)) {
+            } elseif (isImage($_FILES['Icon']['type'], $sFileExt) && !empty($_FILES['Icon']['tmp_name']) && move_uploaded_file($_FILES['Icon']['tmp_name'], $sFilePath . $sFileName . '.' . $sFileExt)) {
                 $sPath = $sFilePath . $sFileName . '.' . $sFileExt;
                 imageResize($sPath, $sPath, 110, 110);
 
                 $iId = (int)$oForm->insert(array('Icon' => $sFileName . '.' . $sFileExt));
-                if($iId != 0) {
+                if ($iId != 0) {
                     $sName = $oForm->getCleanValue('Name');
                     addStringToLanguage('_adm_txt_mp_' . strtolower($sName), $sName);
+
+                    $iCopyFrom = (int)$oForm->getCleanValue('CopyFrom');
+                    // If $sCopyFrom is set, then copy the actions from the level in $sCopyFrom to the new level.
+                    if ($iCopyFrom > 0) {
+                        _copyMatrix($iCopyFrom, $iId);
+                    }
                 }
 
                 header('Location: ' . $sSubmitUrl);
                 exit;
-            }
-            else
+            } else {
                 $oForm->aInputs['Icon']['error'] = $oForm->aInputs['Icon']['checker']['error'];
+            }
         }
         //--- Edit existing level
         else {
             $aValsToAdd = array();
-            if(isImage($_FILES['Icon']['type'], $sFileExt) && !empty($_FILES['Icon']['tmp_name']) && move_uploaded_file($_FILES['Icon']['tmp_name'],  $sFilePath . $sFileName . '.' . $sFileExt)) {
+            if (isImage($_FILES['Icon']['type'], $sFileExt) && !empty($_FILES['Icon']['tmp_name']) && move_uploaded_file($_FILES['Icon']['tmp_name'], $sFilePath . $sFileName . '.' . $sFileExt)) {
                 $aValsToAdd['Icon'] = $sFileName . '.' . $sFileExt;
 
                 $sPath = $sFilePath . $sFileName . '.' . $sFileExt;
                 imageResize($sPath, $sPath, 110, 110);
 
                 $sIconOld = $GLOBALS['MySQL']->getOne("SELECT `Icon` FROM `sys_acl_levels` WHERE `ID`='" . $iLevelId . "' LIMIT 1");
-                if(!empty($sIconOld))
+                if (!empty($sIconOld)) {
                     @unlink($sFilePath . $sIconOld);
+                }
             }
 
             $bResult = $oForm->update($iLevelId, $aValsToAdd);
-            if($bResult !== false) {
+            if ($bResult !== false) {
                 deleteStringFromLanguage('_adm_txt_mp_' . strtolower($aLevel['Name']));
 
                 $sName = $oForm->getCleanValue('Name');
@@ -365,15 +398,37 @@ function _getLevelsCreateForm($iLevelId, $bActive = false)
         }
     }
 
-     return $GLOBALS['oAdmTemplate']->parseHtmlByName('mlevels_create.html', array(
+    return $GLOBALS['oAdmTemplate']->parseHtmlByName('mlevels_create.html', array(
         'display' => $bActive ? 'block' : 'none',
         'form' => $oForm->getCode()
     ));
 }
+
+function _copyMatrix($iFromId, $iToId)
+{
+    // Copies the membership actions martix from the From ID to the To ID
+    $aMatrix = $GLOBALS['MySQL']->getAll("SELECT * FROM `sys_acl_matrix` WHERE `IDLevel` = '$iFromId'");
+    //echo $iFromId . '<br>';
+    //echo $iToId . '<br>';
+    //echo '<pre>' . print_r($aMatrix, true) . '</pre>';
+    //exit;
+    foreach ($aMatrix as $id => $value) {
+        $sSet = "`IDLevel` = '$iToId', ";
+        $sSet .= "`IDAction` = '" . $value['IDAction'] . "', ";
+        $sSet .= "`AllowedCount` = '" . $value['AllowedCount'] . "', ";
+        $sSet .= "`AllowedPeriodLen` = '" . $value['AllowedPeriodLen'] . "', ";
+        $sSet .= "`AllowedPeriodStart` = '" . $value['AllowedPeriodStart'] . "', ";
+        $sSet .= "`AllowedPeriodEnd` = '" . $value['AllowedPeriodEnd'] . "', ";
+        $sSet .= "`AdditionalParamValue` = '" . $value['AdditionalParamValue'] . "';";
+        $GLOBALS['MySQL']->query("INSERT INTO `sys_acl_matrix` SET " . $sSet);
+    }
+}
+
+
 function _getLevelsSettingsForm($mixedResult, $bActive = false)
 {
     $sResult = $GLOBALS['oSettings']->getForm();
-    if($mixedResult !== true && !empty($mixedResult)) {
+    if ($mixedResult !== true && !empty($mixedResult)) {
         $bActive = true;
         $sResult = $mixedResult . $sResult;
     }
@@ -397,7 +452,7 @@ function PageCodeActions($iId, $mixedResult)
 
     translateMembershipActions($aActions);
 
-    foreach($aActions as $aAction) {
+    foreach ($aActions as $aAction) {
         $bEnabled = array_key_exists($aAction['id'], $aActionsActive);
         $aItems[] = array(
             'action_id' => $aAction['id'],
@@ -435,8 +490,9 @@ function PageCodeActions($iId, $mixedResult)
         'url_admin' => $GLOBALS['site']['url_admin']
     ));
 
-    if($mixedResult !== true && !empty($mixedResult))
+    if ($mixedResult !== true && !empty($mixedResult)) {
         $sResult = MsgBox(_t($mixedResult), 3) . $sResult;
+    }
 
     return DesignBoxAdmin(_t('_adm_box_cpt_mlevel_actions', $sTitle), $sResult);
 }
@@ -452,8 +508,8 @@ function PageCodeAction($iLevelId, $iActionId, $mixedResult)
             'method' => 'post',
             'enctype' => 'multipart/form-data'
         ),
-        'params' => array (),
-        'inputs' => array (
+        'params' => array(),
+        'inputs' => array(
             'levelId' => array(
                 'type' => 'hidden',
                 'name' => 'levelId',
@@ -487,7 +543,7 @@ function PageCodeAction($iLevelId, $iActionId, $mixedResult)
                 'attrs' => array(
                     'allow_input' => 'true',
                 ),
-                'db' => array (
+                'db' => array(
                     'pass' => 'DateTime',
                 ),
             ),
@@ -500,7 +556,7 @@ function PageCodeAction($iLevelId, $iActionId, $mixedResult)
                 'attrs' => array(
                     'allow_input' => 'true',
                 ),
-                'db' => array (
+                'db' => array(
                     'pass' => 'DateTime',
                 ),
             ),
@@ -517,8 +573,9 @@ function PageCodeAction($iLevelId, $iActionId, $mixedResult)
         'content' => $oForm->getCode()
     ));
 
-    if($mixedResult !== true && !empty($mixedResult))
+    if ($mixedResult !== true && !empty($mixedResult)) {
         $sResult = MsgBox(_t($mixedResult), 3) . $sResult;
+    }
 
     return $GLOBALS['oFunctions']->popupBox('adm-mlevels-action', _t('_adm_box_cpt_mlevel_action'), $sResult);
 }
@@ -526,19 +583,21 @@ function PageCodePrices($iId, $mixedResult)
 {
     //--- Get Items ---//
     $oModuleDb = new ChWsbModuleDb();
-    if(!$oModuleDb->isModule('payment'))
+    if (!$oModuleDb->isModule('payment')) {
         return '';
+    }
 
     $aInfo = ChWsbService::call('payment', 'get_currency_info');
     $sCurrencySign = $aInfo['sign'];
 
     $aItems = array();
     $aPrices = $GLOBALS['MySQL']->getAll("SELECT `id` AS `id`, `Days` AS `days`, `Price` AS `price` FROM `sys_acl_level_prices` WHERE `IDLevel`= ? ORDER BY `id`", [$iId]);
-    foreach($aPrices as $aPrice)
+    foreach ($aPrices as $aPrice) {
         $aItems[] = array(
             'id' => $aPrice['id'],
             'title' => (int)$aPrice['days'] == 0 ? _t('_adm_txt_mlevels_price_info_lifetime', $sCurrencySign, $aPrice['price']) : _t('_adm_txt_mlevels_price_info', $aPrice['days'], $sCurrencySign, $aPrice['price']),
         );
+    }
 
     //--- Get Controls ---//
     $sTopControls = $GLOBALS['oAdmTemplate']->parseHtmlByName('mlevels_prices_top_controls.html', array());
@@ -555,8 +614,9 @@ function PageCodePrices($iId, $mixedResult)
         'controls' => $sControls
     ));
 
-    if($mixedResult !== true && !empty($mixedResult))
+    if ($mixedResult !== true && !empty($mixedResult)) {
         $sResult = MsgBox(_t($mixedResult), 3) . $sResult;
+    }
 
     $sTitle = $GLOBALS['MySQL']->getOne("SELECT `Name` FROM `sys_acl_levels` WHERE `ID`='" . $iId . "' LIMIT 1");
     return DesignBoxAdmin(_t('_adm_box_cpt_mlevel_prices', $sTitle), $sResult);
@@ -564,7 +624,7 @@ function PageCodePrices($iId, $mixedResult)
 function isImage($sMimeType, &$sFileExtension)
 {
     $bResult = true;
-    switch($sMimeType) {
+    switch ($sMimeType) {
         case 'image/jpeg':
         case 'image/pjpeg':
             $sFileExtension = 'jpg';
@@ -585,28 +645,33 @@ function deleteMembership($iId)
 {
     $iId = (int)$iId;
 
-    $aLevel = $GLOBALS['MySQL']->getRow("SELECT `Icon` AS `icon`, `Removable` AS `removable` FROM `sys_acl_levels` WHERE `ID`= ?", [$iId]);
-    if(empty($aLevel))
+    $aLevel = $GLOBALS['MySQL']->getRow("SELECT `Icon` AS `icon`, `Removable` AS `removable`, `Name` AS `name` FROM `sys_acl_levels` WHERE `ID`= ?", [$iId]);
+    if (empty($aLevel)) {
         return "_adm_txt_mlevels_not_found";
+    }
 
     //Check if membership can be removed
-    if($aLevel['removable'] != 'yes')
+    if ($aLevel['removable'] != 'yes') {
         return '_adm_txt_mlevels_cannot_remove';
+    }
 
     //Check if there are still members using this ANNUAL membership
     $iDateExpires = $GLOBALS['MySQL']->getOne("SELECT UNIX_TIMESTAMP(MAX(`DateExpires`)) as `MaxDateExpires` FROM `sys_acl_levels_members` WHERE `IDLevel`='" . $iId . "'");
-    if($iDateExpires > time())
+    if ($iDateExpires > time()) {
         return "_adm_txt_mlevels_is_used";
+    }
 
-	//Check if there are members using this LIFETIME membership
-	$iLifetime = (int)$GLOBALS['MySQL']->getOne("SELECT COUNT(`IDMember`) FROM `sys_acl_levels_members` WHERE `DateStarts`<=NOW() AND ISNULL(`DateExpires`) AND `IDLevel`='" . $iId . "'");
-	if($iLifetime > 0)
-		return "_adm_txt_mlevels_is_used";
+    //Check if there are members using this LIFETIME membership
+    $iLifetime = (int)$GLOBALS['MySQL']->getOne("SELECT COUNT(`IDMember`) FROM `sys_acl_levels_members` WHERE `DateStarts`<=NOW() AND ISNULL(`DateExpires`) AND `IDLevel`='" . $iId . "'");
+    if ($iLifetime > 0) {
+        return "_adm_txt_mlevels_is_used";
+    }
 
     @unlink(CH_DIRECTORY_PATH_ROOT . 'media/images/membership/' . $aLevel['icon']);
     db_res("DELETE FROM `sys_acl_level_prices` WHERE `IDLevel`='" . $iId . "'");
     db_res("DELETE FROM `sys_acl_matrix` WHERE `IDLevel`='" . $iId . "'");
     db_res("DELETE FROM `sys_acl_levels` WHERE `ID`='" . $iId . "'");
+    deleteStringFromLanguage('_adm_txt_mp_' . strtolower($aLevel['name']));
 
     return true;
 }
