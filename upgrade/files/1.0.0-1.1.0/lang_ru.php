@@ -13,6 +13,7 @@ $aLangContent = array(
 
   // ================ CHANGED KEYS ================
   '_adm_txt_hosting_text' => '90% of configuration and installation issues result from incorrect hosting setup. Cheetah will occasionally update a list of recommended hosting providers as i find ones that work best with Cheetah.',
+  '_Exception_user_msg' => 'A error occurred while loading the page. The system administrator has been notified.',
 
 
 );
