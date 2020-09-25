@@ -167,7 +167,8 @@ ChWsbPageBuilder.prototype.onWidthSliderStop = function(value) {
 	},
 	function(sResponse) {
 		if(sResponse != 'OK')
-			alert(sResponse);
+			//alert(sResponse);
+      alert('Error saving page width.');
 	});
 
 	//update columns headers
@@ -197,7 +198,8 @@ ChWsbPageBuilder.prototype.onOtherWidthSliderStop = function(value) {
 	},
 	function(sResponse) {
 		if(sResponse != 'OK')
-			alert(sResponse);
+			//alert(sResponse);
+      alert('Error saving other pages width.');
 	});
 };
 
@@ -363,7 +365,8 @@ ChWsbPageBuilder.prototype.submit = function() {
 	},
 	function(sResponse) {
 		if(sResponse != 'OK')
-			alert(sResponse);
+			//alert(sResponse);
+      alert('Error saving block. Block may not have been dropped into a column.');
 
 		_builder.submitWidths();
 	}
@@ -386,7 +389,8 @@ ChWsbPageBuilder.prototype.submitWidths = function() {
 	},
 	function(sResponse) {
 		if(sResponse != 'OK')
-			alert(sResponse);
+			//alert(sResponse);
+      alert('Error saving column widths. Block may not have been dropped into a column.');
 	}
 	);
 };
