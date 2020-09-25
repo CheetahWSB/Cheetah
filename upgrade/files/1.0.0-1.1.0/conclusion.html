@@ -7,12 +7,17 @@
 <span class="dbboldred">IMPORTANT!!!</span><br />
 <br />
 Automatic part of upgrade is completed. Please do the following to complete upgrade
-process:
-<ul>
-	<li>Delete the file <b>inc/classes/ChWsbCacheAPC.php</b> via FTP or SSH</li>
-	<li>Delete the file <b>inc/classes/ChWsbCacheXCache.php</b> via FTP or SSH</li>
-
-</ul>
+process:<br><br><strong>The Paypal Payflow module has been removed</strong> from the main Cheetah
+Distrubution. It will eventually be replaced with Paypal subscriptions that will
+be built into the standard Payment module.<br>So you should remove the module if
+you are not currently using it. To remove the module, <strong>make sure it is
+uninstalled</strong> and then delete the folder <strong>
+modules\cheetah\paypal_payflow<br></strong>If your currently using it, you can
+wait until subscriptions become available in the standard Payment module before
+removing it.<br><br>
+<strong>Note:</strong> Because the Paypal Payflow module has been removed from Cheetah, it will no longer be upgraded, maintained or any bugs fixed from here on.
+<br>
+<br>
 <p>Now perform the following cleanup steps and the upgrade will be complete.</p>
 <ul>
 	<li>Clean the <b>/cache/</b>, <b>/cache_public/</b> and <b>/tmp/</b> folders
