@@ -45,6 +45,7 @@ class ChBaseConfig
 
     function __construct($site)
     {
-        $this -> bAnonymousMode = getParam('anon_mode');
+        //$this -> bAnonymousMode = getParam('anon_mode');
+        $this -> bAnonymousMode = true;
     }
 }
