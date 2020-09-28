@@ -426,6 +426,9 @@ class ChWsbProfileFields extends Thing
         if( is_null($iMin) )
             return true;
 
+        if(mb_strlen($mValue) == 0 && !$aItem['Mandatory'])
+            return true;
+
         switch( $aItem['Type'] ) {
             case 'text':
             case 'area':
@@ -471,6 +474,9 @@ class ChWsbProfileFields extends Thing
     {
         $iMax = $aItem['Max'];
         if( is_null($iMax) )
+            return true;
+
+        if(mb_strlen($mValue) == 0 && !$aItem['Mandatory'])
             return true;
 
         switch( $aItem['Type'] ) {
