@@ -119,6 +119,8 @@
                         var fCallback = function(e) {
                             if ($el.hasClass('ch-popup-applied') && $el.is(':visible')) {
                                 if ($(e.target).parents('#' + $el.attr('id')).length == 0) {
+                                    // Here i need to restore the default chevron.
+                                    $el.prev('div').find('.sys-icon.chevron-up').addClass('chevron-down').removeClass('chevron-up');
                                     $el.dolPopupHide();
                                 }
                             }
