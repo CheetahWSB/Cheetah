@@ -289,6 +289,7 @@ function PageCodeMembers($sDefaultCtl = CH_WSB_ADM_MP_CTL, $sDefaultView = CH_WS
 
     $sTopControls = $GLOBALS['oAdmTemplate']->parseHtmlByName('mp_members_top_controls.html', array(
         'change_order' => CH_WSB_ADM_MP_JS_NAME . '.changeOrder(this);',
+        'reload' => CH_WSB_ADM_MP_JS_NAME . '.reloadSelected();',
         'per_page' => $oPaginate->getPages(),
     ));
 

@@ -106,6 +106,13 @@ ChManageProfiles.prototype.reload = function() {
     this.reloadTypeControl();
 };
 
+ChManageProfiles.prototype.reloadSelected = function() {
+    this._sOrderBy = $('select[name ="order_by"]').val();
+    this.getMembers();
+    this.reloadTypeControl();
+};
+
+
 /*--- Paginate Functions ---*/
 ChManageProfiles.prototype.changePage = function(iStart) {
     this._iStart = iStart;
