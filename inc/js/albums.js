@@ -4,15 +4,14 @@
  */
 
 function check_album_name_for_fields(oSelect) {
-	var oForm = $(oSelect).parents('form:first');
+    var oForm = $(oSelect).parents('form:first');
     var oTitle = oForm.find('.ch-form-element:has(input[name=title])');
     var oPrivacy = oForm.find('.ch-form-element:has(select[name=AllowAlbumView])');
 
     if ($(oSelect).val() != 0) {
         oTitle.hide();
         oPrivacy.hide();
-    }
-    else {
+    } else {
         oTitle.show();
         oPrivacy.show();
     }
@@ -26,8 +25,13 @@ function redirect_with_closing(sUrl, iTime) {
 }
 
 function submit_quick_upload_form(sUrl, sFields) {
+    const urlParams = new URLSearchParams(sFields);
+    if (urlParams.get('album') == 1) {
+        alert('You must select an album');
+        return false;
+    }
     sUrlReq = sUrl + 'upload_submit/?' + sFields;
-    $.getJSON(sUrlReq, function(oJson) {
+    $.getJSON(sUrlReq, function (oJson) {
         if (oJson.status == 'OK')
             window.location.href = sUrl + 'albums/my/add_objects/' + oJson.album_uri + '/owner/' + oJson.owner_name;
         else
@@ -36,13 +40,14 @@ function submit_quick_upload_form(sUrl, sFields) {
     return false;
 }
 
+
 window.setTimeout(function () {
-	var oForm = $('.form_input_select').parents('form:first');
-	var oTitle = oForm.find('.ch-form-element:has(input[name=title])');
-	var oPrivacy = oForm.find('.ch-form-element:has(select[name=AllowAlbumView])');
-  // Locate and set the value of the last option in the album list to 0.
-  $('#albumList option:last-child').val(0);
-  // Hide the title and privacy options.
-	oTitle.hide();
-	oPrivacy.hide();
+    var oForm = $('.form_input_select').parents('form:first');
+    var oTitle = oForm.find('.ch-form-element:has(input[name=title])');
+    var oPrivacy = oForm.find('.ch-form-element:has(select[name=AllowAlbumView])');
+    // Locate and set the value of the last option in the album list to 0.
+    $('#albumList option:last-child').val(0);
+    // Hide the title and privacy options.
+    oTitle.hide();
+    oPrivacy.hide();
 }, 50);

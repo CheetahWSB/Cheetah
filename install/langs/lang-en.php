@@ -1908,6 +1908,7 @@ More info about URI DNSBL: <br />
   '_sys_album_caption_new' => '{0} ({1})',
   '_sys_album_create' => 'Create album',
   '_sys_album_create_new' => 'Create New Album...',
+  '_sys_album_select' => 'Please select a album',  
   '_sys_album_delete' => 'Delete album',
   '_sys_album_edit_info' => '<a href="{0}">Edit album</a> to change privacy.',
   '_sys_album_edit_items' => 'Edit items',

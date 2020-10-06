@@ -1453,6 +1453,10 @@ class ChWsbFilesModule extends ChWsbModule
         $sAlbumTitleCaption = false,
         $sCreateNewAlbumCaption = false
     ) {
+
+        array_unshift($aAlbums, '', _t('_sys_album_select'));
+        unset($aAlbums[0]);
+
         $aAlbums[] = $sCreateNewAlbumCaption ? $sCreateNewAlbumCaption : _t('_sys_album_create_new');
         ksort($aAlbums);
 
