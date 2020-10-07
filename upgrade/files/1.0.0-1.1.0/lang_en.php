@@ -11,6 +11,9 @@ $aLangContent = array(
   '_adm_btn_mp_unset_admin' => 'Un-Set as Admin',
   '_adm_txt_mlevels_copy' => 'Copy Actions From',
   '_sys_album_select' => 'Please select a album',
+  '_sys_album_select_private' => 'Private',
+  '_sys_album_select_friends' => 'Friends Only',
+  '_sys_album_select_title' => 'Please enter a title.',
 
   // ================ CHANGED KEYS ==================
   '_adm_txt_hosting_text' => '90% of configuration and installation issues result from incorrect hosting setup. Cheetah will occasionally update a list of recommended hosting providers as i find ones that work best with Cheetah.',

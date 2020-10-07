@@ -26,7 +26,7 @@ function redirect_with_closing(sUrl, iTime) {
 
 function submit_quick_upload_form(sUrl, sFields) {
     const urlParams = new URLSearchParams(sFields);
-    if (urlParams.get('album') == 1) {
+    if (urlParams.get('album') == 'select') {
         alert('You must select an album');
         return false;
     }

@@ -111,9 +111,6 @@ class ChWsbAlbums
     // album methods
     function addAlbum($aData = array(), $bCheck = true)
     {
-        //echo $aData['caption'];
-        //exit;
-
         // Deano - This is temp fix for album caption quoting problem.
         // I am still looking for the source of the problem.
         $aData['caption'] = str_replace('\\','', $aData['caption']);
@@ -373,6 +370,25 @@ class ChWsbAlbums
 
     function getAlbumCount($aData = array())
     {
+        // Create the Friends only album if it does not exist.
+        $iProfileId = (int)$aData['owner'];
+        if($iProfileId) {
+            $aNew = array(
+                'caption'        => _t('_sys_album_select_friends'),
+                'AllowAlbumView' => 5,
+                'owner'          => $iProfileId,
+            );
+            $this->addAlbum($aNew);
+
+            // Create the Private album if it does not exist.
+            $aNew = array(
+                'caption'        => _t('_sys_album_select_private'),
+                'AllowAlbumView' => 2,
+                'owner'          => $iProfileId,
+            );
+            $this->addAlbum($aNew);
+        }
+
         $aFields = array(
             'Type'   => $this->sType,
             'Status' => !isset($aData['status']) ? 'active' : $aData['status'],
