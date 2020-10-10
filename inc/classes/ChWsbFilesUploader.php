@@ -941,6 +941,13 @@ class ChWsbFilesUploader extends ChWsbTemplate
     {
         $sMedUri = uriGenerate($sTitle, $this->oModule->_oDb->sFileTable, $this->oModule->_oDb->aFileFields['medUri']);
 
+        // Deano add
+        if($sTitle == '') {
+            if($this->oModule->_oConfig->sPrefix == 'ch_photos') {
+                $sMedUri = dechex($iMedID . str_replace('.', '0', microtime(true)));
+            }
+        }
+
         $aFields = array(
             'Categories' => $sCategories,
             'medTitle'   => $sTitle,
