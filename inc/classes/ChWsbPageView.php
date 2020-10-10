@@ -701,6 +701,15 @@ BLAH;
         return '<div class="dbContentHtml">' . $sContent . '</div>';
     }
 
+    function getBlockCode_TrueText( $iBlockID, $sContent )
+    {
+        $sContent = htmlentities($sContent);
+        return '<pre style="white-space: break-spaces;">' . $sContent . '</pre>';
+    }
+
+    // This is actually a HTML block without the editor. (RAW HTML Block)
+    // I could not rename the function as it would break sites
+    // that are using the block before i added the new True Text block above.
     function getBlockCode_Text($iBlockID, $sContent)
     {
         return $this->getBlockCode_Echo($iBlockID, $sContent);

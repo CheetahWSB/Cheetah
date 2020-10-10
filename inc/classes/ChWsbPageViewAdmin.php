@@ -308,7 +308,7 @@ class ChWsbPageViewAdmin
 
         if( $sFunc == 'RSS' )
             $sContentUpd = "`Content` = '" . process_db_input($aData['Url'], CH_TAGS_STRIP) . '#' . (int)$aData['Num'] . "',";
-        elseif( $sFunc == 'Echo' || $sFunc == 'Text' || $sFunc == 'Code' )
+        elseif( $sFunc == 'Echo' || $sFunc == 'Text' || $sFunc == 'Code' || $sFunc == 'TrueText')
             $sContentUpd = "`Content` = '" . process_db_input($aData['Content'], CH_TAGS_NO_ACTION) . "',";
         elseif( $sFunc == 'XML' ) {
             $iApplicationID = (int)$aData['application_id'];
@@ -483,6 +483,7 @@ class ChWsbPageViewAdmin
         $sRssBlockC = _t('_adm_pbuilder_RSS_Feed');
         $sPhpBlockC = _t('_adm_pbuilder_Code_Block');
         $sTextBlockC = _t('_adm_pbuilder_Text_Block');
+        $sTrueTextBlockC = _t('_adm_pbuilder_TrueText_Block');
         $sSpecialBlockC = _t('_adm_pbuilder_Special_Block');
         $sXmlPathC = _t('_adm_pbuilder_XML_path');
         $sUrlRssFeedC = _t('_adm_pbuilder_Url_of_RSS_feed');
@@ -523,6 +524,7 @@ class ChWsbPageViewAdmin
             case 'PFBlock': $sBlockType = $sProfileFieldsC; break;
             case 'Echo':    $sBlockType = $sHtmlBlockC; break;
             case 'Text':    $sBlockType = $sTextBlockC; break;
+            case 'TrueText':    $sBlockType = $sTrueTextBlockC; break;
             case 'Code':    $sBlockType = $sPhpBlockC; break;
             case 'XML':     $sBlockType = $sXmlBlockC; break;
             case 'RSS':     $sBlockType = $sRssBlockC; break;
@@ -626,7 +628,7 @@ class ChWsbPageViewAdmin
                 'value' => $sBlockContent,
                 'colspan' => true,
             );
-        } elseif( $aItem['Func'] == 'Text' || $aItem['Func'] == 'Code') {
+        } elseif( $aItem['Func'] == 'Text' || $aItem['Func'] == 'Code' || $aItem['Func'] == 'TrueText') {
 
             $aForm['inputs']['Content'] = array(
                 'type' => 'textarea',
@@ -673,7 +675,7 @@ class ChWsbPageViewAdmin
             )
         );
 
-        if ($aItem['Func'] == 'RSS' || $aItem['Func'] == 'Echo' || $aItem['Func'] == 'Text' || $aItem['Func'] == 'Code' || $aItem['Func'] == 'XML') {
+        if ($aItem['Func'] == 'RSS' || $aItem['Func'] == 'Echo' || $aItem['Func'] == 'Text' || $aItem['Func'] == 'TrueText' || $aItem['Func'] == 'Code' || $aItem['Func'] == 'XML') {
             $aForm['inputs']['controls'][] = array(
                 'type' => 'reset',
                 'name' => 'Delete',

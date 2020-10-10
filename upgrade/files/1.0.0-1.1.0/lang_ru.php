@@ -13,11 +13,14 @@ $aLangContent = array(
   '_sys_album_select' => 'Пожалуйста, выберите альбом',
   '_sys_album_select_private' => 'Частный',
   '_sys_album_select_friends' => 'Только друзья',
-  '_sys_album_select_title' => 'Пожалуйста, введите заголовок.',   
+  '_sys_album_select_title' => 'Пожалуйста, введите заголовок.',
+  '_adm_pbuilder_TrueText_Block' => 'Text Block',
+  '_RAW_Html_Block' => 'RAW HTML Block',
 
   // ================ CHANGED KEYS ================
   '_adm_txt_hosting_text' => '90% of configuration and installation issues result from incorrect hosting setup. Cheetah will occasionally update a list of recommended hosting providers as i find ones that work best with Cheetah.',
   '_Exception_user_msg' => 'A error occurred while loading the page. The system administrator has been notified.',
+  '_adm_pbuilder_Text_Block' => 'RAW HTML Block',
 
 
 );
