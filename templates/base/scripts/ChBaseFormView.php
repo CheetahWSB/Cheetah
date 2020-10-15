@@ -57,13 +57,12 @@ class ChBaseFormView extends ChWsbForm
     {
       $sExtraScript .= "
           <script>
-          function toggle_password(a) {
-              $(a).toggleClass('eye eye-slash');
-              var b = $(a).parent().find('.form_input_password');
-              if ($(b).attr('type') == 'password') {
-                  $(b).attr('type', 'text');
+          function toggle_password(dbeye, dbid) {
+              $(dbeye).toggleClass('eye eye-slash');
+              if ($('#'+dbid).attr('type') == 'password') {
+                  $('#'+dbid).attr('type', 'text');
               } else {
-                  $(b).attr('type', 'password');
+                  $('#'+dbid).attr('type', 'password');
               }
           };
           </script>
@@ -391,7 +390,12 @@ class ChBaseFormView extends ChWsbForm
 
             case 'password':
                 $sInput = $this->genInputStandard($aInput);
-                $sInput .= '<i class="sys-icon eye toogle-password" onclick="toggle_password();"></i>';
+                if(strpos($aInput['name'], 'confirm')) {
+                  $dbid = 'form_input_' . $aInput['type'] . '_confirm';
+                } else {
+                  $dbid = 'form_input_' . $aInput['type'];
+                }
+                $sInput .= '<i class="sys-icon eye toogle-password" onclick="toggle_password(this, \'' . $dbid . '\');"></i>';
             break;
 
             case 'file':
@@ -531,6 +535,13 @@ class ChBaseFormView extends ChWsbForm
         			$sInputName = 'file';
         			$aAttrs['type'] = $aInput['type'];
         			break;
+            case 'password':
+              if(strpos($aInput['name'], 'confirm')) {
+                $aAttrs['id'] = 'form_input_' . $aInput['type'] . '_confirm';
+              } else {
+                $aAttrs['id'] = 'form_input_' . $aInput['type'];
+              }
+              break;
         		default:
         			$aAttrs['type'] = $aInput['type'];
         	}
