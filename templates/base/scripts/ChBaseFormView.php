@@ -541,6 +541,7 @@ class ChBaseFormView extends ChWsbForm
               } else {
                 $aAttrs['id'] = 'form_input_' . $aInput['type'];
               }
+              $aAttrs['type'] = $aInput['type'];
               break;
         		default:
         			$aAttrs['type'] = $aInput['type'];
