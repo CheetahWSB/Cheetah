@@ -790,11 +790,12 @@ class ChWsbTemplate
                     if($_SERVER['HTTP_USER_AGENT'] == '') $bOk = false;
                     if(!$iProfileId) $bOk = false;
                     if(!$sRet) $bOk = false;
+                    if($sRet == 'Page was not found') $bOk = false;
                     if($bOk) {
                       $sQuery = "UPDATE `Profiles` SET `DateLastPage` = NOW(), `CurrentPageTitle` = '{$sRet}' WHERE `ID` = '{$iProfileId}'";
                       db_res($sQuery);
                     }
-                   
+
                 break;
             case 'page_header_text':
                 if(!empty($GLOBALS[$this->_sPrefix . 'PageMainBoxTitle']))
