@@ -8,5 +8,9 @@ UPDATE `sys_page_compose` SET `Desc` = 'Raw HTML Block', `Caption` = '_RAW_Html_
 INSERT INTO `sys_page_compose` VALUES (NULL, '', '1140px', 'Simple Text Block', '_Text Block', 0, 0, 'Sample', 'TrueText', 11, 0, 'non,memb', 0, 0);
 ALTER TABLE `sys_page_compose` CHANGE `Content` `Content` MEDIUMTEXT NOT NULL;
 
+ALTER TABLE `Profiles` ADD `DateLastPage` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' AFTER `DateLastNav`;
+ALTER TABLE `Profiles` ADD `CurrentPageTitle` varchar(255) NOT NULL AFTER `DateLastPage`;
+ALTER TABLE `Profiles` ADD `ExtendedRole` text NOT NULL AFTER `Role`;
+
 -- last step is to update current version
 UPDATE `sys_options` SET `VALUE` = '1.1.0' WHERE `Name` = 'sys_tmp_version';
