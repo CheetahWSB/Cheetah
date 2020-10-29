@@ -228,11 +228,19 @@ class ChWsbPageViewAdmin
         $aBlock = db_assoc_arr( $sQuery );
 
         if( $aBlock['Func'] == 'Sample' ) {
+            if(substr($aBlock['Content'], 0, 7) == 'Custom_') {
+                $sName = str_replace('Custom_', '', $aBlock['Content']);
+                $sQuery = "SELECT `Eval` FROM `sys_custom_code_blocks` WHERE `Name` = '$sName'";
+                $sBlockContent  = db_value( $sQuery );
+            } else {
+                $sBlockContent = '';
+            }
             $sQuery = "
                 INSERT INTO `{$this -> sDBTable}` SET
                     `Desc`    = '" . addslashes( $aBlock['Desc']    ) . "',
                     `Caption` = '" . addslashes( $aBlock['Caption'] ) . "',
                     `Func`    = '{$aBlock['Content']}',
+                    `Content` = '" . addslashes($sBlockContent) . "',
                     `Visible` = '{$aBlock['Visible']}',
                     `DesignBox` = '{$aBlock['DesignBox']}',
                     `Page`    = '{$this -> sPage_db}'
@@ -313,6 +321,13 @@ class ChWsbPageViewAdmin
         elseif( $sFunc == 'XML' ) {
             $iApplicationID = (int)$aData['application_id'];
             $sContentUpd = "`Content` = '" . $iApplicationID . "',";
+        } elseif( substr($sFunc, 0, 7) == 'Custom_' ) {
+            $sName = str_replace('Custom_', '', $sFunc);
+            $sQuery = "SELECT `allow_eval_edit` FROM `sys_custom_code_blocks` WHERE `Name` = '$sName'";
+            $bAllowEdit = (int)db_value( $sQuery );
+            if($bAllowEdit) {
+                $sContentUpd = "`Content` = '" . process_db_input($aData['Content'], CH_TAGS_NO_ACTION) . "',";
+            }
         } else
             $sContentUpd = '';
 
@@ -481,6 +496,7 @@ class ChWsbPageViewAdmin
         $sHtmlBlockC = _t('_adm_pbuilder_HTML_Block');
         $sXmlBlockC = _t('_adm_pbuilder_XML_Block');
         $sRssBlockC = _t('_adm_pbuilder_RSS_Feed');
+        $sCustomBlockC = _t('_adm_pbuilder_Custom_Block');
         $sPhpBlockC = _t('_adm_pbuilder_Code_Block');
         $sTextBlockC = _t('_adm_pbuilder_Text_Block');
         $sTrueTextBlockC = _t('_adm_pbuilder_TrueText_Block');
@@ -529,6 +545,10 @@ class ChWsbPageViewAdmin
             case 'XML':     $sBlockType = $sXmlBlockC; break;
             case 'RSS':     $sBlockType = $sRssBlockC; break;
             default:        $sBlockType = $sSpecialBlockC; break;
+        }
+
+        if($sBlockType == $sSpecialBlockC) {
+            if(substr($aItem['Func'], 0, 7) == 'Custom_') $sBlockType = $sCustomBlockC;
         }
 
         $aVisibleValues = array();
@@ -637,6 +657,20 @@ class ChWsbPageViewAdmin
                 'colspan' => true,
             );
 
+        } elseif( substr($aItem['Func'], 0, 7) == 'Custom_' ) {
+          $sName = str_replace('Custom_', '', $aItem['Func']);
+          $sQuery = "SELECT `allow_eval_edit` FROM `sys_custom_code_blocks` WHERE `Name` = '$sName'";
+          $bAllowEdit = (int)db_value( $sQuery );
+          if($bAllowEdit) {
+              $aForm['inputs']['Content'] = array(
+                  'type' => 'textarea',
+                  'name' => 'Content',
+                  'caption' => '<div class="ch-form-caption ch-def-font-inputs-captions">' . _t('_adm_pbuilder_eval_code') . '</div>',
+                  'value' => $sBlockContent,
+                  'colspan' => true,
+              );
+          }
+
         } elseif( $aItem['Func'] == 'XML' ) {
             $aExistedApplications = ChWsbService::call('open_social', 'get_admin_applications', array());
 
@@ -676,6 +710,14 @@ class ChWsbPageViewAdmin
         );
 
         if ($aItem['Func'] == 'RSS' || $aItem['Func'] == 'Echo' || $aItem['Func'] == 'Text' || $aItem['Func'] == 'TrueText' || $aItem['Func'] == 'Code' || $aItem['Func'] == 'XML') {
+            $aForm['inputs']['controls'][] = array(
+                'type' => 'reset',
+                'name' => 'Delete',
+                'value' => _t('_Delete')
+            );
+        }
+
+        if (substr($aItem['Func'], 0, 7) == 'Custom_') {
             $aForm['inputs']['controls'][] = array(
                 'type' => 'reset',
                 'name' => 'Delete',

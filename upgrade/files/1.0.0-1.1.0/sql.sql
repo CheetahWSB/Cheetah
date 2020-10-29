@@ -1,3 +1,10 @@
+CREATE TABLE IF NOT EXISTS `sys_custom_code_blocks` (
+  `ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `Name` varchar(100) NOT NULL,
+  `Eval` text NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 DELETE FROM `sys_menu_admin` WHERE `name` = 'mobile_pages';
 DELETE FROM `sys_objects_actions` WHERE `Caption` = '{cpt_get_mail}';
 DELETE FROM `sys_options` WHERE `Name` = 'anon_mode';

@@ -395,6 +395,10 @@ class ChWsbPageView
 
         $sBlockFunction = 'getBlockCode_' . $aBlock['Func'];
 
+        if(substr($aBlock['Func'], 0, 7) == 'Custom_') {
+            $sBlockFunction = 'getBlockCode_Custom';
+        }
+
         $mBlockCode = '';
         if( method_exists( $this, $sBlockFunction ) ) {
             $mBlockCode = $this -> $sBlockFunction( $iBlockID, $aBlock['Content'] );
@@ -694,6 +698,14 @@ BLAH;
     function getBlockCode_MemberStat()
     {
         return getSiteStatUser();
+    }
+
+    function getBlockCode_Custom( $iBlockID, $sContent )
+    {
+        ob_start();
+        $aResult = eval($sContent);
+        $sContent = '<div class="boxContent ch-def-bc-margin">' . ob_get_clean() . '</div>';
+        return !empty($aResult) ? $aResult : $sContent;
     }
 
     function getBlockCode_Echo( $iBlockID, $sContent )

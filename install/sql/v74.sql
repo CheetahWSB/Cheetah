@@ -3706,6 +3706,14 @@ INSERT INTO `sys_cron_jobs` (`name`, `time`, `class`, `file`, `eval`) VALUES
 -- --------------------------------------------------------
 
 
+CREATE TABLE IF NOT EXISTS `sys_custom_code_blocks` (
+  `ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `Name` varchar(100) NOT NULL,
+  `Eval` text NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
 CREATE TABLE IF NOT EXISTS `sys_dnsbl_rules` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `chain` enum('spammers','whitelist','uridns') NOT NULL,
