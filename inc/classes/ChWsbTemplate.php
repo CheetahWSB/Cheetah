@@ -784,15 +784,23 @@ class ChWsbTemplate
                 else if(isset($_page['header']))
                     $sRet = $_page['header'];
 
-                //$sRet = process_line_output($sRet);
+                    $iProfileId = getLoggedId();
+                    $bOk = true;
+                    if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') $bOk = false;
+                    if($_SERVER['HTTP_USER_AGENT'] == '') $bOk = false;
+                    if(!$iProfileId) $bOk = false;
+                    if(!$sRet) $bOk = false;
+                    if($bOk) {
+                      $sQuery = "UPDATE `Profiles` SET `DateLastPage` = NOW(), `CurrentPageTitle` = '{$sRet}' WHERE `ID` = '{$iProfileId}'";
+                      db_res($sQuery);
+                    }
+                   
                 break;
             case 'page_header_text':
                 if(!empty($GLOBALS[$this->_sPrefix . 'PageMainBoxTitle']))
                     $sRet = $GLOBALS[$this->_sPrefix . 'PageMainBoxTitle'];
                 else if(isset($_page['header_text']))
                     $sRet = $_page['header_text'];
-
-                //$sRet = process_line_output($sRet);
                 break;
             case 'main_div_width':
                 if(!empty($GLOBALS[$this->_sPrefix . 'PageWidth']))
@@ -887,7 +895,7 @@ class ChWsbTemplate
                 break;
             case 'current_date_long':
                 $sRet = getLocaleDate(time(), CH_WSB_LOCALE_DATE);
-                break;                
+                break;
             default:
                 $sRet = ($sTemplAdd = $oFunctions->TemplPageAddComponent($sKey)) !== false ? $sTemplAdd : $aKeyWrappers['left'] . $sKey . $aKeyWrappers['right'];
             }
