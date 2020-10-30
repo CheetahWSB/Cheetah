@@ -21,18 +21,28 @@ ch_import('ChTemplFunctions');
 ch_import('ChWsbAlerts');
 ch_import('ChWsbEmailTemplates');
 
-define('CH_WSB_ADM_MP_CTL', 'qlinks');
-define('CH_WSB_ADM_MP_VIEW', 'simple');
+$sDefaultOverViewMode = strtolower(getParam('default_overview_mode'));
+$sDefaultMemberMode = strtolower(getParam('default_view_mode'));
+$iDefaultPerPage = (int)getParam('default_per_page');
+if($sDefaultOverViewMode == 'quick links') $sDefaultOverViewMode = 'qlinks';
+
+define('CH_WSB_ADM_MP_CTL', $sDefaultOverViewMode);
+define('CH_WSB_ADM_MP_VIEW', $sDefaultMemberMode);
 define('CH_WSB_ADM_MP_JS_NAME', 'oMP');
-define('CH_WSB_ADM_MP_PER_PAGE', 50);
+define('CH_WSB_ADM_MP_PER_PAGE', $iDefaultPerPage);
 define('CH_WSB_ADM_MP_PER_PAGE_STEP', 16);
 
 $logged['admin'] = member_auth( 1, true, true );
 
-$sCtlType = isset($_POST['adm-mp-members-ctl-type']) && in_array($_POST['adm-mp-members-ctl-type'], array('qlinks', 'browse', 'calendar', 'tags', 'search')) ? $_POST['adm-mp-members-ctl-type'] : CH_WSB_ADM_MP_CTL;
+$sCtlType = isset($_POST['adm-mp-members-ctl-type']) && in_array($_POST['adm-mp-members-ctl-type'], array('qlinks', 'browse', 'calendar', 'tags', 'search', 'settings')) ? $_POST['adm-mp-members-ctl-type'] : CH_WSB_ADM_MP_CTL;
 $aCtlType = array();
 
 $sViewType = isset($_POST['adm-mp-members-view-type']) && in_array($_POST['adm-mp-members-view-type'], array('geeky', 'simple', 'extended')) ? $_POST['adm-mp-members-view-type'] : CH_WSB_ADM_MP_VIEW;
+
+// If settings form was submitted, then set the ctl type to settings.
+if (isset($_POST['save']) && isset($_POST['cat'])) {
+    $sCtlType = 'settings';
+}
 
 //--- Process Actions ---//
 if(isset($_POST['adm-mp-activate']) && (bool)$_POST['members']) {
@@ -172,7 +182,8 @@ function PageCodeControls($sDefault = CH_WSB_ADM_MP_CTL)
         //'ctl-type-browse' => array('href' => 'javascript:void(0)', 'onclick' => 'javascript:' . CH_WSB_ADM_MP_JS_NAME . '.changeTypeControl(this);', 'title' => _t('_adm_btn_mp_browse'), 'active' => $sDefault == 'browse' ? 1 : 0),
         //'ctl-type-calendar' => array('href' => 'javascript:void(0)', 'onclick' => 'javascript:' . CH_WSB_ADM_MP_JS_NAME . '.changeTypeControl(this);', 'title' => _t('_adm_btn_mp_calendar'), 'active' => $sDefault == 'calendar' ? 1 : 0),
         'ctl-type-tags' => array('href' => 'javascript:void(0)', 'onclick' => 'javascript:' . CH_WSB_ADM_MP_JS_NAME . '.changeTypeControl(this);', 'title' => _t('_adm_btn_mp_tags'), 'active' => $sDefault == 'tags' ? 1 : 0),
-        'ctl-type-search' => array('href' => 'javascript:void(0)', 'onclick' => 'javascript:' . CH_WSB_ADM_MP_JS_NAME . '.changeTypeControl(this);', 'title' => _t('_adm_btn_mp_search'), 'active' => $sDefault == 'search' ? 1 : 0)
+        'ctl-type-search' => array('href' => 'javascript:void(0)', 'onclick' => 'javascript:' . CH_WSB_ADM_MP_JS_NAME . '.changeTypeControl(this);', 'title' => _t('_adm_btn_mp_search'), 'active' => $sDefault == 'search' ? 1 : 0),
+        'ctl-type-settings' => array('href' => 'javascript:void(0)', 'onclick' => 'javascript:' . CH_WSB_ADM_MP_JS_NAME . '.changeTypeControl(this);', 'title' => _t('_adm_btn_mp_settings'), 'active' => $sDefault == 'settings' ? 1 : 0)
     );
 
     $aParams = array_merge(
@@ -181,6 +192,7 @@ function PageCodeControls($sDefault = CH_WSB_ADM_MP_CTL)
         getBlockCalendar($sDefault),
         getBlockTags($sDefault),
         getBlockSearch($sDefault),
+        getBlockSettings($sDefault),
         array(
             'loading' => LoadingBox('adm-mp-controls-loading')
         )
@@ -273,6 +285,26 @@ function getBlockSearch($sDefault)
     );
 }
 
+function getBlockSettings($sDefault)
+{
+  ch_import('ChWsbAdminSettings');
+  $oSettings = new ChWsbAdminSettings(18);
+
+  if (isset($_POST['save']) && isset($_POST['cat'])) {
+      $sResult = $oSettings->saveChanges($_POST);
+  }
+
+  $s = $oSettings->getForm();
+  if ($sResult)
+      $s = $sResult . $s;
+
+  return array(
+      'styles_settings' => $sDefault != 'settings' ? "display: none;" : "",
+      'content_settings' => $s
+  );
+}
+
+
 function PageCodeMembers($sDefaultCtl = CH_WSB_ADM_MP_CTL, $sDefaultView = CH_WSB_ADM_MP_VIEW)
 {
     $aTopMenu = array(
@@ -287,9 +319,24 @@ function PageCodeMembers($sDefaultCtl = CH_WSB_ADM_MP_CTL, $sDefaultView = CH_WS
         'on_change_per_page' => CH_WSB_ADM_MP_JS_NAME . '.changePerPage(this);'
     ));
 
+    $sSelected1 = '';
+    $sSelected2 = '';
+    $sSelected3 = '';
+    $sSelected4 = '';
+
+    $sSelected = getParam('default_order_by');
+    if($sSelected == 'None') $sSelected1 = 'selected="selected"';
+    if($sSelected == 'User Name') $sSelected2 = 'selected="selected"';
+    if($sSelected == 'Last Join') $sSelected3 = 'selected="selected"';
+    if($sSelected == 'Last Activity') $sSelected4 = 'selected="selected"';
+
     $sTopControls = $GLOBALS['oAdmTemplate']->parseHtmlByName('mp_members_top_controls.html', array(
         'change_order' => CH_WSB_ADM_MP_JS_NAME . '.changeOrder(this);',
         'reload' => CH_WSB_ADM_MP_JS_NAME . '.reloadSelected();',
+        'selected1' => $sSelected1,
+        'selected2' => $sSelected2,
+        'selected3' => $sSelected3,
+        'selected4' => $sSelected4,
         'per_page' => $oPaginate->getPages(),
     ));
 
@@ -382,6 +429,10 @@ function getMembers($aParams)
                 `tp`.`Tags` LIKE '%" . $aParams['ctl_params']['value'] . "%'
             )";
                 break;
+
+            case 'settings':
+                //$sWhereClause .= " AND `tp`.`Tags` LIKE '%" . $aParams['ctl_params']['value'] . "%'";
+                break;
         }
     }
 
@@ -427,6 +478,7 @@ function getMembers($aParams)
             `tp`.`City` AS `city`,
             `tp`.`DescriptionMe` AS `description`,
             `tp`.`Email` AS `email`,
+            `tp`.`CurrentPageTitle` AS `pagetitle`,
             DATE_FORMAT(`tp`.`DateReg`,  '" . $sDateFormat . "' ) AS `registration`,
             DATE_FORMAT(`tp`.`DateLastLogin`,  '" . $sDateFormat . "' ) AS `last_login`,
             DATE_FORMAT(`tp`.`DateLastNav`,  '" . $sDateFormat . "' ) AS `last_activity`,
@@ -464,6 +516,7 @@ function getMembersGeeky($aProfiles, $sPaginate, $sControls)
             'username' => getNickName($aProfile['id']),
             'email' => $sEmail,
             'full_email' => $aProfile['email'],
+            'page' => $aProfile['pagetitle'],
             'edit_link' => $GLOBALS['site']['url'] . 'pedit.php?ID=' . $aProfile['id'],
             'edit_class' => (int)$aProfile['banned'] == 1 ? 'adm-mp-banned' : ($aProfile['status'] != 'Active' ? 'adm-mp-inactive' : 'adm-mp-active'),
             'registration' => $aProfile['registration'],

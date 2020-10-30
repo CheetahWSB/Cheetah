@@ -3,6 +3,7 @@
         <tr>
             <th>&nbsp;</th>
             <th><ch_text:_adm_txt_mp_username /></th>
+            <th><ch_text:_adm_txt_mp_page /></th>
             <th><ch_text:_adm_txt_mp_email /></th>
             <th><ch_text:_adm_txt_mp_mlevel /></th>
             <th><ch_text:_adm_txt_mp_registration /></th>
@@ -11,8 +12,9 @@
         <ch_repeat:items>
             <tr>
                 <td width="30px"><input type="checkbox" class="form_input_checkbox" id="adm-mp-__id__" name="members[]" value="__id__" /></td>
-                <td width="*"><a href="__edit_link__" class="__edit_class__">__username__</a></td>
-                <td width="25%"><div title="__full_email__">__email__</div></td>
+                <td width=""><a href="__edit_link__" class="__edit_class__">__username__</a></td>
+                <td width=""><div title="__page__">__page__</div></td>
+                <td width=""><div title="__full_email__">__email__</div></td>
                 <td width="100px">__ml_name__</td>
                 <td width="120px">__registration__</td>
                 <td width="120px">__last_activity__</td>
