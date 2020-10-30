@@ -1215,6 +1215,13 @@ INSERT INTO `sys_options` VALUES
 ('transparent1', '0', @iCatWatermark, 'Transparency for first image', 'digit', '', '', 20, ''),
 ('Water_Mark', '', @iCatWatermark, 'Water Mark', 'file', '', '', 30, '');
 
+-- CAT: Admin Profile
+SET @iAdminProfile = 18;
+INSERT INTO `sys_options` VALUES
+('default_overview_mode', 'Quick Links', @iAdminProfile, 'Default Overview Mode', 'select', '', '', 10, 'Quick Links,Tags,Search,Settings'),
+('default_view_mode', 'Simple', @iAdminProfile, 'Default Members Mode', 'select', '', '', 20, 'Simple,Extended,Geeky'),
+('default_order_by', 'None', @iAdminProfile, 'Default Order By', 'select', '', '', 30, 'None,User Name,Last Join,Last Activity'),
+('default_per_page', '50', @iAdminProfile, 'Default Per Page', 'select', '', '', 40, '10,20,50,100,200');
 
 -- CAT: Languages
 SET @iCatLanguages = 21;

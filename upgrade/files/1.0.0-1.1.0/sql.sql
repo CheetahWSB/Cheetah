@@ -19,5 +19,13 @@ ALTER TABLE `Profiles` ADD `DateLastPage` DATETIME NOT NULL DEFAULT '0000-00-00 
 ALTER TABLE `Profiles` ADD `CurrentPageTitle` varchar(255) NOT NULL AFTER `DateLastPage`;
 ALTER TABLE `Profiles` ADD `ExtendedRole` text NOT NULL AFTER `Role`;
 
+-- CAT: Admin Profile
+SET @iAdminProfile = 18;
+INSERT INTO `sys_options` VALUES
+('default_overview_mode', 'Quick Links', @iAdminProfile, 'Default Overview Mode', 'select', '', '', 10, 'Quick Links,Tags,Search,Settings'),
+('default_view_mode', 'Simple', @iAdminProfile, 'Default Members Mode', 'select', '', '', 10, 'Simple,Extended,Geeky'),
+('default_order_by', 'None', @iAdminProfile, 'Default Order By', 'select', '', '', 20, 'None,User Name,Last Join,Last Activity'),
+('default_per_page', '50', @iAdminProfile, 'Default Per Page', 'select', '', '', 30, '10,20,50,100,200');
+
 -- last step is to update current version
 UPDATE `sys_options` SET `VALUE` = '1.1.0' WHERE `Name` = 'sys_tmp_version';

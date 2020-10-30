@@ -19,6 +19,8 @@ $aLangContent = array(
   '_adm_pbuilder_Custom_Block' => 'Custom Block',
   '_Custom_Block' => 'Custom Block',
   '_adm_pbuilder_eval_code' => 'Eval Code',
+  '_adm_btn_mp_settings' => 'Settings',
+  '_adm_txt_mp_page' => 'Current Page',
 
   // ================ CHANGED KEYS ==================
   '_adm_txt_hosting_text' => '90% of configuration and installation issues result from incorrect hosting setup. Cheetah will occasionally update a list of recommended hosting providers as i find ones that work best with Cheetah.',
