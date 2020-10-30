@@ -363,6 +363,15 @@ function PageCodeMembers($sDefaultCtl = CH_WSB_ADM_MP_CTL, $sDefaultView = CH_WS
 
 function getMembers($aParams)
 {
+    if(!isset($aParams['view_order']) || empty($aParams['view_order'])) {
+        $sSelected = getParam('default_order_by');
+        $aParams['view_order'] = 'ID';
+        if($sSelected == 'None') $aParams['view_order'] = 'ID';
+        if($sSelected == 'User Name') $aParams['view_order'] = 'NickName';
+        if($sSelected == 'Last Join') $aParams['view_order'] = 'DateReg DESC';
+        if($sSelected == 'Last Activity') $aParams['view_order'] = 'DateLastNav DESC';
+    }
+
     if(!isset($aParams['view_start']) || empty($aParams['view_start']))
         $aParams['view_start'] = 0;
 
