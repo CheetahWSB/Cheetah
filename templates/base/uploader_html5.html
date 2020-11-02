@@ -15,6 +15,9 @@
             margin-right:-5px;
             margin-bottom:-5px;
         }
+        .enter_title {
+            display: none;
+        }
         .ch-__upload_type__-preview-container {
             display:inline;
         }
@@ -140,22 +143,29 @@
         __form__
     </div>
 	<script id="b-file-ejs" type="text/ejs">
-		<div id="file-<%=FileAPI.uid(file)%>" class="js-file b-file b-file_<%=file.type.split('/')[0]%>">
-			<div class="js-preview-container ch-def-border">
-                <i class="sys-icon <%=icon[file.type.split('/')[0]]||icon.def%>"></i>
-			</div>
-            <div class="b-progress ch-def-border"><div class="js-bar b-progress__bar"></div></div>
-            <div>
-				<div class="ch-def-margin-thd-top">
-                    <div class="input_wrapper input_wrapper_text clearfix">
-                        <input class="form_input_text ch-def-font-inputs" name="" value="" disabled />
-                    </div>
-                    <div style="padding: 4px; text-align: center; font-weight: bold;"><ch_text:_sys_album_select_title /></div>
-                </div>
-                <div class="ch-def-margin-thd-top b-file__abort clearfix"><a class="js-abort ch-btn ch-btn-small"><ch_text:_Cancel /></a></div>
-                <div class="ch-def-margin-thd-top b-file__info js-info"></div>
-            </div>
-		</div>
+    <div id="file-<%=FileAPI.uid(file)%>" class="js-file b-file b-file_<%=file.type.split('/')[0]%>">
+    	<div class="js-preview-container ch-def-border">
+    		<i class="sys-icon <%=icon[file.type.split('/')[0]]||icon.def%>"></i>
+    	</div>
+    	<div class="b-progress ch-def-border">
+    		<div class="js-bar b-progress__bar">
+    		</div>
+    	</div>
+    	<div>
+    		<div class="ch-def-margin-thd-top enter_title">
+    			<div class="input_wrapper input_wrapper_text clearfix">
+    				<input class="form_input_text ch-def-font-inputs" disabled name="" value="" />
+    			</div>
+    			<div style="padding: 4px; text-align: center; font-weight: bold;">
+    				<ch_text:_sys_album_select_title /></div>
+    		</div>
+    		<div class="ch-def-margin-thd-top b-file__abort clearfix">
+    			<a class="js-abort ch-btn ch-btn-small"><ch_text:_Cancel /></a>
+    		</div>
+    		<div class="ch-def-margin-thd-top b-file__info js-info">
+    		</div>
+    	</div>
+    </div>
 	</script>
 	<script type="text/javascript">
 		jQuery(function ($){
@@ -265,13 +275,14 @@
                                             continue;
                                         }
                                         if ('undefined' != typeof(oResponse.files[i].id) && parseInt(oResponse.files[i].id) > 0) {
+                                            $('.enter_title').show();
                                             FU._getEl(file).find('input').removeAttr('disabled').attr('name', 'title-' + parseInt(oResponse.files[i].id))
                                         }
                                     }
                                 }
 								FU._getEl(file).removeClass('b-file_upload').addClass('b-file_completed');
                                 FU._getEl(file, '.b-progress').animate({ opacity: 0 }, 200, function (){ $(this).hide() });
-								FU._getEl(file, '.js-info').append('<b class="b-file__' + state + '">' + ('undefined' === typeof(FU.langs[error]) ? error : FU.langs[error]) + '</b>');
+								FU._getEl(file, '.js-info').append('<b class="b-file__' + state + '" data-error="' + state + '">' + ('undefined' === typeof(FU.langs[error]) ? error : FU.langs[error]) + '</b>');
 								FU.index++;
 								FU.active = false;
 								FU.start();
@@ -291,7 +302,11 @@
                 });
             }
             function onAllFilesComplete(){
-                $('#ch-__upload_type__-preview input[type="submit"]').removeAttr('disabled');
+                var t = $('[class^="b-file__"]').data("error");
+                if(t != 'error') {
+                  $('.enter_title').show();
+                  $('#ch-__upload_type__-preview input[type="submit"]').removeAttr('disabled');
+                }
                 reloadBlocks();
             }
 			function onFiles(files){
