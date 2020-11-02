@@ -2004,3 +2004,21 @@ function getFfprobePath()
     }
     return $sFfprobePath;
 }
+
+function getVideoData($sFile) {
+    $oHandle = popen(getFfprobePath() . ' -v quiet -print_format json -show_format -show_streams ' . $sFile . ' 2>&1', 'r');
+    $sVideoData = '';
+    while (!feof($oHandle)) {
+        $sVideoData .= fread($oHandle, 4096);
+    }
+    pclose($oHandle);
+    $aVideoData = json_decode($sVideoData, true);
+    $sCodecName = $aVideoData['streams'][0]['codec_name'];
+    $sVideoWidth = $aVideoData['streams'][0]['width'];
+    $sVideoHeight = $aVideoData['streams'][0]['height'];
+    $sAvgFrameRate = $aVideoData['streams'][0]['avg_frame_rate'];
+    $sDurationTs = $aVideoData['streams'][0]['duration_ts'];
+    $sDuration = $aVideoData['streams'][0]['duration'];
+    $sBitRate = $aVideoData['streams'][0]['bit_rate'];
+    return array('CodecName' => $sCodecName, 'VideoWidth' => $sVideoWidth, 'VideoHeight' => $sVideoHeight, 'AvgFrameRate' => $sAvgFrameRate, 'DurationTs' => $sDurationTs, 'Duration' => $sDuration, 'BitRate' => $sBitRate);
+}

@@ -209,6 +209,7 @@ class ChVideosUploader extends ChWsbFilesUploader
      */
     function performUpload ($sFilePath, $sRealFilename = '', $aInfo = array(), $isMoveUploadedFile = true, $aExtraParams = array())
     {
+        $bUpdateAlbumCounter = false;
         $iOwner = $this->_getAuthorId();
         if ($this->_iOwnerId)
             $iOwner = $this->oModule->_iProfileId = $this->_iOwnerId;
@@ -236,6 +237,28 @@ class ChVideosUploader extends ChWsbFilesUploader
         if (!($iMID = uploadVideo(process_db_input($sFilePath), $iOwner, $isMoveUploadedFile, '', process_db_input($sRealFilename), $this->oModule->_oConfig->aFilesConfig)))
             return array('error' => _t('_sys_txt_upload_failed'));
 
+        // See if uploaded file is a h264 video. If so, change status and rename the file.
+
+        $sFile1 = $GLOBALS['dir']['root'] . 'flash/modules/video/files/' . $iMID;
+        $sFile2 = $GLOBALS['dir']['root'] . 'flash/modules/video/files/' . $iMID . '.m4v';
+        $aVideoData = getVideoData($sFile1);
+        if($aVideoData['CodecName'] == 'h264') {
+            $sAutoApprove = 'on' == getParam('videoAutoApprove') ? 'approved' : 'disapproved';
+            rename($sFile1, $sFile2);
+            $aData = array(
+                'Time' => (int)$aVideoData['Duration']*1000,
+                //'Width' => $aVideoData['VideoWidth'],
+                //'Height' => $aVideoData['VideoHeight'],
+                //'AvgFrameRate' => $aVideoData['AvgFrameRate'],
+                //'BitRate' => $aVideoData['BitRate'],
+                'Status' => $sAutoApprove,
+            );
+            $this->oModule->_oDb->updateVideo($iMID, $aData);
+            $bUpdateAlbumCounter = true;
+        } else {
+            $this->oModule->_oDb->updateVideo($iMID, array('Status' => 'pending'));
+        }
+
         // update uploaded file info if needed
 
         if ($aInfo) {
@@ -249,7 +272,7 @@ class ChVideosUploader extends ChWsbFilesUploader
 
         $sAlbum = empty($_POST['extra_param_album']) ? getParam('sys_album_default_name') : $_POST['extra_param_album'];
         $aAlbumParams = isset($_POST['extra_param_albumPrivacy']) ? array('privacy' => (int)$_POST['extra_param_albumPrivacy']) : array();
-        $this->addObjectToAlbum($this->oModule->oAlbums, !empty($aInfo['album']) ? $aInfo['album'] : $sAlbum, $iMID, false, $iOwner, $aAlbumParams);
+        $this->addObjectToAlbum($this->oModule->oAlbums, !empty($aInfo['album']) ? $aInfo['album'] : $sAlbum, $iMID, $bUpdateAlbumCounter, $iOwner, $aAlbumParams);
 
         // perfom action
 

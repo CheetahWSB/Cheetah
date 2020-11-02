@@ -20,6 +20,7 @@ if(!defined("STATUS_DISAPPROVED")) define("STATUS_DISAPPROVED", "disapproved");
 if(!defined("STATUS_PENDING")) define("STATUS_PENDING", "pending");
 if(!defined("STATUS_PROCESSING")) define("STATUS_PROCESSING", "processing");
 if(!defined("STATUS_FAILED")) define("STATUS_FAILED", "failed");
+if(!defined("STATUS_ONHOLD")) define("STATUS_ONHOLD", "onhold");
 
 $aInfo = array(
     'mode' => "as3",

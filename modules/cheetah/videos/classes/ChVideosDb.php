@@ -25,4 +25,24 @@ class ChVideosDb extends ChWsbFilesDb
     {
         return (int)$this->getOne("SELECT `ID` FROM `sys_options_cats` WHERE `name` = 'Videos' LIMIT 1");
     }
+
+    function updateVideo($iId, $aData) {
+        // process all recived fields;
+        foreach($aData as $sKey => $mValue) {
+            $mValue = process_db_input($mValue, CH_TAGS_VALIDATE, CH_SLASHES_AUTO);
+            $sKey = process_db_input($sKey, CH_TAGS_STRIP, CH_SLASHES_NO_ACTION);
+            $sFields .= "`{$sKey}` = '{$mValue}', ";
+        }
+
+        $sFields = preg_replace( '/,$/', '', trim($sFields) );
+
+        $sQuery = "UPDATE `RayVideoFiles` SET {$sFields} WHERE `id` = '$iId'";
+        $this -> query($sQuery);
+    }
+
+    function getVideoData($iId) {
+        $sQuery = "SELECT * FROM `RayVideoFiles` WHERE `id` = '$iId'";
+        return $this -> getRow($sQuery);
+    }
+
 }

@@ -122,7 +122,7 @@ function uploadVideo($sFilePath, $sUserId, $isMoveUploadedFile = false, $sImageF
             $sUri = video_genUri($sFileName);
             $sUriPart = empty($sUri) ? "" : "`Uri`='" . $sUri . "', ";
 
-            getResult("INSERT INTO `" . $sDBModule . "Files` SET `Title`='" . $sFileName . "', " . $sUriPart .  "`Description`='" . $sFileName . "', `Date`='" . time() . "', `Owner`='" . $sUserId . "', `Status`='" . STATUS_PENDING . "'");
+            getResult("INSERT INTO `" . $sDBModule . "Files` SET `Title`='" . $sFileName . "', " . $sUriPart .  "`Description`='" . $sFileName . "', `Date`='" . time() . "', `Owner`='" . $sUserId . "', `Status`='" . STATUS_ONHOLD . "'");
             $sFileId = getLastInsertId();
             rename($sTempFileName, $sFilesPath . $sFileId);
 

@@ -55,5 +55,7 @@ DELETE FROM `sys_menu_admin` WHERE `name` = 'flash_apps';
 UPDATE `sys_injections` SET `active` = '0' WHERE `id` = 1;
 UPDATE `sys_injections_admin` SET `active` = '0' WHERE `id` = 1;
 
+ALTER TABLE `RayVideoFiles` CHANGE `Status` `Status` ENUM('approved','disapproved','pending','processing','failed','onhold') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'onhold';
+
 -- last step is to update current version
 UPDATE `sys_options` SET `VALUE` = '1.1.0' WHERE `Name` = 'sys_tmp_version';

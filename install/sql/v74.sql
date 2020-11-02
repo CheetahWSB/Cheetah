@@ -2984,7 +2984,7 @@ CREATE TABLE `RayVideoFiles` (
   `RateCount` int(11) NOT NULL,
   `CommentsCount` int(11) NOT NULL,
   `Featured` tinyint(4) NOT NULL,
-  `Status` enum('approved','disapproved','pending','processing','failed') NOT NULL default 'pending',
+  `Status` enum('approved','disapproved','pending','processing','failed','onhold') NOT NULL default 'onhold',
   `Source` varchar(20) NOT NULL default '',
   `Video` varchar(32) NOT NULL default '',
   PRIMARY KEY  (`ID`),
