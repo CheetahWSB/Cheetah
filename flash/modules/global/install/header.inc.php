@@ -5,6 +5,8 @@
  * CC-BY License - http://creativecommons.org/licenses/by/3.0/
  */
 
+require_once(CH_DIRECTORY_PATH_INC . "utils.inc.php");
+
 /**
  * Current version information.
  */
@@ -52,7 +54,8 @@ $sGlobalDir = "global/";
 $sGlobalUrl = $sModulesUrl . $sGlobalDir;
 $sGlobalPath = $sModulesPath . $sGlobalDir;
 
-$sFfmpegPath = $sGlobalPath . "app/ffmpeg.exe";
+//$sFfmpegPath = $sGlobalPath . "app/ffmpeg.exe";
+$sFfmpegPath = getFfmpegPath();
 
 $sIncPath = $sGlobalPath . "inc/";
 

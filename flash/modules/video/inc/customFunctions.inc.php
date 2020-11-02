@@ -50,8 +50,10 @@ function video_getList($sId)
     global $aXmlTemplates;
     global $sFilesPath;
 
-    $sMode = getSettingValue($sModule, "listSource");
-    $iCount = (int)getSettingValue($sModule, "listCount");
+    //$sMode = getSettingValue($sModule, "listSource");
+    $sMode = getParam('videoListSource');
+    //$iCount = (int)getSettingValue($sModule, "listCount");
+    $iCount = (int)getParam('videoListCount');
     if(!is_numeric($iCount) || $iCount <= 0) $iCount = 10;
 
     $oSource = new ChVideosSearch();

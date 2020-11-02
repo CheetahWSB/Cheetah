@@ -43,6 +43,10 @@ class ChWsbAdminTools extends ChWsbIO
 
         $this->aInstallFiles = array(
             'sitemap.xml',
+            'plugins/ffmpeg/ffmpeg',
+            'plugins/ffmpeg/ffmpeg.exe',
+            'plugins/ffmpeg/ffprobe',
+            'plugins/ffmpeg/ffprobe.exe',
         );
 
         $this->aFlashDirs = array(
@@ -69,7 +73,7 @@ class ChWsbAdminTools extends ChWsbIO
             'flash/modules/desktop/xml/langs.xml',
             'flash/modules/desktop/xml/main.xml',
             'flash/modules/desktop/xml/skins.xml',
-            'flash/modules/global/app/ffmpeg.exe',
+            //'flash/modules/global/app/ffmpeg.exe',
             'flash/modules/global/xml/config.xml',
             'flash/modules/global/xml/main.xml',
             'flash/modules/im/xml/config.xml',
@@ -339,7 +343,8 @@ EOF;
             $sElemCntStyle = ($i%2==0) ? 'even' : 'odd' ;
             $bAccessible = ($iCurType==1) ? $this->isWritable($sCurElement) : $this->isWritable($sCurElement);
 
-            if ($sCurElement == 'flash/modules/global/app/ffmpeg.exe') {
+            //if ($sCurElement == 'flash/modules/global/app/ffmpeg.exe') {
+            if (strpos($sCurElement, 'ffmpeg') !== false) {
                 $sAwaitedPerm = $sExecutableC;
                 $bAccessible = $this->isExecutable($sCurElement);
             }
@@ -347,7 +352,8 @@ EOF;
             if ($bAccessible) {
                 $sResultPerm = ($iCurType==1) ? $sWritableC : $sWritableC;
 
-                if ($sCurElement == 'flash/modules/global/app/ffmpeg.exe') {
+                //if ($sCurElement == 'flash/modules/global/app/ffmpeg.exe') {
+                if (strpos($sCurElement, 'ffmpeg') !== false) {
                     $sResultPerm = $sExecutableC;
                 }
 
@@ -371,7 +377,8 @@ EOF;
                     $sResultPerm = ($iCurType==1) ? $sNonWritableC : $sNonWritableC;
                 }
 
-                if ($sCurElement == 'flash/modules/global/app/ffmpeg.exe') {
+                //if ($sCurElement == 'flash/modules/global/app/ffmpeg.exe') {
+                if (strpos($sCurElement, 'ffmpeg') !== false) {
                     $sResultPerm = $sNonExecutableC;
                 }
 
@@ -545,6 +552,7 @@ EOF;
     function GenAuditPage()
     {
         $sCheetahPath = CH_DIRECTORY_PATH_ROOT;
+        $sffmpegpath = getFfmpegPath();
 
         $sEmailToCkeckMailSending = getParam('site_email');
 
@@ -737,7 +745,8 @@ EOF;
     </li>
     <li>
         <b>ffmpeg</b>
-        <pre class="code"><?php echo `{$sCheetahPath}flash/modules/global/app/ffmpeg.exe 2>&1`;?></pre>
+        <!-- <pre class="code"><?php echo `{$sCheetahPath}flash/modules/global/app/ffmpeg.exe 2>&1`;?></pre> -->
+        <pre class="code"><?php echo `{$sffmpegpath} 2>&1`;?></pre>
         if you don't know if output is correct then <a href="#manual_audit">manual server audit</a> may be reqired.
     </li>
     <li>

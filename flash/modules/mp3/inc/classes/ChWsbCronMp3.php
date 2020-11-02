@@ -37,9 +37,11 @@ class ChWsbCronMp3 extends ChWsbCron
         global $sFfmpegPath;
         global $sFilesPathMp3;
 
-        $iFilesCount = getSettingValue($sModule, "processCount");
+        //$iFilesCount = getSettingValue($sModule, "processCount");
+        $iFilesCount = getParam('processCount');
         if(!is_numeric($iFilesCount)) $iFilesCount = 2;
-        $iFailedTimeout = getSettingValue($sModule, "failedTimeout");
+        //$iFailedTimeout = getSettingValue($sModule, "failedTimeout");
+        $iFailedTimeout = getParam('failedTimeout');
         if(!is_numeric($iFailedTimeout)) $iFailedTimeout = 1;
         $iFailedTimeout *= 86400;
         $sDbPrefix = DB_PREFIX . ucfirst($sModule);
@@ -61,7 +63,8 @@ class ChWsbCronMp3 extends ChWsbCron
                 if(convert($aFile['ID'])) {
                     $sType = 'ch_sounds';
                     //album counter & cover update
-                    if (getSettingValue($sModule, "autoApprove") == TRUE_VAL) {
+                    //if (getSettingValue($sModule, "autoApprove") == TRUE_VAL) {
+                    if(getParam('audioAutoApprove') == 'on') {
                         $oAlbum = new ChWsbAlbums($sType);
                         $oAlbum->updateObjCounterById($aFile['ID']);
                         if (getParam($oAlbum->sAlbumCoverParam) == 'on')

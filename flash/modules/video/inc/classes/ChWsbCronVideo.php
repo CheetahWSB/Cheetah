@@ -39,9 +39,11 @@ class ChWsbCronVideo extends ChWsbCron
         global $sModulesPath;
         global $sFilesPath;
 
-        $iFilesCount = getSettingValue($sModule, "processCount");
+        //$iFilesCount = getSettingValue($sModule, "processCount");
+        $iFilesCount = getParam('processCount');
         if(!is_numeric($iFilesCount)) $iFilesCount = 2;
-        $iFailedTimeout = getSettingValue($sModule, "failedTimeout");
+        //$iFailedTimeout = getSettingValue($sModule, "failedTimeout");
+        $iFailedTimeout = getParam('failedTimeout');
         if(!is_numeric($iFailedTimeout)) $iFailedTimeout = 1;
         $iFailedTimeout *= 86400;
         $sDbPrefix = DB_PREFIX . ucfirst($sModule);
@@ -63,7 +65,8 @@ class ChWsbCronVideo extends ChWsbCron
                 if(convertVideo($aFile['ID'])) {
                     $sType = 'ch_videos';
                     //album counter & cover update
-                    if(getSettingValue($sModule, "autoApprove") == TRUE_VAL) {
+                    //if(getSettingValue($sModule, "autoApprove") == TRUE_VAL) {
+                    if(getParam('videoAutoApprove') == 'on') {
                         $oAlbum = new ChWsbAlbums($sType);
                         $oAlbum->updateObjCounterById($aFile['ID']);
                         if (getParam($oAlbum->sAlbumCoverParam) == 'on')

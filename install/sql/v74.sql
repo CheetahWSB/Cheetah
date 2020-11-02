@@ -70,8 +70,8 @@ INSERT INTO `sys_menu_admin`(`parent_id`, `name`, `title`, `url`, `description`,
 SET @iParentId = LAST_INSERT_ID();
 
 INSERT INTO `sys_menu_admin`(`parent_id`, `name`, `title`, `url`, `description`, `icon`, `icon_large`, `check`, `order`) VALUES
-(@iParentId, 'manage_modules', '_adm_mmi_manage_modules', '{siteAdminUrl}modules.php', 'Manage and configure integration modules for 3d party scripts', 'plus col-red1', '', '', 1),
-(@iParentId, 'flash_apps', '_adm_mmi_flash_apps', '{siteAdminUrl}flash.php', 'Flash Apps administration panel is available here', 'bolt col-red1', '', '', 2);
+(@iParentId, 'manage_modules', '_adm_mmi_manage_modules', '{siteAdminUrl}modules.php', 'Manage and configure integration modules for 3d party scripts', 'plus col-red1', '', '', 1);
+--(@iParentId, 'flash_apps', '_adm_mmi_flash_apps', '{siteAdminUrl}flash.php', 'Flash Apps administration panel is available here', 'bolt col-red1', '', '', 2);
 
 -- Tools menu item
 INSERT INTO `sys_menu_admin`(`parent_id`, `name`, `title`, `url`, `description`, `icon`, `icon_large`, `check`, `order`) VALUES
@@ -1215,6 +1215,30 @@ INSERT INTO `sys_options` VALUES
 ('transparent1', '0', @iCatWatermark, 'Transparency for first image', 'digit', '', '', 20, ''),
 ('Water_Mark', '', @iCatWatermark, 'Water Mark', 'file', '', '', 30, '');
 
+-- CAT: FFmpeg
+SET @iCatFFmpeg = 17;
+INSERT INTO `sys_options` VALUES
+('usex264', 'on', @iCatFFmpeg, 'Use H264 codec', 'checkbox', '', '', 10, ''),
+('video_player_height', '400', @iCatFFmpeg, 'Video Player Height(px) Min 330 - Max 600', 'digit', '', '', 20, ''),
+('videoListSource', 'Top', @iCatFFmpeg, 'Videos List Source', 'select', '', '', 30, 'Top,Related,Member'),
+('audioListSource', 'Top', @iCatFFmpeg, 'Music List Source', 'select', '', '', 40, 'Top,Related,Member'),
+('videoListCount', '10', @iCatFFmpeg, 'Maximum number of Video files to List. 1-30', 'digit', '', '', 50, ''),
+('audioListCount', '10', @iCatFFmpeg, 'Maximum number of Music files to List. 1-30', 'digit', '', '', 60, ''),
+('enable_download', 'on', @iCatFFmpeg, 'Enable Downloading', 'checkbox', '', '', 70, ''),
+('saveMobile', 'on', @iCatFFmpeg, 'Enable mobile video files playing', 'checkbox', '', '', 80, ''),
+('videoAutoApprove', 'on', @iCatFFmpeg, 'Auto Approve Video Files', 'checkbox', '', '', 90, ''),
+('audioAutoApprove', 'on', @iCatFFmpeg, 'Auto Approve Music Files', 'checkbox', '', '', 100, ''),
+('auto_play', '', @iCatFFmpeg, 'Enable Autoplay', 'checkbox', '', '', 110, ''),
+('processCount', '2', @iCatFFmpeg, 'Max files to process', 'digit', '', '', 120, ''),
+('failedTimeout', '1', @iCatFFmpeg, 'Failure timeout for converting files(days)', 'digit', '', '', 130, ''),
+('autohide_controls', 'on', @iCatFFmpeg, 'Enable autohide of controls', 'checkbox', '', '', 140, ''),
+('videoBitrate', '3000', @iCatFFmpeg, 'Video conversion bitrate', 'digit', '', '', 150, ''),
+('audioBitrate', '128', @iCatFFmpeg, 'Audio conversion bitrate', 'digit', '', '', 160, ''),
+('video_recording_quality', '100', @iCatFFmpeg, 'Video Recording Quality(0-100)', 'digit', '', '', 170, ''),
+('video_recording_fps', '30', @iCatFFmpeg, 'Video Recording FPS(10-60)', 'digit', '', '', 180, ''),
+('microphone_rate', '44', @iCatFFmpeg, 'Microphone Rate kHz', 'digit', '', '', 190, ''),
+('max_recording_time', '60', @iCatFFmpeg, 'Maximum Recording Time(secs)', 'digit', '', '', 200, '');
+
 -- CAT: Admin Profile
 SET @iAdminProfile = 18;
 INSERT INTO `sys_options` VALUES
@@ -1372,6 +1396,7 @@ INSERT INTO `sys_options_cats` VALUES(12, 'Matches', 12);
 INSERT INTO `sys_options_cats` VALUES(13, 'Template', 13);
 INSERT INTO `sys_options_cats` VALUES(14, 'Security', 14);
 INSERT INTO `sys_options_cats` VALUES(16, 'Watermark', 16);
+INSERT INTO `sys_options_cats` VALUES(17, 'FFmpeg Settings', 17);
 INSERT INTO `sys_options_cats` VALUES(21, 'Languages', 21);
 INSERT INTO `sys_options_cats` VALUES(22, 'IP Block List', 22);
 INSERT INTO `sys_options_cats` VALUES(23, 'Antispam', 23);
@@ -3392,7 +3417,7 @@ CREATE TABLE `sys_injections` (
 -- Dumping data for table `sys_injections`
 --
 INSERT INTO `sys_injections` (`name`, `page_index`, `key`, `type`, `data`, `replace`, `active`) VALUES
-('flash_integration', '0', 'injection_header', 'php', 'return getRayIntegrationJS(true);', '0', '1'),
+('flash_integration', '0', 'injection_header', 'php', 'return getRayIntegrationJS(true);', '0', '0'),
 ('banner_bottom', 0, 'banner_bottom', 'php', 'return banner_put_nv(4);', 0, 1),
 ('banner_right', 0, 'banner_right', 'php', 'return banner_put_nv(3);', 0, 1),
 ('banner_top', 0, 'banner_top', 'php', 'return banner_put_nv(1);', 0, 1),
@@ -3423,8 +3448,7 @@ CREATE TABLE `sys_injections_admin` (
 -- Dumping data for table `sys_injections`
 --
 INSERT INTO `sys_injections_admin` (`name`, `page_index`, `key`, `type`, `data`, `replace`, `active`) VALUES
-('flash_integration', '0', 'injection_header', 'php', 'return getRayIntegrationJS();', '0', '1'),
-
+('flash_integration', '0', 'injection_header', 'php', 'return getRayIntegrationJS();', '0', '0'),
 ('sys_confirm_popup', '0', 'injection_footer', 'php', 'return $GLOBALS[''oSysTemplate'']->parseHtmlByName(''transBoxConfirm.html'', array());', '0', '1'),
 ('sys_prompt_popup', '0', 'injection_footer', 'php', 'return $GLOBALS[''oSysTemplate'']->parseHtmlByName(''transBoxPrompt.html'', array());', '0', '1');
 

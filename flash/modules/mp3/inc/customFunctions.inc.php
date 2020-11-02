@@ -54,8 +54,10 @@ function mp3_getList($sId)
     global $aXmlTemplates;
     global $sFilesPathMp3;
 
-    $sMode = getSettingValue($sModule, "listSource");
-    $iCount = (int)getSettingValue($sModule, "listCount");
+    //$sMode = getSettingValue($sModule, "listSource");
+    $sMode = getParam('audioListSource');
+    //$iCount = (int)getSettingValue($sModule, "listCount");
+    $iCount = (int)getParam('audioListCount');
     if(!is_numeric($iCount) || $iCount <= 0) $iCount = 10;
 
     $oSource = new ChSoundsSearch();

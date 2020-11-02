@@ -19,6 +19,30 @@ ALTER TABLE `Profiles` ADD `DateLastPage` DATETIME NOT NULL DEFAULT '0000-00-00 
 ALTER TABLE `Profiles` ADD `CurrentPageTitle` varchar(255) NOT NULL AFTER `DateLastPage`;
 ALTER TABLE `Profiles` ADD `ExtendedRole` text NOT NULL AFTER `Role`;
 
+-- CAT: FFmpeg
+SET @iCatFFmpeg = 17;
+INSERT INTO `sys_options` VALUES
+('usex264', 'on', @iCatFFmpeg, 'Use H264 codec', 'checkbox', '', '', 10, ''),
+('video_player_height', '400', @iCatFFmpeg, 'Video Player Height(px) Min 330 - Max 600', 'digit', '', '', 20, ''),
+('videoListSource', 'Top', @iCatFFmpeg, 'Videos List Source', 'select', '', '', 30, 'Top,Related,Member'),
+('audioListSource', 'Top', @iCatFFmpeg, 'Music List Source', 'select', '', '', 40, 'Top,Related,Member'),
+('videoListCount', '10', @iCatFFmpeg, 'Maximum number of Video files to List. 1-30', 'digit', '', '', 50, ''),
+('audioListCount', '10', @iCatFFmpeg, 'Maximum number of Music files to List. 1-30', 'digit', '', '', 60, ''),
+('enable_download', 'on', @iCatFFmpeg, 'Enable Downloading', 'checkbox', '', '', 70, ''),
+('saveMobile', 'on', @iCatFFmpeg, 'Enable mobile video files playing', 'checkbox', '', '', 80, ''),
+('videoAutoApprove', 'on', @iCatFFmpeg, 'Auto Approve Video Files', 'checkbox', '', '', 90, ''),
+('audioAutoApprove', 'on', @iCatFFmpeg, 'Auto Approve Music Files', 'checkbox', '', '', 100, ''),
+('auto_play', '', @iCatFFmpeg, 'Enable Autoplay', 'checkbox', '', '', 110, ''),
+('processCount', '2', @iCatFFmpeg, 'Max files to process', 'digit', '', '', 120, ''),
+('failedTimeout', '1', @iCatFFmpeg, 'Failure timeout for converting files(days)', 'digit', '', '', 130, ''),
+('autohide_controls', 'on', @iCatFFmpeg, 'Enable autohide of controls', 'checkbox', '', '', 140, ''),
+('videoBitrate', '3000', @iCatFFmpeg, 'Video conversion bitrate', 'digit', '', '', 150, ''),
+('audioBitrate', '128', @iCatFFmpeg, 'Audio conversion bitrate', 'digit', '', '', 160, ''),
+('video_recording_quality', '100', @iCatFFmpeg, 'Video Recording Quality(0-100)', 'digit', '', '', 170, ''),
+('video_recording_fps', '30', @iCatFFmpeg, 'Video Recording FPS(10-60)', 'digit', '', '', 180, ''),
+('microphone_rate', '44', @iCatFFmpeg, 'Microphone Rate kHz', 'digit', '', '', 190, ''),
+('max_recording_time', '60', @iCatFFmpeg, 'Maximum Recording Time(secs)', 'digit', '', '', 200, '');
+
 -- CAT: Admin Profile
 SET @iAdminProfile = 18;
 INSERT INTO `sys_options` VALUES
@@ -26,6 +50,10 @@ INSERT INTO `sys_options` VALUES
 ('default_view_mode', 'Simple', @iAdminProfile, 'Default Members Mode', 'select', '', '', 10, 'Simple,Extended,Geeky'),
 ('default_order_by', 'None', @iAdminProfile, 'Default Order By', 'select', '', '', 20, 'None,User Name,Last Join,Last Activity'),
 ('default_per_page', '50', @iAdminProfile, 'Default Per Page', 'select', '', '', 30, '10,20,50,100,200');
+
+DELETE FROM `sys_menu_admin` WHERE `name` = 'flash_apps';
+UPDATE `sys_injections` SET `active` = '0' WHERE `id` = 1;
+UPDATE `sys_injections_admin` SET `active` = '0' WHERE `id` = 1;
 
 -- last step is to update current version
 UPDATE `sys_options` SET `VALUE` = '1.1.0' WHERE `Name` = 'sys_tmp_version';

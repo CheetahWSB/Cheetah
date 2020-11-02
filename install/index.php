@@ -676,6 +676,7 @@ function checkPostInstallPermissions(&$sError)
             $sFilesErr .= '&nbsp;&nbsp;&nbsp;' . $sFile . ';<br /> ';
         }
     }
+
     if (strlen($sFilesErr)) {
         $sError = 'error';
         $sErrorMessage .= '<strong>The following files have inappropriate permissions</strong>:<br />' . $sFilesErr;
@@ -995,9 +996,20 @@ function checkPreInstallPermission(&$sError)
         $sErrorMessage .= '<strong>The following directories have inappropriate permissions</strong>:<br />' . $sFoldersErr;
     }
 
+    //foreach ($oAdmTools->aInstallFiles as $sFile) {
+    //    if (!$oChWsbIO->isWritable($sFile)) {
+    //        $sFilesErr .= '&nbsp;&nbsp;&nbsp;' . $sFile . ';<br /> ';
+    //    }
+    //}
     foreach ($oAdmTools->aInstallFiles as $sFile) {
-        if (!$oChWsbIO->isWritable($sFile)) {
-            $sFilesErr .= '&nbsp;&nbsp;&nbsp;' . $sFile . ';<br /> ';
+        if (strpos($sFile, 'ffmpeg') === false) {
+            if (!$oChWsbIO->isWritable($sFile)) {
+                $sFilesErr .= '&nbsp;&nbsp;&nbsp;' . $sFile . ';<br /> ';
+            }
+        } else {
+            if (!$oChWsbIO->isExecutable($sFile)) {
+                $sFilesErr .= '&nbsp;&nbsp;&nbsp;' . $sFile . ';<br /> ';
+            }
         }
     }
 

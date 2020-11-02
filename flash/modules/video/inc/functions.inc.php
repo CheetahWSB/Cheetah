@@ -15,7 +15,8 @@ function prepareCommand($sTemplate, $aOptions)
 function usex264()
 {
     global $sModule;
-    return getSettingValue($sModule, "usex264") == TRUE_VAL;
+    //return getSettingValue($sModule, "usex264") == TRUE_VAL;
+    return 'on' == getParam('usex264') ? true : false;
 }
 
 function getEmbedThumbnail($sUserId, $sImageUrl, $aFilesConfig = array())
@@ -59,7 +60,8 @@ function embedVideo($sUserId, $sVideoId, $iDuration, $aFilesConfig = array())
         $aFilesConfig = ChWsbService::call('videos', 'get_files_config');
 
     $sDBModule = DB_PREFIX . ucfirst($sModule);
-    $sStatus = getSettingValue($sModule, "autoApprove") == TRUE_VAL ? STATUS_APPROVED : STATUS_DISAPPROVED;
+    //$sStatus = getSettingValue($sModule, "autoApprove") == TRUE_VAL ? STATUS_APPROVED : STATUS_DISAPPROVED;
+    $sStatus = 'on' == getParam('videoAutoApprove') ? STATUS_APPROVED : STATUS_DISAPPROVED;
     getResult("INSERT INTO `" . $sDBModule . "Files` SET `Date`='" . time() . "', `Owner`='" . $sUserId . "', `Status`='" . $sStatus . "', `Source`='youtube', `Video`='" . $sVideoId . "', `Time`='" . ($iDuration * 1000) . "'");
 
     $sFileId = getLastInsertId();
@@ -227,7 +229,8 @@ function getVideoBitrate()
 {
     global $sModule;
 
-    $iBitrate = (int)getSettingValue($sModule, "bitrate");
+    //$iBitrate = (int)getSettingValue($sModule, "bitrate");
+    $iBitrate = (int)getParam('videoBitrate');
     if(!$iBitrate)
         $iBitrate = 512;
 
@@ -304,7 +307,8 @@ function convertVideo($sId)
     $oAlert->alert();
 
     if($bResult) {
-        $sAutoApprove = getSettingValue($sModule, "autoApprove") == TRUE_VAL ? STATUS_APPROVED : STATUS_DISAPPROVED;
+        //$sAutoApprove = getSettingValue($sModule, "autoApprove") == TRUE_VAL ? STATUS_APPROVED : STATUS_DISAPPROVED;
+        $sAutoApprove = 'on' == getParam('videoAutoApprove') ? STATUS_APPROVED : STATUS_DISAPPROVED;
         getResult("UPDATE `" . $sDBModule . "Files` SET `Date`='" . time() . "', `Status`='" . $sAutoApprove . "' WHERE `ID`='" . $sId . "'");
     } else {
         getResult("UPDATE `" . $sDBModule . "Files` SET `Status`='" . STATUS_FAILED . "' WHERE `ID`='" . $sId . "'");

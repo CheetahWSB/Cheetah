@@ -36,9 +36,11 @@ class ChWsbCronVideoComments extends ChWsbCron
         global $sModulesPath;
         global $sFilesPath;
 
-        $iFilesCount = getSettingValue($sModule, "processCount");
+        //$iFilesCount = getSettingValue($sModule, "processCount");
+        $iFilesCount = getParam('processCount');
         if(!is_numeric($iFilesCount)) $iFilesCount = 2;
-        $iFailedTimeout = getSettingValue($sModule, "failedTimeout");
+        //$iFailedTimeout = getSettingValue($sModule, "failedTimeout");
+        $iFailedTimeout = getParam('failedTimeout');
         if(!is_numeric($iFailedTimeout)) $iFailedTimeout = 1;
         $iFailedTimeout *= 86400;
         $sDbPrefix = DB_PREFIX . ucfirst($sModule);

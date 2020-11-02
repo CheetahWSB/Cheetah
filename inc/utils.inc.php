@@ -1984,3 +1984,23 @@ function wrapVideoFrame($sData) {
 
     return $sData;
 }
+
+function getFfmpegPath()
+{
+    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        $sFfmpegPath = $GLOBALS['dir']['plugins'] . 'ffmpeg/ffmpeg.exe';
+    } else {
+        $sFfmpegPath = $GLOBALS['dir']['plugins'] . 'ffmpeg/ffmpeg';
+    }
+    return $sFfmpegPath;
+}
+
+function getFfprobePath()
+{
+    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        $sFfprobePath = $GLOBALS['dir']['plugins'] . 'ffmpeg/ffprobe.exe';
+    } else {
+        $sFfprobePath = $GLOBALS['dir']['plugins'] . 'ffmpeg/ffprobe';
+    }
+    return $sFfprobePath;
+}

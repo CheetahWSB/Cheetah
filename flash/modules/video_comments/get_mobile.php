@@ -16,7 +16,8 @@ if(!empty($sId) && file_exists($sFile)) {
     require_once($sIncPath . "xml.inc.php");
     require_once($sIncPath . "functions.inc.php");
     require_once($sIncPath . "apiFunctions.inc.php");
-    $bResult = getSettingValue("video_comments", "saveMobile") == TRUE_VAL;
+    //$bResult = getSettingValue("video_comments", "saveMobile") == TRUE_VAL;
+    $bResult = 'on' == getParam('saveMobile') ? true : false;
 }
 
 if($bResult) {

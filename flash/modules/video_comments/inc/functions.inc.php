@@ -15,7 +15,8 @@ function vcPrepareCommand($sTemplate, $aOptions)
 function vcUsex264()
 {
     global $sModule;
-    return getSettingValue($sModule, "usex264") == TRUE_VAL;
+    //return getSettingValue($sModule, "usex264") == TRUE_VAL;
+    return 'on' == getParam('usex264') ? true : false;
 }
 
 function uploadFile($sFilePath, $sUserId)
@@ -110,7 +111,8 @@ function _getVideoBitrate()
 {
     global $sModule;
 
-    $iBitrate = (int)getSettingValue($sModule, "bitrate");
+    //$iBitrate = (int)getSettingValue($sModule, "bitrate");
+    $iBitrate = (int)getParam('videoBitrate');
     if(!$iBitrate)
         $iBitrate = 512;
 
@@ -186,7 +188,8 @@ function _convert($sId)
     $oAlert->alert();
 
     if($bResult) {
-        $sAutoApprove = getSettingValue($sModule, "autoApprove") == TRUE_VAL ? VC_STATUS_APPROVED : VC_STATUS_DISAPPROVED;
+        //$sAutoApprove = getSettingValue($sModule, "autoApprove") == TRUE_VAL ? VC_STATUS_APPROVED : VC_STATUS_DISAPPROVED;
+        $sAutoApprove = 'on' == getParam('videoAutoApprove') ? STATUS_APPROVED : STATUS_DISAPPROVED;
         getResult("UPDATE `" . $sDBModule . "Files` SET `Date`='" . time() . "', `Status`='" . $sAutoApprove . "' WHERE `ID`='" . $sId . "'");
     } else {
         getResult("UPDATE `" . $sDBModule . "Files` SET `Status`='" . VC_STATUS_FAILED . "' WHERE `ID`='" . $sId . "'");

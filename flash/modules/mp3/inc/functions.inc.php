@@ -59,7 +59,8 @@ function publishRecordedFile($sUserId, $sTitle, $sCategory, $sTags, $sDesc)
         $sDBModule = DB_PREFIX . ucfirst($sModule);
         $sUri = mp3_genUri($sTitle);
         $sUriPart = empty($sUri) ? "" : "`Uri`='" . $sUri . "', ";
-        $sAutoApprove = getSettingValue($sModule, "autoApprove") == TRUE_VAL ? STATUS_APPROVED : STATUS_DISAPPROVED;
+        //$sAutoApprove = getSettingValue($sModule, "autoApprove") == TRUE_VAL ? STATUS_APPROVED : STATUS_DISAPPROVED;
+        $sAutoApprove = 'on' == getParam('audioAutoApprove') ? STATUS_APPROVED : STATUS_DISAPPROVED;
         getResult("INSERT INTO `" . $sDBModule . "Files` SET `Categories`='" . $sCategory . "', `Title`='" . $sTitle . "', " . $sUriPart . "`Tags`='" . $sTags . "', `Description`='" . $sDesc . "', `Date`='" . time() . "', `Owner`='" . $sUserId . "', `Status`='" . $sAutoApprove . "'");
         $sFileId = getLastInsertId();
         rename($sPlayFile, $sFilesPathMp3 . $sFileId . MP3_EXTENSION);
@@ -109,7 +110,8 @@ function convertMain($sId)
     $sPlayFile = $sTempFile . MP3_EXTENSION;
 
     $aBitrates = array(64, 96, 128, 192, 256);
-    $iBitrate = (int)getSettingValue($sModule, "convertBitrate");
+    //$iBitrate = (int)getSettingValue($sModule, "convertBitrate");
+    $iBitrate = (int)getParam($sModule, "audioBitrate");
     if(!in_array($iBitrate, $aBitrates))
         $iBitrate = 128;
 
@@ -143,7 +145,8 @@ function convert($sId)
     $bResult = convertMain($sId);
 
     if($bResult) {
-        $sAutoApprove = getSettingValue($sModule, "autoApprove") == TRUE_VAL ? STATUS_APPROVED : STATUS_DISAPPROVED;
+        //$sAutoApprove = getSettingValue($sModule, "autoApprove") == TRUE_VAL ? STATUS_APPROVED : STATUS_DISAPPROVED;
+        $sAutoApprove = 'on' == getParam('audioAutoApprove') ? STATUS_APPROVED : STATUS_DISAPPROVED;
         getResult("UPDATE `" . $sDBModule . "Files` SET `Date`='" . time() . "', `Status`='" . $sAutoApprove . "' WHERE `ID`='" . $sId . "'");
     } else {
         getResult("UPDATE `" . $sDBModule . "Files` SET `Status`='" . STATUS_FAILED . "' WHERE `ID`='" . $sId . "'");
