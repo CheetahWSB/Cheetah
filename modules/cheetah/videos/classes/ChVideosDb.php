@@ -36,12 +36,12 @@ class ChVideosDb extends ChWsbFilesDb
 
         $sFields = preg_replace( '/,$/', '', trim($sFields) );
 
-        $sQuery = "UPDATE `RayVideoFiles` SET {$sFields} WHERE `id` = '$iId'";
+        $sQuery = "UPDATE `RayVideoFiles` SET {$sFields} WHERE `ID` = '$iId'";
         $this -> query($sQuery);
     }
 
     function getVideoData($iId) {
-        $sQuery = "SELECT * FROM `RayVideoFiles` WHERE `id` = '$iId'";
+        $sQuery = "SELECT * FROM `RayVideoFiles` WHERE `ID` = '$iId'";
         return $this -> getRow($sQuery);
     }
 
