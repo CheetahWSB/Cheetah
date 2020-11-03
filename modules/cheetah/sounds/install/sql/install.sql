@@ -65,24 +65,25 @@ CREATE TABLE IF NOT EXISTS `[db_prefix]_views_track` (
 INSERT INTO `sys_options_cats` SET `name` = 'Sounds';
 SET @iKatID = LAST_INSERT_ID();
 
-INSERT INTO `sys_options` (`Name`, `VALUE`, `kateg`, `desc`, `Type`, `check`, `err_text`, `order_in_kateg`, `AvailableValues`)  VALUES
-('category_auto_app_[db_prefix]', 'on', @iKatID, 'Autoapprove categories of sounds', 'checkbox', '', '', 2, ''),
-('[db_prefix]_allowed_exts', 'mp3 wav', @iKatID, 'Allowed extensions', 'digit', '', '', 3, ''),
-('[db_prefix]_max_file_size', '32', @iKatID, 'Maximum size of one file (in Megabytes)', 'digit', '', '', 4, ''),
-('[db_prefix]_profile_album_name', '{nickname}''s sounds', @iKatID, 'Default profile album name', 'digit', '', '', 5, ''),
-('[db_prefix]_mode_index', 'last', @iKatID, 'Default sort on main index page<br /> (if enabled in the template)', 'select', '', '', 10, 'last,top'),
-('[db_prefix]_number_index', '9', @iKatID, 'How many sounds show on main index page', 'digit', '', '', 12, ''),
-('[db_prefix]_number_home', '12', @iKatID, 'How many sounds show on sounds home page', 'digit', '', '', 14, ''),
-('[db_prefix]_number_all', '12', @iKatID, 'How many sounds show on browse sounds page', 'digit', '', '', 16, ''),
-('[db_prefix]_number_top', '3', @iKatID, 'How many sounds show in featured, top, and similar sections', 'digit', '', '', 18, ''),
-('[db_prefix]_number_related', '3', @iKatID, 'Number of related sounds by user', 'digit', '', '', 20, ''),
-('[db_prefix]_number_previous_rated', '3', @iKatID, 'Number of previous rated sounds', 'digit', '', '', 22, ''),
-('[db_prefix]_number_albums_home', '3', @iKatID, 'How many albums show on sounds home page', 'digit', '', '', 24, ''),
-('[db_prefix]_number_albums_browse', '9', @iKatID, 'How many albums show on browse albums page', 'digit', '', '', 26, ''),
-('[db_prefix]_number_view_album', '3', @iKatID, 'How many sounds show on view album page', 'digit', '', '', 28, ''),
-('[db_prefix]_file_width', '600', @iKatID, 'Width of sound player (in pixels)', 'digit', '', '', 34, ''),
-('[db_prefix]_file_height', '600', @iKatID, 'Height of sound player (in pixels)', 'digit', '', '', 35, ''),
-('[db_prefix]_uploader_switcher', 'html5,record', @iKatID, 'Available uploaders', 'list', '', '', 38, 'html5,regular,record');
+INSERT INTO `sys_options` (`Name`, `VALUE`, `kateg`, `desc`, `Type`, `check`, `err_text`, `order_in_kateg`, `AvailableValues`) VALUES
+('category_auto_app_[db_prefix]', 'on', @iKatID, 'Autoapprove categories of sounds', 'checkbox', '', '', 10, ''),
+('[db_prefix]_cat_required', 'on', @iKatID, 'Require category when editing', 'checkbox', '', '', 20, ''),
+('[db_prefix]_allowed_exts', 'mp3 wav', @iKatID, 'Allowed extensions', 'digit', '', '', 30, ''),
+('[db_prefix]_max_file_size', '32', @iKatID, 'Maximum size of one file (in Megabytes)', 'digit', '', '', 40, ''),
+('[db_prefix]_profile_album_name', '{nickname}\'s sounds', @iKatID, 'Default profile album name', 'digit', '', '', 50, ''),
+('[db_prefix]_mode_index', 'last', @iKatID, 'Default sort on main index page<br /> (if enabled in the template)', 'select', '', '', 60, 'last,top'),
+('[db_prefix]_number_index', '9', @iKatID, 'How many sounds show on main index page', 'digit', '', '', 70, ''),
+('[db_prefix]_number_home', '12', @iKatID, 'How many sounds show on sounds home page', 'digit', '', '', 80, ''),
+('[db_prefix]_number_all', '12', @iKatID, 'How many sounds show on browse sounds page', 'digit', '', '', 90, ''),
+('[db_prefix]_number_top', '3', @iKatID, 'How many sounds show in featured, top, and similar sections', 'digit', '', '', 100, ''),
+('[db_prefix]_number_related', '3', @iKatID, 'Number of related sounds by user', 'digit', '', '', 110, ''),
+('[db_prefix]_number_previous_rated', '3', @iKatID, 'Number of previous rated sounds', 'digit', '', '', 120, ''),
+('[db_prefix]_number_albums_home', '3', @iKatID, 'How many albums show on sounds home page', 'digit', '', '', 130, ''),
+('[db_prefix]_number_albums_browse', '9', @iKatID, 'How many albums show on browse albums page', 'digit', '', '', 140, ''),
+('[db_prefix]_number_view_album', '3', @iKatID, 'How many sounds show on view album page', 'digit', '', '', 150, ''),
+('[db_prefix]_file_width', '600', @iKatID, 'Width of sound player (in pixels)', 'digit', '', '', 160, ''),
+('[db_prefix]_file_height', '600', @iKatID, 'Height of sound player (in pixels)', 'digit', '', '', 170, ''),
+('[db_prefix]_uploader_switcher', 'html5', @iKatID, 'Available uploaders', 'list', '', '', 180, 'html5');
 
 SET @iPCPOrder = (SELECT MAX(`Order`) FROM `sys_page_compose_pages`);
 INSERT INTO `sys_page_compose_pages`(`Name`, `Title`, `Order`) VALUES

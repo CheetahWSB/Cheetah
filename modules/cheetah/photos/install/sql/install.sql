@@ -95,34 +95,35 @@ CREATE TABLE IF NOT EXISTS `[db_prefix]_views_track` (
 INSERT INTO `sys_options_cats` SET `name` = 'Photos';
 SET @iKatID = LAST_INSERT_ID();
 
-INSERT INTO `sys_options` (`Name`, `VALUE`, `kateg`, `desc`, `Type`, `check`, `err_text`, `order_in_kateg`, `AvailableValues`)  VALUES
-('[db_prefix]_activation', 'on', @iKatID, 'Enable auto-activation for photos', 'checkbox', '', '', 1, ''),
-('category_auto_app_[db_prefix]', 'on', @iKatID, 'Autoapprove categories of photos', 'checkbox', '', '', 2, ''),
-('[db_prefix]_allowed_exts', 'jpg jpeg png gif', @iKatID, 'Allowed extensions', 'digit', '', '', 3, ''),
-('[db_prefix]_profile_album_name', '{nickname}''s photos', @iKatID, 'Default profile album name', 'digit', '', '', 4, ''),
-('[db_prefix]_profile_cover_album_name', '{nickname}''s cover photos', @iKatID, 'Default profile cover album name', 'digit', '', '', 5, ''),
-('[db_prefix]_mode_index', 'last', @iKatID, 'Default sort on main index page<br /> (if enabled in the template)', 'select', '', '', 10, 'last,top'),
-('[db_prefix]_number_index', '9', @iKatID, 'How many photos show on main index page', 'digit', '', '', 12, ''),
-('[db_prefix]_number_home', '12', @iKatID, 'How many photos show on photos home page', 'digit', '', '', 14, ''),
-('[db_prefix]_number_all', '12', @iKatID, 'How many photos show on browse photos page', 'digit', '', '', 16, ''),
-('[db_prefix]_number_top', '6', @iKatID, 'How many photos show in featured, top, and similar sections', 'digit', '', '', 18, ''),
-('[db_prefix]_number_related', '3', @iKatID, 'Number of related photos by user', 'digit', '', '', 20, ''),
-('[db_prefix]_number_previous_rated', '3', @iKatID, 'Number of previous rated photos', 'digit', '', '', 22, ''),
-('[db_prefix]_number_albums_home', '3', @iKatID, 'How many albums show on photos home page', 'digit', '', '', 24, ''),
-('[db_prefix]_number_albums_browse', '9', @iKatID, 'How many albums show on browse albums page', 'digit', '', '', 26, ''),
-('[db_prefix]_number_albums_public_objects', '4', @iKatID, 'Minimum number of photos required to display album in Public Albums block', 'digit', '', '', 28, ''),
-('[db_prefix]_number_view_album', '6', @iKatID, 'How many photos show on view album page', 'digit', '', '', 30, ''),
-('[db_prefix]_file_width', '750', @iKatID, 'Width of main photo unit (in pixels)', 'digit', '', '', 34, ''),
-('[db_prefix]_file_height', '750', @iKatID, 'Height of main photo unit (in pixels)', 'digit', '', '', 35, ''),
-('[db_prefix]_client_width', '2048', @iKatID, 'Width for photo resizing in browser (in pixels)', 'digit', '', '', 38, ''),
-('[db_prefix]_client_height', '2048', @iKatID, 'Height for photo resizing in browser (in pixels)', 'digit', '', '', 39, ''),
-('[db_prefix]_flickr_photo_api', '', @iKatID, 'Flickr API key. You can get Flickr API keys here: https://www.flickr.com/services/api/keys/', 'digit', '', '', 50, ''),
-('[db_prefix]_rss_feed_on', 'on', @iKatID, 'Enable RSS feed', 'checkbox', '', '', 52, ''),
-('[db_prefix]_uploader_switcher', 'html5,record,embed', @iKatID, 'Available uploaders', 'list', '', '', 54, 'html5,regular,record,embed'),
-('[db_prefix]_header_cache', '0', @iKatID, 'Header Cache time (in seconds, leave 0 to disable)', 'digit', '', '', 56, ''),
-('[db_prefix]_cover_rows', '4', @iKatID, 'Number of rows in Photos Home page Cover', 'digit', '', '', 61, ''),
-('[db_prefix]_cover_columns', '10', @iKatID, 'Number of columns in Photos Home page Cover', 'digit', '', '', 62, ''),
-('[db_prefix]_cover_featured', '', @iKatID, 'Use featured photos for Photos Home page Cover', 'checkbox', '', '', 63, '');
+INSERT INTO `sys_options` (`Name`, `VALUE`, `kateg`, `desc`, `Type`, `check`, `err_text`, `order_in_kateg`, `AvailableValues`) VALUES
+('[db_prefix]_activation', 'on', @iKatID, 'Enable auto-activation for photos', 'checkbox', '', '', 10, ''),
+('[db_prefix]_cat_required', 'on', @iKatID, 'Require category when editing', 'checkbox', '', '', 20, ''),
+('category_auto_app_[db_prefix]', 'on', @iKatID, 'Autoapprove categories of photos', 'checkbox', '', '', 30, ''),
+('[db_prefix]_allowed_exts', 'jpg jpeg png gif', @iKatID, 'Allowed extensions', 'digit', '', '', 40, ''),
+('[db_prefix]_profile_album_name', '{nickname}\'s photos', @iKatID, 'Default profile album name', 'digit', '', '', 50, ''),
+('[db_prefix]_profile_cover_album_name', '{nickname}\'s cover photos', @iKatID, 'Default profile cover album name', 'digit', '', '', 60, ''),
+('[db_prefix]_mode_index', 'last', @iKatID, 'Default sort on main index page<br /> (if enabled in the template)', 'select', '', '', 70, 'last,top'),
+('[db_prefix]_number_index', '9', @iKatID, 'How many photos show on main index page', 'digit', '', '', 80, ''),
+('[db_prefix]_number_home', '12', @iKatID, 'How many photos show on photos home page', 'digit', '', '', 90, ''),
+('[db_prefix]_number_all', '12', @iKatID, 'How many photos show on browse photos page', 'digit', '', '', 100, ''),
+('[db_prefix]_number_top', '6', @iKatID, 'How many photos show in featured, top, and similar sections', 'digit', '', '', 110, ''),
+('[db_prefix]_number_related', '3', @iKatID, 'Number of related photos by user', 'digit', '', '', 120, ''),
+('[db_prefix]_number_previous_rated', '3', @iKatID, 'Number of previous rated photos', 'digit', '', '', 130, ''),
+('[db_prefix]_number_albums_home', '3', @iKatID, 'How many albums show on photos home page', 'digit', '', '', 140, ''),
+('[db_prefix]_number_albums_browse', '9', @iKatID, 'How many albums show on browse albums page', 'digit', '', '', 150, ''),
+('[db_prefix]_number_albums_public_objects', '4', @iKatID, 'Minimum number of photos required to display album in Public Albums block', 'digit', '', '', 160, ''),
+('[db_prefix]_number_view_album', '6', @iKatID, 'How many photos show on view album page', 'digit', '', '', 170, ''),
+('[db_prefix]_file_width', '750', @iKatID, 'Width of main photo unit (in pixels)', 'digit', '', '', 180, ''),
+('[db_prefix]_file_height', '750', @iKatID, 'Height of main photo unit (in pixels)', 'digit', '', '', 190, ''),
+('[db_prefix]_client_width', '2048', @iKatID, 'Width for photo resizing in browser (in pixels)', 'digit', '', '', 200, ''),
+('[db_prefix]_client_height', '2048', @iKatID, 'Height for photo resizing in browser (in pixels)', 'digit', '', '', 210, ''),
+('[db_prefix]_flickr_photo_api', '', @iKatID, 'Flickr API key. You can get Flickr API keys here: https://www.flickr.com/services/api/keys/', 'digit', '', '', 220, ''),
+('[db_prefix]_rss_feed_on', 'on', @iKatID, 'Enable RSS feed', 'checkbox', '', '', 230, ''),
+('[db_prefix]_uploader_switcher', 'html5', @iKatID, 'Available uploaders', 'list', '', '', 240, 'html5,embed'),
+('[db_prefix]_header_cache', '0', @iKatID, 'Header Cache time (in seconds, leave 0 to disable)', 'digit', '', '', 250, ''),
+('[db_prefix]_cover_rows', '4', @iKatID, 'Number of rows in Photos Home page Cover', 'digit', '', '', 260, ''),
+('[db_prefix]_cover_columns', '10', @iKatID, 'Number of columns in Photos Home page Cover', 'digit', '', '', 270, ''),
+('[db_prefix]_cover_featured', '', @iKatID, 'Use featured photos for Photos Home page Cover', 'checkbox', '', '', 280, '');
 
 SET @iPCPOrder = (SELECT MAX(`Order`) FROM `sys_page_compose_pages`);
 INSERT INTO `sys_page_compose_pages`(`Name`, `Title`, `Order`) VALUES
@@ -368,4 +369,3 @@ INSERT INTO `sys_objects_member_info` (`object`, `title`, `type`, `override_clas
 
 UPDATE `sys_options` SET `VALUE` = 'ch_photos_thumb' WHERE `Name` = 'sys_member_info_thumb' AND `VALUE` = 'sys_avatar';
 UPDATE `sys_options` SET `VALUE` = 'ch_photos_icon' WHERE `Name` = 'sys_member_info_thumb_icon' AND `VALUE` = 'sys_avatar_icon';
-

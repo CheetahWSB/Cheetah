@@ -144,24 +144,25 @@ INSERT INTO `[db_prefix]_types` (`Icon`, `Type`) VALUES
 INSERT INTO `sys_options_cats` SET `name` = 'Files';
 SET @iKatID = LAST_INSERT_ID();
 
-INSERT INTO `sys_options` (`Name`, `VALUE`, `kateg`, `desc`, `Type`, `check`, `err_text`, `order_in_kateg`, `AvailableValues`)  VALUES
-('[db_prefix]_activation', 'on', @iKatID, 'Enable auto-activation for files', 'checkbox', '', '', 1, ''),
-('category_auto_app_[db_prefix]', 'on', @iKatID, 'Autoapprove categories of files', 'checkbox', '', '', 2, ''),
-('[db_prefix]_allowed_exts', '', @iKatID, 'Allowed extensions (leave blank to have all types)', 'digit', '', '', 3, ''),
-('[db_prefix]_max_file_size', '32', @iKatID, 'Maximum size of one file (in Megabytes)', 'digit', '', '', 4, ''),
-('[db_prefix]_profile_album_name', '{nickname}''s files', @iKatID, 'Default profile folder name', 'digit', '', '', 5, ''),
-('[db_prefix]_mode_index', 'last', @iKatID, 'Default sort on main index page<br /> (if enabled in the template)', 'select', '', '', 10, 'last,popular'),
-('[db_prefix]_number_index', '2', @iKatID, 'How many files show on main index page', 'digit', '', '', 12, ''),
-('[db_prefix]_number_home', '10', @iKatID, 'How many files show on files home page', 'digit', '', '', 14, ''),
-('[db_prefix]_number_all', '10', @iKatID, 'How many files show on browse files page', 'digit', '', '', 16, ''),
-('[db_prefix]_number_featured', '4', @iKatID, 'How many files show in featured section', 'digit', '', '', 18, ''),
-('[db_prefix]_number_top', '4', @iKatID, 'How many files show in top section', 'digit', '', '', 19, ''),
-('[db_prefix]_number_related', '4', @iKatID, 'Number of related files by user', 'digit', '', '', 20, ''),
-('[db_prefix]_number_albums_home', '4', @iKatID, 'How many folders show on files home page', 'digit', '', '', 22, ''),
-('[db_prefix]_number_albums_browse', '10', @iKatID, 'How many folders show on browse folders page', 'digit', '', '', 24, ''),
-('[db_prefix]_number_view_album', '4', @iKatID, 'How many files show on view folder page', 'digit', '', '', 26, ''),
-('[db_prefix]_thumb_width', '64', @iKatID, 'Thumbnail width of file', 'digit', '', '', 30, ''),
-('[db_prefix]_uploader_switcher', 'html5', @iKatID, 'Available uploaders', 'list', '', '', 40, 'html5,regular');
+INSERT INTO `sys_options` (`Name`, `VALUE`, `kateg`, `desc`, `Type`, `check`, `err_text`, `order_in_kateg`, `AvailableValues`) VALUES
+('[db_prefix]_activation', 'on', @iKatID, 'Enable auto-activation for files', 'checkbox', '', '', 10, ''),
+('[db_prefix]_cat_required', 'on', @iKatID, 'Require category when editing', 'checkbox', '', '', 20, ''),
+('category_auto_app_[db_prefix]', 'on', @iKatID, 'Autoapprove categories of files', 'checkbox', '', '', 30, ''),
+('[db_prefix]_allowed_exts', '', @iKatID, 'Allowed extensions (leave blank to have all types)', 'digit', '', '', 40, ''),
+('[db_prefix]_max_file_size', '32', @iKatID, 'Maximum size of one file (in Megabytes)', 'digit', '', '', 50, ''),
+('[db_prefix]_profile_album_name', '{nickname}\'s files', @iKatID, 'Default profile folder name', 'digit', '', '', 60, ''),
+('[db_prefix]_mode_index', 'last', @iKatID, 'Default sort on main index page<br /> (if enabled in the template)', 'select', '', '', 70, 'last,popular'),
+('[db_prefix]_number_index', '2', @iKatID, 'How many files show on main index page', 'digit', '', '', 80, ''),
+('[db_prefix]_number_home', '10', @iKatID, 'How many files show on files home page', 'digit', '', '', 90, ''),
+('[db_prefix]_number_all', '10', @iKatID, 'How many files show on browse files page', 'digit', '', '', 100, ''),
+('[db_prefix]_number_featured', '4', @iKatID, 'How many files show in featured section', 'digit', '', '', 110, ''),
+('[db_prefix]_number_top', '4', @iKatID, 'How many files show in top section', 'digit', '', '', 120, ''),
+('[db_prefix]_number_related', '4', @iKatID, 'Number of related files by user', 'digit', '', '', 130, ''),
+('[db_prefix]_number_albums_home', '4', @iKatID, 'How many folders show on files home page', 'digit', '', '', 140, ''),
+('[db_prefix]_number_albums_browse', '10', @iKatID, 'How many folders show on browse folders page', 'digit', '', '', 150, ''),
+('[db_prefix]_number_view_album', '4', @iKatID, 'How many files show on view folder page', 'digit', '', '', 160, ''),
+('[db_prefix]_thumb_width', '64', @iKatID, 'Thumbnail width of file', 'digit', '', '', 170, ''),
+('[db_prefix]_uploader_switcher', 'html5', @iKatID, 'Available uploaders', 'list', '', '', 180, 'html5,regular');
 
 SET @iPCPOrder = (SELECT MAX(`Order`) FROM `sys_page_compose_pages`);
 INSERT INTO `sys_page_compose_pages`(`Name`, `Title`, `Order`) VALUES

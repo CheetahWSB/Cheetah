@@ -520,6 +520,12 @@ class ChWsbFilesModule extends ChWsbModule
                     ),
                 ),
             );
+
+            // Remove the requirement for categories if option is off.
+            if(getParam($sPrefix . '_cat_required') == '') {
+                $aForm['inputs']['categories']['required'] = false;
+                unset($aForm['inputs']['categories']['checker']);
+            }
             $oForm    = new ChTemplFormView($aForm);
             $oForm->initChecker($aInfo);
             if ($oForm->isSubmittedAndValid()) {
