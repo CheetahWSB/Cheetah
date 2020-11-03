@@ -2022,3 +2022,19 @@ function getVideoData($sFile) {
     $sBitRate = $aVideoData['streams'][0]['bit_rate'];
     return array('CodecName' => $sCodecName, 'VideoWidth' => $sVideoWidth, 'VideoHeight' => $sVideoHeight, 'AvgFrameRate' => $sAvgFrameRate, 'DurationTs' => $sDurationTs, 'Duration' => $sDuration, 'BitRate' => $sBitRate);
 }
+
+function getAudioData($sFile) {
+    $oHandle = popen(getFfprobePath() . ' -v quiet -print_format json -show_format -show_streams ' . $sFile . ' 2>&1', 'r');
+    $sAudioData = '';
+    while (!feof($oHandle)) {
+        $sAudioData .= fread($oHandle, 4096);
+    }
+    pclose($oHandle);
+    $aAudioData = json_decode($sAudioData, true);
+    file_put_contents($GLOBALS['dir']['tmp'] . 'test.dat', print_r($aAudioData, true), FILE_APPEND) . "\r\n\r\n";
+    $sCodecName = $aAudioData['streams'][0]['codec_name'];
+    $sDurationTs = $aAudioData['streams'][0]['duration_ts'];
+    $sDuration = $aAudioData['streams'][0]['duration'];
+    $sBitRate = $aAudioData['streams'][0]['bit_rate'];
+    return array('CodecName' => $sCodecName, 'DurationTs' => $sDurationTs, 'Duration' => $sDuration, 'BitRate' => $sBitRate);
+}

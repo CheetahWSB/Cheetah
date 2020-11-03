@@ -2906,6 +2906,7 @@ CREATE TABLE `RayMp3Files` (
   `ID` int(11) NOT NULL auto_increment,
   `Categories` text NOT NULL,
   `Title` varchar(255) NOT NULL default '',
+  `ThumbUrl` text NOT NULL default '',  
   `Uri` varchar(255) NOT NULL default '',
   `Tags` text NOT NULL,
   `Description` text NOT NULL,
@@ -2918,7 +2919,7 @@ CREATE TABLE `RayMp3Files` (
   `RateCount` int(11) NOT NULL,
   `CommentsCount` int(11) NOT NULL,
   `Featured` tinyint(4) NOT NULL,
-  `Status` enum('approved','disapproved','pending','processing','failed') NOT NULL default 'pending',
+  `Status` enum('approved','disapproved','pending','processing','failed','onhold') NOT NULL default 'onhold',
   PRIMARY KEY  (`ID`),
   UNIQUE KEY `Uri` (`Uri`),
   KEY (`Owner`)

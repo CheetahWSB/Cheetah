@@ -147,6 +147,7 @@ class ChSoundsUploader extends ChWsbFilesUploader
      */
     function performUpload ($sFilePath, $sRealFilename = '', $aInfo = array(), $isMoveUploadedFile = true, $aExtraParams = array())
     {
+        $bUpdateAlbumCounter = false;
         $iOwner = $this->_getAuthorId();
         if ($this->_iOwnerId)
             $iOwner = $this->oModule->_iProfileId = $this->_iOwnerId;
@@ -174,6 +175,24 @@ class ChSoundsUploader extends ChWsbFilesUploader
         if (!($iMID = uploadMusic(process_db_input($sFilePath), $iOwner, process_db_input($sRealFilename), $isMoveUploadedFile)))
             return array('error' => _t('_sys_txt_upload_failed'));
 
+        // See if uploaded file is already a mp3 audio file. If so, change status and rename the file.
+        $sFile1 = $GLOBALS['dir']['root'] . 'flash/modules/mp3/files/' . $iMID;
+        $sFile2 = $GLOBALS['dir']['root'] . 'flash/modules/mp3/files/' . $iMID . '.mp3';
+        $aAudioData = getAudioData($sFile1);
+        if($aAudioData['CodecName'] == 'mp3') {
+            $sAutoApprove = 'on' == getParam('audioAutoApprove') ? 'approved' : 'disapproved';
+            rename($sFile1, $sFile2);
+            $aData = array(
+                'Time' => (int)$aAudioData['Duration']*1000,
+                //'BitRate' => $aAudioData['BitRate'],
+                'Status' => $sAutoApprove,
+            );
+            $this->oModule->_oDb->updateAudio($iMID, $aData);
+            $bUpdateAlbumCounter = true;
+        } else {
+            $this->oModule->_oDb->updateAudio($iMID, array('Status' => 'pending'));
+        }
+
         // update uploaded file info if needed
 
         if ($aInfo) {
@@ -188,8 +207,8 @@ class ChSoundsUploader extends ChWsbFilesUploader
         $sExt = strtolower(pathinfo($sRealFilename, PATHINFO_EXTENSION));
         $sAlbum = !empty($_POST['extra_param_album']) > 0 ? $_POST['extra_param_album'] : getParam('sys_album_default_name');
         $sAlbum = isset($aInfo['album']) ? $aInfo['album'] : $sAlbum;
-        $sAutoActive = $sExt == 'mp3' && getSettingValue($sModule, "autoApprove") == true;
-        $this->addObjectToAlbum($this->oModule->oAlbums, $sAlbum, $iMID, $sAutoActive);
+        //$sAutoActive = $sExt == 'mp3' && getSettingValue($sModule, "autoApprove") == true;
+        $this->addObjectToAlbum($this->oModule->oAlbums, $sAlbum, $iMID, $bUpdateAlbumCounter);
 
         $this->oModule->isAllowedAdd(true, true);
 
