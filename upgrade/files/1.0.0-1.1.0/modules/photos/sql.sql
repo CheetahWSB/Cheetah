@@ -1,3 +1,4 @@
+UPDATE `sys_options` SET `VALUE` = 'html5', `AvailableValues` = 'html5,embed' WHERE `Name` = 'ch_photos_uploader_switcher';
 
 -- update module version
 

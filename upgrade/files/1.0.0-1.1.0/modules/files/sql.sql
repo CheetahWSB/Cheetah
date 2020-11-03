@@ -1,3 +1,4 @@
+UPDATE `sys_options` SET `VALUE` = 'html5', `AvailableValues` = 'html5' WHERE `Name` = 'ch_files_uploader_switcher';
 
 -- update module version
 
