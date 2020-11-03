@@ -439,10 +439,14 @@ class ChWsbFilesModule extends ChWsbModule
             return;
         }
 
-        $aManageArray = array('medTitle', 'medTags', 'medDesc', 'medProfId', 'Categories', 'medUri');
+        $sPrefix = $this->_oConfig->getMainPrefix();
+        if($sPrefix == 'ch_sounds') {
+            $aManageArray = array('medTitle', 'thumbUrl', 'medTags', 'medDesc', 'medProfId', 'Categories', 'medUri');
+        } else {
+            $aManageArray = array('medTitle', 'medTags', 'medDesc', 'medProfId', 'Categories', 'medUri');
+        }
         $aInfo        = $this->_oDb->getFileInfo(array('fileId' => $iFileId), false, $aManageArray);
-        $sLangPref    = '_' . $this->_oConfig->getMainPrefix();
-
+        $sLangPref    = '_' . $sPrefix;
         if (!$this->isAllowedEdit($aInfo)) {
             $sCode = MsgBox(_t($sLangPref . '_access_denied')) . $sJsCode;
         } else {
@@ -482,6 +486,13 @@ class ChWsbFilesModule extends ChWsbModule
                             'error'  => _t('_td_err_incorrect_length'),
                         ),
                         'value'    => $aInfo['medTitle'],
+                    ),
+                    'thumburl'       => array(
+                        'type'     => 'text',
+                        'name'     => 'thumbUrl',
+                        'caption'  => _t('_sound_thumb_url'),
+                        'required' => false,
+                        'value'    => $aInfo['thumbUrl'],
                     ),
                     'tags'        => array(
                         'type'    => 'text',
@@ -526,9 +537,35 @@ class ChWsbFilesModule extends ChWsbModule
                 $aForm['inputs']['categories']['required'] = false;
                 unset($aForm['inputs']['categories']['checker']);
             }
+
+            // Remove the thumb url input on everything but the sounds.
+            if($sPrefix != 'ch_sounds') {
+                unset($aForm['inputs']['thumburl']);
+            }
             $oForm    = new ChTemplFormView($aForm);
             $oForm->initChecker($aInfo);
             if ($oForm->isSubmittedAndValid()) {
+                if($sPrefix == 'ch_sounds') {
+                    $sThumbUrl = $_POST['thumbUrl'];
+                    if($sThumbUrl) {
+                        $sFile1 = $GLOBALS['dir']['root'] . 'flash/modules/mp3/files/' . $iFileId . '.jpg';
+                        $sFileTmp = $GLOBALS['dir']['tmp'] . md5(microtime());
+                        file_put_contents($sFileTmp, file_get_contents($sThumbUrl));
+                        $img_info = getimagesize($sFileTmp);
+                        $width = $img_info[0];
+                        $height = $img_info[1];
+                        switch ($img_info[2]) {
+                          case IMAGETYPE_GIF  : $src = imagecreatefromgif($sFileTmp);  break;
+                          case IMAGETYPE_JPEG : $src = imagecreatefromjpeg($sFileTmp); break;
+                          case IMAGETYPE_PNG  : $src = imagecreatefrompng($sFileTmp);  break;
+                          default : die("Unknown filetype");
+                        }
+                        $tmp = imagecreatetruecolor($width, $height);
+                        imagecopyresampled($tmp, $src, 0, 0, 0, 0, $width, $height, $width, $height);
+                        imagejpeg($tmp, $sFile1);
+                        unlink($sFileTmp);
+                    }
+                }
                 $aValues = array();
                 array_pop($aManageArray);
                 foreach ($aManageArray as $sKey) {

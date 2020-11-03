@@ -30,21 +30,41 @@ class ChWsbFilesDb extends ChWsbModuleDb
         parent::__construct($oConfig);
         $this->_oConfig = &$oConfig;
         $this->iViewer = getLoggedId();
-        $this->aFileFields = array(
-            'medID'    => 'ID',
-            'Categories'=> 'Categories',
-            'medProfId'=> 'Owner',
-            'medTitle' => 'Title',
-            'medUri'   => 'Uri',
-            'medDesc'  => 'Description',
-            'medTags'  => 'Tags',
-            'medDate'  => 'Date',
-            'medViews' => 'Views',
-            'Approved' => 'Status',
-            'Featured' => 'Featured',
-            'Rate' => 'Rate',
-            'RateCount' => 'RateCount',
-        );
+        $sPrefix = $this->_oConfig->getMainPrefix();
+        if($sPrefix == 'ch_sounds') {
+            $this->aFileFields = array(
+                'medID'    => 'ID',
+                'Categories'=> 'Categories',
+                'medProfId'=> 'Owner',
+                'medTitle' => 'Title',
+                'thumbUrl' => 'ThumbUrl',
+                'medUri'   => 'Uri',
+                'medDesc'  => 'Description',
+                'medTags'  => 'Tags',
+                'medDate'  => 'Date',
+                'medViews' => 'Views',
+                'Approved' => 'Status',
+                'Featured' => 'Featured',
+                'Rate' => 'Rate',
+                'RateCount' => 'RateCount',
+            );
+      } else {
+            $this->aFileFields = array(
+                'medID'    => 'ID',
+                'Categories'=> 'Categories',
+                'medProfId'=> 'Owner',
+                'medTitle' => 'Title',
+                'medUri'   => 'Uri',
+                'medDesc'  => 'Description',
+                'medTags'  => 'Tags',
+                'medDate'  => 'Date',
+                'medViews' => 'Views',
+                'Approved' => 'Status',
+                'Featured' => 'Featured',
+                'Rate' => 'Rate',
+                'RateCount' => 'RateCount',
+            );
+      }
 
         $this->aFavoriteFields = array(
             'fileId' => 'ID',

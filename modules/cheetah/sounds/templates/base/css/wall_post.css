@@ -43,7 +43,7 @@ div.ch_sounds-wall-content-grouped-cnt div.wall-content-gap div.wall-content-wra
 div.ch_sounds-wall-shp-wrapper,
 div.ch_sounds-wall-shp-wrapper img {
 	width: 240px;
-	height: 240px;
+	/*height: 240px;*/
 }
 div.ch_sounds-wall-shp-gap {
     position: relative;
