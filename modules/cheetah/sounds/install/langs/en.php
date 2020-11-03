@@ -11,6 +11,7 @@ $aLangContent = array(
     '_sys_module_sounds' => 'Sounds',
     '_ch_sounds_caption_browse_by_day' => 'Browse sounds by day',
     '_ch_sounds' => 'Sounds',
+    '_sound_thumb_url' => 'Thumbnail image URL',    
     '_ch_sounds_adm_stats' => 'Pending Sounds',
     '_ch_sounds_access_denied' => 'Access denied',
     '_ch_sounds_action_fave' => 'Favorite',
