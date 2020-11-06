@@ -1,0 +1,90 @@
+<script>
+   var a;
+   var rendereron = false;
+   var playstate = false;
+   var playstate2 = false;
+   var mousedown = false;
+   var autoplay = __autoplay__;
+   var mp3Path = '__mp3path__';
+   var save_peaks_url = '__save_peaks_url__';
+   var analyser;
+   var ctx;
+   var dataArray;
+   var bufferLength;
+   var WIDTH;
+   var HEIGHT;
+   var barWidth;
+   var barHeight;
+   var x;
+</script>
+<span id="msgo"></span>
+<div id="player_cont" style="position: relative; width: 100%;height: 180px;">
+
+	<div id="audio_thumb" style="position: absolute; left: 0; top: 0;width: 20.6%;">
+		<img alt="" src="__thumb__" style="width: 100%;"></div>
+
+	<div id="waveform" style="position: absolute; top: 0; left: 21.4%; height: 33%; width: 78.6%;">
+
+		<div id="waveform_image" style="position: absolute; top: 0px; left: 0px; height: 100%; width: 100%; z-index: 10;">
+			__peaksimage__</div>
+
+		<div id="dbline" style="display: none; position: absolute; bottom: 0px; left: 0px; width: 100%; height: 30%; background-color: rgba(233, 238, 242,0.5); z-index: 11; border-top: 1px solid rgba(233, 238, 242, 0.9);">
+		</div>
+
+	</div>
+
+	<div id="vcontent" style="position: absolute; bottom: 34px; left: 21.4%; height: 33%; width: 78.6%;">
+		<canvas id="vcanvas" class="vcanvas">
+		</canvas> </div>
+
+	<div id="dbcontrols" class="dbcontrols">
+		<div id="dbcontrolscont" style="background-color: rgba(0, 0, 0, 0.7); color: #FFFFFF; padding: 3px;">
+			<table class="dbcontrols_tbl1" cellpadding="0" cellspacing="0">
+				<tr>
+					<td id="dbplay" class="player_but_size">
+					<div class="av-icon-play player_font" onclick="wavesurfer.playPause();">
+					</div>
+					</td>
+					<td id="dbpause" class="player_but_size">
+					<div class="av-icon-pause player_font" onclick="wavesurfer.playPause();">
+					</div>
+					</td>
+					<td id="dbstop" class="player_but_size">
+					<i class="sys-icon stop-circle player_font">
+					</i></td>
+					<td id="dbfback" class="player_but_size">
+					<i class="sys-icon fast-backward player_font">
+					</i></td>
+					<td id="dbback" class="player_but_size">
+					<i class="sys-icon backward player_font"></i>
+					</td>
+					<td id="dbprog">
+					<div id="dbouterprogress">
+						<div id="dbprogress">
+						</div>
+					</div>
+					</td>
+					<td id="dbforward" class="player_but_size">
+					<i class="sys-icon forward player_font"></i>
+					</td>
+					<td id="dbfforward" class="player_but_size">
+					<i class="sys-icon fast-forward player_font">
+					</i></td>
+					<td id="dbvoloff" class="player_but_size" onclick="dbunmute();">
+					<div class="av-icon-volume-low player_font">
+					</div>
+					</td>
+					<td id="dbvolup" class="player_but_size" onclick="dbmute();">
+					<div class="av-icon-volume-high player_font">
+					</div>
+					</td>
+					<td id="dbvolslider">
+					<div id="slider">
+					</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+__extrajs__
