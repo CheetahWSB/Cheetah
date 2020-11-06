@@ -640,8 +640,10 @@ ChWsbPageBuilder.prototype.drawColumn = function(iColumnNum, iWidth, aBlocks, aB
 	'<div class="buildColumn' + (iWidth == 100 ? ' buildColumnFull' : '') + '" style="width:' + iWidth + '%;">' +
 	'<div class="buildColumnCont">' +
 	'<div class="buildColumnHeader"></div>' +
+  '<div id="buildColumnDragArea" style="width: 142px; margin: auto;">' +
 	'<div class="buildBlockFake"></div>' +
 	'</div>' +
+  '</div>' +
 	'</div>'
 	);
 
@@ -655,7 +657,8 @@ ChWsbPageBuilder.prototype.drawColumn = function(iColumnNum, iWidth, aBlocks, aB
 
 	this.setColumnHeader($newColumn, iColumnNum, true);
 
-	var eColumnCont = $('.buildColumnCont', $newColumn).get(0);
+	//var eColumnCont = $('.buildColumnCont', $newColumn).get(0);
+  var eColumnCont = $('#buildColumnDragArea', $newColumn).get(0);
 
 	for(var i in aBlocksOrder) {
 		var iBlockID = aBlocksOrder[i];
