@@ -103,7 +103,8 @@ class ChWsbAdminMenu
                 else
                     $bActiveItem = false;
 
-                $aSubitems[] = $oChWsbAdminMenu->_getMainMenuSubitem($aSubmenuItem, $bActiveItem);
+                $sSubItem = $oChWsbAdminMenu->_getMainMenuSubitem($aSubmenuItem, $bActiveItem);
+                if($sSubItem) $aSubitems[] = $sSubItem;
             }
 
             $aItems[] = $oChWsbAdminMenu->_getMainMenuItem($aMenuItem, $aSubitems, $bActiveCateg);
