@@ -32,6 +32,110 @@ if (isset($_POST['save']) && isset($_POST['cat'])) {
     $aResults['settings'] = $oSettingsLanguage->saveChanges($_POST);
 }
 
+if (isset($_POST['create_key_batch'])) {
+    $iLangId = (int) $_POST['lang'];
+    $iCategoryId = (int) $_POST['category'];
+    $sKeyList = trim($_POST['keylist']);
+    $iUpdateDup = (int) $_POST['updatedup'];
+
+    if ($sKeyList) {
+        $sTmpFile = CH_DIRECTORY_PATH_TMP . md5(microtime()) . '.txt';
+        file_put_contents($sTmpFile, $sKeyList);
+        $bMode1 = $bMode2 = $bMode3 = true;
+        $bProcess = false;
+        $sSep = '';
+        // Pass one. See what format the file is in.
+        $file = fopen($sTmpFile, "r");
+        while (!feof($file)) {
+            $line = fgets($file);
+            $line = trim($line);
+            if ($line) {
+                $line = rtrim($line, ',');
+                if (strpos($line, ',') === false)
+                    $bMode1 = false;
+                if (strpos($line, '=>') === false)
+                    $bMode2 = false;
+                if (strpos($line, '=') === false)
+                    $bMode3 = false;
+            }
+        }
+        fclose($file);
+        if ($bMode2)
+            $bMode3 = false;
+        if ($bMode1 && !$bMode2 && !$bMode3) {
+            $sSep = ',';
+            $bProcess = true;
+        }
+        if ($bMode2 && !$bMode1 && !$bMode3) {
+            $sSep = '=>';
+            $bProcess = true;
+        }
+        if ($bMode3 && !$bMode1 && !$bMode2) {
+            $sSep = '=';
+            $bProcess = true;
+        }
+        if (!$bMode1 && !$bMode2 && !$bMode3) {
+            // Unknown list format
+            $sSep = '';
+            $bProcess = false;
+        }
+
+        if ($bProcess) {
+            // Pass two. Process the keys.
+            // Set the case in which to return column_names.
+            $iKeyAddedCount = 0;
+            $iKeyCount = 0;
+            $iDupCount = 0;
+            $file = fopen($sTmpFile, "r");
+            while (!feof($file)) {
+                $line = fgets($file);
+                $line = trim($line);
+                if ($line) {
+                    $iKeyCount++;
+                    $line = rtrim($line, ','); // Remove trailing comma if exists.
+                    $aLine = explode($sSep, $line, 2);
+                    $sLangKey = trim($aLine[0], " \t\n\r\0\x0B\x27\x22"); // Trim the language key of unwanted characters.
+                    $sLangString = trim($aLine[1], " \t\n\r\0\x0B\x27\x22"); // Trim the language string of unwanted characters.
+                    $GLOBALS['MySQL']->query("INSERT IGNORE INTO `sys_localization_keys`(`IDCategory`, `Key`) VALUES('$iCategoryId', '$sLangKey')");
+                    $iKeyId = (int) $GLOBALS['MySQL']->lastId();
+                    // If the ID of the last inserted row is 0, then a duplicate key error most likely occured.
+                    // So if $iKeyId is not > 0, do not try to insert the string.
+                    if ($iKeyId) {
+                        $iKeyAddedCount++;
+                        $sLangString = process_db_input($sLangString);
+                        $GLOBALS['MySQL']->query("INSERT IGNORE INTO `sys_localization_strings`(`IDKey`, `IDLanguage`, `String`) VALUES('$iKeyId', '$iLangId', '$sLangString')");
+                    } else {
+                        if($iUpdateDup) {
+                            // Update the key if the option to update duplicates is on.
+                            $iKeyId = (int)$GLOBALS['MySQL']->getOne("SELECT `ID` FROM `sys_localization_keys` WHERE `IDCategory` = '$iCategoryId' AND `Key` = '$sLangKey'");
+                            if($iKeyId) {
+                                $GLOBALS['MySQL']->query("UPDATE `sys_localization_strings` SET `String` = '$sLangString' WHERE `IDKey` = '$iKeyId' AND `IDLanguage` = '$iLangId'");
+                            }
+                        }
+                        $iDupCount++;
+                    }
+                }
+            }
+            fclose($file);
+            unlink($sTmpFile);
+            compileLanguage($iLangId);
+            if ($iDupCount) {
+                if($iUpdateDup) {
+                    $aResults['keys-add-batch'] = 'Out of ' . $iKeyCount . ' keys, ' . $iKeyAddedCount . ' Keys were added, and ' . $iDupCount . ' duplicate keys were updated.';
+                } else {
+                    $aResults['keys-add-batch'] = 'Out of ' . $iKeyCount . ' keys, ' . $iKeyAddedCount . ' Keys were added, and ' . $iDupCount . ' duplicate keys were ignored.';
+                }
+            } else {
+                $aResults['keys-add-batch'] = $iKeyAddedCount . ' keys were added';
+            }
+        } else {
+            $aResults['keys-add-batch'] = 'Unknown list format. Could not process keys.';
+        }
+    } else {
+        $aResults['keys-add-batch'] = 'Keys To Add was empty. No keys were added.';
+    }
+}
+
 //--- Create/Edit/Delete/Recompile/Export/Import Languages ---//
 if(isset($_POST['create_language'])) {
     $aResults[(isset($_POST['id']) && (int)$_POST['id'] != 0 ? 'langs' : 'langs-add')] = createLanguage($_POST);
@@ -161,6 +265,7 @@ function PageCodeMain($aResults)
     $aTopItems = array(
         'adm-langs-btn-keys' => array('href' => 'javascript:void(0)', 'onclick' => 'javascript:onChangeType(this)', 'title' => _t('_adm_txt_langs_keys'), 'active' => empty($aResults) ? 1 : 0),
         'adm-langs-btn-keys-add' => array('href' => 'javascript:void(0)', 'onclick' => 'javascript:onCreate()', 'title' => _t('_adm_txt_langs_add_key'), 'active' => 0),
+        'adm-langs-btn-keys-add-batch' => array('href' => 'javascript:void(0)', 'onclick' => 'javascript:onChangeType(this)', 'title' => _t('_adm_txt_langs_add_key_batch'), 'active' => isset($aResults['keys-add-batch']) ? 1 : 0),
         'adm-langs-btn-langs' => array('href' => 'javascript:void(0)', 'onclick' => 'javascript:onChangeType(this)', 'title' => _t('_adm_txt_langs_languages'), 'active' => isset($aResults['langs']) ? 1 : 0),
         'adm-langs-btn-langs-add' => array('href' => 'javascript:void(0)', 'onclick' => 'javascript:onChangeType(this)', 'title' => _t('_adm_txt_langs_languages_add'), 'active' => isset($aResults['langs-add']) ? 1 : 0),
         'adm-langs-btn-langs-import' => array('href' => 'javascript:void(0)', 'onclick' => 'javascript:onChangeType(this)', 'title' => _t('_adm_txt_langs_languages_import'), 'active' => isset($aResults['langs-import']) ? 1 : 0),
@@ -170,6 +275,7 @@ function PageCodeMain($aResults)
 
     $sResult = $GLOBALS['oAdmTemplate']->parseHtmlByName('langs.html', array(
         'content_keys' => _getKeysList(isset($aResults['keys']) ? $aResults['keys'] : true, empty($aResults)),
+        'content_keys_batch' => _getKeysBatch(isset($aResults['keys-add-batch']) ? $aResults['keys-add-batch'] : true),
         'content_files' => _getLanguagesList(isset($aResults['langs']) ? $aResults['langs'] : true),
         'content_create' => _getLanguageCreateForm(isset($aResults['langs-add']) ? $aResults['langs-add'] : true),
         'content_import' => _getLanguageImportForm(isset($aResults['langs-import']) ? $aResults['langs-import'] : true),
@@ -230,6 +336,42 @@ function _getKeysList($mixedResult, $bActive = false)
         'url_admin' => $GLOBALS['site']['url_admin']
     ));
 }
+
+function _getKeysBatch($mixedResult, $bActive = false)
+{
+    $sResult = '';
+    if ($mixedResult !== true && !empty($mixedResult)) {
+        $bActive = true;
+        //$sResult = MsgBox(_t($mixedResult), 10);
+        $aOptions = array(
+            'timer' => 10,
+            'showclosebtn' => true,
+            'class' => 'MsgBoxInfo ch-def-font-large',
+            'titleclass' => 'MsgBoxTitleInfo ch-def-font-large'
+        );
+        $sResult = advMsgBox(_t($mixedResult), $aOptions);
+    }
+
+    $aLanguages = $GLOBALS['MySQL']->getAll("SELECT `ID`, `Title` FROM `sys_localization_languages`");
+    $sLangOptions = '';
+    foreach ($aLanguages as $aLanguage) {
+        $sLangOptions .= '<option value="' . $aLanguage['ID'] . '">' . $aLanguage['Title'] . '</option>' . "\r\n";
+    }
+
+    $aCategories = $GLOBALS['MySQL']->getAll("SELECT `ID`, `Name` FROM `sys_localization_categories`");
+    $sCatOptions = '';
+    foreach ($aCategories as $aCategory) {
+        $sCatOptions .= '<option value="' . $aCategory['ID'] . '">' . $aCategory['Name'] . '</option>' . "\r\n";
+    }
+
+    return $GLOBALS['oAdmTemplate']->parseHtmlByName('langs_keys_batch.html', array(
+        'display' => $bActive ? 'block' : 'none',
+        'results' => $sResult,
+        'cat_options' => $sCatOptions,
+        'lang_options' => $sLangOptions
+    ));
+}
+
 function _getLanguagesList($mixedResult, $bActive = false)
 {
     $sResult = '';

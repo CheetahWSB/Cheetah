@@ -21,11 +21,18 @@ $aLangContent = array(
   '_adm_pbuilder_eval_code' => 'Eval Code',
   '_adm_btn_mp_settings' => 'Settings',
   '_adm_txt_mp_page' => 'Current Page',
+  '_adm_txt_langs_add_key_batch' => 'Add keys (batch)',
+  '_adm_btn_lang_save_keys' => 'Save Keys',
+  '_adm_txt_keys_language' => 'Language',
+  '_adm_txt_keys_keysadd' => 'Language keys to add',
+  '_adm_txt_keys_update_dup' => 'Update duplicates',
 
   // ================ CHANGED KEYS ==================
   '_adm_txt_hosting_text' => '90% of configuration and installation issues result from incorrect hosting setup. Cheetah will occasionally update a list of recommended hosting providers as i find ones that work best with Cheetah.',
   '_Exception_user_msg' => 'A error occurred while loading the page. The system administrator has been notified.',
   '_adm_pbuilder_Text_Block' => 'RAW HTML Block',
+  '_adm_box_cpt_design_templates' => 'Design templates from Cheetah Market',
+  '_adm_box_cpt_lang_files' => 'Language files from Cheetah Market',
 
 
 );

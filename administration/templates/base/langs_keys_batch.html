@@ -1,0 +1,77 @@
+<div id="adm-langs-cnt-keys-add-batch" style="display: __display__;">
+	<form id="adm-keys-form" action="" class="form_advanced" enctype="multipart/form-data" method="post" name="adm-keys-form">
+		<div class="form_advanced_table">
+			<fieldset class="ch-form-fields-wrapper">
+				<div class="adm-lang-items ch-def-bc-margin"> __results__
+					<div class="ch-form-caption ch-def-font-inputs-captions">
+						<ch_text:_adm_txt_keys_language />
+					</div>
+					<div class="ch-form-value clearfix">
+						<div class="input_wrapper input_wrapper_select clearfix">
+							<select class="form_input_select ch-def-font-inputs" name="lang"> __lang_options__</select>
+						</div>
+					</div>
+					<div class="ch-def-margin-top"> </div>
+					<div class="ch-form-caption ch-def-font-inputs-captions">
+						<ch_text:_adm_txt_keys_category />
+					</div>
+					<div class="ch-form-value clearfix">
+						<div class="input_wrapper input_wrapper_select clearfix">
+							<select class="form_input_select ch-def-font-inputs" name="category"> __cat_options__</select>
+						</div>
+					</div>
+					<div class="ch-def-margin-top"> </div>
+          <div class="ch-form-caption ch-def-font-inputs-captions">
+						<ch_text:_adm_txt_keys_update_dup />
+					</div>
+					<div class="ch-form-value clearfix">
+						<div class="input_wrapper input_wrapper_checkbox  clearfix">
+							<input class="form_input_checkbox ch-def-font-inputs" type="checkbox" name="updatedup" value="1">
+						</div>
+					</div>
+					<div class="ch-def-margin-top"> </div>
+					<div class="ch-form-caption ch-def-font-inputs-captions">
+						<ch_text:_adm_txt_keys_keysadd />
+					</div>
+					<textarea class="form_input_textarea ch-def-font-inputs" name="keylist"></textarea>
+					<div class="ch-form-element ch-form-element-submit ch-def-margin-top clearfix">
+						<div class="ch-form-combined clearfix">
+							<div class="input_wrapper input_wrapper_submit clearfix">
+								<input class="form_input_submit ch-btn" name="create_key_batch" type="submit" value="<ch_text:_adm_btn_lang_save_keys />"> </div>
+						</div>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+	</form>
+	<div class="adm-lang-items ch-def-bc-margin"> <strong>The list of keys entered can be in one of 3 formats.</strong>
+		<br>
+		<br><strong>1) CSV Comma seperated values. The Key,Value pairs can be either
+		enclosed or not enclosed in quotes. Examples.</strong>
+		<br>
+		<br>"_About","About"
+		<br> "_About Us","About Us"
+		<br>"_Access denied","Access denied"
+		<br>"_Account","Account"
+		<br> "_Account Home","Account Home"
+		<br>"_Account Info","Account Info"
+		<br>
+		<br> <strong>2) Key = String format. The Key=Value pairs can be either enclosed
+		or not enclosed in quotes. Examples.<br><br></strong>_About = About
+		<br>_About Us = About Us
+		<br>_Access denied = Access denied
+		<br>_Account = Account
+		<br> _Account Home = Account Home
+		<br>_Account Info = Account Info
+		<br>
+		<br> <strong>3) PHP array double arrow operator format. The Key =&gt; Value pairs
+		can be either enclosed or not enclosed in quotes. Examples.</strong>
+		<br>
+		<br>'_About' =&gt; 'About',
+		<br>'_About Us' =&gt; 'About Us',
+		<br>'_Access denied' =&gt; 'Access denied',
+		<br>'_Account' =&gt; 'Account',
+		<br>'_Account Home' =&gt; 'Account Home',
+		<br>'_Account Info' =&gt; 'Account Info',
+		<br> </div>
+</div>
