@@ -9,25 +9,16 @@ backup/*.sql
 
 # Exclude main config file
 inc/header*
-  
-# Exclude OS folder attributes
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-Thumbs.db
-.*.swp
-
-# Exclude my backups.
-*.orig
 
 # Excludes from modules
-media/images/membership/[0-9]*
-media/images/blog/*.jpg
-
-modules/deano
-modules/cheetah/moxie
+/media/images/membership/*.*
+!media/images/membership/member.png
+!media/images/membership/non-member.png
+!media/images/membership/promotion.png
+media/images/blog/*.*
+!media/images/blog/.htaccess
+media/images/*.*
+!media/images/.htaccess
 
 modules/cheetah/forum/classes/en/*
 modules/cheetah/forum/classes/ru/*
