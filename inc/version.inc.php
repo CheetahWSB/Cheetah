@@ -5,6 +5,6 @@
  * CC-BY License - http://creativecommons.org/licenses/by/3.0/
  */
 
-$site['ver'] = '1.0';
+$site['ver'] = '1.1';
 $site['build'] = '0';
-$site['pre-release'] = '';
+$site['pre-release'] = 'B1';
