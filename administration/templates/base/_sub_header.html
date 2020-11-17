@@ -21,7 +21,7 @@
                                 	    return;
                                     var sVerCur = '__current_version__';
                                     var sVerNew = $(sData).find('cheetah').html();
-                                    if(sVerNew != undefined && sVerNew != null && sVerNew != '' && sVerNew != sVerCur)
+                                    if(sVerNew != undefined && sVerNew != null && sVerNew != '' && sVerNew != sVerCur && sVerNew > sVerCur)
                                         $('#adm-header-update').html('<a href="https://www.cheetahwsb.com/downloads"><ch_text:_adm_txt_dashboard_update_to /> ' + sVerNew + ' <ch_text:_adm_txt_dashboard_update_now /></a>');
                                 },
                                 'text'
