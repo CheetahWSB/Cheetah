@@ -3,29 +3,33 @@
 	color: #800000;
 	font-weight: bold;
 }
-</style>
-<span class="dbboldred">IMPORTANT!!!</span><br />
-<br />
-Automatic part of upgrade is completed. Please do the following to complete upgrade
-process:<br><br><strong>The Paypal Payflow module has been removed</strong> from the main Cheetah
-Distrubution. It will eventually be replaced with Paypal subscriptions that will
-be built into the standard Payment module.<br>So you should remove the module if
-you are not currently using it. To remove the module, <strong>make sure it is
-uninstalled</strong> and then delete the folder <strong>
-modules\cheetah\paypal_payflow<br></strong>If your currently using it, you can
-wait until subscriptions become available in the standard Payment module before
-removing it.<br><br>
-<strong>Note:</strong> Because the Paypal Payflow module has been removed from Cheetah, it will no longer be upgraded, maintained or any bugs fixed from here on.
+</style> <span class="dbboldred">IMPORTANT!!!</span>
+<br>
+<br> Automatic part of upgrade is completed. Please do the following to complete upgrade process:
+<br>
+<br><strong>The Paypal Payflow module has been removed</strong> from the main Cheetah Distrubution. It will eventually be replaced with Paypal subscriptions that will be built into the standard Payment module. So you should remove the module if you are not currently using it.
+<br>
+<br>To remove the module, <strong>make sure
+it is uninstalled</strong> and then delete the folder <strong>modules\cheetah\paypal_payflow<br>
+<br></strong>If your currently using it, you can wait until subscriptions become available in the standard Payment module before removing it.
+<br>
+<br><strong>Note:</strong> Because the Paypal Payflow module has been removed from Cheetah, it will no longer be upgraded, maintained or any bugs fixed from here on.
 <br>
 <br>
-<p>Now perform the following cleanup steps and the upgrade will be complete.</p>
+<hr>
+<br><strong>The
+Messenger module has been removed</strong> from the main Cheetah Distrubution. It will eventually be replaced with a html5 version. The module is flash based and all flash based modules will eventually be removed from Cheetah. So you should remove the module if you are not currently using it.
+<br>
+<br>To remove the module, <strong>make sure it is uninstalled</strong> and then delete the folder <strong>
+modules\cheetah\messenger<br><br></strong>If your currently using it, you can wait until a new replacement has been created. However, given that the messenger module is flash based, it is not likely to work after December 31, 2020 as that is when web browsers will begin removing flash support.<strong><br><br>Note:</strong> Because the Messenger module has been removed from Cheetah, it will no longer be upgraded, maintained or any bugs fixed from here on.
+<br>
+<br>
+<hr>
+<br>Now perform the following cleanup steps and the upgrade will be complete.
 <ul>
-	<li>Clean the <b>/cache/</b>, <b>/cache_public/</b> and <b>/tmp/</b> folders
-	via FTP or SSH, leave only .htaccess file there if one exists</li>
-	<li>Recompile system language file from Admin Panel -&gt; Settings -&gt; Languages
-	Settings -&gt; Languages</li>
+	<li>Clean the <b>/cache/</b>, <b>/cache_public/</b> and <b>/tmp/</b> folders via FTP or SSH, leave only .htaccess file there if one exists</li>
+	<li>Recompile system language file from Admin Panel -&gt; Settings -&gt; Languages Settings -&gt; Languages</li>
 	<li>Clean <b>/cache/</b> folder again</li>
-	<li>Recompile Forum language file for all templates from Admin Panel -&gt; Modules
-	-&gt; Forum -&gt; Manage Forum</li>
+	<li>Recompile Forum language file for all templates from Admin Panel -&gt; Modules -&gt; Forum -&gt; Manage Forum</li>
 	<li>Remove <b>/upgrade/</b> directory</li>
 </ul>
