@@ -779,23 +779,26 @@ class ChWsbTemplate
                 $sRet = $this->getMetaInfo();
                 break;
             case 'page_header':
-                if(!empty($GLOBALS[$this->_sPrefix . 'PageTitle']))
+                if (!empty($GLOBALS[$this->_sPrefix . 'PageTitle']))
                     $sRet = $GLOBALS[$this->_sPrefix . 'PageTitle'];
-                else if(isset($_page['header']))
+                else if (isset($_page['header']))
                     $sRet = $_page['header'];
-
-                    $iProfileId = getLoggedId();
-                    $bOk = true;
-                    if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') $bOk = false;
-                    if($_SERVER['HTTP_USER_AGENT'] == '') $bOk = false;
-                    if(!$iProfileId) $bOk = false;
-                    if(!$sRet) $bOk = false;
-                    if($sRet == 'Page was not found') $bOk = false;
-                    if($bOk) {
-                      $sQuery = "UPDATE `Profiles` SET `DateLastPage` = NOW(), `CurrentPageTitle` = '{$sRet}' WHERE `ID` = '{$iProfileId}'";
-                      db_res($sQuery);
-                    }
-
+                $iProfileId = getLoggedId();
+                $bOk = true;
+                if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+                    $bOk = false;
+                if ($_SERVER['HTTP_USER_AGENT'] == '')
+                    $bOk = false;
+                if (!$iProfileId)
+                    $bOk = false;
+                if (!$sRet)
+                    $bOk = false;
+                if ($sRet == 'Page was not found')
+                    $bOk = false;
+                if ($bOk) {
+                    $sQuery = "UPDATE `Profiles` SET `DateLastPage` = NOW(), `CurrentPageTitle` = ? WHERE `ID` = '{$iProfileId}'";
+                    db_res($sQuery, [$sRet]);
+                }
                 break;
             case 'page_header_text':
                 if(!empty($GLOBALS[$this->_sPrefix . 'PageMainBoxTitle']))
