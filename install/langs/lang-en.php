@@ -1935,6 +1935,8 @@ More info about URI DNSBL: <br />
   '_sys_album_save_changes' => 'Save changes',
   '_sys_album_x' => 'Album: {0}',
   '_sys_album_x_photo_x' => 'Album: {0} <i class="sys-icon chevron-right"></i> {1}',
+  '_sys_album_organize_thumb' => 'Drag the photos to put them in the order you want them to appear in the album. The first one will be your thumbnail photo.',
+  '_sys_album_organize_cover' => 'Drag the photos to put them in the order you want them to appear in the album. The first one will be your cover photo.',
   '_sys_am_account_profile_page' => 'My Profile',
   '_sys_am_mailbox_compose' => 'New Message',
   '_sys_am_profile_account_page' => 'My Account',

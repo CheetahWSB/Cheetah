@@ -356,7 +356,18 @@ class ChPhotosPageAlbumsMy extends ChWsbPageView
             );
             $sAreaId = 'unit_area';
             $sManage = $this->oSearch->showAdminActionsPanel('', $aBtns, 'entry', false, false);
+            $sMessage = '';
+            if(strpos($aInfo['Uri'], 's-photos') !== false) {
+                $sMessage = _t('_sys_album_organize_thumb');
+            }
+            if(strpos($aInfo['Uri'], 's-cover-photos') !== false) {
+                $sMessage = _t('_sys_album_organize_cover');
+            }
             $aUnit = array(
+                'ch_if:showmessage' => array(
+                    'condition' => $sMessage != '' ? true : false,
+                    'content' => array('message' => $sMessage)
+                ),
                 'main_code_id' => $sAreaId,
                 'main_code' => $sCode,
                 'paginate' => '',
