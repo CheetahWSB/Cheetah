@@ -5,7 +5,7 @@
  * CC-BY License - http://creativecommons.org/licenses/by/3.0/
  */
 
-define('DOLPHIN_VERSION', $GLOBALS['site']['ver'] . '.' . $GLOBALS['site']['build']);
+define('CHEETAH_VERSION', $GLOBALS['site']['ver'] . '.' . $GLOBALS['site']['build']);
 
 class ChWsbDatabaseBackup extends ChWsbDb
 {
@@ -19,7 +19,7 @@ class ChWsbDatabaseBackup extends ChWsbDb
      $this -> sCollate = $sCollate;
      $this -> sInputs  =
 '--
--- Database Dump For Cheetah: ' . DOLPHIN_VERSION . '
+-- Database Dump For Cheetah: ' . CHEETAH_VERSION . '
 --
 
 ';
