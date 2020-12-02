@@ -1,0 +1,12 @@
+User-agent: *
+Disallow: /administration
+Disallow: /backup
+Disallow: /cache
+Disallow: /cache_public
+Disallow: /tmp
+Disallow: /upgrade
+Disallow: /*enable_browser_check=*
+Disallow: /*&skin=*
+Disallow: /*&lang=*
+Disallow: /*&search_result_mode=*
+Disallow: /*&search_mode=*
