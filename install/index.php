@@ -39,6 +39,7 @@ switch ($last) {
 $aErrors   = array();
 $aErrors[] = (ini_get('register_globals') == 0) ? '' : '<font color="red">register_globals is On (warning, you should have this param in the Off state, or your site will be unsafe)</font>';
 $aErrors[] = (ini_get('safe_mode') == 0) ? '' : '<font color="red">safe_mode is On, disable it</font>';
+$aErrors[] = (ini_get('max_execution_time') >= 300) ? '' : '<font color="red">max_execution_time is to low for backup functions. Set to 300 or higher.</font>';
 $aErrors[] = (version_compare(PHP_VERSION, '5.4.0', '<')) ? '<font color="red">PHP version too old, please update to PHP 5.4.0 at least</font>' : '';
 $aErrors[] = (ini_get('short_open_tag') == 0 && version_compare(phpversion(), "5.4",
         "<") == 1) ? '<font color="red">short_open_tag is Off (must be On!)<b>Warning!</b> Cheetah cannot work without <b>short_open_tag</b>.</font>' : '';
