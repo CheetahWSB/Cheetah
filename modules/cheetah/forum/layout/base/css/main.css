@@ -650,7 +650,7 @@ pre, .code,
     pre, .code,
     .forum_post_text img,
     .forum-post-img {
-        max-width:calc(100% - 4px);
+        max-width:calc(100vw - ((100vw - 100%) + 4px));
     }
 
     .forum_new_topic_area {
