@@ -10,12 +10,12 @@ $aConfig = array(
      * Main Section.
      */
     'title' => 'Poll',
-    'version' => '1.0.0',
+    'version' => '1.1.0',
     'vendor' => 'Cheetah',
     'update_url' => '',
 
     'compatible_with' => array(
-        '1.0.0'
+        '1.1.0'
     ),
 
     /**

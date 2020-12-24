@@ -9,4 +9,4 @@ UPDATE `sys_options` SET `VALUE` = 'html5', `AvailableValues` = 'html5,embed' WH
 
 -- update module version
 
-UPDATE `sys_modules` SET `version` = '1.0.1' WHERE `uri` = 'videos' AND `version` = '1.0.0';
+UPDATE `sys_modules` SET `version` = '1.1.0' WHERE `uri` = 'videos' AND `version` = '1.0.0';
