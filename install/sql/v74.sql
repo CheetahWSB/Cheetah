@@ -2607,6 +2607,12 @@ CREATE TABLE `sys_profile_voting_track` (
 -- Dumping data for table `sys_profile_voting_track`
 --
 
+CREATE TABLE `sys_sa_tokens` (
+  `token` varchar(40) NOT NULL,
+  `memid` int(11) NOT NULL,
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
 -- RAY AS IT WAS INTEGRATED
 
 -- --------------------------------------------------------
@@ -2906,7 +2912,7 @@ CREATE TABLE `RayMp3Files` (
   `ID` int(11) NOT NULL auto_increment,
   `Categories` text NOT NULL,
   `Title` varchar(255) NOT NULL default '',
-  `ThumbUrl` text NOT NULL default '',  
+  `ThumbUrl` text NOT NULL default '',
   `Uri` varchar(255) NOT NULL default '',
   `Tags` text NOT NULL,
   `Description` text NOT NULL,

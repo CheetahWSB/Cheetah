@@ -5,6 +5,11 @@ CREATE TABLE IF NOT EXISTS `sys_custom_code_blocks` (
   PRIMARY KEY (`ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `sys_sa_tokens` (
+  `token` varchar(40) NOT NULL,
+  `memid` int(11) NOT NULL,
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 DELETE FROM `sys_menu_admin` WHERE `name` = 'mobile_pages';
 DELETE FROM `sys_objects_actions` WHERE `Caption` = '{cpt_get_mail}';
 DELETE FROM `sys_options` WHERE `Name` = 'anon_mode';
@@ -59,6 +64,11 @@ ALTER TABLE `RayVideoFiles` CHANGE `Status` `Status` ENUM('approved','disapprove
 ALTER TABLE `RayMp3Files` CHANGE `Status` `Status` ENUM('approved','disapproved','pending','processing','failed','onhold') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'onhold';
 ALTER TABLE `RayMp3Files` ADD `ThumbUrl` text NOT NULL AFTER `Title`;
 
+INSERT INTO `sys_injections` (`name`, `page_index`, `key`, `type`, `data`, `replace`, `active`) VALUES
+('admin_switch', 0, 'injection_header', 'php', 'if(isset($_COOKIE[\'satoken\'])) {\r\n	$sCode = \'\r\n	<div class=\"back_to_admin\"><a href=\"member.php?loginas=admin&id=0\">\' . _t(\'_back_to_admin\') . \'</a></div>\r\n	\';\r\n	return $sCode;\r\n}\r\n', 0, 1);
+
+INSERT INTO `sys_objects_actions` (`Caption`, `Icon`, `Url`, `Script`, `Eval`, `Order`, `Type`, `bDisplayInSubMenuHeader`) VALUES
+('{evalResult}', 'sign-in', 'member.php?loginas=true&id={ID}', '', 'if (isAdmin({member_id})) return _t(\'_Login_As\');', 1, 'Profile', 0);
 
 -- last step is to update current version
 UPDATE `sys_options` SET `VALUE` = '1.1.0' WHERE `Name` = 'sys_tmp_version';

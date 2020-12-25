@@ -28,7 +28,9 @@ $aLangContent = array(
   '_adm_txt_keys_update_dup' => 'Update duplicates',
   '_sys_album_organize_thumb' => 'Drag the photos to put them in the order you want them to appear in the album. The first one will be your thumbnail photo.',
   '_sys_album_organize_cover' => 'Drag the photos to put them in the order you want them to appear in the album. The first one will be your cover photo.',
-  
+  '_Login_As' => 'Login As',
+  '_back_to_admin' => 'Switch Back to Admin',
+
   // ================ CHANGED KEYS ==================
   '_adm_txt_hosting_text' => '90% of configuration and installation issues result from incorrect hosting setup. Cheetah will occasionally update a list of recommended hosting providers as i find ones that work best with Cheetah.',
   '_Exception_user_msg' => 'A error occurred while loading the page. The system administrator has been notified.',

@@ -18,6 +18,56 @@ require_once(CH_DIRECTORY_PATH_INC . 'utils.inc.php');
 
 ch_import('ChTemplAccountView');
 
+// See if administrator is logging in as another member.
+if(isset($_GET['loginas']) && $_GET['loginas'] == 'true' && isAdmin()) {
+    $iMemberId = (int)$_GET['id'];
+    $iCurMemberId = getLoggedId();
+    if($iMemberId) {
+        $aLoginData = $GLOBALS['MySQL']->getRow("SELECT `ID`, `NickName`, `Password` FROM `Profiles` WHERE `ID`= '$iMemberId' LIMIT 1");
+        if($aLoginData) {
+            // Logs admin in as the member id requested.
+            $satoken = md5(microtime());
+            $sPassword = $aLoginData['Password'];
+            $aUrl = parse_url($GLOBALS['site']['url']);
+            $sPath = isset($aUrl['path']) && !empty($aUrl['path']) ? $aUrl['path'] : '/';
+            setcookie("memberID", $iMemberId, 0, $sPath, '');
+            $_COOKIE['memberID'] = $iMemberId;
+            setcookie("memberPassword", $sPassword, 0, $sPath, '', false, true);
+            $_COOKIE['memberPassword'] = $sPassword;
+            setcookie("satoken", $satoken, 0, $sPath, '');
+            $_COOKIE['satoken'] = $satoken;
+            $GLOBALS['MySQL']->query("INSERT INTO `sys_sa_tokens` SET `token`='$satoken', `memid`='$iCurMemberId'");
+            // Admin now set as specified member. Reload the profile page.
+            echo '<script>window.location.replace("' . CH_WSB_URL_ROOT . $aLoginData['NickName'] . '");</script>';
+        }
+    }
+    exit;
+}
+
+// See if administrator is switching back to admin account.
+if(isset($_GET['loginas']) && $_GET['loginas'] == 'admin' && isset($_COOKIE['satoken'])) {
+    $satoken = $_COOKIE['satoken'];
+    $iMemberId = $GLOBALS['MySQL']->getOne("SELECT `memid` FROM `sys_sa_tokens` WHERE `token`= '$satoken' LIMIT 1");
+    $aLoginData = $GLOBALS['MySQL']->getRow("SELECT `ID`, `NickName`, `Password` FROM `Profiles` WHERE `ID`= '$iMemberId' LIMIT 1");
+    if($aLoginData) {
+        // Switch the account back to admin.
+        $aUrl = parse_url($GLOBALS['site']['url']);
+        $sPath = isset($aUrl['path']) && !empty($aUrl['path']) ? $aUrl['path'] : '/';
+        setcookie("memberID", $iMemberId, 0, $sPath, '');
+        $_COOKIE['memberID'] = $iMemberId;
+        setcookie("memberPassword", $aLoginData['Password'], 0, $sPath, '', false, true);
+        $_COOKIE['memberPassword'] = $aLoginData['Password'];
+        setcookie("satoken", '', time() - 1000);
+        unset($_COOKIE['satoken']);
+        $GLOBALS['MySQL']->query("DELETE FROM `sys_sa_tokens` WHERE `token` = '$satoken'");
+        // Switched back to admin. Load member.php for admin.
+        echo '<script>window.location.replace("' . CH_WSB_URL_ROOT . 'member.php");</script>';
+    } else {
+        echo 'Could not switch back to admin.';
+    }
+    exit;
+}
+
 // --------------- page variables and login
 $_page['name_index'] = 81;
 $_page['css_name'] = array(
@@ -76,7 +126,7 @@ if (!(isset($_POST['ID']) && $_POST['ID'] && isset($_POST['Password']) && $_POST
                 exit;
             }
         }
-        
+
         $member['ID'] = getID($member['ID']);
 
         // Ajaxy check
