@@ -647,9 +647,9 @@ function setMembership($iMemberId, $iMembershipId, $iDays = 0, $bStartsNow = fal
     if ($isSendMail)
         sendMail( $aProfileInfo['Email'], $aTemplate['Subject'], $aTemplate['Body'], $iMemberId, $aTemplateVars);
 
-	//Notify admin about changed user's membership level
+	  // Notify admin about changed user's membership level
     $aTemplate = $oEmailTemplate->parseTemplate('t_UserMemChanged', $aTemplateVars, $iMemberId);
-    sendMail($GLOBALS['site']['email'], $aTemplate['Subject'], $aTemplate['Body']);
+    sendMail($GLOBALS['site']['email'], $aTemplate['subject'], $aTemplate['body']);
 
     return true;
 }
