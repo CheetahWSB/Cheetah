@@ -27,6 +27,17 @@ modules\cheetah\messenger<br><br></strong>If your currently using it, you can wa
 <br>
 <hr>
 <br><strong>The
+Whiteboard module has been removed</strong> from the main Cheetah Distribution. It will eventually be replaced with a html5 version. The module is flash based and all flash based modules will eventually be removed from Cheetah. So you should remove the module if you are not currently using it.
+<br>
+<br>To remove the module, <strong>make sure it is uninstalled</strong> and then delete the folder <strong>
+modules\cheetah\board<br><br></strong>If your currently using it, you can wait until a new replacement has been created. However, given that the
+whiteboard module is flash based, it is not likely to work after December 31, 2020 as that is when web browsers will begin removing flash support.<strong><br><br>Note:</strong> Because the
+Whiteboard&nbsp; module has been removed from Cheetah, it will no longer be upgraded, maintained or any bugs fixed from here on.
+<br>
+<br>
+
+<hr>
+<br><strong>The
 Russian language module has been removed</strong> from the main Cheetah
 Distribution. It was and could be included in Dolphin because boonex had
 employees that spoke Russian and therefor could properly maintain it.<br>I
@@ -34,11 +45,28 @@ however do not speak any Russian. Thus i cannot properly maintain accurate
 translations for this module so it should be removed until a replacement is
 provided in the market by a 3'rd party vendor.<br>
 <br>To remove the module, <strong>make sure it is uninstalled</strong> and then delete the folder <strong>
-modules\cheetah\russian<br><br><br>Note:</strong> Because the Russian
+modules\cheetah\russian<br><br></strong> You should also remove the following
+forum language files.<br><br><strong>modules\cheetah\forum\install\langs\ru.php<br>
+modules\cheetah\forum\integrations\base\langs\ru.php</strong><br> <strong>
+<br>Note:</strong> Because the Russian
 language module has been removed from Cheetah, it will no longer be upgraded, maintained or any bugs fixed from here on.
 <br>
 <br>
 <hr>
+<br>This version of Cheetah now provides both Linux and Windows versions of
+ffmpeg. This version also includes ffprobe which is used to get information on
+uploaded files to determine if conversion is even needed. This is done to
+prevent unneeded conversions so uploaded files become available for playback
+much quicker.<br><br>Also to prepare for the eventual full removal of flash,
+ffmpeg and ffprobe are located in the plugins folder rather than the flash
+folder, so you will need to set execute permission on these files manually.<br>
+<br>Set permissions to executable on the following files. chmod 777<br><br>
+plugins/ffmpeg/ffmpeg<br>plugins/ffmpeg/ffmpeg.exe<br>plugins/ffmpeg/ffprobe<br>
+plugins/ffmpeg/ffprobe.exe<br>
+<br>
+<br>
+<hr>
+
 <br>Now perform the following cleanup steps and the upgrade will be complete.
 <ul>
 	<li>Clean the <b>/cache/</b>, <b>/cache_public/</b> and <b>/tmp/</b> folders via FTP or SSH, leave only .htaccess file there if one exists</li>

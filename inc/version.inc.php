@@ -7,4 +7,4 @@
 
 $site['ver'] = '1.1';
 $site['build'] = '0';
-$site['pre-release'] = 'B2';
+$site['pre-release'] = '';
