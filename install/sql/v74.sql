@@ -3275,7 +3275,7 @@ CREATE TABLE `sys_objects_actions` (
 
 INSERT INTO `sys_objects_actions` (`Caption`, `Icon`, `Url`, `Script`, `Eval`, `Order`, `Type`, `bDisplayInSubMenuHeader`) VALUES
 ('{evalResult}', 'edit', 'pedit.php?ID={ID}', '', 'if ({ID} == {member_id} || isAdmin({member_id}) || isModerator({member_id})) return _t(''{cpt_edit}'');', 1, 'Profile', 0),
-('{evalResult}', 'sign-in', 'member.php?loginas=true&id={ID}', '', 'if (isAdmin({member_id})) return _t(\'_Login_As\');', 1, 'Profile', 0);
+('{evalResult}', 'sign-in', 'member.php?loginas=true&id={ID}', '', 'if (isAdmin({member_id})) return _t(\'_Login_As\');', 1, 'Profile', 0),
 ('{evalResult}', 'envelope', 'mail.php?mode=compose&recipient_id={ID}', '', 'if ({ID} == {member_id}) return;\r\nreturn _t(''{cpt_send_letter}'');', 2, 'Profile', 0),
 ('{cpt_fave}', 'asterisk', '', '{evalResult}', 'return $GLOBALS[''oTopMenu'']->getScriptFaveAdd({ID}, {member_id});', 3, 'Profile', 0),
 ('{cpt_remove_fave}', 'asterisk', '', '{evalResult}', 'return $GLOBALS[''oTopMenu'']->getScriptFaveCancel({ID}, {member_id});', 3, 'Profile', 0),
@@ -3425,7 +3425,7 @@ CREATE TABLE `sys_injections` (
 --
 INSERT INTO `sys_injections` (`name`, `page_index`, `key`, `type`, `data`, `replace`, `active`) VALUES
 ('flash_integration', '0', 'injection_header', 'php', 'return getRayIntegrationJS(true);', '0', '0'),
-('admin_switch', 0, 'injection_header', 'php', 'if(isset($_COOKIE[\'satoken\'])) {\r\n	$sCode = \'\r\n	<div class=\"back_to_admin\"><a href=\"member.php?loginas=admin&id=0\">\' . _t(\'_back_to_admin\') . \'</a></div>\r\n	\';\r\n	return $sCode;\r\n}\r\n', 0, 1);
+('admin_switch', 0, 'injection_header', 'php', 'if(isset($_COOKIE[\'satoken\'])) {\r\n	$sCode = \'\r\n	<div class=\"back_to_admin\"><a href=\"member.php?loginas=admin&id=0\">\' . _t(\'_back_to_admin\') . \'</a></div>\r\n	\';\r\n	return $sCode;\r\n}\r\n', 0, 1),
 ('banner_bottom', 0, 'banner_bottom', 'php', 'return banner_put_nv(4);', 0, 1),
 ('banner_right', 0, 'banner_right', 'php', 'return banner_put_nv(3);', 0, 1),
 ('banner_top', 0, 'banner_top', 'php', 'return banner_put_nv(1);', 0, 1),
