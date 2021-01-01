@@ -2609,9 +2609,8 @@ CREATE TABLE `sys_profile_voting_track` (
 
 CREATE TABLE `sys_sa_tokens` (
   `token` varchar(40) NOT NULL,
-  `memid` int(11) NOT NULL,
+  `memid` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
 
 -- RAY AS IT WAS INTEGRATED
 
