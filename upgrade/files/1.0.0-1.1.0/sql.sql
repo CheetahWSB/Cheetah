@@ -5,9 +5,9 @@ CREATE TABLE IF NOT EXISTS `sys_custom_code_blocks` (
   PRIMARY KEY (`ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `sys_sa_tokens` (
+CREATE TABLE `sys_sa_tokens` (
   `token` varchar(40) NOT NULL,
-  `memid` int(11) NOT NULL,
+  `memid` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DELETE FROM `sys_menu_admin` WHERE `name` = 'mobile_pages';
