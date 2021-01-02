@@ -3,6 +3,15 @@
  * CC-BY License - http://creativecommons.org/licenses/by/3.0/
  */
 
+function toggle_password(dbeye, dbid) {
+  $(dbeye).toggleClass('eye eye-slash');
+  if ($(dbeye).prev().attr('type') == 'password') {
+      $(dbeye).prev().attr('type', 'text');
+  } else {
+      $(dbeye).prev().attr('type', 'password');
+  }
+};
+
 function ps_page_toggle(sPageName, iProfileId, iBlockId) {
 	if($('body').find('div#dbPrivacyMenu' + iBlockId).length > 0){
 		$('body').find('div#dbPrivacyMenu' + iBlockId).dolPopup();

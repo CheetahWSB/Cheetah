@@ -55,19 +55,7 @@ class ChBaseFormView extends ChWsbForm
      */
     function getCode()
     {
-      $sExtraScript .= "
-          <script>
-          function toggle_password(dbeye, dbid) {
-              $(dbeye).toggleClass('eye eye-slash');
-              if ($('#'+dbid).attr('type') == 'password') {
-                  $('#'+dbid).attr('type', 'text');
-              } else {
-                  $('#'+dbid).attr('type', 'password');
-              }
-          };
-          </script>
-      ";
-        return ($this->sCode = $this->genForm() . $sExtraScript);
+        return ($this->sCode = $this->genForm());
     }
 
     /**
