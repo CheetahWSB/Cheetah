@@ -997,32 +997,9 @@ function checkPreInstallPermission(&$sError)
         $sErrorMessage .= '<strong>The following directories have inappropriate permissions</strong>:<br />' . $sFoldersErr;
     }
 
-    //foreach ($oAdmTools->aInstallFiles as $sFile) {
-    //    if (!$oChWsbIO->isWritable($sFile)) {
-    //        $sFilesErr .= '&nbsp;&nbsp;&nbsp;' . $sFile . ';<br /> ';
-    //    }
-    //}
     foreach ($oAdmTools->aInstallFiles as $sFile) {
-        if (strpos($sFile, 'ffmpeg') === false) {
-            if (!$oChWsbIO->isWritable($sFile)) {
-                $sFilesErr .= '&nbsp;&nbsp;&nbsp;' . $sFile . ';<br /> ';
-            }
-        } else {
-            if (!$oChWsbIO->isExecutable($sFile)) {
-                $sFilesErr .= '&nbsp;&nbsp;&nbsp;' . $sFile . ';<br /> ';
-            }
-        }
-    }
-
-    foreach ($oAdmTools->aFlashFiles as $sFile) {
-        if (strpos($sFile, 'ffmpeg') === false) {
-            if (!$oChWsbIO->isWritable($sFile)) {
-                $sFilesErr .= '&nbsp;&nbsp;&nbsp;' . $sFile . ';<br /> ';
-            }
-        } else {
-            if (!$oChWsbIO->isExecutable($sFile)) {
-                $sFilesErr .= '&nbsp;&nbsp;&nbsp;' . $sFile . ';<br /> ';
-            }
+        if (!$oChWsbIO->isWritable($sFile)) {
+            $sFilesErr .= '&nbsp;&nbsp;&nbsp;' . $sFile . ';<br /> ';
         }
     }
 
@@ -1047,7 +1024,7 @@ function genPreInstallPermissionTable($sErrorMessage = '')
     $oAdmTools               = new ChWsbAdminTools();
     $oAdmTools->aInstallDirs = array_merge($aTemporalityWritableFolders, $oAdmTools->aInstallDirs);
     $sPermTable              = $oAdmTools->GenCommonCode();
-    $sPermTable .= $oAdmTools->GenPermTable();
+    $sPermTable .= $oAdmTools->GenPermTable(false, true);
 
     return <<<EOF
 <div class="ch-install-header-caption ch-def-font-h1 ch-def-margin-bottom">

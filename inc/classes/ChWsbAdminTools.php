@@ -13,6 +13,7 @@ class ChWsbAdminTools extends ChWsbIO
 
     var $aInstallDirs;
     var $aInstallFiles;
+    var $aCheckFiles;
     var $aFlashDirs;
     var $aFlashFiles;
     var $aPostInstallPermDirs;
@@ -43,11 +44,33 @@ class ChWsbAdminTools extends ChWsbIO
 
         $this->aInstallFiles = array(
             'sitemap.xml',
-            'plugins/ffmpeg/ffmpeg',
-            'plugins/ffmpeg/ffmpeg.exe',
-            'plugins/ffmpeg/ffprobe',
-            'plugins/ffmpeg/ffprobe.exe',
         );
+
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            if($this->getFfmpegPath() == '' || $this->getFfprobePath() == '') {
+                $this->aCheckFiles = array(
+                    'sitemap.xml',
+                );
+            } else {
+                $this->aCheckFiles = array(
+                    'sitemap.xml',
+                    'plugins/ffmpeg/ffmpeg.exe',
+                    'plugins/ffmpeg/ffprobe.exe',
+                );
+            }
+        } else {
+            if($this->getFfmpegPath() == '' || $this->getFfprobePath() == '') {
+                $this->aCheckFiles = array(
+                    'sitemap.xml',
+                );
+            } else {
+                $this->aCheckFiles = array(
+                    'sitemap.xml',
+                    'plugins/ffmpeg/ffmpeg',
+                    'plugins/ffmpeg/ffprobe',
+                );
+            }
+        }
 
         $this->aFlashDirs = array(
             'flash/modules/board/files',
@@ -205,7 +228,7 @@ EOF;
         return $this->GenArrElemPerm($aList, $iType);
     }
 
-    function GenPermTable($isShowModules = false)
+    function GenPermTable($isShowModules = false, $isInstaller = false)
     {
         $sModulesDirsC = function_exists('_t') ? _t('_adm_admtools_modules_dirs') : 'Modules Directories';
         $sModulesFilesC = function_exists('_t') ? _t('_adm_admtools_modules_files') : 'Modules Files';
@@ -223,7 +246,11 @@ EOF;
 
         $sInstallDirs = $this->GenArrElemPerm($this->aInstallDirs, 1);
         $sFlashDirs = $this->GenArrElemPerm($this->aFlashDirs, 1);
-        $sInstallFiles = $this->GenArrElemPerm($this->aInstallFiles, 2);
+        if($isInstaller) {
+            $sInstallFiles = $this->GenArrElemPerm($this->aInstallFiles, 2);
+        } else {
+            $sInstallFiles = $this->GenArrElemPerm($this->aCheckFiles, 2);
+        }
         $sFlashFiles = $this->GenArrElemPerm($this->aFlashFiles, 2);
         if ($isShowModules) {
             $sModulesDirs = $this->GenPermTableForModules(1);
@@ -375,11 +402,9 @@ EOF;
                     $sResultPerm = $sNotExistsC;
                 } else {
                     $sResultPerm = ($iCurType==1) ? $sNonWritableC : $sNonWritableC;
-                }
-
-                //if ($sCurElement == 'flash/modules/global/app/ffmpeg.exe') {
-                if (strpos($sCurElement, 'ffmpeg') !== false) {
-                    $sResultPerm = $sNonExecutableC;
+                    if (strpos($sCurElement, 'ffmpeg') !== false) {
+                        $sResultPerm = $sNonExecutableC;
+                    }
                 }
 
                 $sPerm = '';
@@ -553,6 +578,7 @@ EOF;
     {
         $sCheetahPath = CH_DIRECTORY_PATH_ROOT;
         $sffmpegpath = getFfmpegPath();
+        $sffprobepath = getFfprobePath();
 
         $sEmailToCkeckMailSending = getParam('site_email');
 
@@ -746,7 +772,20 @@ EOF;
     <li>
         <b>ffmpeg</b>
         <!-- <pre class="code"><?php echo `{$sCheetahPath}flash/modules/global/app/ffmpeg.exe 2>&1`;?></pre> -->
+        <?php if($sffmpegpath == '') { ?>
+            <div class="fail" style="padding: 20px; font-weight: bold;">FFmpeg not found. You need to install the FFmpeg package.</div>
+        <?php } else { ?>
         <pre class="code"><?php echo `{$sffmpegpath} 2>&1`;?></pre>
+        <?php } ?>
+        if you don't know if output is correct then <a href="#manual_audit">manual server audit</a> may be reqired.
+    </li>
+    <li>
+        <b>ffprobe</b>
+        <?php if($sffprobepath == '') { ?>
+            <div class="fail" style="padding: 20px; font-weight: bold;">FFprobe not found. You need to install the FFmpeg package.</div>
+        <?php } else { ?>
+        <pre class="code"><?php echo `{$sffprobepath} 2>&1`;?></pre>
+        <?php } ?>
         if you don't know if output is correct then <a href="#manual_audit">manual server audit</a> may be reqired.
     </li>
     <li>
@@ -771,11 +810,13 @@ EOF;
         <b>last cronjob execution time - </b>
         <span><?php $iCronTime = (int)getParam('sys_cron_time'); echo !empty($iCronTime) ? getLocaleDate($iCronTime, CH_WSB_LOCALE_DATE) : (function_exists('_t') ? _t('_None') : 'None'); ?></span>
     </li>
+<!--
     <li>
         <b>media server</b>
         <br />
         Please follow <a href="<?php echo $GLOBALS['site']['url_admin']; ?>flash.php">this link</a> to check media server settings. Also you can try video chat - if video chat is working then most probably that flash media server is working correctly, however it doesn't guarantee that all other flash media server application will work.
     </li>
+-->
     <li>
         <b>forums</b>
         <br />
@@ -905,7 +946,7 @@ EOF;
 <a name="manual_audit"></a>
 <h2>Manual Server Audit</h2>
 <p>
-    Some things can not be determined automatically, manual server audit is required to check it. If you don't know how to do it by yourself you can submit <a target="_blank" href="https://www.cheetahwsb.com/help/contact">Cheetah Server Audit Request</a>.
+    Some things can not be determined automatically, manual server audit is required to check it.
 </p>
 
 <?php
@@ -1076,4 +1117,31 @@ EOF;
         else
             return 'test mail was send, please check ' . $sEmailToCkeckMailSending . ' mailbox';
     }
+
+    function getFfmpegPath()
+    {
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            $sFfmpegPath = $GLOBALS['dir']['plugins'] . 'ffmpeg/ffmpeg.exe';
+        } else {
+            $sFfmpegPath = $GLOBALS['dir']['plugins'] . 'ffmpeg/ffmpeg';
+        }
+        if(!file_exists($sFfmpegPath)) {
+            $sFfmpegPath = '';
+        }
+        return $sFfmpegPath;
+    }
+
+    function getFfprobePath()
+    {
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            $sFfprobePath = $GLOBALS['dir']['plugins'] . 'ffmpeg/ffprobe.exe';
+        } else {
+            $sFfprobePath = $GLOBALS['dir']['plugins'] . 'ffmpeg/ffprobe';
+        }
+        if(!file_exists($sFfprobePath)) {
+            $sFfprobePath = '';
+        }
+        return $sFfprobePath;
+    }
+
 }

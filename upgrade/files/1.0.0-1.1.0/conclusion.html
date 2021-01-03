@@ -53,17 +53,15 @@ language module has been removed from Cheetah, it will no longer be upgraded, ma
 <br>
 <br>
 <hr>
-<br>This version of Cheetah now provides both Linux and Windows versions of
-ffmpeg. This version also includes ffprobe which is used to get information on
-uploaded files to determine if conversion is even needed. This is done to
-prevent unneeded conversions so uploaded files become available for playback
-much quicker.<br><br>Also to prepare for the eventual full removal of flash,
-ffmpeg and ffprobe are located in the plugins folder rather than the flash
-folder, so you will need to set execute permission on these files manually.<br>
-<br>Set permissions to executable on the following files. chmod 777<br><br>
-plugins/ffmpeg/ffmpeg<br>plugins/ffmpeg/ffmpeg.exe<br>plugins/ffmpeg/ffprobe<br>
-plugins/ffmpeg/ffprobe.exe<br>
-<br>
+<br>This version of Cheetah no longer includes FFmpeg. The only modules that
+require it are the Videos and Sounds modules. So to reduce the package size,
+FFmpeg is now provided as a seperate package that can be downloaded at
+<a href="https://www.cheetahwsb.com/page/downloads">
+https://www.cheetahwsb.com/page/downloads</a> for those that actually need it.
+<br><br>Also, due to the removal of flash support which has not yet been fully
+completed, the Videos and Sounds modules now depend on the HTML5 Audio/Video
+Player module which must be installed before installing either the Videos or
+Sounds modules.<br>
 <br>
 <hr>
 

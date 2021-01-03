@@ -31,6 +31,8 @@ $aConfig = array(
      */
     'install' => array(
         'show_introduction' => 1,
+        'check_dependencies' => 1,
+        'check_requirements' => 1,
         'change_permissions' => 1,
         'execute_sql' => 1,
         'update_languages' => 1,
@@ -76,7 +78,9 @@ $aConfig = array(
     /**
      * Dependencies Section
      */
-    'dependencies' => array(),
+     'dependencies' => array(
+         'h5av' => 'HTML5 Audio/Video Player',
+     ),
     /**
      * Category for language keys.
      */

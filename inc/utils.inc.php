@@ -1992,6 +1992,9 @@ function getFfmpegPath()
     } else {
         $sFfmpegPath = $GLOBALS['dir']['plugins'] . 'ffmpeg/ffmpeg';
     }
+    if(!file_exists($sFfmpegPath)) {
+        $sFfmpegPath = '';
+    }
     return $sFfmpegPath;
 }
 
@@ -2001,6 +2004,9 @@ function getFfprobePath()
         $sFfprobePath = $GLOBALS['dir']['plugins'] . 'ffmpeg/ffprobe.exe';
     } else {
         $sFfprobePath = $GLOBALS['dir']['plugins'] . 'ffmpeg/ffprobe';
+    }
+    if(!file_exists($sFfprobePath)) {
+        $sFfprobePath = '';
     }
     return $sFfprobePath;
 }

@@ -12,6 +12,11 @@ class ChSoundsInstaller extends ChWsbInstaller
     function __construct($aConfig)
     {
         parent::__construct($aConfig);
+        $this->_aActions = array_merge($this->_aActions, array(
+            'check_requirements' => array(
+                'title' => 'Check Sounds Requirements',
+            ),
+        ));
     }
 
     function install($aParams)
@@ -37,4 +42,20 @@ class ChSoundsInstaller extends ChWsbInstaller
 
         return parent::uninstall($aParams);
     }
+
+    function actionCheckRequirements ()
+    {
+        $iErrors = 0;
+        if(getFfmpegPath() == '') $iErrors++;
+        if(getFfprobePath() == '') $iErrors++;
+        return array('code' => !$iErrors ? CH_WSB_INSTALLER_SUCCESS : CH_WSB_INSTALLER_FAILED, 'content' => '');
+    }
+
+    function actionCheckRequirementsFailed ()
+    {
+        return '
+            <div style="border:1px solid red; padding:10px;margin-top: 10px;">FFmpeg package not found. The FFmpeg package needs to be installed for this module. You can download it here. <a href="https://www.cheetahwsb.com/page/downloads" target="_blank">https://www.cheetahwsb.com/page/downloads</a></div>
+        ';
+    }
+
 }
