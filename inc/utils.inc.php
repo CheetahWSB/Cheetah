@@ -2044,3 +2044,26 @@ function getAudioData($sFile) {
     $sBitRate = $aAudioData['streams'][0]['bit_rate'];
     return array('CodecName' => $sCodecName, 'DurationTs' => $sDurationTs, 'Duration' => $sDuration, 'BitRate' => $sBitRate);
 }
+
+function getAdminSwitch()
+{
+    $iMemberID = getLoggedId();
+    if(!$iMemberID) {
+        // Not logged in, delete the cookie.
+        setcookie("satoken", '', time() - 1000);
+        unset($_COOKIE['satoken']);
+        return;
+    }
+    if(isAdmin()) {
+        // Logged in as admin. Cookie no longer needed, so delete it.
+        setcookie("satoken", '', time() - 1000);
+        unset($_COOKIE['satoken']);
+        return;
+    }
+    if (isset($_COOKIE['satoken'])) {
+        $sCode = '
+	         <div class="back_to_admin"><a href="member.php?loginas=admin&id=0">' . _t('_back_to_admin') . '</a></div>
+	      ';
+        return $sCode;
+    }
+}

@@ -3425,7 +3425,7 @@ CREATE TABLE `sys_injections` (
 --
 INSERT INTO `sys_injections` (`name`, `page_index`, `key`, `type`, `data`, `replace`, `active`) VALUES
 ('flash_integration', '0', 'injection_header', 'php', 'return getRayIntegrationJS(true);', '0', '0'),
-('admin_switch', 0, 'injection_header', 'php', 'if(isset($_COOKIE[\'satoken\'])) {\r\n	$sCode = \'\r\n	<div class=\"back_to_admin\"><a href=\"member.php?loginas=admin&id=0\">\' . _t(\'_back_to_admin\') . \'</a></div>\r\n	\';\r\n	return $sCode;\r\n}\r\n', 0, 1),
+('admin_switch', 0, 'injection_header', 'php', 'return getAdminSwitch();', 0, 1),
 ('banner_bottom', 0, 'banner_bottom', 'php', 'return banner_put_nv(4);', 0, 1),
 ('banner_right', 0, 'banner_right', 'php', 'return banner_put_nv(3);', 0, 1),
 ('banner_top', 0, 'banner_top', 'php', 'return banner_put_nv(1);', 0, 1),
