@@ -591,6 +591,10 @@ class ChPhotosPageAlbumsMy extends ChWsbPageView
         }
         $sManage = $this->oSearch->showAdminActionsPanel($this->oSearch->aCurrent['name'] . '_admin_form', $aBtns, 'entry', true, false, $sMoveToAlbum);
         $aUnit = array(
+            'ch_if:showmessage' => array(
+                'condition' => false,
+                'content' => array()
+            ),
             'main_code_id' => 'unit_area',
             'main_code' => $sCode,
             'paginate' => $sPaginate,
