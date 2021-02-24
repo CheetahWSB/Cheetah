@@ -17,6 +17,8 @@ define('CH_WSB_TEMPLATE_CHECK_IN_BOTH', 'both');
 define('CH_WSB_TEMPLATE_CHECK_IN_BASE', 'base');
 define('CH_WSB_TEMPLATE_CHECK_IN_TMPL', 'tmpl');
 
+define('CH_WSB_TEMPLATE_VERSION', '?v=' . CH_WSB_CSS_JS_VER);
+
 /**
  * Template engine.
  *
@@ -1462,13 +1464,13 @@ class ChWsbTemplate
                     else {
                         $bFound = false;
                         foreach($GLOBALS[$sArrayKey]  as $iKey => $aValue)
-                            if($aValue['url'] == $sUrl && $aValue['path'] == $sPath) {
+                            if($aValue['url'] == $sUrl . CH_WSB_TEMPLATE_VERSION && $aValue['path'] == $sPath) {
                                 $bFound = true;
                                 break;
                             }
 
                         if(!$bFound)
-                            $GLOBALS[$sArrayKey][] = array('url' => $sUrl, 'path' => $sPath);
+                            $GLOBALS[$sArrayKey][] = array('url' => $sUrl . CH_WSB_TEMPLATE_VERSION, 'path' => $sPath);
                     }
                     break;
                 case 'delete':
