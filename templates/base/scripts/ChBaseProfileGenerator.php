@@ -359,7 +359,7 @@ class ChBaseProfileGenerator extends ChWsbProfile
         }
 
         if(empty($sProfileCoverHref)) {
-            $sProfileCoverHref = CH_WSB_URL_ROOT . 'media/images/covers/' . random_int (1, 10) . '.jpg';
+            $sProfileCoverHref = CH_WSB_URL_ROOT . 'media/images/covers/' . mt_rand(1, 10) . '.jpg';
             $bProfileCoverHref = true;
         }
 
