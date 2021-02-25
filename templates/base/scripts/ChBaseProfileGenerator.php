@@ -358,6 +358,11 @@ class ChBaseProfileGenerator extends ChWsbProfile
             $bProfileCoverHref = !empty($sProfileCoverHref);
         }
 
+        if(empty($sProfileCoverHref)) {
+            $sProfileCoverHref = CH_WSB_URL_ROOT . 'media/images/covers/' . random_int (1, 10) . '.jpg';
+            $bProfileCoverHref = true;
+        }
+
         $sProfileCoverChangeHref = '';
         $bProfileCoverChangeHref = false;
         if ($bProfileOwner && ChWsbRequest::serviceExists('photos', 'get_album_uploader_url')) {
