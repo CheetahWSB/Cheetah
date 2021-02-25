@@ -1,0 +1,136 @@
+<div>
+  __main_menu__
+</div>
+__sub_menu__
+<script type="text/javascript">
+  function ChEvolutionLightTopMenu(oOptions) {}
+  ChEvolutionLightTopMenu.prototype.showCaptionSubmenu = function(oLink) {
+    return this.showSubmenu(oLink, 'sys_ph_caption_submenu');
+  };
+  ChEvolutionLightTopMenu.prototype.showSubmenuSubmenu = function(oLink) {
+    return this.showSubmenu(oLink, 'sys_ph_submenu_submenu');
+  };
+  ChEvolutionLightTopMenu.prototype.showSubmenu = function(oLink, sPopupId) {
+    $('#' + sPopupId).dolPopup({
+      pointer: {
+        el: $(oLink)
+      },
+      onBeforeShow: function() {
+        $(oLink).find('.sys-icon').removeClass('chevron-down').addClass('chevron-up');
+      },
+      onHide: function() {
+        $(oLink).find('.sys-icon').addClass('chevron-down').removeClass('chevron-up');
+      }
+    });
+    return false;
+  };
+  var oChEvolutionLightTopMenu = new ChEvolutionLightTopMenu({});
+</script>
+<script>
+  var topmenu = __cur_menu__;
+  var curmenu = __cur_menu__;
+  var lastmenu = __last_menu__;
+  var previous_menu_width;
+
+  $(window).on('resize', function() {
+    if (curmenu >= lastmenu && (curmenu - 1) > 0) {
+      if ($(".sys_mc").width() < $("#mmt_" + curmenu).width()) {
+        previous_menu_width = $("#mmt_" + curmenu).width();
+        $("#mm_" + curmenu).hide();
+        $("#mm_" + (curmenu - 1)).show();
+        curmenu--;
+      }
+    }
+    if (curmenu < topmenu && (curmenu + 1) <= topmenu) {
+      if ($(".sys_mc").width() > previous_menu_width) {
+        $("#mm_" + curmenu).hide();
+        $("#mm_" + (curmenu + 1)).show();
+        curmenu++;
+      }
+    }
+  });
+
+  window.addEventListener("orientationchange", function() {
+    // Announce the new orientation number
+    //alert(screen.orientation);
+  }, false);
+
+  // Listening to orientationchange does not work anymore. Depreciated. Use media matching instead.
+  // The Listener will fire whenever this either matches or ceases to match
+  var mqOrientation = window.matchMedia("(orientation: portrait)");
+  mqOrientation.addListener(function() {
+    //alert('Orientation change.');
+    $("#mm_" + curmenu).hide();
+    curmenu = topmenu;
+    $("#mm_" + curmenu).show();
+    while ($(".sys_mc").width() < $("#mmt_" + curmenu).width()) {
+      previous_menu_width = $("#mmt_" + curmenu).width();
+      $("#mm_" + curmenu).hide();
+      $("#mm_" + (curmenu - 1)).show();
+      curmenu--;
+    }
+
+    if(curmenu < 1) {
+      curmenu = 1
+      $("#mm_1").show();
+    }
+
+  });
+
+  function toggleMore() {
+    $('.ch_more_menu').toggle();
+
+    if ($('.ch_more_menu').is(':visible')) {
+      $('.morebars').hide();
+      $('.moreclose').show();
+    } else {
+      $('.morebars').show();
+      $('.moreclose').hide();
+    }
+  }
+
+  $(document).ready(function() {
+    // If the loaded menu is to wide, then change it.
+    /*
+        while ($(".sys_mc").width() < $("#mmt_" + curmenu).width()) {
+          previous_menu_width = $("#mmt_" + curmenu).width();
+          $("#mm_" + curmenu).hide();
+          $("#mm_" + (curmenu - 1)).show();
+          curmenu--;
+        }
+    */
+    // Loop through the menus and display the one that is the proper width.
+    $sh = false;
+    for (i = topmenu; i > 0; i--) {
+      if ($(".sys_mc").width() > $("#mm_" + i).width()) {
+        $("#mm_" + i).show();
+        $sh = true;
+        previous_menu_width = $("#mm_" + (i + 1)).width()
+        curmenu = i;
+        break;
+      }
+    }
+    if(!$sh) {
+      curmenu = 1
+      $("#mm_1").show();
+    }
+
+    $(window).click(function(event) {
+      // Close more menu when clicked outside the menu if its open.
+      if(!$(event.target).parents("#ch_more_menu").length && !$(event.target).parents(".db-more-marker").length) {
+          //alert('Clicked outside menu');
+          if ($('.ch_more_menu').is(':visible')) {
+              toggleMore();
+          }
+      }
+
+      // Fix the service menu chevron when clicking outside the service menu.
+      if(!$(event.target).parents(".sys_menu_wrapper").length) {
+          $('.sys-service-menu span.sys-sm-item').find('.sys-icon').addClass('chevron-down').removeClass('chevron-up');
+      }
+
+    });
+
+
+  });
+</script>

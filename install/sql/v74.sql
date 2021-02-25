@@ -1189,7 +1189,7 @@ INSERT INTO `sys_options` VALUES
 -- CAT: Template
 SET @iCatTemplate = 13;
 INSERT INTO `sys_options` VALUES
-('template', 'evo', @iCatTemplate, 'Default template', 'select', 'global $dir; return (strlen($arg0) > 0 && file_exists($dir["root"]."templates/tmpl_".$arg0) ) ? true : false;', 'Template can not be empty and must be valid', 10, 'PHP:$aValues = get_templates_array(); $aResult = array(); foreach($aValues as $sKey => $sValue) $aResult[] = array(\'key\' => $sKey, \'value\' => $sValue); return $aResult;'),
+('template', 'evolution_light', @iCatTemplate, 'Default template', 'select', 'global $dir; return (strlen($arg0) > 0 && file_exists($dir["root"]."templates/tmpl_".$arg0) ) ? true : false;', 'Template can not be empty and must be valid', 10, 'PHP:$aValues = get_templates_array(); $aResult = array(); foreach($aValues as $sKey => $sValue) $aResult[] = array(\'key\' => $sKey, \'value\' => $sValue); return $aResult;'),
 ('enable_template', 'on', @iCatTemplate, 'Allow users to choose templates', 'checkbox', '', '', 20, ''),
 ('nav_menu_elements_on_line_usr', '14', @iCatTemplate, 'Number of main menu tabs visible to members outside of "more" tab', 'digit', '', '', 30, ''),
 ('nav_menu_elements_on_line_gst', '14', @iCatTemplate, 'Number of main menu tabs visible to guests outside of "more" tab', 'digit', '', '', 40, ''),

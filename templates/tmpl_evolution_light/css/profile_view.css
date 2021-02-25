@@ -1,0 +1,11 @@
+@import url(../../base/css/profile_view.css);
+
+div.sys-profile-cover-bg-l1 {
+	z-index: 1;
+	top: 0px;
+	height: 100%;
+	background-image: url('../images/ch_cover_image.jpg');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}

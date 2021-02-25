@@ -1,0 +1,59 @@
+<div id="subMenu___submenu_id__" class="subMenu ch-def-border" style="display: __display_value__;">
+   <div class="subMenuCnt clearfix">
+      <table style="width: 100%">
+         <tr>
+            <td class="ch-phone-hide" style="width: 34px;">
+               <div class="sys_page_icon ch-phone-hide">
+                  __picture__
+               </div>
+            </td>
+            <ch_if:show_caption>
+               <td>
+                  <div class="sys_page_header ch-def-padding-right">
+                     __caption__
+                     <ch_injection:injection_title_zone />
+                  </div>
+               </td>
+            </ch_if:show_caption>
+            <ch_if:show_submenu>
+               <td class="ch-phone-hide">
+                  <div class="sys_page_header_divider ch-def-padding-right ch-phone-hide">
+                     <i class="sys-icon angle-right"></i>
+                  </div>
+               </td>
+               <td style="width: 90%;">
+                  <div class="sys_page_submenu clearfix">
+                     __submenu__
+                  </div>
+               </td>
+            </ch_if:show_submenu>
+            <ch_if:show_submenu_bottom>
+               <td class="ch-phone-hide">
+                  <div class="sys_page_header_divider ch-def-padding-right ch-phone-hide">
+                     <i class="sys-icon angle-right"></i>
+                  </div>
+               </td>
+               <td>
+                  <div class="sys_page_submenu_bottom">
+                     __submenu__
+                  </div>
+               </td>
+            </ch_if:show_submenu_bottom>
+            <ch_if:show_empty>
+               <td>
+                  <div class="sys_page_empty">
+                  </div>
+               </td>
+            </ch_if:show_empty>
+            <td style="white-space: nowrap; text-align: right;">
+               <div class="sys_page_actions clearfix">
+                  <!-- Deano. Part of addition of down scroll button for forum. -->
+                  <div class="actionsContainer actionsContainerSubmenu">
+                     __profile_actions____login_section__
+                  </div>
+               </div>
+            </td>
+         </tr>
+      </table>
+   </div>
+</div>
