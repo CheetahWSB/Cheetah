@@ -1511,6 +1511,10 @@ div.navPanel .navPanelLinkPrev.sys-icon {
 }
 
 /* member online status colors */
+/* This first one is a admin override for the offline status. Do not remove. */
+.sys-status-adminoverride {
+    color:#999999;
+}
 
 .sys-status-online {
     color:#60ae00;

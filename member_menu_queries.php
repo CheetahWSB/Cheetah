@@ -69,6 +69,8 @@ if ( isset($_GET['action']) ) {
                     if($aMemberInfo['UserStatus'] != 'offline') {
                         // update the date of last navigate;
                         update_date_lastnav($iMemberId);
+                    } else {
+                        update_date_lastnav_a($iMemberId);
                     }
 
                     $aBubbles = array();

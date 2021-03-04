@@ -309,7 +309,16 @@ function update_date_lastnav($iId)
     $iId = (int) $iId;
 
     // update the date of last navigate;
-    $sQuery = "UPDATE `Profiles` SET `DateLastNav` = NOW() WHERE `ID` = '{$iId}'";
+    $sQuery = "UPDATE `Profiles` SET `DateLastNav` = NOW(), `DateLastNavA` = NOW() WHERE `ID` = '{$iId}'";
+    db_res($sQuery);
+}
+
+function update_date_lastnav_a($iId)
+{
+    $iId = (int) $iId;
+
+    // update the date of last navigate;
+    $sQuery = "UPDATE `Profiles` SET `DateLastNavA` = NOW() WHERE `ID` = '{$iId}'";
     db_res($sQuery);
 }
 
@@ -399,6 +408,21 @@ function get_user_online_status ($ID)
             $min     = (int)getParam( "member_online_time" );
             $iOnline = $GLOBALS['MySQL']->fromMemory ("member_online_status.$ID.$min", 'getOne', "SELECT count(ID) as count_id FROM Profiles WHERE DateLastNav > SUBDATE(NOW(), INTERVAL {$min} MINUTE) AND ID={$ID}");
         }
+    }
+
+    return  $iOnline;
+}
+
+// This is same as above, but determines if they are online regardless of their set status.
+// Used by admin.
+function get_user_online_status_a ($ID)
+{
+    $iOnline = 0;
+    if($ID && is_numeric($ID) ) {
+        $aMemberInfo  = getProfileInfo($ID);
+        // check user status;
+        $min     = (int)getParam( "member_online_time" );
+        $iOnline = $GLOBALS['MySQL']->fromMemory ("member_online_status.$ID.$min", 'getOne', "SELECT count(ID) as count_id FROM Profiles WHERE DateLastNavA > SUBDATE(NOW(), INTERVAL {$min} MINUTE) AND ID={$ID}");
     }
 
     return  $iOnline;

@@ -2480,6 +2480,7 @@ CREATE TABLE `Profiles` (
   `DateLastEdit` datetime NOT NULL default '0000-00-00 00:00:00',
   `DateLastLogin` datetime NOT NULL default '0000-00-00 00:00:00',
   `DateLastNav` datetime NOT NULL default '0000-00-00 00:00:00',
+  `DateLastNavA` datetime NOT NULL default '0000-00-00 00:00:00',
   `DateLastPage` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `CurrentPageTitle` varchar(255) NOT NULL,
   `aff_num` int(10) unsigned NOT NULL default '0',
@@ -2521,6 +2522,7 @@ CREATE TABLE `Profiles` (
   KEY `DateOfBirth` (`DateOfBirth`),
   KEY `DateReg` (`DateReg`),
   KEY `DateLastNav` (`DateLastNav`),
+  KEY `DateLastNavA` (`DateLastNavA`),
   FULLTEXT KEY `NickName_2` (`NickName`,`FullName`,`FirstName`,`LastName`,`City`,`DescriptionMe`,`Tags`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 

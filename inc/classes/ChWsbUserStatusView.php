@@ -20,7 +20,6 @@ class ChWsbUserStatusView
     {
         $this -> sHomeUrl = CH_WSB_URL_ROOT;
         $this -> aStatuses = array(
-
             'online'  => array(
                 'icon8'  => 'circle sys-status-online',
                 'icon'  => 'circle sys-status-online',
@@ -43,6 +42,13 @@ class ChWsbUserStatusView
                 'icon8'  => 'circle sys-status-busy',
                 'icon'  => 'circle sys-status-busy',
                 'title' => _t('_Busy'),
+            ),
+        );
+        $this -> aStatusesOverride = array(
+            'adminoverride'  => array(
+                'icon8'  => 'circle sys-status-adminoverride',
+                'icon'  => 'circle sys-status-adminoverride',
+                'title' => _t('_Offline'),
             ),
         );
     }
@@ -77,6 +83,17 @@ class ChWsbUserStatusView
             $sMemberStatus = $GLOBALS['MySQL']->fromMemory ("user_status.$iMemberId", 'getOne', "SELECT `UserStatus` FROM `Profiles` WHERE `ID` = {$iMemberId}");
             if( array_key_exists($sMemberStatus, $this -> aStatuses) ) {
                 $sMemberIcon = $this -> aStatuses[$sMemberStatus][$sSize];
+            }
+        } else {
+            // Do an admin check.
+            if (isAdmin() && get_user_online_status_a($iMemberId) ) {
+                $sMemberStatus = $GLOBALS['MySQL']->fromMemory ("user_status.$iMemberId", 'getOne', "SELECT `UserStatus` FROM `Profiles` WHERE `ID` = {$iMemberId}");
+                if( array_key_exists($sMemberStatus, $this -> aStatuses) ) {
+                    $sMemberIcon = $this -> aStatuses[$sMemberStatus][$sSize];
+                    if(isAdmin() && $sMemberStatus == 'offline') {
+                        $sMemberIcon = $this -> aStatusesOverride['adminoverride'][$sSize];
+                    }
+                }
             }
         }
 
