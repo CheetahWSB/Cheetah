@@ -37,8 +37,7 @@ class ChWsbAdminTools extends ChWsbIO
             'media/images/classifieds',
             'media/images/membership',
             'media/images/profile',
-            'media/moxie/files',
-            'media/moxie/storage',
+            'media/images/tinymce_uploads',
             'tmp',
         );
 

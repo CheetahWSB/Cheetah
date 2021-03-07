@@ -14,6 +14,9 @@ class ChTemplEditorTinyMCE extends ChBaseEditorTinyMCE
 {
     public function __construct ($aObject, $oTemplate = false)
     {
+        // This template will use the default tinymce 5 skin. So these 2 values do not need to be passed.
+        //$aObject['skin'] = 'evolution_light';
+        //$aObject['content_css'] = 'evolution_light';
         parent::__construct ($aObject, $oTemplate);
     }
 }

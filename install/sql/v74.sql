@@ -3949,7 +3949,7 @@ CREATE TABLE `sys_objects_editor` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO `sys_objects_editor` (`object`, `title`, `skin`, `override_class_name`, `override_class_file`) VALUES
-('sys_tinymce', 'TinyMCE', 'lightgray', 'ChTemplEditorTinyMCE', '');
+('sys_tinymce', 'TinyMCE', 'oxide', 'ChTemplEditorTinyMCE', '');
 
 
 -- --------------------------------------------------------

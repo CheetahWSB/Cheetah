@@ -21,12 +21,14 @@ class ChBaseEditorTinyMCE extends ChWsbEditor
                         {ch_var_custom_init}
                         {ch_var_custom_conf}
                         document_base_url: '{ch_url_root}',
-                        skin_url: '{ch_url_tinymce}skins/{ch_var_skin}/',
                         language: '{ch_var_lang}',
-                        language_url: '{ch_url_tinymce}langs/{ch_var_lang}.js',
-                        content_css: '{ch_var_css_path}',
+                        skin: '{ch_var_skin}',
+                        content_css: '{ch_var_content_css}',
                         entity_encoding: 'raw',
-                        browser_spellcheck: true
+                        browser_spellcheck: true,
+                        contextmenu: false,
+                        branding: false,
+                        images_upload_url: '{ch_url_root}media/images/tinymce_uploads/postAcceptor.php',
                     });
     ";
 
@@ -52,7 +54,7 @@ class ChBaseEditorTinyMCE extends ChWsbEditor
                         },
                         width: '100%',
                         height: '270',
-                        theme_url: '{ch_url_tinymce}themes/modern/theme.min.js',
+                        theme_url: '{ch_url_tinymce}themes/silver/theme.min.js',
                         toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
                         statusbar: true,
                         resize: true,
@@ -75,7 +77,7 @@ class ChBaseEditorTinyMCE extends ChWsbEditor
                         },
                         width: '100%',
                         height: '150',
-                        theme_url: '{ch_url_tinymce}themes/modern/theme.min.js',
+                        theme_url: '{ch_url_tinymce}themes/silver/theme.min.js',
                         toolbar: 'bold italic underline removeformat | bullist numlist | alignleft aligncenter alignright | blockquote | link unlink image',
                         statusbar: false,
     ";
@@ -88,7 +90,6 @@ class ChBaseEditorTinyMCE extends ChWsbEditor
                             "advlist: '{ch_url_tinymce}plugins/advlist/plugin.min.js'",
                             "anchor: '{ch_url_tinymce}plugins/anchor/plugin.min.js'",
                             "autolink: '{ch_url_tinymce}plugins/autolink/plugin.min.js'",
-                            "autoresize: '{ch_url_tinymce}plugins/autoresize/plugin.min.js'",
                             "autosave: '{ch_url_tinymce}plugins/autosave/plugin.min.js'",
                             "charmap: '{ch_url_tinymce}plugins/charmap/plugin.min.js'",
                             "code: '{ch_url_tinymce}plugins/code/plugin.min.js'",
@@ -108,6 +109,7 @@ class ChBaseEditorTinyMCE extends ChWsbEditor
                             "textcolor: '{ch_url_tinymce}plugins/textcolor/plugin.min.js'",
                             "visualblocks: '{ch_url_tinymce}plugins/visualblocks/plugin.min.js'",
                             "fullscreen: '{ch_url_tinymce}plugins/fullscreen/plugin.min.js'",
+
     );
     protected static $CONF_FULL = "
                         external_plugins: {
@@ -115,7 +117,7 @@ class ChBaseEditorTinyMCE extends ChWsbEditor
                         },
                         width: '100%',
                         height: '320',
-                        theme_url: '{ch_url_tinymce}themes/modern/theme.min.js',
+                        theme_url: '{ch_url_tinymce}themes/silver/theme.min.js',
                         toolbar: [
                             'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
                             'print preview media | forecolor emoticons'
@@ -203,12 +205,18 @@ class ChBaseEditorTinyMCE extends ChWsbEditor
         else
             $sLang = 'en_GB';
 
+        if($this->_aObject['content_css'] == '') {
+            $sContentCss = 'default';
+        } else {
+            $sContentCss = ch_js_string($this->_aObject['content_css'], CH_ESCAPE_STR_APOS);
+        }
+
         $aMarkers = array(
             'ch_var_custom_init' => &$sToolsItems,
             'ch_var_custom_conf' => $this->_sConfCustom,
             'ch_var_plugins_path' => ch_js_string(CH_WSB_URL_PLUGINS, CH_ESCAPE_STR_APOS),
-            'ch_var_css_path' => ch_js_string($this->_oTemplate->getCssUrl('editor.css'), CH_ESCAPE_STR_APOS),
             'ch_var_skin' => ch_js_string($this->_aObject['skin'], CH_ESCAPE_STR_APOS),
+            'ch_var_content_css' => $sContentCss,
             'ch_var_lang' => ch_js_string($sLang, CH_ESCAPE_STR_APOS),
             'ch_var_selector' => ch_js_string($sSelector, CH_ESCAPE_STR_APOS),
             'ch_url_root' => ch_js_string(CH_WSB_URL_ROOT, CH_ESCAPE_STR_APOS),
@@ -266,11 +274,16 @@ class ChBaseEditorTinyMCE extends ChWsbEditor
 
         $this->_oTemplate->addInjection ('injection_head_begin', 'text', "<script>window.tinyMCEPreInit = {base : '" . ch_js_string(CH_WSB_URL_PLUGINS . 'tinymce', CH_ESCAPE_STR_APOS) . "', suffix : '.min', query : ''};</script>\n");
 
-        $aJs = array('tinymce/tinymce.min.js', 'tinymce/jquery.tinymce.min.js');
+        $aJs = array('tinymce/tinymce.min.js', 'tinymce/jquery.tinymce.min.js', 'prism.js');
         $this->_oTemplate->addJs($aJs);
 
-        if (isset($GLOBALS['oAdmTemplate']))
+        $aCss = array('prism.css');
+        $this->_oTemplate->addCss($aCss);
+
+        if (isset($GLOBALS['oAdmTemplate'])) {
             $GLOBALS['oAdmTemplate']->addJs($aJs);
+            $GLOBALS['oAdmTemplate']->addCss($aCss);
+        }
 
         $this->_bJsCssAdded = true;
         return '';
