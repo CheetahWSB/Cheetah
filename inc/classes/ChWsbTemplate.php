@@ -798,8 +798,9 @@ class ChWsbTemplate
                 if ($sRet == 'Page was not found')
                     $bOk = false;
                 if ($bOk) {
+                    $r = CH_WSB_URL_ROOT . ltrim($_SERVER['REQUEST_URI'], '/');
                     $sQuery = "UPDATE `Profiles` SET `DateLastPage` = NOW(), `CurrentPageTitle` = ? WHERE `ID` = '{$iProfileId}'";
-                    db_res($sQuery, [$sRet]);
+                    db_res($sQuery, [$r]);
                 }
                 break;
             case 'page_header_text':
