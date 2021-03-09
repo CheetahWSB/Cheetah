@@ -809,7 +809,7 @@ class ChBaseFunctions
         $sLogoUrl = $this->getLogoUrl();
 
         if (!$sLogoUrl)
-            return '<a class="mainLogoText" href="' . CH_WSB_URL_ROOT . 'index.php' . '">' . getParam('site_title') . '</a>';
+            return '<a class="mainLogoText" href="' . CH_WSB_URL_ROOT . '">' . getParam('site_title') . '</a>';
 
         $sLogoUrl2x = $this->getLogoUrl(true);
         $sLogoW = getParam('sys_main_logo_w');
