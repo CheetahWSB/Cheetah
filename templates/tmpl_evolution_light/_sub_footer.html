@@ -6,15 +6,17 @@
 		<!-- end of body -->
 	</div>
 	<div class="sys_footer">
-	    <ch_injection:injection_between_content_breadcrumb />
-	    <div class="sys_breadcrumb sys_main_page_width ch-def-margin-top">
-	       <div class="sys_bc_wrapper ch-def-margin-sec-leftright ch-def-round-corners ch-def-border clearfix">
-	            <ch_injection:injection_breadcrumb_before />
-	            __top_menu_breadcrumb__
-	            <ch_injection:injection_breadcrumb_after />
-	        </div>
-	    </div>
-	    <ch_injection:injection_between_breadcrumb_bottom_menu />
+      <div style="__show_breadcrumb__">
+  	    <ch_injection:injection_between_content_breadcrumb />
+  	    <div class="sys_breadcrumb sys_main_page_width ch-def-margin-top">
+  	       <div class="sys_bc_wrapper ch-def-margin-sec-leftright ch-def-round-corners ch-def-border clearfix">
+  	            <ch_injection:injection_breadcrumb_before />
+  	            __top_menu_breadcrumb__
+  	            <ch_injection:injection_breadcrumb_after />
+  	        </div>
+  	    </div>
+  	    <ch_injection:injection_between_breadcrumb_bottom_menu />
+      </div>
 		<div class="sys_copyright sys_main_page_width ch-def-margin-top">
 	        <div class="sys_cr_wrapper ch-def-margin-sec-leftright ch-def-round-corners ch-def-border">
 	            <div class="sys_cr ch-def-margin-leftright clearfix">
