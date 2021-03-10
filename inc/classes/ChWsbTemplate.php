@@ -785,23 +785,8 @@ class ChWsbTemplate
                     $sRet = $GLOBALS[$this->_sPrefix . 'PageTitle'];
                 else if (isset($_page['header']))
                     $sRet = $_page['header'];
-                $iProfileId = getLoggedId();
-                $bOk = true;
-                if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
-                    $bOk = false;
-                if ($_SERVER['HTTP_USER_AGENT'] == '')
-                    $bOk = false;
-                if (!$iProfileId)
-                    $bOk = false;
-                if (!$sRet)
-                    $bOk = false;
-                if ($sRet == 'Page was not found')
-                    $bOk = false;
-                if ($bOk) {
-                    $r = CH_WSB_URL_ROOT . ltrim($_SERVER['REQUEST_URI'], '/');
-                    $sQuery = "UPDATE `Profiles` SET `DateLastPage` = NOW(), `CurrentPageTitle` = ? WHERE `ID` = '{$iProfileId}'";
-                    db_res($sQuery, [$r]);
-                }
+
+                $this->updateMemberLocation($sRet);
                 break;
             case 'page_header_text':
                 if(!empty($GLOBALS[$this->_sPrefix . 'PageMainBoxTitle']))
@@ -2052,4 +2037,63 @@ class ChWsbTemplate
             'replace' => $iReplace
         );
     }
+
+    function updateMemberLocation($sRet) {
+        $iProfileId = getLoggedId();
+        $bOk = true;
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            $bOk = false;
+        if ($_SERVER['HTTP_USER_AGENT'] == '')
+            $bOk = false;
+        if (!$iProfileId)
+            $bOk = false;
+        if (!$sRet)
+            $bOk = false;
+        if ($sRet == 'Page was not found')
+            $bOk = false;
+        if ($bOk) {
+            $r = CH_WSB_URL_ROOT . ltrim($_SERVER['REQUEST_URI'], '/');
+            // Rewrite any inaccessible urls into proper accessible urls
+            $iCount = 0;
+            if(!$iCount) {
+                // Rewrite forum topic urls.
+                // Urls that look like this. forum/?action=list_posts&topic=TinyMCE&trans=1
+                // need to be changed.
+                $f = preg_replace("/forum\/.*?topic=(.*?)&trans=1/", "forum/topic/$1.htm", $r, 1, $iCount);
+                if($iCount) $r = $f;
+            }
+            if(!$iCount) {
+                // Rewrite email urls
+                // Urls that look like this. mail.php?mode=view_message&messageID=495
+                // need to be changed.
+                $f = preg_replace("/(mail\.php)\?mode.*/", "$1", $r, 1, $iCount);
+                if($iCount) $r = $f;
+            }
+            if(!$iCount) {
+                // Rewrite forum photo urls
+                // Urls that look like this. forum/?action=download&hash=wztvwcqk6i
+                // need to be changed.
+                $hash = preg_replace("/.*forum.*hash=(.*)/", "$1", $r, 1, $iCount);
+                if($iCount) {
+                    // Look up hash in ch_forum_attachments to get the post_id
+                    $iPostId = (int)db_value("SELECT `post_id` FROM `ch_forum_attachments` WHERE `att_hash` = '$hash'");
+                    if($iPostId) {
+                        // Look up $iPostId in ch_forum_post to get topic_id
+                        $iTopicId = (int)db_value("SELECT `topic_id` FROM `ch_forum_post` WHERE `post_id` = '$iPostId'");
+                        if($iTopicId) {
+                            // Look up topic_id in ch_forum_topic to get topic_uri
+                            $sTopicUri = db_value("SELECT `topic_uri` FROM `ch_forum_topic` WHERE `topic_id` = '$iTopicId'");
+                            if($sTopicUri) {
+                                $r = CH_WSB_URL_ROOT . 'forum/topic/' . $sTopicUri . '.htm';
+                            }
+                        }
+                    }
+                }
+            }
+
+            $sQuery = "UPDATE `Profiles` SET `DateLastPage` = NOW(), `CurrentPageTitle` = ? WHERE `ID` = '{$iProfileId}'";
+            db_res($sQuery, [$r]);
+        }
+    }
+
 }
