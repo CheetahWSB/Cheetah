@@ -70,10 +70,16 @@ class ChSMTPModule extends ChWsbModule
             if ($sParamSender)
                 $mail->From = $sParamSender;
             else
-                $mail->From = $sSenderEmail;
+                // Deano. Boonex had this set to below value. $sSenderEmail is not assigned anywhere, so it is empty.
+                // I changed it to default to the site email address.
+                //$mail->From = $sSenderEmail;
+                $mail->From = getParam('site_email');
 
             // get site name or some other name as sender's name
             $mail->FromName   = getParam ('ch_smtp_from_name');
+            // Deano. Boonex did not check to see if this value is empty. Change
+            // to default it to the sites name if it is empty.
+            if(!$mail->FromName) $mail->FromName = getParam ('site_title');
 
             $mail->Subject    = $sMailSubject;
             if ($isHtml) {
