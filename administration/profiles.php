@@ -93,6 +93,18 @@ if(isset($_POST['adm-mp-activate']) && (bool)$_POST['members']) {
       echo "<script>window.parent." . CH_WSB_ADM_MP_JS_NAME . ".reload();</script>";
       exit;
 
+} else if(isset($_POST['adm-mp-members-list']) && $_POST['doSetMembership'] == 'yes') {
+
+    $iIdCurr = getLoggedId();
+    $aMembers = explode(',', $_POST['adm-mp-members-list']);
+    $iMembershipDays = (int)$_POST['MembershipDays'];
+    $bMembershipImmediately = $_POST['MembershipImmediately'] == 'on' ? true : false;
+    foreach($aMembers as $value) {
+        if((int)$value != $iIdCurr) {
+            $bSave = setMembership((int)$value, (int)$_POST['MembershipID'], $iMembershipDays, $bMembershipImmediately);
+        }
+    }
+
 } else if((isset($_POST['adm-mp-delete']) || isset($_POST['adm-mp-delete-spammer'])) && (bool)$_POST['members']) {
     $iIdCurr = getLoggedId();
     foreach($_POST['members'] as $iId) {
@@ -340,11 +352,20 @@ function PageCodeMembers($sDefaultCtl = CH_WSB_ADM_MP_CTL, $sDefaultView = CH_WS
         'per_page' => $oPaginate->getPages(),
     ));
 
+    $aMemberships = getMemberships();
+    $sMbrOptions = '';
+    foreach($aMemberships as $iId => $sName) {
+        if($iId != 1) {
+            $sMbrOptions .= '<option value="' . $iId . '">' . $sName . '</option>';
+        }
+    }
+
     $aResult = array(
         'action_url' => $GLOBALS['site']['url_admin'] . 'profiles.php',
         'ctl_type' => is_array($sDefaultCtl) && !empty($sDefaultCtl) ? $sDefaultCtl['ctl_type'] : $sDefaultCtl,
         'view_type' => $sDefaultView,
         'top_controls' => $sTopControls,
+        'mbr_options' => $sMbrOptions,
         'loading' => LoadingBox('adm-mp-members-loading')
     );
 
@@ -462,17 +483,23 @@ function getMembers($aParams)
         'adm-mp-activate' => _t('_adm_btn_mp_activate'),
         'adm-mp-deactivate' => _t('_adm_btn_mp_deactivate'),
         'adm-mp-ban' => array(
-			'type' => 'submit',
-			'name' => 'adm-mp-ban',
-			'value' => _t('_adm_btn_mp_ban'),
-			'onclick' => 'onclick="javascript: return ' . CH_WSB_ADM_MP_JS_NAME . '.actionBan(this);"',
-		),
+            'type' => 'submit',
+            'name' => 'adm-mp-ban',
+            'value' => _t('_adm_btn_mp_ban'),
+            'onclick' => 'onclick="javascript: return ' . CH_WSB_ADM_MP_JS_NAME . '.actionBan(this);"'
+        ),
         'adm-mp-unban' => _t('_adm_btn_mp_unban'),
         'adm-mp-confirm' => _t('_adm_btn_mp_confirm'),
         'adm-mp-delete' => _t('_adm_btn_mp_delete'),
         'adm-mp-delete-spammer' => _t('_adm_btn_mp_delete_spammer'),
         'adm-mp-set-admin' => _t('_adm_btn_mp_set_admin'),
         'adm-mp-unset-admin' => _t('_adm_btn_mp_unset_admin'),
+        'adm-mp-set-mbrship' => array(
+            'type' => 'submit',
+            'name' => 'adm-mp-set-mbrship',
+            'value' => _t('_adm_btn_mp_set_mbrship'),
+            'onclick' => 'onclick="javascript: return checkChecked(\'adm-mp-members-form\');"'
+        ),
     );
     $sControls = ChTemplSearchResult::showAdminActionsPanel('adm-mp-members-' . $aParams['view_type'], $aButtons, 'members');
 

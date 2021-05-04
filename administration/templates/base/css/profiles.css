@@ -162,3 +162,17 @@ div.adm-mp-me-desc {
 
     overflow: hidden;
 }
+.set-mbrship-popup {
+	position: absolute;
+	left: calc(50% - 150px);
+	top: 1px;
+	width: 300px;
+	z-index: 3;
+	background-color: #ffffff;
+	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+	-webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+	border-radius: 6px;
+	border: 1px solid #DCDFE2;
+	display: none;
+}

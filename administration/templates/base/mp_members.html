@@ -1,5 +1,52 @@
 <iframe id="adm-mp-members-iframe" name="adm-mp-members-iframe"></iframe>
-<form id="adm-mp-members-form" enctype="multipart/form-data" method="post" action="__action_url__" class="form_advanced" target="adm-mp-members-iframe">
+<div id="set-mbrship-popup" class="set-mbrship-popup">
+	<div class="dbContent ch-def-bc-margin">
+		<form id="adm_mp_edit_membership" name="adm_mp_edit_membership" action="__action_url__" method="post" enctype="multipart/form-data" class="form_advanced">
+      <input id="adm-mp-members-list" type="hidden" name="adm-mp-members-list" value="" />
+			<input class="form_input_hidden ch-def-font-inputs" type="hidden" name="doSetMembership" value="yes">
+			<div class="form_advanced_wrapper profile_edit_membership_wrapper">
+				<div class="form_advanced_table">
+					<fieldset class="ch-form-fields-wrapper">
+            <div><ch_text:_adm_txt_choose_membership /></div>
+						<div class="ch-form-element ch-form-element-select ch-def-margin-top clearfix">
+							<div class="ch-form-caption ch-def-font-inputs-captions"><ch_text:_Membership_name /></div>
+							<div class="ch-form-value clearfix">
+								<div class="input_wrapper input_wrapper_select clearfix">
+									<select onchange="checkStandard()" class="form_input_select ch-def-font-inputs" name="MembershipID">
+                    __mbr_options__
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="ch-form-element ch-form-element-text ch-def-margin-top clearfix">
+							<div class="ch-form-caption ch-def-font-inputs-captions"><ch_text:_Membership_days /><span class="ch-form-info"><i class="sys-icon info-circle" float_info="<ch_text_attribute:_Membership_days_info />"></i></span></div>
+							<div class="ch-form-value clearfix">
+								<div class="input_wrapper input_wrapper_text clearfix">
+									<input onfocus="if(MembershipDays.value == 'unlimited') MembershipDays.value = ''" onblur="if(MembershipDays.value == '') MembershipDays.value = 'unlimited'" class="form_input_text ch-def-font-inputs" type="text" name="MembershipDays" value="unlimited"> </div>
+							</div>
+						</div>
+						<div class="ch-form-element ch-form-element-checkbox ch-def-margin-top clearfix">
+							<div class="ch-form-caption ch-def-font-inputs-captions"><ch_text:_Membership_starts /></div>
+							<div class="ch-form-value clearfix">
+								<div class="input_wrapper input_wrapper_checkbox clearfix">
+									<input class="form_input_checkbox ch-def-font-inputs" type="checkbox" name="MembershipImmediately" value="on"> </div>
+							</div>
+						</div>
+						<div class="ch-form-element ch-form-element-submit ch-def-margin-top clearfix">
+							<div class="ch-form-combined clearfix">
+								<div class="clearfix">
+                  <button class="ch-btn ch-btn-small" type="button" name="save_membership" value="Save" onclick="mbrship_popup_submit();"><ch_text:_Save /></button>
+                  <button class="ch-btn ch-btn-small" type="button" name="cancel" value="Save" onclick="mbrship_popup_cancel();"><ch_text:_Cancel /></button>
+                </div>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<form id="adm-mp-members-form" name="adm-mp-members-form" enctype="multipart/form-data" method="post" action="__action_url__" class="form_advanced" target="adm-mp-members-iframe">
     <input type="hidden" name="adm-mp-members-ctl-type" value="__ctl_type__" />
     <input type="hidden" name="adm-mp-members-view-type" value="__view_type__" />
     <input type="hidden" name="adm-mp-members-ban-duration" value="0" />
@@ -9,3 +56,42 @@
     <div class="adm-mp-members-wrapper" id="adm-mp-members-geeky" style="__style_geeky__">__content_geeky__</div>
     __loading__
 </form>
+<script>
+  function show_mbrship_popup() {
+      // Get a list of all selected checkboxes.
+      var formname = 'adm-mp-members-form';
+      var dblist = '';
+      $('#set-mbrship-popup').show();
+      $('#adm-mp-members-form input[type="checkbox"]').each(function() {
+          if ($(this).is(":checked")) {
+              dblist = dblist + $(this).val() + ',';
+          }
+      });
+      var n = dblist.lastIndexOf(",");
+      var a = dblist.substring(0, n)
+      $('#adm-mp-members-list').val(a);
+  }
+
+  function mbrship_popup_submit() {
+      $('#adm_mp_edit_membership').submit();
+      $('#set-mbrship-popup').hide();
+      //window.parent.oMP.reload();
+  }
+
+  function mbrship_popup_cancel() {
+      $('#set-mbrship-popup').hide();
+  }
+
+  function checkChecked(formname) {
+      var anyBoxesChecked = false;
+      $('#' + formname + ' input[type="checkbox"]').each(function() {
+          if ($(this).is(":checked")) {
+              anyBoxesChecked = true;
+          }
+      });
+      if (anyBoxesChecked == true) {
+          show_mbrship_popup();
+      }
+      return false;
+  }
+</script>

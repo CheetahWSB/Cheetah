@@ -4,6 +4,8 @@ $aLangContent = array(
 
   // ================ ADDED KEYS ==================
   '_adm_txt_templ_evol_light_desc' => 'Default template for Cheetah. Simple and responsive template based on the Dolphin EVO template. Emphasis on content and fluid user-experience. Retina-friendly, mobile-friendly touch-friendly.',
+  '_adm_btn_mp_set_mbrship' => 'Set Membership',
+  '_adm_txt_choose_membership' => 'Choose membership you want to set selected members to.',
 
 
   // ================ CHANGED KEYS ==================
