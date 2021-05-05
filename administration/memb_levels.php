@@ -50,6 +50,22 @@ if (isset($_POST['save']) && isset($_POST['cat'])) {
 
         $GLOBALS['MySQL']->query($sQuery);
     }
+
+
+} elseif (isset($_POST['adm-mlevels-actions-enable-all']) || isset($_POST['adm-mlevels-actions-disable-all'])) {
+    $aLevels = $GLOBALS['MySQL']->getAll("SELECT * FROM `sys_acl_levels`");
+    foreach ($aLevels as $aLevel) {
+        $iLevelId = $aLevel['ID'];
+        foreach ($_POST['actions'] as $iId) {
+            if (isset($_POST['adm-mlevels-actions-enable-all'])) {
+                $sQuery = "REPLACE INTO `sys_acl_matrix` SET `IDLevel`='" . $iLevelId . "', `IDAction`='" . $iId . "'";
+            } else {
+                $sQuery = "DELETE FROM `sys_acl_matrix` WHERE `IDLevel`='" . $iLevelId . "' AND `IDAction`='" . $iId . "'";
+            }
+            $GLOBALS['MySQL']->query($sQuery);
+        }
+    }
+
 } elseif (isset($_POST['adm-mlevels-prices-add'])) {
     $iLevelId = (int)$_POST['level'];
     $iDays = (int)$_POST['days'];
@@ -479,7 +495,9 @@ function PageCodeActions($iId, $mixedResult)
     //--- Get Controls ---//
     $aButtons = array(
         'adm-mlevels-actions-enable' => _t('_adm_btn_mlevels_enable'),
-        'adm-mlevels-actions-disable' => _t('_adm_btn_mlevels_disable')
+        'adm-mlevels-actions-disable' => _t('_adm_btn_mlevels_disable'),
+        'adm-mlevels-actions-enable-all' => _t('_adm_btn_mlevels_enable_all'),
+        'adm-mlevels-actions-disable-all' => _t('_adm_btn_mlevels_disable_all'),
     );
     $sControls = ChTemplSearchResult::showAdminActionsPanel('adm-mlevels-actions-form', $aButtons, 'actions');
 
