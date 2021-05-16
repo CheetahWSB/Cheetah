@@ -50,7 +50,7 @@ class ChWsbProfileFields extends Thing
                 return false;
         }
 
-        $bBotCheck = ('on' == getParam(sys_antispam_bot_check) ? true : false);
+        $bBotCheck = ('on' == getParam('sys_antispam_bot_check') ? true : false);
         if($bBotCheck) {
             $iJoinBlock = $GLOBALS['MySQL']->getOne("SELECT `JoinBlock` FROM `sys_profile_fields` WHERE `Name` = 'Password'");
             if($this -> iAreaID == 1) {
@@ -1489,7 +1489,7 @@ EOF;
                     ),
                 );
 
-                $bBotCheck = ('on' == getParam(sys_antispam_bot_check) ? true : false);
+                $bBotCheck = ('on' == getParam('sys_antispam_bot_check') ? true : false);
                 if($bBotCheck) {
                     $aInputsTemp = $this->convertJoinField2Input($aItem, $aInputParams, 0);
                     if($aItem['Default'] == 'spam') {
