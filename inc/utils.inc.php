@@ -1595,7 +1595,9 @@ function return_bytes($val)
         return $val;
     }
 
-    $last = strtolower($val{strlen($val) - 1});
+    //$last = strtolower($val{strlen($val) - 1});
+    // PHP 8 fix.    
+    $last = strtolower(substr($val, -1));
 
     $val = (int)$val;
     switch ($last) {
@@ -1627,7 +1629,9 @@ function genRndPwd($iLength = 8, $bSpecialCharacters = true)
     srand((double)microtime() * 1000000);
     for ($i = 0; $i < $iLength; $i++) {
         $x = mt_rand(0, strlen($sChars) - 1);
-        $sPassword .= $sChars{$x};
+        //$sPassword .= $sChars{$x};
+        // PHP 8 fix.
+        $sPassword .= $sChars[$x];
     }
 
     return $sPassword;
