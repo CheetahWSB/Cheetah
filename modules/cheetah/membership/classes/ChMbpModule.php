@@ -345,7 +345,7 @@ class ChMbpModule extends ChWsbModule
         $aResult = array();
         foreach($aItems as $aItem)
             if($aItem['price_days'] > 0) {
-                $sExpires = _t('_membership_txt_on_N_days', $aItem['price_days'])
+                $sExpires = _t('_membership_txt_on_N_days', $aItem['price_days']);
             } else {
                 $sExpires = '(' . _t('_membership_txt_expires_never') . ')';
             }
@@ -423,7 +423,7 @@ class ChMbpModule extends ChWsbModule
         $aItem = $this->_oDb->getMembershipsBy(array('type' => 'price_id', 'id' => $iItemId));
 
         if($aItem['price_days'] > 0) {
-            $sExpires = _t('_membership_txt_on_N_days', $aItem['price_days'])
+            $sExpires = _t('_membership_txt_on_N_days', $aItem['price_days']);
         } else {
             $sExpires = '(' . _t('_membership_txt_expires_never') . ')';
         }
