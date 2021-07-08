@@ -137,7 +137,7 @@
 <!--        <xsl:with-param name="menu" select="exsl:node-set($menu_links)/*" /> -->
     </xsl:call-template>
 
-	<iframe name="post_actions" width="1" height="1" frameborder="1" style="border:none;">&#160;</iframe>
+    <iframe name="post_actions" width="1" height="1" frameborder="1" style="border:none;">&#160;</iframe>
 
     <xsl:if test="'' != cat/title and '' != forum/title">
         <xsl:call-template name="breadcrumbs">
