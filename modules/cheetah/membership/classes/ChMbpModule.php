@@ -344,10 +344,15 @@ class ChMbpModule extends ChWsbModule
 
         $aResult = array();
         foreach($aItems as $aItem)
+            if($aItem['price_days'] > 0) {
+                $sExpires = _t('_membership_txt_on_N_days', $aItem['price_days']);
+            } else {
+                $sExpires = '(' . _t('_membership_txt_expires_never') . ')';
+            }
             $aResult[] = array(
                 'id' => $aItem['price_id'],
                 'vendor_id' => 0,
-                'title' => $aItem['mem_name'] . ' ' . _t('_membership_txt_on_N_days', $aItem['price_days']),
+                'title' => $aItem['mem_name'] . ' ' . $sExpires,
                 'description' => $aItem['mem_description'],
                 'url' => CH_WSB_URL_ROOT . $this->_oConfig->getBaseUri() . 'index',
                 'price' => $aItem['price_amount'],
@@ -417,12 +422,18 @@ class ChMbpModule extends ChWsbModule
     {
         $aItem = $this->_oDb->getMembershipsBy(array('type' => 'price_id', 'id' => $iItemId));
 
+        if($aItem['price_days'] > 0) {
+            $sExpires = _t('_membership_txt_on_N_days', $aItem['price_days']);
+        } else {
+            $sExpires = '(' . _t('_membership_txt_expires_never') . ')';
+        }
+
         if(empty($aItem) || !is_array($aItem))
            return array();
 
         return array(
 			'id' => $iItemId,
-			'title' => $aItem['mem_name'] . ' ' . _t('_membership_txt_on_N_days', $aItem['price_days']),
+			'title' => $aItem['mem_name'] . ' ' . $sExpires,
 			'description' => $aItem['mem_description'],
 			'url' => CH_WSB_URL_ROOT . $this->_oConfig->getBaseUri() . 'index',
 			'price' => $aItem['price_amount'],

@@ -135,6 +135,9 @@ class ChPmtPayPal extends ChPmtProvider
             $iPendingId = (int)$aData['item_number1'];
         }
 
+        // Deano - If $iPendingId is 0, use item_number if that is not empty.
+        if($iPendingId == 0 && (int)$aData['item_number'] != 0) $iPendingId = (int)$aData['item_number'];
+
         $aPending = $this->_oDb->getPending(array('type' => 'id', 'id' => $iPendingId));
         if (!empty($aPending['order']) || !empty($aPending['error_code']) || !empty($aPending['error_msg']) || (int)$aPending['processed'] != 0) {
             return array('code' => -1, 'message' => _t('_payment_pp_err_already_processed'));
