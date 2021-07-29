@@ -303,6 +303,7 @@ $confFirst['dir_php']   = array(
                 $s = sscanf($s, "php: %s");
                 if ( file_exists("$s[0]") ) return "$s[0]";
             }
+			if(PHP_BINDIR != '') return PHP_BINDIR . '/php';
             return '';
     },
     'check'   => function ($arg0) { return strlen($arg0) >= 7 ? true : false; }
