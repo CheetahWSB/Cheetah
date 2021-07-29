@@ -1708,6 +1708,7 @@ EOF;
             }
 
             $sTimeAgo = defineTimeInterval($aSqlResStr['DateTime_UTS'], false);
+            $iViews = (int)$aSqlResStr[Views];
 
             $aTags      = array();
             $aTagsLinks = array();
@@ -1813,6 +1814,7 @@ EOF;
                 'author_unit' => $sOwnerThumb,
                 'date'        => $sDataTimeFormatted,
                 'date_ago'    => $sTimeAgo,
+                'views'      => $iViews,
                 'cats'        => $this->_oTemplate->parseHtmlByTemplateName('category', array(
                     'cat_link'     => $sCategLink,
                     'sub_cat_link' => $sSCategLink,
@@ -1822,7 +1824,7 @@ EOF;
                 'tags'        => $sTags,
                 'fields'      => '',
             );
-            $sSubjectSectContent = $this->_oTemplate->parseHtmlByName('entry_view_block_info.html', $aSubjVariables);
+            $sSubjectSectContent = $this->_oTemplate->parseHtmlByName('ads_info_block.html', $aSubjVariables);
 
             $sSubjectSect         = DesignBoxContent(_t('_Info'), $sSubjectSectContent, 1);
             $this->sTAInfoContent = $sSubjectSectContent;
@@ -1902,8 +1904,7 @@ EOF;
 </div>
 EOF;
 
-            $sOtherListingSect            = DesignBoxContent($sUserOtherListC,
-                $sOtherListingContent . $sSPaginateActions, 1);
+            $sOtherListingSect            = DesignBoxContent($sUserOtherListC, $sOtherListingContent . $sSPaginateActions, 1);
             $this->sTAOtherListingContent = $sOtherListingContent . $sSPaginateActions;
 
             $sHomeLink = ($this->bUseFriendlyLinks) ? CH_WSB_URL_ROOT . 'ads/' : "{$this->sCurrBrowsedFile}?Browse=1";
