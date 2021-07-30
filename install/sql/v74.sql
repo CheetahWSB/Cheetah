@@ -1341,7 +1341,7 @@ INSERT INTO `sys_options` VALUES
 SET @iCatHidden = 0;
 INSERT INTO `sys_options` VALUES
 
-('sys_tmp_version', '1.0.0', @iCatHidden, 'Cheetah version ', 'digit', '', '', 10, ''),
+('sys_tmp_version', '1.2.0', @iCatHidden, 'Cheetah version ', 'digit', '', '', 10, ''),
 ('license_code', '', @iCatHidden, 'Cheetah License Code', 'digit', '', '', 11, ''),
 ('license_keydata', '', @iCatHidden, 'Cheetah License Key Data', 'digit', '', '', 12, ''),
 ('license_expiration', '', @iCatHidden, 'Cheetah License Expiration', 'digit', '', '', 13, ''),
