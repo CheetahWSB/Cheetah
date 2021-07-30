@@ -45,7 +45,7 @@ CREATE TABLE `sys_menu_admin` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `parent_id` int(11) NOT NULL default '0',
   `name` varchar(32) NOT NULL default '',
-  `title` varchar(64) NOT NULL default '',
+  `title` varchar(255) NOT NULL default '',
   `url` varchar(255) NOT NULL default '',
   `description` text NOT NULL default '',
   `icon` varchar(128) NOT NULL default '',
@@ -136,7 +136,7 @@ SET @iParentId = LAST_INSERT_ID();
 CREATE TABLE `sys_menu_admin_top` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `name` varchar(32) NOT NULL default '',
-  `caption` varchar(64) NOT NULL default '',
+  `caption` varchar(255) NOT NULL default '',
   `url` varchar(255) NOT NULL default '',
   `target` varchar(64) NOT NULL default '',
   `icon` varchar(128) NOT NULL default '',
@@ -162,7 +162,7 @@ INSERT INTO `sys_menu_admin_top`(`name`, `caption`, `url`, `target`, `icon`, `or
 CREATE TABLE `sys_menu_service` (
   `ID` int(10) unsigned NOT NULL auto_increment,
   `Name` varchar(200) NOT NULL,
-  `Caption` varchar(100) NOT NULL,
+  `Caption` varchar(255) NOT NULL,
   `Icon` varchar(100) NOT NULL,
   `Link` varchar(250) NOT NULL,
   `Script` varchar(250) NOT NULL,
@@ -196,7 +196,7 @@ INSERT INTO `sys_menu_service` (`Name`, `Caption`, `Icon`, `Link`, `Script`, `Ta
 --
 CREATE TABLE `sys_menu_bottom` (
   `ID` int(10) unsigned NOT NULL auto_increment,
-  `Caption` varchar(100) NOT NULL,
+  `Caption` varchar(255) NOT NULL,
   `Name` varchar(200) NOT NULL,
   `Icon` varchar(100) NOT NULL,
   `Link` varchar(250) NOT NULL,
@@ -996,7 +996,7 @@ INSERT INTO `sys_email_templates` (`Name`, `Subject`, `Body`, `Desc`, `LangID`) 
 
 CREATE TABLE `sys_menu_member` (
   `ID` int(10) unsigned NOT NULL auto_increment,
-  `Caption` varchar(100) NOT NULL,
+  `Caption` varchar(255) NOT NULL,
   `Name` varchar(200) NOT NULL,
   `Icon` varchar(100) NOT NULL,
   `Link` varchar(250) NOT NULL,
@@ -1014,7 +1014,7 @@ CREATE TABLE `sys_menu_member` (
   `Type` enum('link','system','linked_item') NOT NULL,
   `Parent` int(11) NOT NULL,
   `Bubble` text NOT NULL,
-  `Description` varchar(50) NOT NULL,
+  `Description` varchar(255) NOT NULL,
   PRIMARY KEY  (`ID`),
   KEY `Parent` (`Parent`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
@@ -3093,7 +3093,7 @@ INSERT INTO `sys_stat_site`(`Name`, `Title`, `UserLink`, `UserQuery`, `AdminLink
 CREATE TABLE `sys_objects_search` (
   `ID` int(10) unsigned NOT NULL auto_increment,
   `ObjectName` varchar(50) NOT NULL  default '',
-  `Title` varchar(50) NOT NULL default '',
+  `Title` varchar(255) NOT NULL default '',
   `ClassName` varchar(50) NOT NULL  default '',
   `ClassPath` varchar(100) NOT NULL  default '',
   PRIMARY KEY  (`ID`)
@@ -3162,7 +3162,7 @@ CREATE TABLE `sys_objects_tag` (
   `PermalinkParam` varchar(50) NOT NULL default '',
   `EnabledPermalink` varchar(100) NOT NULL default '',
   `DisabledPermalink` varchar(100) NOT NULL default '',
-  `LangKey` varchar(100) NOT NULL default '',
+  `LangKey` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`ID`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
@@ -3182,7 +3182,7 @@ CREATE TABLE `sys_menu_top` (
   `ID` smallint(6) unsigned NOT NULL auto_increment,
   `Parent` smallint(6) unsigned NOT NULL default '0',
   `Name` varchar(50) NOT NULL default '',
-  `Caption` varchar(50) NOT NULL default '',
+  `Caption` varchar(255) NOT NULL default '',
   `Link` varchar(255) NOT NULL default '',
   `Order` smallint(6) unsigned NOT NULL default '0',
   `Visible` set('non','memb') NOT NULL default '',
@@ -3703,7 +3703,7 @@ CREATE TABLE `sys_sbs_messages` (
 --
 CREATE TABLE IF NOT EXISTS `sys_box_download` (
   `id` int(11) NOT NULL auto_increment,
-  `title` varchar(64) NOT NULL,
+  `title` varchar(255) NOT NULL,
   `url` varchar(255) NOT NULL,
   `onclick` varchar(255) NOT NULL,
   `desc` text NOT NULL,
