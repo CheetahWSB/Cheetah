@@ -1,5 +1,5 @@
 --
--- Database: v 7.4
+-- Database: v1.2.0
 --
 
 -- --------------------------------------------------------
@@ -1098,6 +1098,7 @@ INSERT INTO `sys_options` VALUES
 ('MetaKeyWords', '', @iCatGeneral, 'Homepage meta-keywords', 'text', '', '', 20, ''),
 
 ('enable_tiny_in_comments', '', @iCatGeneral, 'Enable WYSIWYG editor in comments', 'checkbox', '', '', 30, ''),
+('enable_tiny_in_mail', 'on', @iCatGeneral, 'Enable WYSIWYG editor in mail', 'checkbox', '', '', 32, ''),
 
 ('sys_make_album_cover_last', 'on', @iCatGeneral, 'Enable last-added item as album cover', 'checkbox', '', '', 70, ''),
 ('sys_album_default_name', 'Hidden', @iCatGeneral, 'Default album name', 'digit', '', '', 80, ''),

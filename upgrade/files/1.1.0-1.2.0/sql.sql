@@ -18,5 +18,9 @@ ALTER TABLE `sys_menu_top` CHANGE `Caption` `Caption` VARCHAR(255);
 ALTER TABLE `sys_box_download` CHANGE `title` `title` VARCHAR(255);
 
 
+SET @iCatGeneral = 3;
+INSERT INTO `sys_options` VALUES
+('enable_tiny_in_mail', 'on', @iCatGeneral, 'Enable WYSIWYG editor in mail', 'checkbox', '', '', 32, '');
+
 -- last step is to update current version
 UPDATE `sys_options` SET `VALUE` = '1.2.0' WHERE `Name` = 'sys_tmp_version';

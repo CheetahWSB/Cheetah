@@ -200,8 +200,10 @@
                 );
             }
 
-            ch_import('ChWsbEditor');
-            $oEditor = ChWsbEditor::getObjectInstance();
+            if('on' == getParam('enable_tiny_in_mail')) {
+                ch_import('ChWsbEditor');
+                $oEditor = ChWsbEditor::getObjectInstance();
+            }
             $sEditor = '';
             if ($oEditor) {
                 $oEditor->setCustomConf ("remove_script_host: false,\nrelative_urls: false,\n");
@@ -1574,8 +1576,10 @@
                     -> parseHtmlByName( $this -> aUsedTemplates['message_replay'], $aTemplateKeys );
             }
 
-            ch_import('ChWsbEditor');
-            $oEditor = ChWsbEditor::getObjectInstance();
+            if('on' == getParam('enable_tiny_in_mail')) {
+                ch_import('ChWsbEditor');
+                $oEditor = ChWsbEditor::getObjectInstance();
+            }
             $sEditor = '';
             if ($oEditor) {
                 $oEditor->setCustomConf ("remove_script_host: false,\nrelative_urls: false,\n");
