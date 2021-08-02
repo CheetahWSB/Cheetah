@@ -336,7 +336,7 @@ function compileLanguage($langID = 0)
 /*                         languages are recompiled.                         */
 /*                                                                           */
 /*               To modify the text of a language key, refer to              */
-/*   https://www.cheetahwsb.com/m/cheetah_docs/chapter/using-language-keys   */
+/*   https://wiki.cheetahwsb.com/index.php?title=Using_Language_Keys   */
 /*****************************************************************************/
         ';
         $fileContent = "<"."?PHP{$newLine}{$sNotice}{$newLine}\$LANG_INFO=" . var_export($arrLanguage, true) . ";{$newLine}\$LANG = array(";

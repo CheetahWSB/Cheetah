@@ -270,7 +270,7 @@ function PageCodeMain($aResults)
         'adm-langs-btn-langs-add' => array('href' => 'javascript:void(0)', 'onclick' => 'javascript:onChangeType(this)', 'title' => _t('_adm_txt_langs_languages_add'), 'active' => isset($aResults['langs-add']) ? 1 : 0),
         'adm-langs-btn-langs-import' => array('href' => 'javascript:void(0)', 'onclick' => 'javascript:onChangeType(this)', 'title' => _t('_adm_txt_langs_languages_import'), 'active' => isset($aResults['langs-import']) ? 1 : 0),
         'adm-langs-btn-settings' => array('href' => 'javascript:void(0)', 'onclick' => 'javascript:onChangeType(this)', 'title' => _t('_adm_txt_langs_settings'), 'active' => isset($aResults['settings']) ? 1 : 0),
-        'adm-langs-btn-help' => array('href' => 'https://www.cheetahwsb.com/m/cheetah_docs/chapter/using-language-keys', 'target' => '_blank', 'title' => _t('_help'))
+        'adm-langs-btn-help' => array('href' => 'https://wiki.cheetahwsb.com/index.php?title=Using_Language_Keys', 'target' => '_blank', 'title' => _t('_help'))
     );
 
     $sResult = $GLOBALS['oAdmTemplate']->parseHtmlByName('langs.html', array(

@@ -927,7 +927,7 @@ For any further information please <a href="{1}contact.php">contact us</a>
   '_adm_admtools_Non_Writable' => 'Non-Writable',
   '_adm_admtools_Not_Exists' => 'Does Not Exists',
   '_adm_admtools_Only_bad_files' => 'Show only files and directories with inappropriate permissions',
-  '_adm_admtools_Perm_description' => 'Cheetah needs special access for certain files and directories. Please, change permissions as specified in the chart below. Helpful info about permissions is <a href="https://www.cheetahwsb.com/m/cheetah_docs/chapter/cheetah-detailed-install-guide#InstallScript-Step1-Permissions" target="_blank">available here</a>.',
+  '_adm_admtools_Perm_description' => 'Cheetah needs special access for certain files and directories. Please, change permissions as specified in the chart below. Helpful info about permissions is <a href="https://wiki.cheetahwsb.com/index.php?title=Cheetah_Detailed_Install_Guide#Install_Script_-_Step_1_-_Permissions" target="_blank">available here</a>.',
   '_adm_admtools_Permissions' => 'Permissions',
   '_adm_admtools_Writable' => 'Writable',
   '_adm_admtools_cache_engines' => 'Cache Engines',
@@ -1385,7 +1385,7 @@ For any further information please <a href="{1}contact.php">contact us</a>
     <li>
         Change the site logo to your own
         <a href="{0}basic_settings.php">here</a>
-        <a target="_blank" href="https://www.cheetahwsb.com/m/cheetah_docs/chapter/TutorialHowToPersonalizeYourCheetahSite#Logo"><i class="sys-icon question-sign"></i></a>
+        <a target="_blank" href="https://wiki.cheetahwsb.com/index.php?title=How_to_personalize_your_Cheetah_Site#logo"><i class="sys-icon question-sign"></i></a>
     </li>
     <li>
         <a target="_blank" href="http://www.google.com/recaptcha">Generate your own Captcha keys</a> and fill them in
@@ -1394,17 +1394,17 @@ For any further information please <a href="{1}contact.php">contact us</a>
     <li>
         Write your own copyright notice text
         <a href="{0}lang_file.php">here</a>
-        <a target="_blank" href="https://www.cheetahwsb.com/m/cheetah_docs/chapter/TutorialHowToPersonalizeYourCheetahSite#Copyright"><i class="sys-icon question-sign"></i></a>
+        <a target="_blank" href="https://wiki.cheetahwsb.com/index.php?title=How_to_personalize_your_Cheetah_Site#Copyright"><i class="sys-icon question-sign"></i></a>
     </li>
     <li>
         Change \'about\' and other information pages text
         <a href="{0}lang_file.php">here</a>
-        <a target="_blank" href="https://www.cheetahwsb.com/m/cheetah_docs/chapter/TutorialHowToPersonalizeYourCheetahSite#PersonalizingText"><i class="sys-icon question-sign"></i></a>
+        <a target="_blank" href="https://wiki.cheetahwsb.com/index.php?title=How_to_personalize_your_Cheetah_Site#PersonalizingText"><i class="sys-icon question-sign"></i></a>
     </li>
     <li>
         Install modules of your choice
         <a href="{0}modules.php">here</a>
-        <a target="_blank" href="https://www.cheetahwsb.com/m/cheetah_docs/chapter/CheetahAdminModules"><i class="sys-icon question-sign"></i></a>
+        <a target="_blank" href="https://wiki.cheetahwsb.com/index.php?title=Cheetah_Detailed_Install_Guide#Install_the_modules"><i class="sys-icon question-sign"></i></a>
     </li>
     <li>
         If using Facebook Connect, Generate your own Facebook keys and fill them in
@@ -1413,12 +1413,12 @@ For any further information please <a href="{1}contact.php">contact us</a>
     <li>
         Build your site homepage blocks
         <a href="{0}pageBuilder.php?Page=index">here</a>
-        <a target="_blank" href="https://www.cheetahwsb.com/m/cheetah_docs/chapter/CheetahAdminPagesBlocks"><i class="sys-icon question-sign"></i></a>
+        <a target="_blank" href="https://wiki.cheetahwsb.com/index.php?title=Administration_Guide"><i class="sys-icon question-sign"></i></a>
     </li>
     <li>
         Setup site permissions settings
         <a href="{0}memb_levels.php">here</a>
-        <a target="_blank" href="https://www.cheetahwsb.com/m/cheetah_docs/chapter/CheetahAdminMembershipLevels"><i class="sys-icon question-sign"></i></a>
+        <a target="_blank" href="https://wiki.cheetahwsb.com/index.php?title=Administration_Guide"><i class="sys-icon question-sign"></i></a>
     </li>
     <li>
         When ready to buy a full license, order it

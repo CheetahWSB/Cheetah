@@ -239,7 +239,7 @@ EOF;
         $sDesiredLevelC = function_exists('_t') ? _t('_adm_admtools_Desired_level') : 'Desired level';
         $sBadFilesC = function_exists('_t') ? _t('_adm_admtools_Bad_files') : 'The following files and directories have inappropriate permissions';
         $sShowOnlyBadC = function_exists('_t') ? _t('_adm_admtools_Only_bad_files') : 'Show only files and directories with inappropriate permissions';
-        $sDescriptionC = function_exists('_t') ? _t('_adm_admtools_Perm_description') : 'Cheetah needs special access for certain files and directories. Please, change permissions as specified in the chart below. Helpful info about permissions is <a href="https://www.cheetahwsb.com/m/cheetah_docs/chapter/cheetah-detailed-install-guide#InstallScript-Step1-Permissions" target="_blank">available here</a>.';
+        $sDescriptionC = function_exists('_t') ? _t('_adm_admtools_Perm_description') : 'Cheetah needs special access for certain files and directories. Please, change permissions as specified in the chart below. Helpful info about permissions is <a href="https://wiki.cheetahwsb.com/index.php?title=Cheetah_Detailed_Install_Guide#Install_Script_-_Step_1_-_Permissions" target="_blank">available here</a>.';
 
         $this->sTroubledElements = '';
 
@@ -454,7 +454,7 @@ EOF;
             echo <<<EOF
 {$sErrors} <br />
 Please go to the <br />
-<a href="https://www.cheetahwsb.com/m/cheetah_docs/chapter/cheetah-troubleshooter">Cheetah Troubleshooter</a> <br />
+<a href="https://wiki.cheetahwsb.com/index.php?title=Cheetah_Troubleshooter">Cheetah Troubleshooter</a> <br />
 and solve the problem.
 EOF;
             exit;
@@ -887,7 +887,7 @@ EOF;
                 <b>User-side caching for static conten</b> =
                 <a href="<?php echo $this->getUrlForGooglePageSpeed('LeverageBrowserCaching'); ?>">click here to check it in Google Page Speed</a>
                 <br />
-                If it is not enabled then please consider implement this optimization, since it improve perceived site speed and save the bandwidth, refer to <a target="_blank" href="https://www.cheetahwsb.com/m/cheetah_docs/chapter/hosting-server-setup-recommendations#Usersidecachingforstaticcontent">this tutorial</a> on how to do this.
+                If it is not enabled then please consider implement this optimization, since it improve perceived site speed and save the bandwidth, refer to <a target="_blank" href="https://wiki.cheetahwsb.com/index.php?title=Hosting_Server_Setup_Recommendations#User_side_caching_for_static_content">this tutorial</a> on how to do this.
                 <br />
                 <?php
                     $sName = 'expires_module';
@@ -897,7 +897,7 @@ EOF;
             <li>
                 <b>Server-side content compression</b> = can be checked <a href="#manual_audit">manually</a> or in "Page Speed" tool build-in into browser.
                 <br />
-                If it is not enabled then please consider implement this optimization, since it improve perceived site speed and save the bandwidth, refer to <a href="https://www.cheetahwsb.com/m/cheetah_docs/chapter/hosting-server-setup-recommendations#Serversidecontentcompression">this tutorial</a> on how to do this.
+                If it is not enabled then please consider implement this optimization, since it improve perceived site speed and save the bandwidth, refer to <a href="https://wiki.cheetahwsb.com/index.php?title=Hosting_Server_Setup_Recommendations#Server_side_content_compression">this tutorial</a> on how to do this.
                 </textarea>
                 <br />
                 <?php
