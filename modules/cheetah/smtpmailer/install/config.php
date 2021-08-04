@@ -15,7 +15,7 @@ $aConfig = array(
     'update_url' => '',
 
     'compatible_with' => array(
-        '1.1.0'
+        '1.2.0'
     ),
 
     /**

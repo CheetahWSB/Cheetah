@@ -10,12 +10,12 @@ $aConfig = array(
      * Main Section.
      */
     'title' => 'World Map',
-    'version' => '1.1.0',
+    'version' => '1.2.0',
     'vendor' => 'Cheetah',
     'update_url' => '',
 
     'compatible_with' => array(
-        '1.1.0'
+        '1.2.0'
     ),
 
     /**

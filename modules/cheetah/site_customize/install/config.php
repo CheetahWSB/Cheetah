@@ -11,11 +11,11 @@ $aConfig = array(
      */
     'vendor' => 'Cheetah',
     'title' => 'Site Customizer',
-    'version' => '1.1.0',
+    'version' => '1.2.0',
     'update_url' => '',
 
     'compatible_with' => array(
-        '1.1.0'
+        '1.2.0'
     ),
 
     /**
