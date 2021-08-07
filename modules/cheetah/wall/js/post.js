@@ -99,7 +99,7 @@ ChWallPost.prototype._getPost = function(oElement, iPostId) {
         		if($('.wall-view .wall-events .wall-empty').is(':visible'))
                     $('.wall-view .wall-events .wall-empty').hide();
 
-                $('.wall-view .wall-events div.wall-divider-today').after($(sResult).hide()).next('.wall-event:hidden').bxwallanim('show', $this._sAnimationEffect, $this._iAnimationSpeed, function() {
+                $('.wall-view .wall-events div.wall-divider-today').after($(sResult)).next('.wall-event:hidden').bxwallanim('show', $this._sAnimationEffect, $this._iAnimationSpeed, function() {
                 	$(this).find('a.ch-link').dolEmbedly();
                 });
         	}
