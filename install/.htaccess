@@ -1,3 +1,5 @@
 <IfModule mod_rewrite.c>
 RewriteEngine off
 </IfModule>
+SetEnv no-gzip 1
+ 

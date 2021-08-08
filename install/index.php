@@ -504,6 +504,14 @@ function InstallPageContent(&$sError)
             $sRet .= genPreInstallPermissionTable();
             break;
 
+        case 'askDownload':
+            $sRet .= askDownload();
+            break;
+
+        case 'doDownload':
+            $sRet .= doDownload();
+            break;
+
         case 'empty':
             break;
 
@@ -1070,7 +1078,7 @@ function StartInstall()
 <div class="ch-install-buttons">
     <form action="{$_SERVER['PHP_SELF']}" method="post">
     <input id="button" type="submit" value="INSTALL" class="ch-btn ch-btn-primary" />
-    <input type="hidden" name="action" value="preInstall" />
+    <input type="hidden" name="action" value="askDownload" />
     </form>
 </div>
 
@@ -1080,6 +1088,74 @@ function StartInstall()
 
 EOF;
 }
+
+function askDownload()
+{
+    global $aConf;
+
+    return <<<EOF
+<div class="ch-install-step-startInstall-cheetah-pic">
+    <img src="../administration/templates/base/images/cheetah.svg" />
+</div>
+<div>
+FFmpeg and FFprobe are not included in the main Cheetah package to keep the download size as small as possible. FFmpeg and FFprobe will be needed if you are going to install the Sounds and/or Video modules.<br><br>If you need to run these modules you will need to download and install them. You can donwload them now by clicking the download button, or you can skip if you want to install them later.<br><br>You can get them from <a href="https://www.cheetahwsb.com/page/downloads" target="_blank">https://www.cheetahwsb.com/page/downloads</a> if you choose to do it later.<br><br>
+</div>
+
+<form id="ch-install-form-doDownload" action="{$sCurPage}" method="post">
+    <input type="hidden" name="action" value="doDownload" />
+</form>
+
+<form id="ch-install-form-preInstall" action="{$sCurPage}" method="post">
+    <input type="hidden" name="action" value="preInstall" />
+</form>
+
+<div class="ch-install-buttons ch-def-margin-top">
+    <button class="ch-btn ch-btn-primary" onclick="$('#ch-install-form-doDownload').submit()">Download</button>
+    <button class="ch-btn" onclick="$('#ch-install-form-preInstall').submit()">Skip</button>
+</div>
+
+EOF;
+}
+
+function doDownload()
+{
+    global $aConf;
+
+    $r = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    $r = str_replace('index.php', 'download.php', $r);
+    return <<<EOF
+<style>
+progress[value] {
+  /* Reset the default appearance */
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 20px;
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+}
+</style>
+<div class="ch-install-step-startInstall-cheetah-pic">
+    <img src="../administration/templates/base/images/cheetah.svg" />
+</div>
+
+<div id="plabel" style="margin-bottom: 4px;">&nbsp;</div>
+<progress id="prog" max="100.0" value="0"></progress>
+
+<div class="ch-install-buttons">
+    <form action="{$_SERVER['PHP_SELF']}" method="post">
+    <input id="nextBtn" type="submit" value="Next" class="ch-btn ch-btn-disabled" style="margin-top: 20px;" disabled />
+    <input type="hidden" name="action" value="preInstall" />
+    </form>
+</div>
+
+<iframe src="{$r}" title="" style="border: 0px; width: 2px; height: 2px; display: none;"></iframe>
+
+EOF;
+
+}
+
 
 function genMainCheetahPage()
 {
@@ -1110,6 +1186,7 @@ function PageHeader($sAction = '', $sError = '')
 
     $aActions = array(
         "startInstall" => "Cheetah Installation",
+        "askDownload"  => "Download",
         "preInstall"   => "Permissions",
         "step1"        => "Paths",
         "step2"        => "Database",
@@ -1144,6 +1221,8 @@ function PageHeader($sAction = '', $sError = '')
             $sSubActions .= '';
         } elseif ($iCounterActive == $iCounterCurrent) {
             $sSubActions .= '<div class="ch-install-top-menu-div">&#8250;</div><div class="ch-install-top-menu-active">' . $sActionValue . '</div>';
+        } elseif ($sAction == "doDownload" && $sActionKey == 'askDownload') {
+            $sSubActions .= '<div class="ch-install-top-menu-div">&#8250;</div><div class="ch-install-top-menu-active">Download</div>';
         } else {
             $sSubActions .= '<div class="ch-install-top-menu-div">&#8250;</div><div class="ch-install-top-menu-inactive">' . $sActionValue . '</div>';
         }
