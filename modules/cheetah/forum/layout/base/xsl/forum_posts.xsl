@@ -18,7 +18,7 @@
             <btn href="javascript:void(0);" onclick="return f.newTopic('{forum/uri}')" icon="{/root/urls/img}btn_icon_new_topic.gif">[L[New Topic]]</btn>
 -->
             <xsl:if test="0 = topic/locked">
-                <btn href="javascript:void(0);" onclick="return f.postReply('{forum/id}','{topic/id}')" icon="{/root/urls/img}btn_icon_reply.gif">[L[Post Reply]]</btn>				
+                <btn href="javascript:void(0);" onclick="return f.postReply('{forum/id}','{topic/id}')" icon="{/root/urls/img}btn_icon_reply.gif">[L[Post Reply]]</btn>
             </xsl:if>
 
             <xsl:if test="0 = topic/flagged">
@@ -47,19 +47,19 @@
             </xsl:if>
 
             <xsl:if test="1 = topic/allow_hide_topics and 0 = topic/hidden">
-                <btn href="javascript:void(0);" onclick="return f.hideTopic(1, '{topic/id}')" icon="">[L[Hide Topic]]</btn>				
-            </xsl:if>   
+                <btn href="javascript:void(0);" onclick="return f.hideTopic(1, '{topic/id}')" icon="">[L[Hide Topic]]</btn>
+            </xsl:if>
             <xsl:if test="1 = topic/allow_unhide_topics and 1 = topic/hidden">
-                <btn href="javascript:void(0);" onclick="return f.hideTopic(0, '{topic/id}')" icon="">[L[Unhide Topic]]</btn>				
-            </xsl:if>   
+                <btn href="javascript:void(0);" onclick="return f.hideTopic(0, '{topic/id}')" icon="">[L[Unhide Topic]]</btn>
+            </xsl:if>
 
             <xsl:if test="1 = topic/allow_move_topics">
                 <btn href="javascript:void(0);" onclick="return f.moveTopicForm('{topic/id}')" icon="">[L[Move Topic]]</btn>
-            </xsl:if>   
+            </xsl:if>
 
             <xsl:if test="1 = topic/allow_del_topics">
                 <btn href="javascript:void(0);" onclick="return f.delTopic('{topic/id}', '{forum/uri}', true)" icon="">[L[Delete Topic]]</btn>
-            </xsl:if>   
+            </xsl:if>
 <!--
             <btn href="{$rw_rss_topic}{topic/uri}{$rw_rss_topic_ext}" onclick="" icon="{/root/urls/img}btn_icon_rss.gif">[L[RSS Feed]]</btn>
 
@@ -75,7 +75,7 @@
                 </xsl:with-param>
                 <xsl:with-param name="link2">
                     <a href="{$rw_forum}{forum/uri}{$rw_forum_page}0{$rw_forum_ext}" onclick="return f.selectForum('{forum/uri}', 0);"><xsl:value-of select="forum/title" disable-output-escaping="yes" /></a>
-                </xsl:with-param>        
+                </xsl:with-param>
             </xsl:call-template>
         </xsl:with-param>
         <xsl:with-param name="content">
@@ -137,7 +137,7 @@
 <!--        <xsl:with-param name="menu" select="exsl:node-set($menu_links)/*" /> -->
     </xsl:call-template>
 
-    <iframe name="post_actions" width="1" height="1" frameborder="1" style="border:none;">&#160;</iframe>
+    <iframe name="post_actions" width="0" height="0" style="border: 0px;">&#160;</iframe>
 
     <xsl:if test="'' != cat/title and '' != forum/title">
         <xsl:call-template name="breadcrumbs">
@@ -146,7 +146,7 @@
             </xsl:with-param>
             <xsl:with-param name="link2">
                 <a href="{$rw_forum}{forum/uri}{$rw_forum_page}0{$rw_forum_ext}" onclick="return f.selectForum('{forum/uri}', 0);"><xsl:value-of select="forum/title" disable-output-escaping="yes" /></a>
-            </xsl:with-param>        
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:if>
 
@@ -172,19 +172,19 @@
 <xsl:template name="post_row_content">
 	<xsl:choose>
         <xsl:when test="((points &lt; min_point) or (vote_user_point = -1) or (1 = hidden)) and (0 = @force_show)">
-            <td id="{@id}">			
+            <td id="{@id}">
                 <div class="forum_post_author_panel_stranger ch-def-round-corners">
                     <div class="forum_stranger"><i class="sys-icon user"></i><xsl:value-of select="user/title" /></div>
 			    <xsl:call-template name="post_row_actions" />
             <div class="clear_both">&#160;</div>
                 </div>
             </td>
-		</xsl:when>				
+		</xsl:when>
 		<xsl:otherwise>
 			<td id="{@id}">
 
                 <div class="forum_post_author_panel forum_post_author_panel_{user/role} ch-def-round-corners">
-                    
+
                     <xsl:call-template name="avatar">
                         <xsl:with-param name="size" select="64" />
                         <xsl:with-param name="href" select="user/url" />
@@ -192,7 +192,7 @@
                         <xsl:with-param name="username" select="user/@name" />
                         <xsl:with-param name="fullname" select="user/title" />
                     </xsl:call-template>
-                    
+
                     <div class="forum_post_author">
 
                         <xsl:choose>
@@ -203,7 +203,7 @@
                             <b class="forum_post_author_title ch-def-font-h3"><xsl:value-of select="user/title" /></b>
                         </xsl:otherwise>
                     </xsl:choose>
-                    
+
 
                     <span class="forum_stat ch-def-font-grayed">
 
@@ -263,10 +263,10 @@
                                 <a href="{$base_url}?action=download&amp;hash={@hash}">
                                     <xsl:if test="1 = @image"><xsl:attribute name="target">_blank</xsl:attribute></xsl:if>
                                     <xsl:value-of select="." disable-output-escaping="yes" />
-                                </a> 
+                                </a>
                                 <span class="forum_stat">
                                     <span class="forum_bullet"></span>
-                                    <xsl:value-of select="@size" disable-output-escaping="yes" /> 
+                                    <xsl:value-of select="@size" disable-output-escaping="yes" />
                                     <span class="forum_bullet"></span>
                                     <xsl:if test="0 = @image">
                                         <xsl:call-template name="replace_hash">
@@ -302,10 +302,10 @@
 <xsl:template name="post_row_actions">
 
 
-    <div class="forum_post_actions">        
-       
+    <div class="forum_post_actions">
+
         <span class="forum_stat ch-def-font-grayed">
- 
+
             <xsl:if test="1 = allow_clear_report">
                 <a href="javascript:void(0);" onclick="orca_admin.clearReport({@id})">[L[Clear report]]</a>
                 <span class="forum_bullet"></span>
@@ -313,7 +313,7 @@
 
             <xsl:if test="1 = allow_hide_posts and 0 = hidden">
                 <a href="javascript:void(0);" onclick="f.hidePost(true, {@id}, {../forum/id}, {../topic/id})">[L[Hide]]</a>
-               <span class="forum_bullet"></span> 
+               <span class="forum_bullet"></span>
             </xsl:if>
 
             <xsl:if test="1 = allow_unhide_posts and 1 = hidden">
@@ -350,21 +350,21 @@
 
             <span class="forum_post_actions_when">
                 <a href="{$rw_topic}{../topic/uri}{$rw_topic_ext}#{@id}"><xsl:value-of select="when" /></a>
-            </span>       
+            </span>
 
             <span class="forum_post_actions_rate" id="rate_{@id}">
                 <span class="forum_post_actions_rate_text">
 
-                    <xsl:if test="(points &lt; min_point) or (-1 = vote_user_point) or (1 = hidden)">	
+                    <xsl:if test="(points &lt; min_point) or (-1 = vote_user_point) or (1 = hidden)">
                         <span class="forum_bullet"></span>
                         [L[post is hidden]] (
                             <xsl:choose>
                                 <xsl:when test="1 = @force_show">
                                     <a href="javascript:void(0);" onclick="f.hideHiddenPost({@id})">[L[hide post]]</a>
-                                </xsl:when>		
-                                <xsl:otherwise>							
+                                </xsl:when>
+                                <xsl:otherwise>
                                     <a href="javascript:void(0);" onclick="f.showHiddenPost({@id})">[L[show post]]</a>
-                                </xsl:otherwise>																
+                                </xsl:otherwise>
                             </xsl:choose>
                             )
                     </xsl:if>
@@ -387,12 +387,12 @@
                         <xsl:when test="'' = vote_user_point and user/@name != /root/logininfo/username">
                             <a href="javascript:void(0);" onclick="return f.voteGood({@id});" style="margin-right:3px;" title="[L[Like]]"><i title="[L[Like]]" class="vote_good sys-icon thumbs-up"></i></a>
                         </xsl:when>
-                        <xsl:otherwise>					
+                        <xsl:otherwise>
                             <a href="javascript:void(0);" style="margin-right:3px;" title="[L[Like]]"><i title="[L[Like]]" class="vote_good sys-icon thumbs-up ch-def-font-grayed"></i></a>
                         </xsl:otherwise>
                     </xsl:choose>
                 </span>
-            </span>	
+            </span>
 
         </span>
 
@@ -401,5 +401,3 @@
 </xsl:template>
 
 </xsl:stylesheet>
-
-
