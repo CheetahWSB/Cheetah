@@ -10,5 +10,10 @@
         else
         	tinyMCE.execCommand('mceRemoveEditor', false, sEditorId);
     }
+
+    tinymce.on('RemoveEditor', function(e) {
+      $('#adm-bs-splash-editor').css('visibility', '');
+    });
+
     </script>
 </div>
