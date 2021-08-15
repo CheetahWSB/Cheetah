@@ -1,19 +1,25 @@
 <div class="ch-def-bc-margin">
     __content__
     <script>
+    var sEditorId = 'adm-bs-splash-editor';
     function splashEnableEditor(oCheckbox) {
-        var sEditorId = 'adm-bs-splash-editor';
         if ('undefined' == typeof(tinyMCE))
             return;
         if($(oCheckbox).is(':checked'))
-        	tinyMCE.execCommand('mceAddEditor', false, sEditorId);
+          tinyMCE.editors[sEditorId].show();
         else
-        	tinyMCE.execCommand('mceRemoveEditor', false, sEditorId);
+          tinyMCE.editors[sEditorId].hide();
     }
 
-    tinyMCE.on('RemoveEditor', function(e) {
-      $('#adm-bs-splash-editor').css('visibility', '');
+    $( document ).ready(function() {
+        console.log( "ready!" );
+        if(!$('#toggleEditor').is(':checked')) {
+            setTimeout('hideEditor()', 1000);
+        }
     });
 
+    function hideEditor() {
+        tinyMCE.editors[sEditorId].hide();
+    }
     </script>
 </div>

@@ -133,6 +133,7 @@ function PageCodePromo($mixedResultPromo)
                 'value' =>  'on',
                 'checked' => $bEditor,
                 'attrs' => array(
+                    'id' => 'toggleEditor',
                     'onchange' => 'javascript:splashEnableEditor(this)'
                 )
             ),
@@ -141,7 +142,7 @@ function PageCodePromo($mixedResultPromo)
                 'name' => 'code',
                 'caption' => '',
                 'value' => getParam('splash_code'),
-                'html' => $bEditor ? 2 : 0,
+                'html' => 2,
                 'colspan' => 2,
                 'tr_attrs' => array(
                     'id' => 'adm-bs-splash-editor-wrp'
