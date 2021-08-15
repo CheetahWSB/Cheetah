@@ -569,6 +569,14 @@ class ChWsbInstallerUi extends ChWsbDb
                 $o = new ChWsbAlerts('module', $sOperation, 0, 0, array('uri' => $aConfig['home_uri'], 'config' => $aConfig, 'installer' => $oInstaller, 'res' => $aResult));
                 $o->alert();
 
+                if($aResult['result']) {
+                    $aResult['e1'] = '';
+                    $aResult['e2'] = '';
+                } else {
+                    $aResult['e1'] = 'modules-plank-switch-opened';
+                    $aResult['e2'] = 'style="display: block;"';
+                }
+
                 if(!$aResult['result'] && empty($aResult['message']))
                    continue;
             } else
@@ -587,7 +595,10 @@ class ChWsbInstallerUi extends ChWsbDb
                     'condition' => !$aResult['result'],
                     'content' => array()
                 ),
-                'message' => $aResult['message']
+                'message' => $aResult['message'],
+                'error_c1' => $aResult['e1'],
+                'error_c2' => $aResult['e2'],
+
             );
         }
 
