@@ -535,6 +535,10 @@ function buyMembership($iMemberId, $iMembershipId, $sTransactionId, $bStartsNow 
     if($aMembership['Active'] != 'yes' || $aMembership['Purchasable'] != 'yes')
         return false;
 
+    // See if current membership is promotional. If so apply purchased membership immediately.
+    $aMembershipCurrent = getMemberMembershipInfo_current($iMemberId);
+    if($aMembershipCurrent['ID'] == MEMBERSHIP_ID_PROMOTION) $bStartsNow = true;
+
     return setMembership($iMemberId, $iMembershipId, $aMembership['Days'], $bStartsNow, $sTransactionId);
 }
 
