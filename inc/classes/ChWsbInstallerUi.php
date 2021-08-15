@@ -549,6 +549,27 @@ class ChWsbInstallerUi extends ChWsbDb
     }
     function _perform($aDirectories, $sOperation, $aParams = array())
     {
+
+        // NOTE: Need to fix this. Check to see if mutipal modules are being installed. If so,
+        // if membership module is one of them, move it to the last. This is to ensure it is
+        // installed after any payment modules.
+
+        // If installing more than one module at a time, see if membership module is being installed.
+        if(count($aDirectories) > 1) {
+            if (in_array('cheetah/membership/', $aDirectories)) {
+                // It's there. See if payment module is being installed as well.
+                if (in_array('cheetah/payment/', $aDirectories)) {
+                    // It's there, Move it to the front of the array.
+                    $sKey = array_search('cheetah/payment/', $aDirectories);
+                    unset($aDirectories[$sKey]);
+                    array_unshift($aDirectories , 'cheetah/payment/');
+                } else {
+                    // It's not there, add it to the front of the array.
+                    array_unshift($aDirectories , 'cheetah/payment/');
+                }
+            }
+        }
+
         $sConfigFile = 'install/config.php';
         $sInstallerFile = 'install/installer.php';
         $sInstallerClass = $sOperation == 'update' ? 'Updater' : 'Installer';
