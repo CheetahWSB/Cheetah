@@ -957,7 +957,11 @@ EOF;
         $a = unserialize($_COOKIE['track_topics']);
         if (!is_array($a)) $a = array ();
         $a[$topic_id] = time();
-        setcookie ('track_topics', serialize($a));
+        //setcookie ('track_topics', serialize($a));
+        // The above boonex code was a session cookie. It remembered topics viewed only until the browser was closed.
+        // My code below will remember the viewed topics for 50 years or until the user clears their browser cookies.
+        // This should fix the problem lightning bolt icon people have been reporting.
+        setcookie ('track_topics', serialize($a), time() + (50 * 365 * 24 * 60 * 60), '/');
     }
 
     /**
