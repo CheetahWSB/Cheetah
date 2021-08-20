@@ -6,14 +6,28 @@ echo '<html><head></head><body>';
 ob_flush();
 flush();
 
+// Check OS.
+if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+    $sFFmpegLink = 'https://github.com/CheetahWSB/Cheetah/releases/download/V1.1.0/ffmpeg.exe';
+    $sFFprobeLink = 'https://github.com/CheetahWSB/Cheetah/releases/download/V1.1.0/ffprobe.exe';
+    $sMsg1 = PHP_OS . ' detected. Downloading FFmpeg for Windows.';
+    $sMsg2 = PHP_OS . ' detected. Downloading FFmpeg for Windows.';
+} else {
+    $sFFmpegLink = 'https://github.com/CheetahWSB/Cheetah/releases/download/V1.1.0/ffmpeg';
+    $sFFprobeLink = 'https://github.com/CheetahWSB/Cheetah/releases/download/V1.1.0/ffprobe';
+    $sMsg1 = PHP_OS . ' detected. Downloading FFmpeg for Linux.';
+    $sMsg2 = PHP_OS . ' detected. Downloading FFmpeg for Linux.';
+}
+
 //save progress to variable instead of a file
 $temp_progress = '';
 $targetFile = fopen('../plugins/ffmpeg/ffmpeg', 'w');
-echo '<script>window.parent.document.getElementById(\'plabel\').innerHTML  = "<b>Downloading FFmpeg</b>";</script>';
+echo '<script>window.parent.document.getElementById(\'plabel\').innerHTML  = "<b>' . $sMsg1 . '</b>";</script>';
 ob_flush();
 flush();
-$ch = curl_init('https://www.cheetahwsb.com/downloads/ffmpeg');
+$ch = curl_init($sFFmpegLink);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 curl_setopt($ch, CURLOPT_NOPROGRESS, false);
 curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, 'progressCallback');
 curl_setopt($ch, CURLOPT_FILE, $targetFile);
@@ -23,11 +37,12 @@ fclose($targetFile);
 
 $temp_progress = '';
 $targetFile = fopen('../plugins/ffmpeg/ffprobe', 'w');
-echo '<script>window.parent.document.getElementById(\'plabel\').innerHTML  = "<b>Downloading FFProbe</b>";</script>';
+echo '<script>window.parent.document.getElementById(\'plabel\').innerHTML  = "<b>' . $sMsg2 . '</b>";</script>';
 ob_flush();
 flush();
-$ch = curl_init('https://www.cheetahwsb.com/downloads/ffprobe');
+$ch = curl_init($sFFprobeLink);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 curl_setopt($ch, CURLOPT_NOPROGRESS, false);
 curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, 'progressCallback');
 curl_setopt($ch, CURLOPT_FILE, $targetFile);
@@ -53,7 +68,7 @@ function progressCallback($resource, $download_size, $downloaded_size, $upload_s
     echo '<script>window.parent.document.getElementById(\'prog\').value = ' . $progress . ';</script>';
     ob_flush();
     flush();
-    //sleep(1); // just to see effect
+    //time_nanosleep(0, 100000); // Sleep
 }
 
 
