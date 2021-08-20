@@ -1097,9 +1097,25 @@ function askDownload()
 <div class="ch-install-step-startInstall-cheetah-pic">
     <img src="../administration/templates/base/images/cheetah.svg" />
 </div>
-<div>
-FFmpeg and FFprobe are not included in the main Cheetah package to keep the download size as small as possible. FFmpeg and FFprobe will be needed if you are going to install the Sounds and/or Video modules.<br><br>If you need to run these modules you will need to download and install them. You can donwload them now by clicking the download button, or you can skip if you want to install them later.<br><br>You can get them from <a href="https://www.cheetahwsb.com/page/downloads" target="_blank">https://www.cheetahwsb.com/page/downloads</a> if you choose to do it later.<br><br>
-</div>
+
+<div style="text-align: center; font-size: 26px; margin-bottom: 20px;">
+	Download FFMpeg and FFprobe?</div>
+<div style="text-align: center; font-size: 16px; margin-bottom: 8px;">
+	<strong>FFmpeg</strong> and <strong>FFprobe</strong> are not included in the main Cheetah package to keep the
+	download size as small as possible.<br><strong>FFmpeg</strong> and <strong>FFprobe</strong> will be needed if you
+	are going to install the Sounds and/or Video modules.<br><br>If you need to
+	run these modules you will need to download and install them. You can
+	download
+	them now by clicking the download button, or you can click skip if you want to
+	download and install
+	them later.<br><br>You can get them from
+	<a href="https://www.cheetahwsb.com/page/downloads" target="_blank">https://www.cheetahwsb.com/page/downloads</a>
+	if you choose to do it later.<br><br><strong>NOTE: </strong>Downloading now
+	is recommended. It is normally far faster for the server your site is hosted
+	on to download the files rather than downloading to your computer then
+	uploading to the site. The connection between the host server and the
+	download site is much faster than your home internet connection.</div>
+
 
 <form id="ch-install-form-doDownload" action="{$sCurPage}" method="post">
     <input type="hidden" name="action" value="doDownload" />
