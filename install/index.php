@@ -5,9 +5,6 @@
  * CC-BY License - http://creativecommons.org/licenses/by/3.0/
  */
 
-// Feature not ready yet. Do not enable.
-define('CH_USE_KICKSTART', true);
-
 $aPhpExtensions = array(
     'curl',
     'gd',
@@ -430,74 +427,6 @@ $aTemporalityWritableFolders = array(
 /*------------------------------*/
 $sAction = $_REQUEST['action'];
 $sError  = '';
-
-/* ============ Start of kickstart file section ================ */
-if (CH_USE_KICKSTART) {
-    $aExport = array();
-
-    if (file_exists('kickstart/kickstart.php')) {
-        include_once('kickstart/kickstart.php');
-    }
-
-    if (isset($_POST['site_url'])) {
-        $aExport['site_url'] = $_POST['site_url'];
-    }
-    if (isset($_POST['site_title'])) {
-        $aExport['site_title'] = $_POST['site_title'];
-    }
-    if (isset($_POST['site_desc'])) {
-        $aExport['site_desc'] = $_POST['site_desc'];
-    }
-    if (isset($_POST['site_email'])) {
-        $aExport['site_email'] = $_POST['site_email'];
-    }
-    if (isset($_POST['notify_email'])) {
-        $aExport['notify_email'] = $_POST['notify_email'];
-    }
-    if (isset($_POST['bug_report_email'])) {
-        $aExport['bug_report_email'] = $_POST['bug_report_email'];
-    }
-    if (isset($_POST['admin_username'])) {
-        $aExport['admin_username'] = $_POST['admin_username'];
-    }
-    if (isset($_POST['admin_password'])) {
-        $aExport['admin_password'] = $_POST['admin_password'];
-    }
-    if (isset($_POST['dir_root'])) {
-        $aExport['dir_root'] = $_POST['dir_root'];
-    }
-    if (isset($_POST['dir_php'])) {
-        $aExport['dir_php'] = $_POST['dir_php'];
-    }
-    if (isset($_POST['db_host'])) {
-        $aExport['db_host'] = $_POST['db_host'];
-    }
-    if (isset($_POST['db_sock'])) {
-        $aExport['db_sock'] = $_POST['db_sock'];
-    }
-    if (isset($_POST['db_port'])) {
-        $aExport['db_port'] = $_POST['db_port'];
-    }
-    if (isset($_POST['db_user'])) {
-        $aExport['db_user'] = $_POST['db_user'];
-    }
-    if (isset($_POST['db_password'])) {
-        $aExport['db_password'] = $_POST['db_password'];
-    }
-    if (isset($_POST['db_name'])) {
-        $aExport['db_name'] = $_POST['db_name'];
-    }
-
-    // Save kickstart file.
-    $newLine = "\n";
-    $handle = fopen('kickstart/kickstart.php', 'w');
-    if ($handle !== false) {
-        $fileContent = "<"."?PHP{$newLine}\$aExport = " . var_export($aExport, true) . ";{$newLine}";
-        $writeResult = fwrite($handle, $fileContent."{$newLine}?".">");
-        $closeResult = fclose($handle);
-    }
-}
-/* ============ End of kickstart file section ================ */
 
 define('CH_SKIP_INSTALL_CHECK', true);
 // --------------------------------------------
