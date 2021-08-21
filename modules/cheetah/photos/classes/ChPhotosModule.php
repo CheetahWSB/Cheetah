@@ -94,7 +94,10 @@ class ChPhotosModule extends ChWsbFilesModule
 
     function actionCropPerform($iPhotoID)
     {
-        header('Content-Type:text/html; charset=utf-8');
+        $img = $_POST['imgBase64'];
+        $img = str_replace('data:image/jpeg;base64,', '', $img);
+        $img = str_replace(' ', '+', $img);
+        $data = base64_decode($img);
 
         $aInfo = $this->_oDb->getFileInfo(array('fileId' => $iPhotoID));
 
@@ -110,28 +113,27 @@ class ChPhotosModule extends ChWsbFilesModule
                 'message' => _t('_Access denied'),
             )));
 
-        $o = ChWsbImageResize::instance();
         $sSrcFileName = $this->_oConfig->getFilesPath() . $aInfo['medID'] . str_replace('{ext}', $aInfo['medExt'], $this->_oConfig->aFilesConfig['original']['postfix']);
+        // use image type file if original is not found.
+        if(!$sSrcFileName) $sSrcFileName = $this->_oConfig->getFilesPath() . $aInfo['medID'] . str_replace('{ext}', $aInfo['medExt'], $this->_oConfig->aFilesConfig['file']['postfix']);
+
         $sTmpFileName = CH_DIRECTORY_PATH_ROOT . 'tmp/' . $this->_oConfig->getMainPrefix() . mt_rand() . '.' . $aInfo['medExt'];
-        $bCropResult = $o->crop(
-                (float)$_POST['imgW'], (float)$_POST['imgH'],
-                (float)$_POST['imgX1'], (float)$_POST['imgY1'],
-                (float)$_POST['cropW'], (float)$_POST['cropH'],
-                -(float)$_POST['rotation'],
-                $sSrcFileName, $sTmpFileName);
 
-        if (IMAGE_ERROR_SUCCESS !== $bCropResult)
-            die(json_encode(array(
-                'status' => 'error',
-                'message' => $o->getError(),
-            )));
+        $success = file_put_contents($sTmpFileName, $data);
 
+        // This post value is used by the performPhotoUpload which is called later.
+        // So this needs to be set to the album uri.
         $_POST['extra_param_album'] = $aInfo['albumUri'];
-        $aInfo['Categories'] = preg_split('/[' . CATEGORIES_DIVIDER . ']/', $aInfo['Categories'], 0, PREG_SPLIT_NO_EMPTY);
+
+        $aInfo['medTitle'] = process_db_input($_POST['title'], CH_TAGS_STRIP);
+        $aInfo['medTags'] = process_db_input($_POST['tags'], CH_TAGS_STRIP);
+        $aInfo['medDesc'] = process_db_input($_POST['desc'], CH_TAGS_STRIP);
+        $aInfo['Categories'] = str_replace(',', CATEGORIES_DIVIDER, process_db_input($_POST['cats'], CH_TAGS_STRIP));
+
         ch_import('Uploader', $this->_aModule);
         $sClassName = $this->_oConfig->getClassPrefix() . 'Uploader';
         $oUploader = new $sClassName();
-        $a = $oUploader->performUpload ($sTmpFileName, pathinfo($sSrcFileName, PATHINFO_BASENAME), $aInfo, false);
+        $a = $oUploader->performUpload ($sTmpFileName, 'cropped.jpg', $aInfo, false);
         @unlink($sTmpFileName);
 
         if (!empty($a['error']))
@@ -140,8 +142,11 @@ class ChPhotosModule extends ChWsbFilesModule
                 'message' => $a['error'],
             )));
 
-
         $aInfoNew = $this->_oDb->getFileInfo(array('fileId' => $a['id']));
+
+        $iId = $a['id'];
+        $sUri = dechex($iId . str_replace('.', '0', microtime(true)));
+        $GLOBALS['MySQL']->query("UPDATE `ch_photos_main` SET `Uri` = '$sUri' WHERE `ID` = '$iId'");
 
         ch_import('Search', $this->_aModule);
         $oSearch = new ChPhotosSearch();
@@ -150,7 +155,7 @@ class ChPhotosModule extends ChWsbFilesModule
         echo(json_encode(array(
             'status' => 'success',
             'url' => $sImgUrl,
-            'redirect_url' => CH_WSB_URL_ROOT . $this->_oConfig->getBaseUri() . 'view/' . $aInfoNew['medUri'],
+            'redirect_url' => CH_WSB_URL_ROOT . $this->_oConfig->getBaseUri() . 'view/' . $sUri,
         )));
     }
 

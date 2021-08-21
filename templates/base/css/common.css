@@ -1510,6 +1510,13 @@ div.navPanel .navPanelLinkPrev.sys-icon {
     text-transform:capitalize;
 }
 
+.photo_topmenu {
+	float: right;
+	text-transform: none;
+	font-size: 12px;
+	margin-top: 2px;
+}
+
 /* member online status colors */
 /* This first one is a admin override for the offline status. Do not remove. */
 .sys-status-adminoverride {
