@@ -487,8 +487,8 @@ window.onload = function() {
         var inputTags = document.getElementById('inputTags').value;
         var textareaDescription = document.getElementById('textareaDescription').value;
         var albumName = document.getElementById('albumSelect').value;
-        var del_org = document.getElementById('deleteCheck').checked;
         var selected = [];
+
         $('#selectCheckboxes input:checked').each(function() {
             selected.push($(this).val());
         });
@@ -505,8 +505,7 @@ window.onload = function() {
                 tags: inputTags,
                 desc: textareaDescription,
                 cats: selectSelected,
-                album: albumName,
-                delete: del_orig ? '1' : '0',
+                extra_param_album: albumName,
             }
         }).done(function(o) {
             var obj = JSON.parse(o);

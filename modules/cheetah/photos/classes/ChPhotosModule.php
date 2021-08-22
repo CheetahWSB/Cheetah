@@ -121,10 +121,6 @@ class ChPhotosModule extends ChWsbFilesModule
 
         $success = file_put_contents($sTmpFileName, $data);
 
-        // This post value is used by the performPhotoUpload which is called later.
-        // So this needs to be set to the album uri.
-        $_POST['extra_param_album'] = $aInfo['albumUri'];
-
         $aInfo['medTitle'] = process_db_input($_POST['title'], CH_TAGS_STRIP);
         $aInfo['medTags'] = process_db_input($_POST['tags'], CH_TAGS_STRIP);
         $aInfo['medDesc'] = process_db_input($_POST['desc'], CH_TAGS_STRIP);
