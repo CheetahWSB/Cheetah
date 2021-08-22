@@ -28,8 +28,10 @@ if (!file_exists('./inc/header.inc.php')) {
     exit;
 }
 
-if ($_GET['orca_integration'] && preg_match('/^[0-9a-z]+$/', $_GET['orca_integration'])) {
-    define('CH_ORCA_INTEGRATION', $_GET['orca_integration']);
+if(isset($_GET['orca_integration'])) {
+    if ($_GET['orca_integration'] && preg_match('/^[0-9a-z]+$/', $_GET['orca_integration'])) {
+        define('CH_ORCA_INTEGRATION', $_GET['orca_integration']);
+    }
 } else {
     define('CH_ORCA_INTEGRATION', 'cheetah');
 }

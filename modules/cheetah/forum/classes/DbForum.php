@@ -987,7 +987,7 @@ class DbForum extends ChDb
             srand((double)microtime() * 1000000);
             for ($i = 0; $i < 10; $i++) {
                 $x = mt_rand(0, strlen($sChars) - 1);
-                $s .= $sChars{$x};
+                $s .= $sChars[$x];
             }
         } while ($this->getOne("SELECT `post_id` FROM " . TF_FORUM_ATTACHMENTS . " WHERE `att_hash` = ? LIMIT 1",
             [$s]));
