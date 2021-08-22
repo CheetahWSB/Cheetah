@@ -39,9 +39,8 @@ class ChTemplMenu extends ChBaseMenu
         $sMainMenu = '';
         for($x = $t; $x > 0; $x--) {
           $this->iElementsCntInLine = $x;
-          $sMainMenu .= $this->genTopItems($x);
+          $sMainMenu .= $this->genTopItemsEvolution($x);
         }
-        //$sMainMenu = $this->genTopItems();
 
         //--- Submenu Menu ---//
         $sSubMenu = '';
@@ -64,7 +63,7 @@ class ChTemplMenu extends ChBaseMenu
     /*
     * Generate top menu elements
     */
-    function genTopItems($x, $aParams = array())
+    function genTopItemsEvolution($x, $aParams = array())
     {
       $t = (int)getParam('nav_menu_elements_on_line_' . (isLogged() ? 'usr' : 'gst'));
       if($x == $t) {
