@@ -37,3 +37,9 @@
     }
 
 }
+
+@media (max-width:600px) {
+  .photo_topmenu {
+    margin-top: 8px;
+  }
+}

@@ -1,27 +1,915 @@
-<div id="ch_photos_crop_container" class="ch-def-border">
-</div>
-<script>
-    var cropperHeader = new Croppic('ch_photos_crop_container', {
-	    cropUrl: '__crop_url__',
-        loadPicture: '__preload_image__',
-        loaderHtml: '<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
-        onError: function(errormessage) {
-            alert(errormessage);
-        },
-        onAfterImgCrop: function(a) {
-            if (this.sRedirectUrl)
-                window.location.href = this.sRedirectUrl;
-        }
-	});
-    cropperHeader.afterCrop = function (data) {
-        try {
-            response = jQuery.parseJSON(data);
-        }
-        catch(err) {
-            response = typeof data =='object' ? data : jQuery.parseJSON(data);
-        }
-        if (response.status == 'success' && response.redirect_url)
-            this.sRedirectUrl = response.redirect_url;
-        Croppic.prototype.afterCrop.call(this, data);
-    }
-</script>
+  <!-- Content -->
+  <input type="hidden" id="cropSaveUrl" name="cropSaveUrl" value="__crop_url__">
+  <input type="hidden" id="defaultAlbumUri" name="defaultAlbumUri" value="__default_album_uri__">
+  <input type="hidden" id="defaultCoverAlbumUri" name="defaultCoverAlbumUri" value="__cover_album_uri__">
+
+  <div class="container container-fluid">
+    <div class="row">
+      <div class="col-md-9">
+        <!-- <h3>Demo:</h3> -->
+        <div class="img-container">
+          <div class="img-container-overlay">
+            <!--<div class="img-container-overlay-text">Loading Image</div>-->
+          </div>
+          <img src="__preload_image__" alt="Picture">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <!-- <h3>Preview:</h3> -->
+        <div class="imageTitle">__title__</div>
+        <div class="docs-preview clearfix">
+          <div class="img-preview preview-lg"></div>
+          <div class="img-preview preview-md"></div>
+          <div class="img-preview preview-sm"></div>
+          <div class="img-preview preview-xs"></div>
+        </div>
+
+        <!-- <h3>Data:</h3> -->
+
+        <div class="docs-data">
+        	<div class="input-group input-group-sm">
+        		<span class="input-group-prepend">
+        		<label class="input-group-text" for="dataX">X</label> </span>
+        		<input id="dataX" class="form-control" placeholder="x" type="text">
+        		<span class="input-group-append"><span class="input-group-text">px</span>
+        		</span></div>
+        	<div class="input-group input-group-sm">
+        		<span class="input-group-prepend">
+        		<label class="input-group-text" for="dataY">Y</label> </span>
+        		<input id="dataY" class="form-control" placeholder="y" type="text">
+        		<span class="input-group-append"><span class="input-group-text">px</span>
+        		</span></div>
+        	<div class="input-group input-group-sm">
+        		<span class="input-group-prepend">
+        		<label class="input-group-text" for="dataWidth">Width</label> </span>
+        		<input id="dataWidth" class="form-control" placeholder="width" type="text">
+        		<span class="input-group-append"><span class="input-group-text">px</span>
+        		</span></div>
+        	<div class="input-group input-group-sm">
+        		<span class="input-group-prepend">
+        		<label class="input-group-text" for="dataHeight">Height</label> </span>
+        		<input id="dataHeight" class="form-control" placeholder="height" type="text">
+        		<span class="input-group-append"><span class="input-group-text">px</span>
+        		</span></div>
+        	<div class="input-group input-group-sm">
+        		<span class="input-group-prepend">
+        		<label class="input-group-text" for="dataRotate">Rotate</label> </span>
+        		<input id="dataRotate" class="form-control" placeholder="rotate" type="text">
+        		<span class="input-group-append"><span class="input-group-text">deg</span>
+        		</span></div>
+        	<div class="input-group input-group-sm">
+        		<span class="input-group-prepend">
+        		<label class="input-group-text" for="dataScaleX">ScaleX</label> </span>
+        		<input id="dataScaleX" class="form-control" placeholder="scaleX" type="text">
+        	</div>
+        	<div class="input-group input-group-sm">
+        		<span class="input-group-prepend">
+        		<label class="input-group-text" for="dataScaleY">ScaleY</label> </span>
+        		<input id="dataScaleY" class="form-control" placeholder="scaleY" type="text">
+        	</div>
+          <div class="input-group input-group-sm">
+        		<span class="input-group-prepend">
+        		<label class="input-group-text" for="dataRatio">Ratio</label> </span>
+        		<input id="dataRatio" class="form-control" placeholder="ratio" type="text">
+        	</div>
+        </div>
+
+
+
+
+      </div>
+    </div>
+    <div class="row" id="actions">
+      <div class="col-md-9 docs-buttons">
+        <!-- <h3>Toolbar:</h3> -->
+<!--
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" data-method="setDragMode" data-option="move" title="Move">
+            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.setDragMode(&quot;move&quot;)">
+              <span class="sys-icon arrows"></span>
+            </span>
+          </button>
+          <button type="button" class="btn btn-primary" data-method="setDragMode" data-option="crop" title="Crop">
+            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.setDragMode(&quot;crop&quot;)">
+              <span class="sys-icon crop"></span>
+            </span>
+          </button>
+        </div>
+-->
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" data-method="zoom" data-option="0.1" title="Zoom In">
+            <span class="docs-tooltip" data-toggle="tooltip" title="Zoom in">
+              <span class="sys-icon search-plus"></span>
+            </span>
+          </button>
+          <button type="button" class="btn btn-primary" data-method="zoom" data-option="-0.1" title="Zoom Out">
+            <span class="docs-tooltip" data-toggle="tooltip" title="Zoom out">
+              <span class="sys-icon search-minus"></span>
+            </span>
+          </button>
+          <button type="button" class="btn btn-primary" data-method="zoomTo" data-option="0" title="Reset Zoom">
+            <span class="docs-tooltip" data-toggle="tooltip" title="Reset Zoom">
+              <span class="sys-icon search"></span>
+            </span>
+          </button>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" data-method="move" data-option="-10" data-second-option="0" title="Move Left">
+            <span class="docs-tooltip" data-toggle="tooltip" title="Move image left">
+              <span class="sys-icon arrow-left"></span>
+            </span>
+          </button>
+          <button type="button" class="btn btn-primary" data-method="move" data-option="10" data-second-option="0" title="Move Right">
+            <span class="docs-tooltip" data-toggle="tooltip" title="Move image right">
+              <span class="sys-icon arrow-right"></span>
+            </span>
+          </button>
+          <button type="button" class="btn btn-primary" data-method="move" data-option="0" data-second-option="-10" title="Move Up">
+            <span class="docs-tooltip" data-toggle="tooltip" title="Move image up">
+              <span class="sys-icon arrow-up"></span>
+            </span>
+          </button>
+          <button type="button" class="btn btn-primary" data-method="move" data-option="0" data-second-option="10" title="Move Down">
+            <span class="docs-tooltip" data-toggle="tooltip" title="Move image down">
+              <span class="sys-icon arrow-down"></span>
+            </span>
+          </button>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" data-method="rotate" data-option="-90" title="Rotate Left">
+            <span class="docs-tooltip" data-toggle="tooltip" title="Rotate counter clockwise 90&deg;">
+              <span class="sys-icon rotate-left"></span>
+            </span>
+          </button>
+          <button type="button" class="btn btn-primary" data-method="rotate" data-option="90" title="Rotate Right">
+            <span class="docs-tooltip" data-toggle="tooltip" title="Rotate clockwise 90&deg;">
+              <span class="sys-icon rotate-right"></span>
+            </span>
+          </button>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" data-method="scaleX" data-option="-1" title="Flip Horizontal">
+            <span class="docs-tooltip" data-toggle="tooltip" title="Flip on X axis">
+              <span class="sys-icon arrows-h"></span>
+            </span>
+          </button>
+          <button type="button" class="btn btn-primary" data-method="scaleY" data-option="-1" title="Flip Vertical">
+            <span class="docs-tooltip" data-toggle="tooltip" title="Flip on Y axis">
+              <span class="sys-icon arrows-v"></span>
+            </span>
+          </button>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" data-method="crop" title="Crop">
+            <span class="docs-tooltip" data-toggle="tooltip" title="Show the cropper">
+              <span class="sys-icon check"></span>
+            </span>
+          </button>
+          <button type="button" class="btn btn-primary" data-method="clear" title="Clear">
+            <span class="docs-tooltip" data-toggle="tooltip" title="Hide the cropper">
+              <span class="sys-icon remove"></span>
+            </span>
+          </button>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" data-method="disable" title="Disable">
+            <span class="docs-tooltip" data-toggle="tooltip" title="Disable the cropper">
+              <span class="sys-icon lock"></span>
+            </span>
+          </button>
+          <button type="button" class="btn btn-primary" data-method="enable" title="Enable">
+            <span class="docs-tooltip" data-toggle="tooltip" title="Enable the cropper">
+              <span class="sys-icon unlock"></span>
+            </span>
+          </button>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" data-method="reset" title="Reset">
+            <span class="docs-tooltip" data-toggle="tooltip" title="Reset the cropper">
+              <span class="sys-icon refresh"></span>
+            </span>
+          </button>
+          <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
+            <input type="file" class="sr-only" id="inputImage" name="file" accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff">
+            <span class="docs-tooltip" data-toggle="tooltip" title="Import image from your computer">
+              <span class="sys-icon upload"></span>
+            </span>
+          </label>
+<!--
+          <button type="button" class="btn btn-primary" data-method="destroy" title="Destroy">
+            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.destroy()">
+              <span class="sys-icon power-off"></span>
+            </span>
+          </button>
+-->
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#helpModal">
+            Help
+          </button>
+          <button type="button" class="btn btn-success" data-method="getCroppedCanvas" data-option="{ &quot;maxWidth&quot;: 4096, &quot;maxHeight&quot;: 4096 }">
+            <span class="docs-tooltip" data-toggle="tooltip" title="Save cropped image to photo album">
+              Save Cropped Image
+            </span>
+          </button>
+          <button type="button" class="btn btn-danger" data-method="cancel" data-option="{  }">
+            <span class="docs-tooltip" data-toggle="tooltip" title="Cancel">
+              Cancel
+            </span>
+          </button>
+<!--
+          <button type="button" class="btn btn-success" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 160, &quot;height&quot;: 90 }">
+            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.getCroppedCanvas({ width: 160, height: 90 })">
+              160&times;90
+            </span>
+          </button>
+          <button type="button" class="btn btn-success" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 320, &quot;height&quot;: 180 }">
+            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.getCroppedCanvas({ width: 320, height: 180 })">
+              320&times;180
+            </span>
+          </button>
+-->
+        </div>
+
+        <!-- Show the cropped image in modal -->
+        <div class="modal fade docs-cropped" id="getCroppedCanvasModal" role="dialog" aria-hidden="true" aria-labelledby="getCroppedCanvasTitle" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="getCroppedCanvasTitle">Cropped</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body"></div>
+              <div class="form-group">
+                <label for="inputTitle">Title</label>
+                <input type="text" class="form-control" id="inputTitle" name="inputTitle">
+              </div>
+              <div class="form-group">
+                <label for="inputTags">Tags</label>
+                <input type="text" class="form-control" id="inputTags" name="inputTags">
+              </div>
+              <div class="form-group">
+                <label for="textareaDescription">Description</label>
+                <textarea class="form-control" id="textareaDescription" name="textareaDescription" rows="3"></textarea>
+              </div>
+              <div id="selectCheckboxes" class="form-group clearfix" name="cat_select">
+                <label for="selectCats">Categories</label>
+                <br>
+                <ch_repeat:options>
+                  <div class="custom-control custom-checkbox db-float-left">
+                    <input class="custom-control-input" type="checkbox" name="checkbox" value="__value__" id="defaultCheck__id__">
+                    <label class="custom-control-label text-truncate d-block" for="defaultCheck__id__">__name__</label>
+                  </div>
+                </ch_repeat:options>
+              </div>
+              <div class="form-group">
+                <label for="albumSelect">Select album to save image to</label>
+                <select class="form-control" id="albumSelect">
+                  <ch_repeat:albums>
+                    <option value="__uri__">__caption__</option>
+                  </ch_repeat:albums>
+                </select>
+              </div>
+
+
+              <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" name="checkbox" class="custom-control-input" id="deleteCheck">
+                  <label class="custom-control-label" for="deleteCheck">Delete the original image this was cropped from</label>
+                </div>
+              </div>
+
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a class="btn btn-primary" id="download" href="javascript:void(0);" download="cropped.jpg">Download</a>
+                <button id="savetoalbum" type="button" class="btn btn-success" data-dismiss="modal">Save to Album</button>
+              </div>
+            </div>
+          </div>
+        </div><!-- /.modal -->
+
+        <!-- Show the help modal -->
+        <div class="modal fade" id="helpModal" role="dialog" aria-hidden="true" aria-labelledby="help" tabindex="-1">
+          <div class="modal-dialog modal-help-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="helpTitle">Help</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <h2><strong>The new Cheetah image cropper.</strong></h2>
+                <p>When the cropper first loads it will default to the cropper set at a 1:1
+                aspect ratio. This allows you to crop square images. The image below shows what
+                the cropper looks like when it first loads.</p>
+                <p><img alt="" src="https://www.cheetahwsb.com/images/cropper.png" style="width: 100%; max-width: 1120px;" /></p>
+                <p>To change the aspect ratio of the cropper, click the <strong>Select Aspect
+                Ratio button</strong>. You will get a menu that looks like this.</p>
+                <p>
+                <img alt="" src="https://www.cheetahwsb.com/images/aspect_ratio.png" style="width: 100%; max-width: 255px;" /></p>
+                <p>There are 5 options available from the menu. Each are described below.</p>
+                <ul>
+                	<li>Free<ul>
+                		<li>This option allows you to freely position the cropper to anywhere on
+                		the image and resize the cropper to any size within the image. There is
+                		no fixed aspect ratio with this option.</li>
+                	</ul>
+                	</li>
+                	<li>1:1<ul>
+                		<li>This option is the default. The aspect ratio of 1:1 means a square.
+                		With this setting, the cropper is locked to a 1:1 aspect ratio. You can
+                		still resize and move the cropper within the image, but it will remain
+                		fixed to the 1:1 aspect.</li>
+                	</ul>
+                	</li>
+                	<li>4:3<ul>
+                		<li>The aspect ratio of 4:3 is the ratio used by older TV's and computer
+                		monitors. Common resolutions of 800x600 and 1024x768 are this ratio. Now
+                		that most things are widescreen, this ratio is not used much anymore.
+                		With this setting, the cropper is locked to a 4.3 aspect ratio. You can
+                		still resize and move the cropper within the image, but it will remain
+                		fixed to the 4:3 aspect.</li>
+                	</ul>
+                	</li>
+                	<li>16:9<ul>
+                		<li>The aspect ratio of 16:9 is used by most modern widescreen TV's and
+                		computer monitors. It is the aspect ratio used by HD videos. Common
+                		resolutions of 1280�720 (<b>720p</b> HD), 1920�1080 (<b>1080p</b> Full-HD) are
+                		this ratio. You can still resize and move the cropper within the image,
+                		but it will remain fixed to the 16:9 aspect.</li>
+                	</ul>
+                	</li>
+                	<li>112:31 (Profile Cover)<ul>
+                		<li>The aspect ratio of 112:31 is used only for the Profile Cover
+                		images of Cheetah and Dolphin. It is not used anywhere else. If your
+                		cropping for a profile cover image, then this is option to select.
+                		<strong>NOTE</strong>: Images you select to crop need to be at least
+                		1120px wide. Any less than that and Cheetah or Dolphin will stretch the
+                		image to fit the cover area. Stretched images do not look good, so start
+                		with a high resolution image. You can still resize and move the cropper
+                		within the image, but it will remain fixed to the 112:31 aspect.</li>
+                	</ul>
+                	</li>
+                </ul>
+                <p>&nbsp;</p>
+                <h2><strong>Preview Area</strong></h2>
+                <p>The cropper preview area shows useful information you will want to pay
+                attention to when cropping a image. The preview area look like this.</p>
+                <p>
+                <img alt="" src="https://www.cheetahwsb.com/images/preview_area.png" style="width: 100%; max-width: 253px;" /></p>
+                <p>The preview area has 9 sections that are described below. The ones you will
+                want to pay attention to the most are Width and Height. This is what your final
+                cropped image size will be when it is saved.</p>
+                <ul>
+                	<li>Title<ul>
+                		<li>This will show the title of the image being cropped, or None if the
+                		image had no title.</li>
+                	</ul>
+                	</li>
+                	<li>Preview Thumbs<ul>
+                		<li>Just below the title are preview images of the cropped area shown in
+                		4 different sizes.</li>
+                	</ul>
+                	</li>
+                	<li>X<ul>
+                		<li>This shows the horizontal position of the cropper within the image.</li>
+                	</ul>
+                	</li>
+                	<li>Y<ul>
+                		<li>This shows the vertical position of the cropper within the image.</li>
+                	</ul>
+                	</li>
+                	<li>Width<ul>
+                		<li>This shows the width of the cropper, and is what the width of the
+                		cropped image will be.</li>
+                	</ul>
+                	</li>
+                	<li>Height<ul>
+                		<li>This shows the height of the cropper, and is what the height of the
+                		cropped image will be.</li>
+                	</ul>
+                	</li>
+                	<li>Rotate<ul>
+                		<li>This shows the current degrees of image rotation. 0-360. Positive
+                		numbers indicates the image was rotated clockwise and negative numbers
+                		indicate the image was rotated counter clockwise.</li>
+                	</ul>
+                	</li>
+                	<li>ScaleX<ul>
+                		<li>To put it simply as this cropper only allows scale settings of 1 or
+                		-1, it determines if the image has been flipped. In this case, 1
+                		indicates normal, and -1 indicates the images has been flipped on it's X
+                		axis(mirror image).</li>
+                	</ul>
+                	</li>
+                	<li>ScaleY<ul>
+                		<li>To put it simply as this cropper only allows scale settings of 1 or
+                		-1, it determines if the image has been flipped. In this case, 1
+                		indicates normal, and -1 indicates the images has been flipped on it's Y
+                		axis(upside down).</li>
+                	</ul>
+                	</li>
+                </ul>
+                <p>&nbsp;</p>
+                <h2><strong>Toolbars</strong></h2>
+                <p>The are 8 toolbar groups in the cropper. Each group is described below.</p>
+                <h3><strong>Toolbar Group 1</strong></h3>
+                <p><img alt="" src="https://www.cheetahwsb.com/images/toolbar_group_1.png" style="width: 100%; max-width: 121px;" /></p>
+                <p>3 zoom group icon buttons as described below in order from left to right.</p>
+                <ul>
+                	<li>Zoom In<ul>
+                		<li>Clicking this icon will zoom in by a factor of 10.</li>
+                	</ul>
+                	</li>
+                	<li>Zoom Out<ul>
+                		<li>Clicking this icon will zoom out by a factor of 10.</li>
+                	</ul>
+                	</li>
+                	<li>Reset Zoom<ul>
+                		<li>Clicking this icon will reset the zoom level back to 0.</li>
+                	</ul>
+                	</li>
+                </ul>
+                <p>&nbsp;</p>
+                <h3><strong>Toolbar Group 2</strong></h3>
+                <p><img alt="" src="https://www.cheetahwsb.com/images/toolbar_group_2.png" style="width: 100%; max-width: 158px;" /></p>
+                <p>4 move group icon buttons as described below in order from left to right.
+                NOTE: The move icons will not have any effect if the image is not zoomed.</p>
+                <ul>
+                	<li>Move Left<ul>
+                		<li>Clicking this icon will allow you to move the image left by 10
+                		pixels. It will not work if the image is not zoomed in so it's larger
+                		than the canvas.</li>
+                	</ul>
+                	</li>
+                	<li>Move Right<ul>
+                		<li>Clicking this icon will allow you to move the image right by 10
+                		pixels. It will not work if the image is not zoomed in so it's larger
+                		than the canvas.</li>
+                	</ul>
+                	</li>
+                	<li>Move Up<ul>
+                		<li>Clicking this icon will allow you to move the image up by 10 pixels.
+                		It will not work if the image is not zoomed in so it's larger than the
+                		canvas.</li>
+                	</ul>
+                	</li>
+                	<li>Move Down<ul>
+                		<li>Clicking this icon will allow you to move the image down by 10
+                		pixels. It will not work if the image is not zoomed in so it's larger
+                		than the canvas.</li>
+                	</ul>
+                	</li>
+                </ul>
+                <p>&nbsp;</p>
+                <h3><strong>Toolbar Group 3</strong></h3>
+                <p><img alt="" src="https://www.cheetahwsb.com/images/toolbar_group_3.png" style="width: 100%; max-width: 78px;" /></p>
+                <p>2 rotate group icon buttons as described below in order from left to right.</p>
+                <ul>
+                	<li>Rotate counter clockwise<ul>
+                		<li>Clicking this icon will allow you to rotate the image counter
+                		clockwise in 90 degree increments.</li>
+                	</ul>
+                	</li>
+                	<li>Rotate clockwise<ul>
+                		<li>Clicking this icon will allow you to rotate the image clockwise in
+                		90 degree increments.</li>
+                	</ul>
+                	</li>
+                </ul>
+                <p>&nbsp;</p>
+                <h3><strong>Toolbar Group 4</strong></h3>
+                <p><img alt="" src="https://www.cheetahwsb.com/images/toolbar_group_4.png" style="width: 100%; max-width: 74px;" /></p>
+
+                <p>2 scale/flip group icon buttons as described below in order from left to
+                right.</p>
+                <ul>
+                	<li>ScaleX<ul>
+                		<li>Clicking this icon will allow you to flip the image on its X axis.</li>
+                	</ul>
+                	</li>
+                	<li>ScaleY<ul>
+                		<li>Clicking this icon will allow you to flip the image on its Y axis.</li>
+                	</ul>
+                	</li>
+                </ul>
+                <p>&nbsp;</p>
+                <h3><strong>Toolbar Group 5</strong></h3>
+                <p><img alt="" src="https://www.cheetahwsb.com/images/toolbar_group_5.png" style="width: 100%; max-width: 80px;" /></p>
+
+                <p>2 cropper show group icon buttons as described below in order from left to
+                right.</p>
+                <ul>
+                	<li>Cropper Show<ul>
+                		<li>Clicking this icon will show the cropper box if it has been hidden.</li>
+                	</ul>
+                	</li>
+                	<li>Cropper Hide<ul>
+                		<li>Clicking this icon will hide the cropper box. Useful if you want to
+                		view the image without the cropbox in the way.</li>
+                	</ul>
+                	</li>
+                </ul>
+                <p>&nbsp;</p>
+                <h3><strong>Toolbar Group 6</strong></h3>
+                <p><img alt="" src="https://www.cheetahwsb.com/images/toolbar_group_6.png" style="width: 100%; max-width: 76px;" /></p>
+
+                <p>2 cropper enable group icon buttons as described below in order from left to
+                right.</p>
+                <ul>
+                	<li>Cropper enable<ul>
+                		<li>Clicking this icon will enable the cropper if it has been disabled.</li>
+                	</ul>
+                	</li>
+                	<li>Cropper Disable<ul>
+                		<li>Clicking this icon will disable the cropper. It locks the cropbox and toolbar control buttons so no changes can be made.</li>
+                	</ul>
+                	</li>
+                </ul>
+                <p>&nbsp;</p>
+                <h3><strong>Toolbar Group 7</strong></h3>
+                <p><img alt="" src="https://www.cheetahwsb.com/images/toolbar_group_7.png" style="width: 100%; max-width: 79px;" /></p>
+
+                <p>2 image canvas group icon buttons as described below in order from left to
+                right.</p>
+                <ul>
+                	<li>Reset image<ul>
+                		<li>Clicking this icon will reset the image and crop box to their
+                		initial states</li>
+                	</ul>
+                	</li>
+                	<li>Upload image<ul>
+                		<li>Clicking this icon will allow you to upload a new image from your
+                		computer to replace the image that is currently in the cropper.
+                		Interestedly enough, you can use this feature to upload a new cropped
+                		image to the album bypassing the normal upload to album procedure.</li>
+                	</ul>
+                	</li>
+                </ul>
+                <p>&nbsp;</p>
+                <h3><strong>Toolbar Group 8</strong></h3>
+                <p><img alt="" src="https://www.cheetahwsb.com/images/toolbar_group_8.png" style="width: 100%; max-width: 310px;" /></p>
+
+                <p>3 function group icon buttons as described below in order from left to right.</p>
+                <ul>
+                	<li>Help<ul>
+                		<li>Clicking this icon will pop up this help.</li>
+                	</ul>
+                	</li>
+                	<li>Save<ul>
+                		<li>Clicking this icon will allow you to save the cropped image to the
+                		photo album, or download it. It will bring up a window that looks like
+                		this.<br /><br /><img alt="" src="https://www.cheetahwsb.com/images/save_download.png" style="width: 100%; max-width: 500px;" /><br /><br /></li>
+                		<li>The popup dialog has 3 buttons as described below.<ul>
+                			<li>Close<ul>
+                				<li>This button closes the dialog window without doing anything.</li>
+                			</ul>
+                			</li>
+                			<li>Save to Album<ul>
+                				<li>This button uploads the cropped image to the same album you
+                				were cropping the images from. It then redirects you to the new
+                				image.</li>
+                			</ul>
+                			</li>
+                			<li>Download<ul>
+                				<li>This button allows you to download the cropped image. The
+                				popup dialog box does not close after download. So if you want
+                				to both download and save, then do this first, then save it.</li>
+                			</ul>
+                			</li>
+                		</ul>
+                		</li>
+                	</ul>
+                	</li>
+                	<li>Cancel<ul>
+                		<li>Clicking this icon will exit the cropper and take you back to the
+                		previous page.</li>
+                	</ul>
+                	</li>
+                </ul>
+                <p>&nbsp;</p>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div><!-- /.modal -->
+
+<!--
+        <button type="button" class="btn btn-secondary" data-method="getData" data-option data-target="#putData">
+          <span class="docs-tooltip" data-toggle="tooltip" title="cropper.getData()">
+            Get Data
+          </span>
+        </button>
+        <button type="button" class="btn btn-secondary" data-method="setData" data-target="#putData">
+          <span class="docs-tooltip" data-toggle="tooltip" title="cropper.setData(data)">
+            Set Data
+          </span>
+        </button>
+        <button type="button" class="btn btn-secondary" data-method="getContainerData" data-option data-target="#putData">
+          <span class="docs-tooltip" data-toggle="tooltip" title="cropper.getContainerData()">
+            Get Container Data
+          </span>
+        </button>
+        <button type="button" class="btn btn-secondary" data-method="getImageData" data-option data-target="#putData">
+          <span class="docs-tooltip" data-toggle="tooltip" title="cropper.getImageData()">
+            Get Image Data
+          </span>
+        </button>
+        <button type="button" class="btn btn-secondary" data-method="getCanvasData" data-option data-target="#putData">
+          <span class="docs-tooltip" data-toggle="tooltip" title="cropper.getCanvasData()">
+            Get Canvas Data
+          </span>
+        </button>
+        <button type="button" class="btn btn-secondary" data-method="setCanvasData" data-target="#putData">
+          <span class="docs-tooltip" data-toggle="tooltip" title="cropper.setCanvasData(data)">
+            Set Canvas Data
+          </span>
+        </button>
+        <button type="button" class="btn btn-secondary" data-method="getCropBoxData" data-option data-target="#putData">
+          <span class="docs-tooltip" data-toggle="tooltip" title="cropper.getCropBoxData()">
+            Get Crop Box Data
+          </span>
+        </button>
+        <button type="button" class="btn btn-secondary" data-method="setCropBoxData" data-target="#putData">
+          <span class="docs-tooltip" data-toggle="tooltip" title="cropper.setCropBoxData(data)">
+            Set Crop Box Data
+          </span>
+        </button>
+        <button type="button" class="btn btn-secondary" data-method="moveTo" data-option="0">
+          <span class="docs-tooltip" data-toggle="tooltip" title="cropper.moveTo(0)">
+            Move to [0,0]
+          </span>
+        </button>
+        <button type="button" class="btn btn-secondary" data-method="zoomTo" data-option="1">
+          <span class="docs-tooltip" data-toggle="tooltip" title="cropper.zoomTo(1)">
+            Zoom to 100%
+          </span>
+        </button>
+<!--
+        <button type="button" class="btn btn-secondary" data-method="rotateTo" data-option="180">
+          <span class="docs-tooltip" data-toggle="tooltip" title="cropper.rotateTo(180)">
+            Rotate 180�
+          </span>
+        </button>
+        <button type="button" class="btn btn-secondary" data-method="scale" data-option="-2" data-second-option="-1">
+          <span class="docs-tooltip" data-toggle="tooltip" title="cropper.scale(-2, -1)">
+            Scale (-2, -1)
+          </span>
+        </button>
+-->
+<!--
+        <textarea class="form-control" id="putData" rows="1" placeholder="Get data to here or set data with this value"></textarea>
+-->
+      </div><!-- /.docs-buttons -->
+
+      <div class="col-md-3 docs-toggles">
+        <!-- <h3>Toggles:</h3> -->
+        <div class="dropdown dropup docs-options">
+          <button type="button" class="btn btn-primary btn-block dropdown-toggle" id="toggleAspect" data-toggle="dropdown" aria-expanded="true">
+            Select Aspect Ratio
+            <span class="caret"></span>
+          </button>
+          <div class="dropdown-menu">
+            <div class="docs-menu-buttons">
+
+              <button type="button" class="dropdown-item" data-method="setAspectRatio" data-option="NaN">
+                <span class="docs-tooltip" data-toggle="tooltip" title="No Ratio. Drag cropper to any dimensions.">
+                  Free
+                </span>
+              </button>
+
+              <button type="button" class="dropdown-item" data-method="setAspectRatio" data-option="1">
+                <span class="docs-tooltip" data-toggle="tooltip" title="">
+                  1:1
+                </span>
+              </button>
+
+              <button type="button" class="dropdown-item" data-method="setAspectRatio" data-option="1.3333333333333333">
+                <span class="docs-tooltip" data-toggle="tooltip" title="">
+                  4:3
+                </span>
+              </button>
+
+              <button type="button" class="dropdown-item" data-method="setAspectRatio" data-option="1.7777777777777777">
+                <span class="docs-tooltip" data-toggle="tooltip" title="">
+                  16:9
+                </span>
+              </button>
+
+              <button type="button" class="dropdown-item" data-method="setAspectRatio" data-option="3.612903225806452">
+                <span class="docs-tooltip" data-toggle="tooltip" title="This is the aspect ratio of profile cover images. NOTE: image being cropped must be at least 1120px wide or larger. Images smaller than that will be stretched to fit which will not look as good.">
+                  112:31 (Profile Cover)
+                </span>
+              </button>
+
+            </div>
+          </div>
+        </div>
+<!--
+        <div class="btn-group d-flex flex-nowrap" data-toggle="buttons">
+          <label class="btn btn-primary">
+            <input type="radio" class="sr-only" id="aspectRatio1" name="aspectRatio" value="1.7777777777777777">
+            <span class="docs-tooltip" data-toggle="tooltip" title="aspectRatio: 16 / 9">
+              16:9
+            </span>
+          </label>
+          <label class="btn btn-primary">
+            <input type="radio" class="sr-only" id="aspectRatio2" name="aspectRatio" value="1.3333333333333333">
+            <span class="docs-tooltip" data-toggle="tooltip" title="aspectRatio: 4 / 3">
+              4:3
+            </span>
+          </label>
+          <label class="btn btn-primary active">
+            <input type="radio" class="sr-only" id="aspectRatio3" name="aspectRatio" value="1" checked>
+            <span class="docs-tooltip" data-toggle="tooltip" title="aspectRatio: 1 / 1">
+              1:1
+            </span>
+          </label>
+          <label class="btn btn-primary">
+            <input type="radio" class="sr-only" id="aspectRatio4" name="aspectRatio" value="0.6666666666666666">
+            <span class="docs-tooltip" data-toggle="tooltip" title="aspectRatio: 2 / 3">
+              2:3
+            </span>
+          </label>
+          <label class="btn btn-primary">
+            <input type="radio" class="sr-only" id="aspectRatio5" name="aspectRatio" value="NaN">
+            <span class="docs-tooltip aspectRatio5" data-toggle="tooltip" title="aspectRatio: NaN">
+              Free
+            </span>
+          </label>
+        </div>
+-->
+<!--
+        <div class="btn-group d-flex flex-nowrap" data-toggle="buttons">
+          <label class="btn btn-primary">
+            <input type="radio" class="sr-only" id="viewMode0" name="viewMode" value="0">
+            <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 0">
+              VM0
+            </span>
+          </label>
+          <label class="btn btn-primary">
+            <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+            <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 1">
+              VM1
+            </span>
+          </label>
+          <label class="btn btn-primary active">
+            <input type="radio" class="sr-only" id="viewMode2" name="viewMode" value="2" checked>
+            <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 2">
+              VM2
+            </span>
+          </label>
+          <label class="btn btn-primary">
+            <input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+            <span class="docs-tooltip" data-toggle="tooltip" title="View Mode 3">
+              VM3
+            </span>
+          </label>
+        </div>
+-->
+        <div class="dropdown dropup docs-options">
+          <button type="button" class="btn btn-primary btn-block dropdown-toggle" id="toggleOptions" data-toggle="dropdown" aria-expanded="true">
+            Toggle Options
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="toggleOptions">
+            <li class="dropdown-item">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="responsive" checked>
+                responsive
+              </label>
+            </li>
+            <li class="dropdown-item">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="restore" checked>
+                restore
+              </label>
+            </li>
+            <li class="dropdown-item">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="checkCrossOrigin" checked>
+                checkCrossOrigin
+              </label>
+            </li>
+            <li class="dropdown-item">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="checkOrientation">
+                checkOrientation
+              </label>
+            </li>
+
+            <li class="dropdown-item">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="modal" checked>
+                modal
+              </label>
+            </li>
+            <li class="dropdown-item">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="guides" checked>
+                guides
+              </label>
+            </li>
+            <li class="dropdown-item">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="center" checked>
+                center
+              </label>
+            </li>
+            <li class="dropdown-item">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="highlight" checked>
+                highlight
+              </label>
+            </li>
+            <li class="dropdown-item">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="background" checked>
+                background
+              </label>
+            </li>
+
+            <li class="dropdown-item">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="autoCrop" checked>
+                autoCrop
+              </label>
+            </li>
+            <li class="dropdown-item">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="movable" checked>
+                movable
+              </label>
+            </li>
+            <li class="dropdown-item">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="rotatable" checked>
+                rotatable
+              </label>
+            </li>
+            <li class="dropdown-item">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="scalable" checked>
+                scalable
+              </label>
+            </li>
+            <li class="dropdown-item">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="zoomable" checked>
+                zoomable
+              </label>
+            </li>
+            <li class="dropdown-item">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="zoomOnTouch">
+                zoomOnTouch
+              </label>
+            </li>
+            <li class="dropdown-item">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="zoomOnWheel">
+                zoomOnWheel
+              </label>
+            </li>
+            <li class="dropdown-item">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="cropBoxMovable" checked>
+                cropBoxMovable
+              </label>
+            </li>
+            <li class="dropdown-item">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="cropBoxResizable" checked>
+                cropBoxResizable
+              </label>
+            </li>
+            <li class="dropdown-item">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="toggleDragModeOnDblclick">
+                toggleDragModeOnDblclick
+              </label>
+            </li>
+          </ul>
+        </div><!-- /.dropdown -->
+
+<!--
+        <a class="btn btn-success btn-block" data-toggle="tooltip" href="https://fengyuanchen.github.io/photo-editor" title="An advanced example of Cropper.js">Photo Editor</a>
+-->
+
+      </div><!-- /.docs-toggles -->
+    </div>
+  </div>

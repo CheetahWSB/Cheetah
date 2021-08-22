@@ -142,13 +142,14 @@ class ChPhotosPageAlbumsMy extends ChWsbPageView
             $sPgn = $oPaginate->getSimplePaginate($sViewAllUrl);
         }
         return array($sCode, array(), $sPgn, false);
+
     }
 
     function getBlockCode_adminShort ()
     {
         if (in_array('adminShort', $this->aCurrentBlocks['blocks'])) {
             $iNumber = $this->oAlbum->getAlbumCount(array('owner' => $this->iOwnerId, 'show_empty' => true, 'hide_default' => true));
-            return array($this->oTemplate->getAdminAlbumShort($iNumber), $this->getTopMenu('main'), array());
+            return array($this->oTemplate->getAdminAlbumShort($iNumber), $this->getTopMenu('main'), array(), false, 'getBlockCaptionItemCode', 'breadcrumb');
         }
     }
 
@@ -166,7 +167,7 @@ class ChPhotosPageAlbumsMy extends ChWsbPageView
                 );
                 $sCode .= $this->oTemplate->parseHtmlByName('admin_short.html', $aDraw);
             }
-            return array($sCode, $this->getTopMenu('main_objects'), array());
+            return array($sCode, $this->getTopMenu('main_objects'), array(), false, 'getBlockCaptionItemCode', 'breadcrumb');
         }
     }
 
@@ -175,7 +176,9 @@ class ChPhotosPageAlbumsMy extends ChWsbPageView
         if(!in_array('adminFull', $this->aCurrentBlocks['blocks']))
             return '';
 
-        return array($this->getAdminPart(array(), array('section'=>'manage', 'page_block_id' => $iBoxId)), $this->getTopMenu('manage'), array(), '');
+        return array($this->getAdminPart(array(), array('section'=>'manage', 'page_block_id' => $iBoxId)), $this->getTopMenu('manage'), array(), '', 'getBlockCaptionItemCode', 'breadcrumb');
+        //return array($sCode, $this->getTopMenu('manage'), array(), false, 'getBlockCaptionItemCode', 'breadcrumb');
+
     }
 
     function getBlockCode_add ()
@@ -203,7 +206,9 @@ class ChPhotosPageAlbumsMy extends ChWsbPageView
             }
         } else
             $sCode = $oForm->getCode();
-        return array($sCode, $this->getTopMenu('add'));
+        return array($sCode, $this->getTopMenu('add'), array(), false, 'getBlockCaptionItemCode', 'breadcrumb');
+        //return array($sCode, $this->getTopMenu('main_objects'), array(), false, 'getBlockCaptionItemCode', 'breadcrumb');
+
     }
 
     function getBlockCode_addObjects ($iBoxId)
@@ -230,7 +235,9 @@ class ChPhotosPageAlbumsMy extends ChWsbPageView
         }
 
         $GLOBALS['oTopMenu']->setCustomSubHeader($aAlbumInfo['Caption']);
-        return array($sSubMenu . $sCode, $this->getTopMenu('add_objects'), '', '');
+        return array($sSubMenu . $sCode, $this->getTopMenu('add_objects'), '', '', 'getBlockCaptionItemCode', 'breadcrumb');
+        //return array($sCode, $this->getTopMenu('main_objects'), array(), false, 'getBlockCaptionItemCode', 'breadcrumb');
+
     }
 
     function getBlockCode_manageObjects ($iBoxId)
@@ -238,7 +245,9 @@ class ChPhotosPageAlbumsMy extends ChWsbPageView
         if(!in_array('manageObjects', $this->aCurrentBlocks['blocks']))
             return '';
 
-        return array($this->getAdminObjectPart(array('activeStatus'=>'approved'), $iBoxId, true), $this->getTopMenu('manage_objects'), array(), '');
+        return array($this->getAdminObjectPart(array('activeStatus'=>'approved'), $iBoxId, true), $this->getTopMenu('manage_objects'), array(), '', 'getBlockCaptionItemCode', 'breadcrumb');
+        //return array($sCode, $this->getTopMenu('main_objects'), array(), false, 'getBlockCaptionItemCode', 'breadcrumb');
+
     }
 
     function getBlockCode_manageObjectsDisapproved ($iBoxId)
@@ -246,7 +255,7 @@ class ChPhotosPageAlbumsMy extends ChWsbPageView
         if(!in_array('manageObjectsDisapproved', $this->aCurrentBlocks['blocks']))
             return '';
 
-        return array($this->getAdminObjectPart(array('activeStatus'=>'disapproved'), $iBoxId), $this->getTopMenu('manage_objects_disapproved'), array(), '');
+        return array($this->getAdminObjectPart(array('activeStatus'=>'disapproved'), $iBoxId), $this->getTopMenu('manage_objects_disapproved'), array(), '', 'getBlockCaptionItemCode', 'breadcrumb');
     }
 
     function getBlockCode_manageObjectsPending ($iBoxId)
@@ -254,7 +263,7 @@ class ChPhotosPageAlbumsMy extends ChWsbPageView
         if(!in_array('manageObjectsPending', $this->aCurrentBlocks['blocks']))
             return '';
 
-        return array($this->getAdminObjectPart(array('activeStatus'=>'pending'), $iBoxId), $this->getTopMenu('manage_objects_pending'), array(), '');
+        return array($this->getAdminObjectPart(array('activeStatus'=>'pending'), $iBoxId), $this->getTopMenu('manage_objects_pending'), array(), '', 'getBlockCaptionItemCode', 'breadcrumb');
     }
 
     function getBlockCode_edit ()
@@ -320,7 +329,9 @@ class ChPhotosPageAlbumsMy extends ChWsbPageView
             $sCode = $oForm->getCode();
 
         $GLOBALS['oTopMenu']->setCustomSubHeader($aInfo['Caption']);
-        return array($sCode, $this->getTopMenu('edit'));
+        return array($sCode, $this->getTopMenu('edit'), array(), false, 'getBlockCaptionItemCode', 'breadcrumb');
+        //return array($sCode, $this->getTopMenu('main_objects'), array(), false, 'getBlockCaptionItemCode', 'breadcrumb');
+
     }
 
     function getBlockCode_organize ()
@@ -390,7 +401,9 @@ class ChPhotosPageAlbumsMy extends ChWsbPageView
             $sCode = MsgBox(_t('_Empty'));
 
         $GLOBALS['oTopMenu']->setCustomSubHeader($aInfo['Caption']);
-        return array($sCode, $this->getTopMenu('organize'), array(), '');
+        return array($sCode, $this->getTopMenu('organize'), array(), '', 'getBlockCaptionItemCode', 'breadcrumb');
+        //return array($sCode, $this->getTopMenu('main_objects'), array(), false, 'getBlockCaptionItemCode', 'breadcrumb');
+
     }
 
     function getBlockCode_albumObjects ()

@@ -410,8 +410,13 @@ class ChWsbPageView
         $sTopCode  = '';
         $sBottomCode = '';
         if( is_array( $mBlockCode ) ) {
+            $sTopMenuType = $mBlockCode[5] != '' ? $mBlockCode[5] : '';
             $sCaptionCode = $this->_getBlockCaptionCode($iBlockID, $aBlock, $mBlockCode, $bStatic, $sDynamicType);
-            $sTopCode = $this->_getBlockTopCode($iBlockID, $aBlock, $mBlockCode, $bStatic, $sDynamicType);
+            if($sTopMenuType == 'breadcrumb') {
+                $sTopCode = $this->_getBlockTopCodeBreadcrumb($iBlockID, $aBlock, $mBlockCode, $bStatic, $sDynamicType);
+            } else {
+                $sTopCode = $this->_getBlockTopCode($iBlockID, $aBlock, $mBlockCode, $bStatic, $sDynamicType);
+            }
             $sBlockCode = !isset($mBlockCode[3]) || (isset($mBlockCode[3]) && $mBlockCode[3] === false) ? '<div class="dbContent ch-def-bc-margin">' . $mBlockCode[0] . '</div>' : $mBlockCode[0];
             $sBottomCode = $this->_getBlockBottomCode($iBlockID, $aBlock, $mBlockCode, $bStatic, $sDynamicType);
         } else if(is_string($mBlockCode)) {
@@ -478,6 +483,27 @@ class ChWsbPageView
             $sCode = $this -> $sCaptionMenuFunc($iBlockID, $aBlockCode[1]);
 
         return $sCode;
+    }
+
+    function _getBlockTopCodeBreadcrumb($iBlockID, $aBlock, $aBlockCode, $bStatic = true, $sDynamicType = 'tab')
+    {
+        $sTopCode = '';
+        $iCnt = 1;
+        $sTopCode .= '<div class="photo_topmenu">';
+        foreach($aBlockCode[1] as $id => $value) {
+            if($value['active'] == 1) {
+                $sTopCode .= $id;
+            } else {
+                $sTopCode .= '<a href="' . $value['href'] . '">' . $id . '</a>';
+            }
+            if($iCnt < count($aBlockCode[1])) {
+              $sTopCode .= '<span class="sys-bullet"></span>';
+            }
+            $iCnt++;
+        }
+        $sTopCode .= '</div>';
+
+        return $sTopCode;
     }
 
     function _getBlockBottomCode($iBlockID, $aBlock, $aBlockCode, $bStatic = true, $sDynamicType = 'tab')

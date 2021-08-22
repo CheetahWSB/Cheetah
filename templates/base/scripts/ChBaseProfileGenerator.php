@@ -353,8 +353,10 @@ class ChBaseProfileGenerator extends ChWsbProfile
         $sProfileCoverHref = '';
         $bProfileCoverHref = false;
 
+        // Size changes from file to original. Cover photos are wider than what the default file size is set to.
+        // So for covers, the origional has to be used.
         if (ChWsbRequest::serviceExists('photos', 'profile_cover', 'Search')) {
-            $sProfileCoverHref = ChWsbService::call('photos', 'profile_cover', array($p_arr['ID'], 'file'), 'Search');
+            $sProfileCoverHref = ChWsbService::call('photos', 'profile_cover', array($p_arr['ID'], 'original'), 'Search');
             $bProfileCoverHref = !empty($sProfileCoverHref);
         }
 
