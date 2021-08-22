@@ -156,8 +156,6 @@ define('DATABASE_PERSISTENT', \$db['persistent']);
 define('CH_WSB_SPLASH_VIS_DISABLE', 'disable');
 define('CH_WSB_SPLASH_VIS_INDEX', 'index');
 define('CH_WSB_SPLASH_VIS_ALL', 'all');
-define('CH_WSB_CSS_JS_VER', '1');
-
 
 define('CHECK_CHEETAH_REQUIREMENTS', 1);
 if (defined('CHECK_CHEETAH_REQUIREMENTS')) {
