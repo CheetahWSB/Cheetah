@@ -37,13 +37,13 @@ switch ($last) {
 }
 
 $aErrors   = array();
-$aErrors[] = (ini_get('register_globals') == 0) ? '' : '<font color="red">register_globals is On (warning, you should have this param in the Off state, or your site will be unsafe)</font>';
-$aErrors[] = (ini_get('safe_mode') == 0) ? '' : '<font color="red">safe_mode is On, disable it</font>';
+$aErrors[] = ((int)ini_get('register_globals') == 0) ? '' : '<font color="red">register_globals is On (warning, you should have this param in the Off state, or your site will be unsafe)</font>';
+$aErrors[] = ((int)ini_get('safe_mode') == 0) ? '' : '<font color="red">safe_mode is On, disable it</font>';
 $aErrors[] = (ini_get('max_execution_time') >= 300) ? '' : '<font color="red">max_execution_time is to low for backup functions. Set to 300 or higher.</font>';
 $aErrors[] = (version_compare(PHP_VERSION, '5.4.0', '<')) ? '<font color="red">PHP version too old, please update to PHP 5.4.0 at least</font>' : '';
-$aErrors[] = (ini_get('short_open_tag') == 0 && version_compare(phpversion(), "5.4",
+$aErrors[] = ((int)ini_get('short_open_tag') == 0 && version_compare(phpversion(), "5.4",
         "<") == 1) ? '<font color="red">short_open_tag is Off (must be On!)<b>Warning!</b> Cheetah cannot work without <b>short_open_tag</b>.</font>' : '';
-$aErrors[] = (ini_get('allow_url_include') == 0) ? '' : '<font color="red">allow_url_include is On (warning, you should have this param in the Off state, or your site will be unsafe)</font>';
+$aErrors[] = ((int)ini_get('allow_url_include') == 0) ? '' : '<font color="red">allow_url_include is On (warning, you should have this param in the Off state, or your site will be unsafe)</font>';
 $aErrors[] = ($iMemoryLimitBytes == -1 || $iMemoryLimitBytes >= 256 * 1024 * 1024) ? '' : '<font color="red"><b>memory_limit</b> must be at least 256M</font>';
 
 foreach ($aPhpExtensions as $sExtension) {
@@ -162,12 +162,12 @@ define('CH_WSB_CSS_JS_VER', '1');
 define('CHECK_CHEETAH_REQUIREMENTS', 1);
 if (defined('CHECK_CHEETAH_REQUIREMENTS')) {
     \$aErrors = array();
-    \$aErrors[] = (ini_get('register_globals') == 0) ? '' : '<font color="red">register_globals is On (warning, you should have this param in the Off state, or your site will be unsafe)</font>';
-    \$aErrors[] = (ini_get('safe_mode') == 0) ? '' : '<font color="red">safe_mode is On, disable it</font>';
+    \$aErrors[] = ((int)ini_get('register_globals') == 0) ? '' : '<font color="red">register_globals is On (warning, you should have this param in the Off state, or your site will be unsafe)</font>';
+    \$aErrors[] = ((int)ini_get('safe_mode') == 0) ? '' : '<font color="red">safe_mode is On, disable it</font>';
     \$aErrors[] = (version_compare(PHP_VERSION, '5.4.0', '<')) ? '<font color="red">PHP version too old, please update to PHP 5.4.0 at least</font>' : '';
     \$aErrors[] = (!extension_loaded( 'mbstring')) ? '<font color="red">mbstring extension not installed. <b>Warning!</b> Cheetah cannot work without <b>mbstring</b> extension.</font>' : '';
-    \$aErrors[] = (ini_get('short_open_tag') == 0 && version_compare(phpversion(), "5.4", "<") == 1) ? '<font color="red">short_open_tag is Off (must be On!)<b>Warning!</b> Cheetah cannot work without <b>short_open_tag</b>.</font>' : '';
-    \$aErrors[] = (ini_get('allow_url_include') == 0) ? '' : '<font color="red">allow_url_include is On (warning, you should have this param in the Off state, or your site will be unsafe)</font>';
+    \$aErrors[] = ((int)ini_get('short_open_tag') == 0 && version_compare(phpversion(), "5.4", "<") == 1) ? '<font color="red">short_open_tag is Off (must be On!)<b>Warning!</b> Cheetah cannot work without <b>short_open_tag</b>.</font>' : '';
+    \$aErrors[] = ((int)ini_get('allow_url_include') == 0) ? '' : '<font color="red">allow_url_include is On (warning, you should have this param in the Off state, or your site will be unsafe)</font>';
 
     \$aErrors = array_diff(\$aErrors, array('')); //delete empty
     if (count(\$aErrors)) {

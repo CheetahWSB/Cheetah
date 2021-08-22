@@ -31,7 +31,7 @@ class ChWsbInstallerUtils extends ChWsbIO
 
     function isAllowUrlInclude()
     {
-        $sAllowUrlInclude = ini_get('allow_url_include');
+        $sAllowUrlInclude = (int)ini_get('allow_url_include');
         return !($sAllowUrlInclude == 0);
     }
 
