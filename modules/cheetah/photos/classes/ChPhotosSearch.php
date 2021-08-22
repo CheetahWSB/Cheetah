@@ -192,7 +192,13 @@ class ChPhotosSearch extends ChTemplSearchResultSharedMedia
 
     function getImgUrl ($sHash, $sImgType = 'browse')
     {
-        return CH_WSB_URL_ROOT . $this->oModule->_oConfig->getBaseUri() . 'get_image/' . $sImgType .'/' . $sHash . '.jpg';
+        $sExt = '.jpg'; // Default to jpeg extension.
+        if($sImgType == 'original') {
+            // Get the origional file extension for the passed hash.
+            $sQuery = "SELECT `Ext` FROM `ch_photos_main` WHERE `Hash` = '$sHash'";
+            $sExt = '.' . $GLOBALS['MySQL']->getOne($sQuery);
+        }
+        return CH_WSB_URL_ROOT . $this->oModule->_oConfig->getBaseUri() . 'get_image/' . $sImgType .'/' . $sHash . $sExt;
     }
 
     function getLength ($sSize)
