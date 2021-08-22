@@ -7,21 +7,24 @@
 <br>
 <br> Automatic part of upgrade is completed. Please do the following to complete upgrade process:<br>
 <br>
-Edit inc/header.inc.php and loo for this.<br><br>define('CH_WSB_SPLASH_VIS_ALL',
-'all');<br><br>Add this directly under it. <br><br>define('CH_WSB_CSS_JS_VER',
-'1');<br><br>In the future when you make changes to CSS and JS files and need
-force browsers to fetch a new copy of the files rather than use it's cached
-copy, you can just increment the 1 after CH_WSB_CSS_JS_VER<br>That change will
-cause web browsers that regularly visit you site to reload the files. Increment
-that number only when necessary.<br><br>
 <hr>
 <br>The module Chat which is flash based has been removed. NOTE: Do not confuse
 it with the Chat+ module, they are not the same. You will need to remove this
 module from any current installs. To remove it, make sure it is uninstalled and
-then delete the folder modules\cheetah\chat<br><br>Because the Chat module has
+then delete the folder modules\cheetah\chat<br><br>A new Chat module is being
+developed to replace it, and it will have the same name which is why the current
+one needs to be removed.<br><br>Because the flash based chat module has
+been removed from the main Cheetah distribution, there will no longer be any
+updates to the flash based version of this module.<br><br>
+<hr>
+<br>The module Cheetah Connect has been removed. You will need to remove this
+module from any current installs. To remove it, make sure it is uninstalled and
+then delete the folder modules\cheetah\cheetah_connect<br><br>Because the
+Cheetah Connect has
 been removed from the main Cheetah distribution, there will no longer be any
 updates to this module.<br><br>
 <hr>
+
 <br>Now perform the following cleanup steps and the upgrade will be complete.
 <ul>
 	<li>Clean the <b>/cache/</b>, <b>/cache_public/</b> and <b>/tmp/</b> folders via FTP or SSH, leave only .htaccess file there if one exists</li>

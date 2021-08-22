@@ -5,6 +5,8 @@
  * CC-BY License - http://creativecommons.org/licenses/by/3.0/
  */
 
+define('CH_WSB_CSS_JS_VER', '1629673174');
+
 $site['ver'] = '1.2';
 $site['build'] = '0';
 $site['pre-release'] = 'B2';
