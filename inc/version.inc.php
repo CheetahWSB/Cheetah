@@ -5,7 +5,10 @@
  * CC-BY License - http://creativecommons.org/licenses/by/3.0/
  */
 
-define('CH_WSB_CSS_JS_VER', '1629673174');
+// This adds a verion number to the end of loaded JS and CSS files.
+// Helps with installs and upgrades when browsers cache the data.
+// The different version number forces the browser to reload the files.
+define('CH_WSB_CSS_JS_VER', '1629735546');  // Unix timestamp when this version was released.
 
 $site['ver'] = '1.2';
 $site['build'] = '0';
