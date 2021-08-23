@@ -41,9 +41,31 @@ class ChWsbAdminTools extends ChWsbIO
             'tmp',
         );
 
-        $this->aInstallFiles = array(
-            'sitemap.xml',
-        );
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            if($this->getFfmpegPath() == '' || $this->getFfprobePath() == '') {
+                $this->aInstallFiles = array(
+                    'sitemap.xml',
+                );
+            } else {
+                $this->aInstallFiles = array(
+                    'sitemap.xml',
+                    'plugins/ffmpeg/ffmpeg.exe',
+                    'plugins/ffmpeg/ffprobe.exe',
+                );
+            }
+        } else {
+            if($this->getFfmpegPath() == '' || $this->getFfprobePath() == '') {
+                $this->aInstallFiles = array(
+                    'sitemap.xml',
+                );
+            } else {
+                $this->aInstallFiles = array(
+                    'sitemap.xml',
+                    'plugins/ffmpeg/ffmpeg',
+                    'plugins/ffmpeg/ffprobe',
+                );
+            }
+        }
 
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             if($this->getFfmpegPath() == '' || $this->getFfprobePath() == '') {
@@ -1120,9 +1142,9 @@ EOF;
     function getFfmpegPath()
     {
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            $sFfmpegPath = $GLOBALS['dir']['plugins'] . 'ffmpeg/ffmpeg.exe';
+            $sFfmpegPath = dirname(__DIR__, 2) . '/plugins/ffmpeg/ffmpeg.exe';
         } else {
-            $sFfmpegPath = $GLOBALS['dir']['plugins'] . 'ffmpeg/ffmpeg';
+            $sFfmpegPath = dirname(__DIR__, 2) . '/plugins/ffmpeg/ffmpeg';
         }
         if(!file_exists($sFfmpegPath)) {
             $sFfmpegPath = '';
@@ -1133,9 +1155,9 @@ EOF;
     function getFfprobePath()
     {
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            $sFfprobePath = $GLOBALS['dir']['plugins'] . 'ffmpeg/ffprobe.exe';
+            $sFfprobePath = dirname(__DIR__, 2) . '/plugins/ffmpeg/ffprobe.exe';
         } else {
-            $sFfprobePath = $GLOBALS['dir']['plugins'] . 'ffmpeg/ffprobe';
+            $sFfprobePath = dirname(__DIR__, 2) . '/plugins/ffmpeg/ffprobe';
         }
         if(!file_exists($sFfprobePath)) {
             $sFfprobePath = '';
