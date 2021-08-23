@@ -1070,6 +1070,15 @@ function StartInstall()
 {
     global $aConf;
 
+    // Don't do download section of script if ffmpeg folder cannot be written to by the script.
+    // This will be the case is php is running as an apache module, but will be fine if php
+    // is running as a fpm application.
+    if(is_writable('../plugins/ffmpeg')) {
+        $sNext = 'askDownload';
+    } else {
+        $sNext = 'preInstall';
+    }
+
     return <<<EOF
 <div class="ch-install-step-startInstall-cheetah-pic">
     <img src="../administration/templates/base/images/cheetah.svg" />
@@ -1078,7 +1087,7 @@ function StartInstall()
 <div class="ch-install-buttons">
     <form action="{$_SERVER['PHP_SELF']}" method="post">
     <input id="button" type="submit" value="INSTALL" class="ch-btn ch-btn-primary" />
-    <input type="hidden" name="action" value="askDownload" />
+    <input type="hidden" name="action" value="{$sNext}" />
     </form>
 </div>
 
@@ -1200,17 +1209,33 @@ function PageHeader($sAction = '', $sError = '')
 {
     global $aConf;
 
-    $aActions = array(
-        "startInstall" => "Cheetah Installation",
-        "askDownload"  => "Download",
-        "preInstall"   => "Permissions",
-        "step1"        => "Paths",
-        "step2"        => "Database",
-        "step3"        => "Config",
-        "step4"        => "Cron Jobs",
-        "step5"        => "Permissions Reversal",
-        "step6"        => "Modules"
-    );
+    // Don't do download section of script if ffmpeg folder cannot be written to by the script.
+    // This will be the case is php is running as an apache module, but will be fine if php
+    // is running as a fpm application.
+    if(is_writable('../plugins/ffmpeg')) {
+        $aActions = array(
+            "startInstall" => "Cheetah Installation",
+            "askDownload"  => "Download",
+            "preInstall"   => "Permissions",
+            "step1"        => "Paths",
+            "step2"        => "Database",
+            "step3"        => "Config",
+            "step4"        => "Cron Jobs",
+            "step5"        => "Permissions Reversal",
+            "step6"        => "Modules"
+        );
+    } else {
+        $aActions = array(
+            "startInstall" => "Cheetah Installation",
+            "preInstall"   => "Permissions",
+            "step1"        => "Paths",
+            "step2"        => "Database",
+            "step3"        => "Config",
+            "step4"        => "Cron Jobs",
+            "step5"        => "Permissions Reversal",
+            "step6"        => "Modules"
+        );
+    }
 
     if (!strlen($sAction)) {
         $sAction = "startInstall";
