@@ -1595,8 +1595,8 @@ function return_bytes($val)
         return $val;
     }
 
+    // PHP 8 fix.
     //$last = strtolower($val{strlen($val) - 1});
-    // PHP 8 fix.    
     $last = strtolower(substr($val, -1));
 
     $val = (int)$val;
