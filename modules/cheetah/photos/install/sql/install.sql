@@ -99,6 +99,7 @@ INSERT INTO `sys_options` (`Name`, `VALUE`, `kateg`, `desc`, `Type`, `check`, `e
 ('[db_prefix]_activation', 'on', @iKatID, 'Enable auto-activation for photos', 'checkbox', '', '', 10, ''),
 ('[db_prefix]_cat_required', 'on', @iKatID, 'Require category when editing', 'checkbox', '', '', 20, ''),
 ('category_auto_app_[db_prefix]', 'on', @iKatID, 'Autoapprove categories of photos', 'checkbox', '', '', 30, ''),
+('[db_prefix]_delete_orig', '', @iKatID, 'Delete origional photo after upload', 'checkbox', '', '', 32, ''),
 ('[db_prefix]_allowed_exts', 'jpg jpeg png gif', @iKatID, 'Allowed extensions', 'digit', '', '', 40, ''),
 ('[db_prefix]_profile_album_name', '{nickname}\'s photos', @iKatID, 'Default profile album name', 'digit', '', '', 50, ''),
 ('[db_prefix]_profile_cover_album_name', '{nickname}\'s cover photos', @iKatID, 'Default profile cover album name', 'digit', '', '', 60, ''),
@@ -264,7 +265,7 @@ INSERT INTO `sys_objects_tag` (`ObjectName`, `Query`, `PermalinkParam`, `Enabled
 VALUES ('[db_prefix]', 'SELECT `Tags` FROM `[db_prefix]_main` WHERE `ID` = {iID} AND `Status` = ''approved''', '[db_prefix]_permalinks', 'm/photos/browse/tag/{tag}', 'modules/?r=photos/browse/tag/{tag}', '_[db_prefix]');
 
 INSERT INTO `sys_objects_actions` (`Type`, `Caption`, `Icon`, `Url`, `Script`, `Eval`, `Order`) VALUES
-('[db_prefix]', '_[db_prefix]_action_view_original', 'download', '', 'window.open(''{moduleUrl}get_image/original/{fileKey}.{fileExt}'')', '', 0),
+('[db_prefix]', '{evalResult}', 'download', '', 'window.open(''{moduleUrl}get_image/original/{fileKey}.{fileExt}'')', 'if(getParam(''[db_prefix]_delete_orig'') != ''on'') return _t(''_[db_prefix]_action_view_original'');', 0),
 ('[db_prefix]', '{shareCpt}', 'share-square-o', '', 'showPopupAnyHtml(''{moduleUrl}share/{fileUri}'')', '', 1),
 ('[db_prefix]', '{evalResult}', 'exclamation-circle', '', 'showPopupAnyHtml(''{moduleUrl}report/{fileUri}'')', 'if ({iViewer}!=0)\r\nreturn _t(''_[db_prefix]_action_report'');\r\nelse\r\nreturn null;', 2),
 ('[db_prefix]', '{evalResult}', 'asterisk', '', 'getHtmlData(''ajaxy_popup_result_div_{ID}'', ''{moduleUrl}favorite/{ID}'', false, ''post''); return false;', 'if ({iViewer}==0)\r\nreturn false;\r\n$sMessage = ''{favorited}''=='''' ? ''fave'':''unfave'';\r\nreturn _t(''_[db_prefix]_action_'' . $sMessage); ', 3),

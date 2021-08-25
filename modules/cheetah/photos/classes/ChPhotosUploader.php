@@ -392,6 +392,11 @@ class ChPhotosUploader extends ChWsbFilesUploader
                 if ($bAutoAssign2Profile && $iLastID > 0) {
                     $this->setPrimarySharedPhoto($iLastID, $iAuthorId);
                     createUserDataFile($iAuthorId);
+
+                    // Add option here to delete origional photo.
+                    if('on' == getParam('ch_photos_delete_orig')) {
+                        @unlink($sFile);
+                    }
                 }
 
                 if (is_array($aFileInfo) && count($aFileInfo) > 0)
