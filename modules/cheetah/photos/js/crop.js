@@ -487,6 +487,7 @@ window.onload = function() {
         var inputTags = document.getElementById('inputTags').value;
         var textareaDescription = document.getElementById('textareaDescription').value;
         var albumName = document.getElementById('albumSelect').value;
+        var del_org = document.getElementById("deleteCheck").value;
         var selected = [];
 
         $('#selectCheckboxes input:checked').each(function() {
@@ -505,6 +506,7 @@ window.onload = function() {
                 tags: inputTags,
                 desc: textareaDescription,
                 cats: selectSelected,
+                delorg: del_org,
                 extra_param_album: albumName,
             }
         }).done(function(o) {

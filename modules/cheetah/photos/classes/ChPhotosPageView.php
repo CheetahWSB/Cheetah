@@ -242,20 +242,6 @@ class ChPhotosPageView extends ChWsbPageView
 
     function getBlockCode_Crop ()
     {
-/*
-        $this->oTemplate->addCss(array(
-            'crop.css',
-            'plugins/croppic/css/|croppic.css',
-        ));
-
-        $this->oTemplate->addJs(array(
-            'croppic/js/croppic.min.js',
-        ));
-*/
-
-        //echo print_r($this->aFileInfo, true);
-        //exit;
-
         $this->oTemplate->addCss(array(
             //'font-awesome.min.css',
             'bootstrap.css',
@@ -272,9 +258,12 @@ class ChPhotosPageView extends ChWsbPageView
         ));
 
         $sImageUrl = $this->oSearch->getImgUrl($this->aFileInfo['Hash'], 'original');
-        // use image type file if original is not found.
-        if(!$sImageUrl) $this->oSearch->getImgUrl($this->aFileInfo['Hash'], 'file');
         $aImageSize = getimagesize($sImageUrl);
+        if(!$aImageSize) {
+            // use image type file if original is not found.
+            $sImageUrl = $this->oSearch->getImgUrl($this->aFileInfo['Hash'], 'file');
+            $aImageSize = getimagesize($sImageUrl);
+        }
         $iMaxWidth = $aImageSize[0];
         $iImageWidth = $aImageSize[0];
         $iImageHeight = $aImageSize[1];
@@ -297,13 +286,9 @@ class ChPhotosPageView extends ChWsbPageView
 
         $iOwnerId = getLoggedId();
         $sQuery = "SELECT `Caption`,`Uri` FROM `sys_albums` WHERE `Type` = 'ch_photos' AND `Owner` = '$iOwnerId'";
-        //echo $sQuery;
-        //exit;
 
         $sUri1 = ChWsbAlbums::getAbumUri($this->oConfig->getGlParam('profile_album_name'), $iOwnerId);
         $sUri2 = ChWsbAlbums::getAbumUri($this->oConfig->getGlParam('profile_cover_album_name'), $iOwnerId);
-        //echo $sUri2;
-        //exit;
 
         $aAlbums = db_res_assoc_arr($sQuery);
         $aAlbumSelect = array();
@@ -315,10 +300,6 @@ class ChPhotosPageView extends ChWsbPageView
             );
         }
 
-        //echo '<pre>' . print_r($aAlbumSelect, true) . '</pre>';
-        //exit;
-
-
         $aVars = array(
             'crop_url' =>  CH_WSB_URL_ROOT . $this->oConfig->getBaseUri() . 'crop_perform/' . $this->aFileInfo['medID'],
             'preload_image' => $sImageUrl,
@@ -326,10 +307,7 @@ class ChPhotosPageView extends ChWsbPageView
             'ch_repeat:albums' => $aAlbumSelect,
             'default_album_uri' => $sUri1,
             'cover_album_uri' => $sUri2,
-            //'max_width' => $iMaxWidth,
-            //'image_width' => $iImageWidth,
-            //'image_height' => $iImageHeight,
-            //'url' => CH_WSB_URL_ROOT . $this->oConfig->getBaseUri() . 'view/' . $this->aFileInfo['medUri'],
+            'image_id' => $this->aFileInfo['medID'],
             'title' => '<b>Title:</b> ' . ($this->aFileInfo['medTitle'] ? $this->aFileInfo['medTitle'] : 'None'),
         );
         $sCode = $this->oTemplate->parseHtmlByName('crop.html', $aVars);
