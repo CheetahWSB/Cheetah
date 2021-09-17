@@ -1619,11 +1619,11 @@ EOF;
                 $aPlus['site_email'] = $site['email'];
 
                 $sRetHtml         = '';
-                $aPlus['Who']     = 'buyer';
+                $aPlus['Who']     = 'seller';
                 $aPlus['String1'] = _t('_ch_ads_you_have_purchased_an_item');
                 sendMail($aSqlMemberRes['Email'], $sSubject, $sMessageB, $aSqlSellerRes['ID'], $aPlus, 'html');
 
-                $aPlus['Who']     = 'seller';
+                $aPlus['Who']     = 'buyer';
                 $aPlus['String1'] = _t('_ch_ads_someone_wants_to_purchase');
                 if (sendMail($aSqlSellerRes['Email'], $sSubjectS, $sMessageS, $aSqlSellerRes['ID'], $aPlus, 'html')) {
                     $sRetHtml .= MsgBox(_t('_Email was successfully sent'));
