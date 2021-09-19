@@ -330,26 +330,39 @@ class ChBaseProfileGenerator extends ChWsbProfile
         $bProfileThumbnail     = false;
         $bProfileThumbnailHref = false;
 
-        $aProfileThumbnail = ChWsbService::call('photos', 'profile_photo', array($p_arr['ID'], 'browse', 'full'), 'Search');
-        if (!empty($aProfileThumbnail) && is_array($aProfileThumbnail)) {
-            $sProfileThumbnail     = $aProfileThumbnail['file_url'];
-            $sProfileThumbnailHref = $aProfileThumbnail['view_url'];
+        $iAvatarId = $GLOBALS['MySQL']->getOne("SELECT `Avatar` FROM `Profiles` WHERE `ID` = " . (int)$bProfileOwner);
 
-            $bProfileThumbnail     = true;
-            $bProfileThumbnailHref = true;
+        if(getParam('sys_member_info_thumb') == 'sys_avatar' && $iAvatarId) {
+            $sProfileThumbnail = CH_WSB_URL_ROOT . 'modules/cheetah/avatar/data/images/' . $iAvatarId . 'b.jpg';
+            $sProfileThumbnail2x = $sProfileThumbnail;
+            $bProfileThumbnail = true;
+        } else {
+            $aProfileThumbnail = ChWsbService::call('photos', 'profile_photo', array($p_arr['ID'], 'browse', 'full'), 'Search');
+            if (!empty($aProfileThumbnail) && is_array($aProfileThumbnail)) {
+                $sProfileThumbnail     = $aProfileThumbnail['file_url'];
+                $sProfileThumbnailHref = $aProfileThumbnail['view_url'];
 
-            $aProfileThumbnail2x = ChWsbService::call('photos', 'profile_photo', array($p_arr['ID'], 'browse2x', 'full'), 'Search');
-            if (!empty($aProfileThumbnail2x) && is_array($aProfileThumbnail2x)) {
-                $sProfileThumbnail2x = $aProfileThumbnail['file_url'];
+                $bProfileThumbnail     = true;
+                $bProfileThumbnailHref = true;
+
+                $aProfileThumbnail2x = ChWsbService::call('photos', 'profile_photo', array($p_arr['ID'], 'browse2x', 'full'), 'Search');
+                if (!empty($aProfileThumbnail2x) && is_array($aProfileThumbnail2x)) {
+                    $sProfileThumbnail2x = $aProfileThumbnail['file_url'];
+                }
             }
         }
 
-        if ($bProfileOwner && ChWsbRequest::serviceExists('photos', 'get_manage_profile_photo_url')) {
-            $sProfileThumbnailHref = ChWsbService::call('photos', 'get_manage_profile_photo_url', array($p_arr['ID'], 'profile_album_name'));
-
-            $bProfileThumbnailHref = !empty($sProfileThumbnailHref);
+        if(getParam('sys_member_info_thumb') == 'sys_avatar') {
+            $oPermalinks = new ChWsbPermalinks();
+            $this->_sBaseUri = $oPermalinks->permalink('modules/?r=' . $this->_sUri . '/');
+            $sProfileThumbnailHref = CH_WSB_URL_ROOT . $oPermalinks->permalink('modules/?r=avatar/');
+            $bProfileThumbnailHref = true;
+        } else {
+            if ($bProfileOwner && ChWsbRequest::serviceExists('photos', 'get_manage_profile_photo_url')) {
+                $sProfileThumbnailHref = ChWsbService::call('photos', 'get_manage_profile_photo_url', array($p_arr['ID'], 'profile_album_name'));
+                $bProfileThumbnailHref = !empty($sProfileThumbnailHref);
+            }
         }
-
         $sProfileCoverHref = '';
         $bProfileCoverHref = false;
 
