@@ -28,8 +28,8 @@ define ('CH_AVA_URL_SITE_AVATARS', CH_WSB_URL_MODULES . 'cheetah/avatar/data/rea
 define ('CH_AVA_DIR_TMP', CH_DIRECTORY_PATH_MODULES . 'cheetah/avatar/data/tmp/');
 define ('CH_AVA_URL_TMP', CH_WSB_URL_MODULES . 'cheetah/avatar/data/tmp/');
 
-define ('CH_AVA_PRE_RESIZE_W', 600);
-define ('CH_AVA_PRE_RESIZE_H', 600);
+define ('CH_AVA_PRE_RESIZE_W', 700);
+define ('CH_AVA_PRE_RESIZE_H', 700);
 
 /**
  * Avatar module by Cheetah
@@ -891,8 +891,12 @@ class ChAvaModule extends ChWsbModule
         $o->setSize (CH_AVA_BROWSE_W, CH_AVA_BROWSE_H);
 
         if ((int)$_POST['w'] && (int)$_POST['h']) {
+            //echo (int)$_POST['w'];
+            //exit;
             $o->setSquareResize (false);
             $aSize = $o->getImageSize($sSrcImagePath);
+            //echo '<pre>' . print_r($aSize, true) . '</pre>';
+            //exit;
             $bRet = $aSize ? $o->crop($aSize['w'], $aSize['h'], (int)$_POST['x1'], (int)$_POST['y1'], (int)$_POST['w'], (int)$_POST['h'], 0, $sSrcImagePath) : IMAGE_ERROR_WRONG_TYPE;
         } else {
             $o->setSquareResize (true);
