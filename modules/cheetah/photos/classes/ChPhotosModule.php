@@ -145,8 +145,8 @@ class ChPhotosModule extends ChWsbFilesModule
         $GLOBALS['MySQL']->query("UPDATE `ch_photos_main` SET `Uri` = '$sUri' WHERE `ID` = '$iId'");
 
         // Delete photo used for cropping if box was checked.
-        if((int)$_POST['delorg'] > 0) {
-            $this->_deleteFile((int)$_POST['delorg']);
+        if((int)$_POST['delorg'] == 1) {
+            $this->_deleteFile((int)$_POST['delval']);
         }
 
         ch_import('Search', $this->_aModule);

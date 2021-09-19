@@ -487,7 +487,12 @@ window.onload = function() {
         var inputTags = document.getElementById('inputTags').value;
         var textareaDescription = document.getElementById('textareaDescription').value;
         var albumName = document.getElementById('albumSelect').value;
-        var del_org = document.getElementById("deleteCheck").value;
+        var del_val = document.getElementById("deleteCheck").value;
+        var del_org_checked = document.getElementById("deleteCheck").checked;
+        var del_org = 0;
+        if(del_org_checked) {
+            del_org = 1;
+        }
         var selected = [];
 
         $('#selectCheckboxes input:checked').each(function() {
@@ -507,6 +512,7 @@ window.onload = function() {
                 desc: textareaDescription,
                 cats: selectSelected,
                 delorg: del_org,
+                delval: del_val,
                 extra_param_album: albumName,
             }
         }).done(function(o) {
