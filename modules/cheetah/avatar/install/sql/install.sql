@@ -29,7 +29,8 @@ SET @iCategId = (SELECT LAST_INSERT_ID());
 INSERT INTO `sys_options` (`Name`, `VALUE`, `kateg`, `desc`, `Type`, `check`, `err_text`, `order_in_kateg`, `AvailableValues`) VALUES
 ('ch_avatar_permalinks', 'on', 26, 'Enable friendly permalinks in avatars', 'checkbox', '', '', '0', ''),
 ('ch_avatar_quality', '90', @iCategId, 'JPEG quality of avatars (1-100)', 'digit', '', '', '0', ''),
-('ch_avatar_site_avatars', 'on', @iCategId, 'Enable site avatars', 'checkbox', '', '', '0', '');
+('ch_avatar_site_avatars', '', @iCategId, 'Enable site avatars', 'checkbox', '', '', '0', ''),
+('ch_avatar_allow_upload_to_photos', '', @iCategId, 'Enable option to allow upload of avatar to profile photo album', 'checkbox', '', '', '1', '');
 
 -- member menu
 INSERT INTO `sys_menu_top` (`Parent`, `Name`, `Caption`, `Link`, `Order`, `Visible`, `Target`, `Onclick`, `Check`, `Movable`, `Clonable`, `Editable`, `Deletable`, `Active`, `Type`, `Picture`, `Icon`, `BQuickLink`, `Statistics`) VALUES
@@ -67,4 +68,3 @@ INSERT INTO `sys_alerts` VALUES (NULL , 'profile', 'delete', @iHandler);
 SET @iMaxOrderExports = (SELECT MAX(`order`)+1 FROM `sys_objects_exports`);
 INSERT INTO `sys_objects_exports` (`object`, `title`, `class_name`, `class_file`, `order`, `active`) VALUES
 ('ch_avatar', '_ch_ava_avatar', 'ChAvaExport', 'modules/cheetah/avatar/classes/ChAvaExport.php', @iMaxOrderExports, 1);
-

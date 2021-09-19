@@ -18,8 +18,10 @@
                                 <ch_text:_ch_ava_upload_info />
                                 <form id="ch_ava_form" method="post" enctype="multipart/form-data" action="__action__">
                                     <input type="file" name="image" onchange="$('#ch_ava_form').submit()" />
-                                    <span><input type="checkbox" name="copy_to_profile_photos" id="copy_to_profile_photos" checked="checked" /><label for="copy_to_profile_photos"><ch_text:_ch_ava_copy_to_profile_photos /></label></span>
-                                    <br />
+                                    <ch_if:allow_upload_to_photos>
+                                        <span><input type="checkbox" name="copy_to_profile_photos" id="copy_to_profile_photos" /><label for="copy_to_profile_photos"><ch_text:_ch_ava_copy_to_profile_photos /></label></span>
+                                        <br />
+                                    </ch_if:allow_upload_to_photos>
                                     <span class="ch_ava_err">__upload_error__</span>
                                 </form>
                                 <ch_if:display_premoderation_notice>

@@ -73,6 +73,10 @@ class ChAvaPageMain extends ChWsbPageView
                 'condition' => getParam('autoApproval_ifProfile') != 'on',
                 'content' => array (),
             ),
+            'ch_if:allow_upload_to_photos' => array (
+              'condition' => getParam('ch_avatar_allow_upload_to_photos') == 'on',
+              'content' => array (),
+            ),
         );
 
         return array($this->_oTemplate->parseHtmlByName('block_wide', $aVars), array(), array(), false);
