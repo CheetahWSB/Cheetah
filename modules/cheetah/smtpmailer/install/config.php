@@ -10,7 +10,7 @@ $aConfig = array(
      * Main Section.
      */
     'title' => 'SMTP Mailer',
-    'version' => '1.010',
+    'version' => '1.2.0',
     'vendor' => 'Cheetah',
     'update_url' => '',
 
