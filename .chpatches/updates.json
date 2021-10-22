@@ -1,83 +1,70 @@
-[
-   {
-      "patchid":"202110010000",
-      "desc":"Patch Description",
-      "ver":"1.2",
-      "build":"0",
-      "prerelease":"",
-      "sql":"VVBEQVRFIGBzeXNfaW5qZWN0aW9uc2AgU0VUIGBkYXRhYCA9ICdyZXR1cm4gZ2V0QWRtaW5Td2l0Y2goKTsnIFdIRVJFIGBuYW1lYCA9ICdhZG1pbl9zd2l0Y2gnOw0KDQpBTFRFUiBUQUJMRSBgUHJvZmlsZXNgIEFERCBgRGF0ZUxhc3ROYXZBYCBEQVRFVElNRSBOT1QgTlVMTCBERUZBVUxUICcgMDAwMC0wMC0wMCAwMDowMDowMCAnIEFGVEVSIGBEYXRlTGFzdE5hdmAsIEFERCBJTkRFWCBgRGF0ZUxhc3ROYXZBYCAoYERhdGVMYXN0TmF2QWApOw0KDQpVUERBVEUgYHN5c19vYmplY3RzX2VkaXRvcmAgU0VUIGBza2luYCA9ICdveGlkZScgV0hFUkUgYG9iamVjdGAgPSAnc3lzX3RpbnltY2UnOw0KDQotLSBVcGRhdGUgYXJlYXMgd2hlcmUgbGFuZ3VhZ2Uga2V5cyBjYW4gYmUgdXNlZCB0byBsZW5ndGggbmVlZGVkIHRvIHN1cHBvcnQNCi0tIHRoZSBsYW5ndWFnZSBrZXlzIG1heGludW0gbGVuZ3RoLg0KQUxURVIgVEFCTEUgYHN5c19tZW51X2FkbWluYCBDSEFOR0UgYHRpdGxlYCBgdGl0bGVgIFZBUkNIQVIoMjU1KTsNCkFMVEVSIFRBQkxFIGBzeXNfbWVudV9hZG1pbl90b3BgIENIQU5HRSBgY2FwdGlvbmAgYGNhcHRpb25gIFZBUkNIQVIoMjU1KTsNCkFMVEVSIFRBQkxFIGBzeXNfbWVudV9zZXJ2aWNlYCBDSEFOR0UgYENhcHRpb25gIGBDYXB0aW9uYCBWQVJDSEFSKDI1NSk7DQpBTFRFUiBUQUJMRSBgc3lzX21lbnVfYm90dG9tYCBDSEFOR0UgYENhcHRpb25gIGBDYXB0aW9uYCBWQVJDSEFSKDI1NSk7DQpBTFRFUiBUQUJMRSBgc3lzX21lbnVfbWVtYmVyYCBDSEFOR0UgYENhcHRpb25gIGBDYXB0aW9uYCBWQVJDSEFSKDI1NSk7DQpBTFRFUiBUQUJMRSBgc3lzX21lbnVfbWVtYmVyYCBDSEFOR0UgYERlc2NyaXB0aW9uYCBgRGVzY3JpcHRpb25gIFZBUkNIQVIoMjU1KTsNCkFMVEVSIFRBQkxFIGBzeXNfb2JqZWN0c19zZWFyY2hgIENIQU5HRSBgVGl0bGVgIGBUaXRsZWAgVkFSQ0hBUigyNTUpOw0KQUxURVIgVEFCTEUgYHN5c19vYmplY3RzX3RhZ2AgQ0hBTkdFIGBMYW5nS2V5YCBgTGFuZ0tleWAgVkFSQ0hBUigyNTUpOw0KQUxURVIgVEFCTEUgYHN5c19tZW51X3RvcGAgQ0hBTkdFIGBDYXB0aW9uYCBgQ2FwdGlvbmAgVkFSQ0hBUigyNTUpOw0KQUxURVIgVEFCTEUgYHN5c19ib3hfZG93bmxvYWRgIENIQU5HRSBgdGl0bGVgIGB0aXRsZWAgVkFSQ0hBUigyNTUpOw0KDQoNClNFVCBAaUNhdEdlbmVyYWwgPSAzOw0KSU5TRVJUIElOVE8gYHN5c19vcHRpb25zYCBWQUxVRVMNCignZW5hYmxlX3RpbnlfaW5fbWFpbCcsICdvbicsIEBpQ2F0R2VuZXJhbCwgJ0VuYWJsZSBXWVNJV1lHIGVkaXRvciBpbiBtYWlsJywgJ2NoZWNrYm94JywgJycsICcnLCAzMiwgJycpOw0KDQotLSBsYXN0IHN0ZXAgaXMgdG8gdXBkYXRlIGN1cnJlbnQgdmVyc2lvbg0KVVBEQVRFIGBzeXNfb3B0aW9uc2AgU0VUIGBWQUxVRWAgPSAnMS4yLjAnIFdIRVJFIGBOYW1lYCA9ICdzeXNfdG1wX3ZlcnNpb24nOw==",
-      "script":"",
-      "channel":"stable",
-      "files":[
-         {
-            "remote_file_url":"https://raw.githubusercontent.com/CheetahWSB/Cheetah/3b89e38347b32777e5905cf05b47abf8550cb9c1/inc/membership_levels.inc.php",
-	    "local_file_path":"inc/membership_levels.inc.php",
-	    "modified":"202110111449"
-         },
-         {
-            "remote_file_url":"test2.php",
-	    "local_file_path":"test2.php",
-	    "modified":"202110111449"
-         },
-         {
-            "remote_file_url":"test3.php",
-	    "local_file_path":"test3.php",
-	    "modified":"202110111449"
-         }
-      ]
-   },
-   {
-      "patchid":"202110020000",
-      "desc":"Patch Description",
-      "ver":"1.2",
-      "build":"0",
-      "prerelease":"",
-      "sql":"test.sql",
-      "script":"VVBEQVRFIGBzeXNfaW5qZWN0aW9uc2AgU0VUIGBkYXRhYCA9ICdyZXR1cm4gZ2V0QWRtaW5Td2l0Y2goKTsnIFdIRVJFIGBuYW1lYCA9ICdhZG1pbl9zd2l0Y2gnOw0KDQpBTFRFUiBUQUJMRSBgUHJvZmlsZXNgIEFERCBgRGF0ZUxhc3ROYXZBYCBEQVRFVElNRSBOT1QgTlVMTCBERUZBVUxUICcgMDAwMC0wMC0wMCAwMDowMDowMCAnIEFGVEVSIGBEYXRlTGFzdE5hdmAsIEFERCBJTkRFWCBgRGF0ZUxhc3ROYXZBYCAoYERhdGVMYXN0TmF2QWApOw0KDQpVUERBVEUgYHN5c19vYmplY3RzX2VkaXRvcmAgU0VUIGBza2luYCA9ICdveGlkZScgV0hFUkUgYG9iamVjdGAgPSAnc3lzX3RpbnltY2UnOw0KDQotLSBVcGRhdGUgYXJlYXMgd2hlcmUgbGFuZ3VhZ2Uga2V5cyBjYW4gYmUgdXNlZCB0byBsZW5ndGggbmVlZGVkIHRvIHN1cHBvcnQNCi0tIHRoZSBsYW5ndWFnZSBrZXlzIG1heGludW0gbGVuZ3RoLg0KQUxURVIgVEFCTEUgYHN5c19tZW51X2FkbWluYCBDSEFOR0UgYHRpdGxlYCBgdGl0bGVgIFZBUkNIQVIoMjU1KTsNCkFMVEVSIFRBQkxFIGBzeXNfbWVudV9hZG1pbl90b3BgIENIQU5HRSBgY2FwdGlvbmAgYGNhcHRpb25gIFZBUkNIQVIoMjU1KTsNCkFMVEVSIFRBQkxFIGBzeXNfbWVudV9zZXJ2aWNlYCBDSEFOR0UgYENhcHRpb25gIGBDYXB0aW9uYCBWQVJDSEFSKDI1NSk7DQpBTFRFUiBUQUJMRSBgc3lzX21lbnVfYm90dG9tYCBDSEFOR0UgYENhcHRpb25gIGBDYXB0aW9uYCBWQVJDSEFSKDI1NSk7DQpBTFRFUiBUQUJMRSBgc3lzX21lbnVfbWVtYmVyYCBDSEFOR0UgYENhcHRpb25gIGBDYXB0aW9uYCBWQVJDSEFSKDI1NSk7DQpBTFRFUiBUQUJMRSBgc3lzX21lbnVfbWVtYmVyYCBDSEFOR0UgYERlc2NyaXB0aW9uYCBgRGVzY3JpcHRpb25gIFZBUkNIQVIoMjU1KTsNCkFMVEVSIFRBQkxFIGBzeXNfb2JqZWN0c19zZWFyY2hgIENIQU5HRSBgVGl0bGVgIGBUaXRsZWAgVkFSQ0hBUigyNTUpOw0KQUxURVIgVEFCTEUgYHN5c19vYmplY3RzX3RhZ2AgQ0hBTkdFIGBMYW5nS2V5YCBgTGFuZ0tleWAgVkFSQ0hBUigyNTUpOw0KQUxURVIgVEFCTEUgYHN5c19tZW51X3RvcGAgQ0hBTkdFIGBDYXB0aW9uYCBgQ2FwdGlvbmAgVkFSQ0hBUigyNTUpOw0KQUxURVIgVEFCTEUgYHN5c19ib3hfZG93bmxvYWRgIENIQU5HRSBgdGl0bGVgIGB0aXRsZWAgVkFSQ0hBUigyNTUpOw0KDQoNClNFVCBAaUNhdEdlbmVyYWwgPSAzOw0KSU5TRVJUIElOVE8gYHN5c19vcHRpb25zYCBWQUxVRVMNCignZW5hYmxlX3RpbnlfaW5fbWFpbCcsICdvbicsIEBpQ2F0R2VuZXJhbCwgJ0VuYWJsZSBXWVNJV1lHIGVkaXRvciBpbiBtYWlsJywgJ2NoZWNrYm94JywgJycsICcnLCAzMiwgJycpOw0KDQotLSBsYXN0IHN0ZXAgaXMgdG8gdXBkYXRlIGN1cnJlbnQgdmVyc2lvbg0KVVBEQVRFIGBzeXNfb3B0aW9uc2AgU0VUIGBWQUxVRWAgPSAnMS4yLjAnIFdIRVJFIGBOYW1lYCA9ICdzeXNfdG1wX3ZlcnNpb24nOw==",
-      "channel":"stable",
-      "files":[
-         {
-            "remote_file_url":"https://raw.githubusercontent.com/CheetahWSB/Cheetah/dee6cff47f121fdafb263c174e40c5fb1c9fb263/inc/membership_levels.inc.php",
-	    "local_file_path":"inc/membership_levels.inc.php",
-	    "modified":"202110111449"
-         },
-         {
-            "remote_file_url":"test2.php",
-	    "local_file_path":"test2.php",
-	    "modified":"202110111449"
-         },
-         {
-            "remote_file_url":"test3.php",
-	    "local_file_path":"test3.php",
-	    "modified":"202110111449"
-         }
-      ]
-   },
-   {
-      "patchid":"202110030000",
-      "desc":"Patch Description",
-      "ver":"1.2",
-      "build":"0",
-      "prerelease":"",
-      "sql":"test.sql",
-      "script":"",
-      "channel":"stable",
-      "files":[
-         {
-            "remote_file_url":"test1.php",
-	    "local_file_path":"test1.php",
-	    "modified":"202110111449"
-         },
-         {
-            "remote_file_url":"test2.php",
-	    "local_file_path":"test2.php",
-	    "modified":"202110111449"
-         },
-         {
-            "remote_file_url":"test3.php",
-	    "local_file_path":"test3.php",
-	    "modified":"202110111449"
-         }
-      ]
-   }
+[{
+		"patchid": "202110010000",
+		"timestamp": "1634903782",
+		"githubid": "573d8c3e3a01dbdb99d3d2bd88d80907ff512052",
+		"desc": "Patch Description",
+		"ver": "1.2",
+		"build": "0",
+		"prerelease": "",
+		"channel": "stable",
+		"files": [{
+				"filename": "inc/membership_levels.inc.php",
+				"modified": "202110111449"
+			},
+			{
+				"filename": "test2.php",
+				"modified": "202110111449"
+			},
+			{
+				"filename": "test3.php",
+				"modified": "202110111449"
+			}
+		]
+	},
+	{
+		"patchid": "202110020000",
+		"timestamp": "1634903782",
+		"githubid": "573d8c3e3a01dbdb99d3d2bd88d80907ff512052",
+		"desc": "Patch Description",
+		"ver": "1.2",
+		"build": "0",
+		"prerelease": "",
+		"channel": "stable",
+		"files": [{
+				"filename": "inc/membership_levels.inc.php",
+				"modified": "202110111449"
+			},
+			{
+				"filename": "test2.php",
+				"modified": "202110111449"
+			},
+			{
+				"filename": "test3.php",
+				"modified": "202110111449"
+			}
+		]
+	},
+	{
+		"patchid": "202110030000",
+		"timestamp": "1634903782",
+		"githubid": "573d8c3e3a01dbdb99d3d2bd88d80907ff512052",
+		"desc": "Patch Description",
+		"ver": "1.2",
+		"build": "0",
+		"prerelease": "",
+		"channel": "stable",
+		"files": [{
+				"filename": "inc/membership_levels.inc.php",
+				"modified": "202110111449"
+			},
+			{
+				"filename": "test2.php",
+				"modified": "202110111449"
+			},
+			{
+				"filename": "test3.php",
+				"modified": "202110111449"
+			}
+		]
+	}
 ]
