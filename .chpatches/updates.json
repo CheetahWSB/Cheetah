@@ -7,7 +7,7 @@
 		"build": "0",
 		"prerelease": "",
 		"channel": "stable",
-		"files": [{
+		"modifiedfiles": [{
 				"filename": "inc/membership_levels.inc.php",
 				"modified": "202110111449"
 			},
@@ -19,7 +19,9 @@
 				"filename": "test3.php",
 				"modified": "202110111449"
 			}
-		]
+		],
+		"addedfiles": [{}],
+		"deletedfiles": [{}]
 	},
 	{
 		"patchid": "202110020000",
@@ -30,7 +32,7 @@
 		"build": "0",
 		"prerelease": "",
 		"channel": "stable",
-		"files": [{
+		"modifiedfiles": [{
 				"filename": "inc/membership_levels.inc.php",
 				"modified": "202110111449"
 			},
@@ -42,7 +44,9 @@
 				"filename": "test3.php",
 				"modified": "202110111449"
 			}
-		]
+		],
+		"addedfiles": [{}],
+		"deletedfiles": [{}]
 	},
 	{
 		"patchid": "202110030000",
@@ -53,7 +57,7 @@
 		"build": "0",
 		"prerelease": "",
 		"channel": "stable",
-		"files": [{
+		"modifiedfiles": [{
 				"filename": "inc/membership_levels.inc.php",
 				"modified": "202110111449"
 			},
@@ -65,6 +69,8 @@
 				"filename": "test3.php",
 				"modified": "202110111449"
 			}
-		]
+		],
+		"addedfiles": [{}],
+		"deletedfiles": [{}]
 	}
 ]
