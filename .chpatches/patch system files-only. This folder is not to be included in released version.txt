@@ -1,3 +1,0 @@
-This folder contains files used by the cheetah update system.
-This folder is part of the source files on the github repo, but
-is not to be distributed with a beta or final release package.
