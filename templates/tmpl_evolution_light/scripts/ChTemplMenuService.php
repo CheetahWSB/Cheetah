@@ -55,7 +55,8 @@ class ChTemplMenuService extends ChBaseMenuService
               'title' => getParam('site_title'),
               'logout' => '<a href="logout.php?action=member_logout">' . _t('_Log Out') . '</a>',
               'thumb' => $GLOBALS['oFunctions']->getMemberThumbnail($iMemberID),
-              'nickname' => getNickName(),
+              'display_name' => getNickName(),
+              'profile_link' => getProfileLink($iMemberID),
               'email' => $GLOBALS['MySQL']->getOne("SELECT `Email` FROM `Profiles` WHERE `ID` = '$iMemberID' LIMIT 1"),
               'content' => $sItems,
             ));
