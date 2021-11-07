@@ -2054,14 +2054,18 @@ function getAdminSwitch()
     $iMemberID = getLoggedId();
     if(!$iMemberID) {
         // Not logged in, delete the cookie.
-        setcookie("satoken", '', time() - 1000);
-        unset($_COOKIE['satoken']);
+        if(isset($_COOKIE['satoken'])) {
+            setcookie("satoken", '', time() - 1000);
+            unset($_COOKIE['satoken']);
+        }
         return;
     }
     if(isAdmin()) {
         // Logged in as admin. Cookie no longer needed, so delete it.
-        setcookie("satoken", '', time() - 1000);
-        unset($_COOKIE['satoken']);
+        if(isset($_COOKIE['satoken'])) {
+            setcookie("satoken", '', time() - 1000);
+            unset($_COOKIE['satoken']);
+        }
         return;
     }
     if (isset($_COOKIE['satoken'])) {
