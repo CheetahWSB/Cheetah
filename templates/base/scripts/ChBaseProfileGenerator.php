@@ -320,7 +320,7 @@ class ChBaseProfileGenerator extends ChWsbProfile
     {
         global $p_arr;
 
-        $bProfileOwner    = isLogged() && $p_arr['ID'] == getLoggedId();
+        $bProfileOwner    = $p_arr['ID'];
         $sProfileNickname = getNickName($p_arr['ID']);
 
         $sProfileThumbnail     = '';
@@ -354,9 +354,13 @@ class ChBaseProfileGenerator extends ChWsbProfile
 
         if(getParam('sys_member_info_thumb') == 'sys_avatar') {
             $oPermalinks = new ChWsbPermalinks();
-            $this->_sBaseUri = $oPermalinks->permalink('modules/?r=' . $this->_sUri . '/');
-            $sProfileThumbnailHref = CH_WSB_URL_ROOT . $oPermalinks->permalink('modules/?r=avatar/');
-            $bProfileThumbnailHref = true;
+            if($p_arr['ID'] == getLoggedId()) {
+                $sProfileThumbnailHref = CH_WSB_URL_ROOT . $oPermalinks->permalink('modules/?r=avatar/');
+                $bProfileThumbnailHref = true;
+            } else {
+                $sProfileThumbnailHref = '';
+                $bProfileThumbnailHref = false;
+            }
         } else {
             if ($bProfileOwner && ChWsbRequest::serviceExists('photos', 'get_manage_profile_photo_url')) {
                 $sProfileThumbnailHref = ChWsbService::call('photos', 'get_manage_profile_photo_url', array($p_arr['ID'], 'profile_album_name'));
@@ -453,7 +457,14 @@ class ChBaseProfileGenerator extends ChWsbProfile
                 )
             ),
             'ch_if:show_thumbnail_image' => array(
-                'condition' => $bProfileThumbnail,
+                'condition' => $bProfileThumbnail && !$bProfileThumbnailHref,
+                'content'   => array(
+                    'thumbnail'      => $sProfileThumbnail,
+                    'thumbnail2x'    => $sProfileThumbnail2x,
+                )
+            ),
+            'ch_if:show_thumbnail_image_link' => array(
+                'condition' => $bProfileThumbnail && $bProfileThumbnailHref,
                 'content'   => array(
                     'thumbnail_href' => $sProfileThumbnailHref,
                     'thumbnail'      => $sProfileThumbnail,
