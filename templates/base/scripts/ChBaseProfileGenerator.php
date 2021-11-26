@@ -332,10 +332,17 @@ class ChBaseProfileGenerator extends ChWsbProfile
 
         $iAvatarId = $GLOBALS['MySQL']->getOne("SELECT `Avatar` FROM `Profiles` WHERE `ID` = " . (int)$bProfileOwner);
 
-        if(getParam('sys_member_info_thumb') == 'sys_avatar' && $iAvatarId) {
-            $sProfileThumbnail = CH_WSB_URL_ROOT . 'modules/cheetah/avatar/data/images/' . $iAvatarId . 'b.jpg';
-            $sProfileThumbnail2x = $sProfileThumbnail;
-            $bProfileThumbnail = true;
+        if(getParam('sys_member_info_thumb') == 'sys_avatar') {
+            if($iAvatarId) {
+                $sProfileThumbnail = CH_WSB_URL_ROOT . 'modules/cheetah/avatar/data/images/' . $iAvatarId . 'b.jpg';
+                $sProfileThumbnail2x = $sProfileThumbnail;
+                $bProfileThumbnail = true;
+                $bProfileThumbnailHref = true;
+            } else {
+                $sProfileThumbnail = '';
+                $bProfileThumbnail = false;
+                $bProfileThumbnailHref = true;
+            }
         } else {
             $aProfileThumbnail = ChWsbService::call('photos', 'profile_photo', array($p_arr['ID'], 'browse', 'full'), 'Search');
             if (!empty($aProfileThumbnail) && is_array($aProfileThumbnail)) {
