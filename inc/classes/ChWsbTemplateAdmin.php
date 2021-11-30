@@ -42,11 +42,12 @@ class ChWsbTemplateAdmin extends ChWsbTemplate
         $sRet = '';
         switch( $sKey ) {
             case 'current_version':
-                $sRet = $GLOBALS['site']['ver'] . '.' . $GLOBALS['site']['build'];
+                $sRet = $GLOBALS['site']['version'];
                 break;
             case 'pre_release':
-                if($GLOBALS['site']['pre-release'] != '') {
-                    $sRet = '.' . $GLOBALS['site']['pre-release'];
+            case 'modifier':            
+                if($GLOBALS['site']['modifier'] != '') {
+                    $sRet = '.' . $GLOBALS['site']['modifier'];
                 } else {
                     $sRet = '';
                 }

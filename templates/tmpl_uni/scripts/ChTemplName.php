@@ -6,7 +6,7 @@
  */
 
     $sTemplName = 'UNI';
-    $sTemplVer = $GLOBALS['site']['ver'] . '.' . $GLOBALS['site']['build'];
+    $sTemplVer = $GLOBALS['site']['version'];
     $sTemplVendor = 'Cheetah';
     $sTemplPreview = 'preview.png';
     $sTemplDesc = _t('_adm_txt_templ_uni_desc');

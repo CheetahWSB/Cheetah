@@ -123,7 +123,7 @@ class ChWsbExport
         if (!class_exists('ZipArchive'))
             return false;
 
-        $sFileName = 'export-' . $iProfileId . '-' . $GLOBALS['site']['ver'] . '.' . $GLOBALS['site']['build'] . '-' . genRndPwd(8, false) . '.zip';
+        $sFileName = 'export-' . $iProfileId . '-' . $GLOBALS['site']['version'] . '-' . genRndPwd(8, false) . '.zip';
         $sFilePath = CH_DIRECTORY_PATH_CACHE_PUBLIC . $sFileName;
 
         $oZip = new ZipArchive();
@@ -135,7 +135,7 @@ class ChWsbExport
         $sSqlDump = "-- Cheetah user data export\n";
         $sSqlDump .= "-- Profile ID: $iProfileId\n";
         $sSqlDump .= "-- Profile Username: " . getUsername($iProfileId) . "\n";
-        $sSqlDump .= "-- Cheetah Version: " . $GLOBALS['site']['ver'] . '.' . $GLOBALS['site']['build'] . "\n";
+        $sSqlDump .= "-- Cheetah Version: " . $GLOBALS['site']['version'] . "\n";
         foreach ($aExports as $sSystem => $a) {
             // sql
             if (!empty($a['sql']))
