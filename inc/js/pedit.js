@@ -66,4 +66,5 @@ function doShowError( eForm, sField, iInd, sError ) {
         $Field = $( "[name='" + sField + '[' + iInd + '][0]' + "'],[name='" + sField + '[' + iInd + '][1]' + "']", eForm );
 
     $Field.parents('.ch-form-element:first').addClass('ch-form-element-error').find('.ch-form-error > [float_info]').attr('float_info', sError);
+    $Field.parents('.ch-form-element:first').find('.ch-form-error-div i').after(sError);    
 }

@@ -131,7 +131,21 @@ if (!(isset($_POST['ID']) && $_POST['ID'] && isset($_POST['Password']) && $_POST
 
         // Ajaxy check
         if ($bAjxMode) {
-            echo check_password($member['ID'], $member['Password'], CH_WSB_ROLE_MEMBER, false) ? 'OK' : 'Fail';
+            $r = check_password($member['ID'], $member['Password'], CH_WSB_ROLE_MEMBER, false) ? 'OK' : 'Fail';
+            $e = 'Unknown Error';
+            if($r == 'Fail') {
+                $aProfile = getProfileInfo($member['ID']);
+                if(!$aProfile) {
+                    $e = 'Invalid Username';
+                } else {
+                    if (strcmp($aProfile['Password'], $member['Password']) !== 0) {
+                        $e = 'Invalid Password';
+                    }
+                }
+            } else {
+                $e = 'OK';
+            }
+            echo $e;
             exit;
         }
 

@@ -4,15 +4,46 @@
  */
 
 function validateLoginForm(eForm) {
-	if (! eForm)
+	if (!eForm)
 		return false;
 
-    $(eForm).ajaxSubmit({
-        success: function(sResponce) {
-            if(sResponce == 'OK')
-                eForm.submit();
-            else
-                alert(_t('_PROFILE_ERR'));
-        }
-    });
+	var formError = false;
+
+	$('#login_box_form .ch-form-error').hide();
+
+	if (eForm.ID.value == '') {
+		chShowError(eForm, 'ID', 'You must enter Username');
+		formError = true;
+	}
+
+	if (eForm.Password.value == '') {
+		chShowError(eForm, 'Password', 'You must enter Password');
+		formError = true;
+	}
+
+	if (formError) return false;
+
+	$(eForm).ajaxSubmit({
+		success: function(sResponce) {
+			if (sResponce == 'OK')
+				eForm.submit();
+			else
+				if (sResponce == 'Invalid Username') {
+					chShowError(eForm, 'ID', 'Username not found');
+				}
+			if (sResponce == 'Invalid Password') {
+				chShowError(eForm, 'Password', 'Invalid password');
+			}
+			if (sResponce == 'Unknown Error') {
+				alert('A unknown error occured when submitting the login form. Please try again.');
+			}
+		}
+	});
+}
+
+function chShowError(eForm, sField, sError) {
+	var $Field = $("[name='" + sField + "']", eForm);
+	$Field.parents('.ch-form-element:first').find('.ch-form-error').show();
+	$Field.parents('.ch-form-element:first').find('.ch-form-error-div').html('<i class="sys-icon exclamation-circle ch-form-error-icon"></i>');	
+	$Field.parents('.ch-form-element:first').find('.ch-form-error-div i').after(sError);
 }
