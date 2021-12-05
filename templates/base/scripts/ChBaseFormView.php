@@ -514,9 +514,15 @@ class ChBaseFormView extends ChWsbForm
         if(isset($aInput['type'])) {
         	switch($aInput['type']) {
         		case 'datetime':
+              if($aInput['value'] = '0000-00-00 00:00:00') {
+                  $aInput['value'] = '';
+              }
         			$aAttrs['type'] = 'date_time';
         			break;
         		case 'date':
+              if($aInput['value'] = '0000-00-00') {
+                  $aInput['value'] = '';
+              }
         			$aAttrs['type'] = 'date_calendar';
         			break;
         		case 'file':
