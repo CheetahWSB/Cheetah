@@ -97,7 +97,7 @@ class ChWsbDb
 
         try {
             $this->link = new PDO(
-                "mysql:{$sSocketOrHost};dbname={$this->dbname};charset=utf8",
+                "mysql:{$sSocketOrHost};dbname={$this->dbname};charset=utf8mb4",
                 $this->user,
                 $this->password,
                 [

@@ -39,7 +39,7 @@ CREATE TABLE `ch_forum_post` (
   `topic_id` int(11) NOT NULL default '0',
   `forum_id` int(11) NOT NULL default '0',
   `user` varchar(32) NOT NULL default '0',
-  `post_text` mediumtext NOT NULL,
+  `post_text` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,  
   `when` int(11) NOT NULL default '0',
   `votes` int(11) NOT NULL default '0',
   `reports` int(11) NOT NULL default '0',
@@ -270,4 +270,3 @@ INSERT INTO `sys_objects_charts` (`object`, `title`, `table`, `field_date_ts`, `
 SET @iMaxOrderExports = (SELECT MAX(`order`)+1 FROM `sys_objects_exports`);
 INSERT INTO `sys_objects_exports` (`object`, `title`, `class_name`, `class_file`, `order`, `active`) VALUES
 ('ch_forum', '_sys_module_forum', 'ChForumExport', 'modules/cheetah/forum/classes/ChForumExport.php', @iMaxOrderExports, 1);
-
