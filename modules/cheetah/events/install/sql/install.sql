@@ -1,21 +1,21 @@
 -- create tables
 CREATE TABLE IF NOT EXISTS `[db_prefix]main` (
   `ID` int(10) unsigned NOT NULL auto_increment,
-  `Title` varchar(100) NOT NULL default '',
+  `Title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL default '',
   `EntryUri` varchar(255) NOT NULL,
-  `Description` text NOT NULL,
+  `Description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `Status` enum('approved','pending') NOT NULL default 'approved',
   `Country` varchar(2) NOT NULL default 'US',
-  `City` varchar(50) NOT NULL default '',
-  `Place` varchar(100) NOT NULL default '',
+  `City` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL default '',
+  `Place` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL default '',
   `PrimPhoto` int(11) NOT NULL,
   `Date` int(11) NOT NULL,
   `EventStart` int(11) NOT NULL default '0',
   `EventEnd` int(11) NOT NULL default '0',
   `ResponsibleID` int(10) unsigned NOT NULL default '0',
   `EventMembershipFilter` varchar(100) NOT NULL default '',
-  `Tags` varchar(255) NOT NULL default '',
-  `Categories` text NOT NULL,
+  `Tags` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL default '',
+  `Categories` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `Views` int(11) NOT NULL,
   `Rate` float NOT NULL,
   `RateCount` int(11) NOT NULL,
@@ -560,4 +560,3 @@ INSERT INTO `sys_objects_charts` (`object`, `title`, `table`, `field_date_ts`, `
 SET @iMaxOrderExports = (SELECT MAX(`order`)+1 FROM `sys_objects_exports`);
 INSERT INTO `sys_objects_exports` (`object`, `title`, `class_name`, `class_file`, `order`, `active`) VALUES
 ('ch_events', '_ch_events', 'ChEventsExport', 'modules/cheetah/events/classes/ChEventsExport.php', @iMaxOrderExports, 1);
-

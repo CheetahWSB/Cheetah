@@ -1712,7 +1712,7 @@ CREATE TABLE `sys_messages` (
   `Date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `Sender` int(10) unsigned NOT NULL DEFAULT '0',
   `Recipient` int(10) unsigned NOT NULL DEFAULT '0',
-  `Text` mediumtext NOT NULL,
+  `Text` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `Subject` varchar(255) NOT NULL DEFAULT '',
   `New` enum('0','1') NOT NULL DEFAULT '1',
   `Type` enum('letter','greeting') NOT NULL DEFAULT 'letter',
