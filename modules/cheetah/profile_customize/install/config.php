@@ -11,11 +11,11 @@ $aConfig = array(
      */
     'vendor' => 'Cheetah',
     'title' => 'Profile Customizer',
-    'version' => '1.2.0',
+    'version' => '1.3.0',
     'update_url' => '',
 
     'compatible_with' => array(
-        '1.2.0'
+        '1.3.0'
     ),
 
     /**
