@@ -7,7 +7,7 @@
 
 define('CH_MEMBER_PAGE', 1);
 
-define('CH_LOGIN_BY_ID', false);
+define('CH_LOGIN_BY_ID', true);
 define('CH_LOGIN_BY_NICK', true);
 define('CH_LOGIN_BY_EMAIL', true);
 
