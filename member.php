@@ -7,7 +7,7 @@
 
 define('CH_MEMBER_PAGE', 1);
 
-define('CH_LOGIN_BY_ID', true);
+define('CH_LOGIN_BY_ID', false);
 define('CH_LOGIN_BY_NICK', true);
 define('CH_LOGIN_BY_EMAIL', true);
 
@@ -105,7 +105,7 @@ if (!(isset($_POST['ID']) && $_POST['ID'] && isset($_POST['Password']) && $_POST
         if(!CH_LOGIN_BY_ID) {
             // Do not allow logins by ID.
             if(ctype_digit($member['ID'])) {
-                echo 'Fail';
+                echo 'NoLoginById';
                 exit;
             }
         }
@@ -114,7 +114,7 @@ if (!(isset($_POST['ID']) && $_POST['ID'] && isset($_POST['Password']) && $_POST
             // Do not allow logins by nickname.
             $sNickName = $GLOBALS['MySQL']->getOne("SELECT `NickName` FROM `Profiles` WHERE `NickName`= ? LIMIT 1", [$member['ID']]);
             if($sNickName == $member['ID']) {
-                echo 'Fail';
+                echo 'NoLoginByNick';
                 exit;
             }
         }
@@ -122,7 +122,7 @@ if (!(isset($_POST['ID']) && $_POST['ID'] && isset($_POST['Password']) && $_POST
         if(!CH_LOGIN_BY_EMAIL) {
             // Do not allow logins by email.
             if(filter_var($member['ID'], FILTER_VALIDATE_EMAIL)) {
-                echo 'Fail';
+                echo 'NoLoginByEmail';
                 exit;
             }
         }
