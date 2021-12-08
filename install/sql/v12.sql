@@ -3515,6 +3515,7 @@ CREATE TABLE `sys_alerts` (
 --
 INSERT INTO `sys_alerts` (`unit`, `action`, `handler_id`) VALUES
 ('system', 'begin', 1),
+('system', 'design_before_output', 1),
 ('profile', 'before_join', 2),
 ('profile', 'join', 2),
 ('profile', 'before_login', 2),
