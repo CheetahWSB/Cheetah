@@ -1538,3 +1538,62 @@ div.navPanel .navPanelLinkPrev.sys-icon {
 .sys-status-away {
     color:#0a3d8f;
 }
+
+/* 2FA styles */
+.text-center {
+		text-align: center;
+}
+
+.ch-btn-float-display {
+		float: none;
+		display: inline;
+}
+
+.ch-def-padding-4 {
+		padding: 4px;
+}
+
+.ch-2fa_setup_table {
+		width: 50%; margin: auto;
+}
+
+.ch-def-width-50 {
+		width: 50%;
+}
+.ch-2fa-codes-repeat {
+		width: 25%;
+		float: left;
+}
+.ch-2fa-msg-padding-1 {
+		padding: 0px 20px 0px 20px;
+}
+
+.ch-2fa-width-100pc {
+		width: 100%;
+}
+
+.ch-2fa-width-100px {
+		width: 100px;
+}
+
+.ch-2fa-width-250px {
+		width: 250px;
+}
+
+.ch-2fa-app-img-cell {
+		width: 36px;
+		text-align: left;
+}
+
+.ch-2fa-app-img-cell-qr {
+		width: 36px;
+		text-align: left;
+}
+
+.ch-2fa-app-img-cell-qr img {
+		cursor: pointer;
+}
+
+.ch-2fa-app-pos-rel {
+		position: relative;
+}

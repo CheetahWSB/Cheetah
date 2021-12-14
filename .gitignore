@@ -11,15 +11,6 @@ backup/*.sql
 inc/header*
 
 # Excludes from modules
-/media/images/membership/*.*
-!media/images/membership/member.png
-!media/images/membership/non-member.png
-!media/images/membership/promotion.png
-media/images/blog/*.*
-!media/images/blog/.htaccess
-media/images/*.*
-!media/images/.htaccess
-
 modules/cheetah/forum/classes/en/*
 modules/cheetah/forum/classes/ru/*
 modules/cheetah/forum/js/en/*

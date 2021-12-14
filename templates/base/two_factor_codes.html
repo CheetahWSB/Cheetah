@@ -1,0 +1,26 @@
+<ch_if:show_msg>
+  <div class="ch-def-bh-margin text-center ch-def-font-large ch-def-font-bold col-Maroon">
+    __msg__
+  </div>
+</ch_if:show_msg>
+<div class="ch-def-bh-margin text-center ch-def-font-large">
+  <ch_text:_two_factor_auth_backup_msg1 />
+</div>
+<div class="ch-def-padding clearfix">
+  <ch_repeat:codes>
+    <div class="text-center ch-def-font-large ch-2fa-codes-repeat">__code__</div>
+  </ch_repeat:codes>
+</div>
+<div class="text-center ch-def-font-large ch-2fa-msg-padding-1">
+  <ch_text:_two_factor_auth_backup_msg2 />
+</div>
+<div class="ch-def-padding text-center clearfix">
+  <ch_if:show_back>
+    <input class="ch-btn ch-btn-small ch-btn-float-display" type="button" name="back" value="<ch_text:_two_factor_auth_back />" onclick="window.location.href = '__backurl__';">
+    <input class="ch-btn ch-btn-small ch-btn-float-display" type="button" name="new" value="<ch_text:_two_factor_auth_new_codes />" onclick="window.location.href = '__newcodes__'">
+  </ch_if:show_back>
+  <ch_if:show_next>
+    <input class="ch-btn ch-btn-small ch-btn-float-display" type="button" name="next" value="<ch_text:_two_factor_auth_next />" onclick="window.location.href = '__nexturl__';">
+  </ch_if:show_next>  
+  <input class="ch-btn ch-btn-small ch-btn-float-display" type="button" name="print" value="<ch_text:_two_factor_auth_print />" onclick="window.print();">
+</div>
