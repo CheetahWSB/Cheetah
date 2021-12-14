@@ -790,7 +790,7 @@
                               date_add(`Date`, INTERVAL {$this -> iWaitMinutes} MINUTE) > Now()
                     ";
 
-                    if ( db_arr($sQuery) ) {
+                    if (!isAdmin($this -> aMailBoxSettings['member_id']) && db_arr($sQuery)) {
                         $sReturnMessage = MsgBox( _t('_You have to wait for PERIOD minutes before you can write another message!', $this -> iWaitMinutes, $sComposeUrl) );
                         $this -> iSendMessageStatusCode = CH_MAILBOX_SEND_WAIT;
                         $bAllowToSend   = false;
