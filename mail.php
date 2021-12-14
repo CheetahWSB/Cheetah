@@ -140,6 +140,7 @@
         case 'inbox'	:
         case 'outbox'	:
         case 'trash'	:
+        case 'dialog'	:
             $sComposedPage = 'mail_page';
         break;
 
