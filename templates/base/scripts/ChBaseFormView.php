@@ -514,9 +514,15 @@ class ChBaseFormView extends ChWsbForm
         if(isset($aInput['type'])) {
         	switch($aInput['type']) {
         		case 'datetime':
+              if($aInput['value'] = '0000-00-00 00:00:00') {
+                  $aInput['value'] = '';
+              }
         			$aAttrs['type'] = 'date_time';
         			break;
         		case 'date':
+              if($aInput['value'] = '0000-00-00') {
+                  $aInput['value'] = '';
+              }
         			$aAttrs['type'] = 'date_calendar';
         			break;
         		case 'file':
@@ -991,9 +997,9 @@ class ChBaseFormView extends ChWsbForm
         }
 
         return $this->getInput('icon_error', $this->convertArray2Attrs(array(
-        	'class' => 'sys-icon exclamation-circle',
-        	'float_info' => $sErrorH
-        )));
+        	'class' => 'sys-icon exclamation-circle ch-form-error-icon',
+        	'alt' => $sErrorH
+        )), $sErrorH);
     }
 
     function getOpenTbody($aAttrsAdd = false)
@@ -1052,7 +1058,7 @@ class ChBaseFormView extends ChWsbForm
     			$sResult = '<span class="ch-form-info"><i ' . $sAttrs . '></i></span>';
     			break;
     		case 'icon_error':
-    			$sResult = '<span class="ch-form-error"><i ' . $sAttrs . '></i></span>';
+    			$sResult = '<div class="ch-form-error-div"><i ' . $sAttrs . '></i>' . $sContent . '</div>';
     			break;
     	}
     	return $sResult;
@@ -1073,7 +1079,7 @@ class ChBaseFormView extends ChWsbForm
         );
 
         $aCss = array(
-            'forms_adv.css',
+            //'forms_adv.css',
             'plugins/jquery/themes/|jquery-ui.css',
         );
 
