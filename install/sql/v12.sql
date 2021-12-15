@@ -1117,7 +1117,11 @@ INSERT INTO `sys_options` VALUES
 ('sys_default_payment', '', @iCatGeneral, 'Payment module (at least one payment processing module should be installed)', 'select', '', '', 170, 'PHP:ch_import(\'ChWsbPayments\'); return ChWsbPayments::getInstance()->getPayments();'),
 
 ('sys_embedly_key', '', @iCatGeneral, 'Embedly Key', 'digit', '', '', 180, ''),
-('sys_php_block_enabled', '', @iCatGeneral, 'Enable PHP Block in Page Builders.', 'checkbox', '', '', 190, '');
+('sys_php_block_enabled', '', @iCatGeneral, 'Enable PHP Block in Page Builders.', 'checkbox', '', '', 190, ''),
+('sys_maint_mode_enabled', '', @iCatGeneral, 'Enable Maintenance Mode', 'checkbox', '', '', 200, ''),
+('sys_maint_mode_admin', '', @iCatGeneral, 'Allow admins to view site while in maintenance mode', 'checkbox', '', '', 210, ''),
+('sys_maint_mode_msg', 'Sorry. Site is currently down for maintenance. Please check back later.', @iCatGeneral, 'Maintenance mode page block text', 'text', '', '', 220, '');
+
 
 -- CAT: Massmailer
 SET @iCatMassmailer = 4;
@@ -1761,6 +1765,7 @@ INSERT INTO `sys_page_compose_pages` VALUES('tags_module', 'Tags Module', 29, 1)
 INSERT INTO `sys_page_compose_pages` VALUES('categ_calendar', 'Categories Calendar', 30, 1);
 INSERT INTO `sys_page_compose_pages` VALUES('categ_search', 'Categories Search', 31, 1);
 INSERT INTO `sys_page_compose_pages` VALUES('categ_module', 'Categories Module', 32, 1);
+INSERT INTO `sys_page_compose_pages` VALUES ('site_maintenance', 'Site Maintenance', 33, 1);
 
 
 CREATE TABLE `sys_page_compose_privacy` (
@@ -1854,6 +1859,8 @@ INSERT INTO `sys_page_compose` (`Page`, `PageWidth`, `Desc`, `Caption`, `Column`
 
 ('communicator_page', '1140px', '', '_sys_cnts_bcpt_connections', 1, 1, 'Connections', '', 1, 71.9, 'memb', 0, 0),
 ('communicator_page', '1140px', '', '_sys_cnts_bcpt_friend_requests', 2, 1, 'FriendRequests', '', 1, 28.1, 'memb', 0, 0),
+
+('site_maintenance', '1140px', 'Site Maintenance', '_site_maintenance', 2, 1, 'BlockOne', '', 1, 28.1, 'non,memb', 0, 0),
 
 ('tags_home', '1140px', 'Recent Tags', '_tags_recent', 1, 0, 'Recent', '', 1, 28.1, 'non,memb', 0, 0),
 ('tags_home', '1140px', 'Popular Tags', '_popular_tags', 2, 0, 'Popular', '', 1, 71.9, 'non,memb', 0, 0),
@@ -3516,6 +3523,7 @@ CREATE TABLE `sys_alerts` (
 --
 INSERT INTO `sys_alerts` (`unit`, `action`, `handler_id`) VALUES
 ('system', 'begin', 1),
+('system', 'design_before_output', 1),
 ('profile', 'before_join', 2),
 ('profile', 'join', 2),
 ('profile', 'before_login', 2),
