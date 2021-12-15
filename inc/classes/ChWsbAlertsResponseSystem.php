@@ -66,6 +66,14 @@ class ChWsbAlertsResponseSystem extends ChWsbAlertsResponse
             }
         }
         // End Two factor auth check.
+        // Start Maintenance mode Check
+        if (getParam('sys_maint_mode_enabled')) {
+            if ((!getParam('sys_maint_mode_admin')) || (getParam('sys_maint_mode_admin') && !isAdmin((int) $_COOKIE['memberID']))) {
+                if ($oAlert->aExtras['_page']['header'] != 'Maintenance') {
+                    header('Location: ' . CH_WSB_URL_ROOT . 'site_maintenance.php');
+                }
+            }
+        }
+        // End Maintenance mode Check      
     }
-
 }

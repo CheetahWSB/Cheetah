@@ -277,6 +277,7 @@ div.sys-mbr-short div.sys-mbr-message {
 div.sys-mbr-author-info {
 	line-height: 23px;
 }
+
 div.sys-mbr-short div.sys-mbr-author-info {
     line-height: 14px;
 }
@@ -319,4 +320,150 @@ div.sys-mailbox-actions div.sys-mba-right {
 
 div.sys-mailbox-actions div.sys-mba-right .form_advanced_table td {
 	padding: 0px;
+}
+
+.dialog_message_container {
+  padding: 4px;
+  margin: 4px;
+  overflow-wrap: anywhere;
+}
+
+.dialog_message_container pre, .dialog_message_container div {
+  overflow: auto;
+}
+
+.dialog_message_container_sender {
+  position: relative;
+  color: #000000;
+  background-color: #e6f7ff;
+  border-radius: 8px;
+  border-bottom-right-radius: 2px;
+  margin-left: 90px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  border: 1px solid #bec9ce;
+}
+
+.dialog_message_container_recipient {
+  position: relative;
+  color: #000000;
+  background-color: #e6ffe6;
+  border-radius: 8px;
+  border-bottom-left-radius: 2px;
+  margin-right: 90px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  border: 1px solid #c6d7c6;
+}
+
+/* This one does not have a left and right version yet. */
+.dialog_message_container_trash {
+  position: relative;
+  color: #000000;
+  background-color: #ffe6e6;
+  border-radius: 8px;
+  /*border-bottom-left-radius: 0;*/
+  margin-right: 90px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  border: 1px solid #c4b3b3;
+}
+
+
+.dialog_count_link, .dialog_count_link:link, .dialog_count_link:visited, .dialog_count_link:active {
+  color: #800000;
+}
+
+.dialog_searchrow_block_simple {
+  position: relative;
+}
+
+.dialog_searchrow_block_simple .thumb_username {
+  padding: 3px 0px 0px 10px;
+  width: 160px;
+}
+
+.dialog_view_button {
+	background-color: #3770b5;
+	border: none;
+	color: white;
+	padding: 2px 4px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 12px;
+	position: absolute;
+	bottom: 4px;
+	right: 4px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.dialog_message_start_date {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  margin-top: 40px;
+  padding: 4px;
+  color: #3770b5
+}
+
+.dialog_message_start_date:first-of-type {
+  margin-top: 0px;
+}
+
+.dialog_message_start_date::before{
+  content: '';
+  height: 4px;
+  background: #3770b5;
+  flex: 1;
+  margin: 0 4px 0 20px;
+}
+
+.dialog_message_start_date::after{
+  content: '';
+  height: 4px;
+  background: #3770b5;
+  flex: 1;
+  margin: 0 20px 0 4px;
+}
+
+.dialog_time_left {
+  position: absolute;
+  left: -90px;
+  bottom: 0px;
+  color: #005bca;
+  font-weight: bold;
+  width: 85px;
+  text-align: right;
+}
+
+.dialog_time_right {
+  position: absolute;
+  right: -90px;
+  bottom: 0px;
+  color: #008000;
+  font-weight: bold;
+  width: 85px;
+  text-align: left;
+}
+
+.dialog_message_container_recipient::before {
+	content: '\1F890';
+	position: absolute;
+	left: -16px;
+	bottom: -23px;
+	font-size: 60px;
+	color: #c6d7c6;
+}
+
+.dialog_message_container_sender::before {
+	content: '\1F892';
+	position: absolute;
+	right: -16px;
+	bottom: -23px;
+	font-size: 60px;
+	color: #bec9ce;
 }

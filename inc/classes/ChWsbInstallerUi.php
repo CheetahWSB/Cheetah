@@ -565,7 +565,10 @@ class ChWsbInstallerUi extends ChWsbDb
                     array_unshift($aDirectories , 'cheetah/payment/');
                 } else {
                     // It's not there, add it to the front of the array.
-                    array_unshift($aDirectories , 'cheetah/payment/');
+                    // Only add it if it's not allready installed.
+                    if( !ChWsbInstallerUtils::isModuleInstalled('payment') ) {
+                        array_unshift($aDirectories , 'cheetah/payment/');
+                    }
                 }
             }
         }

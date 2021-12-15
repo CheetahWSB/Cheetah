@@ -10,18 +10,22 @@ flush();
 if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
     $sFFmpegLink = 'https://github.com/CheetahWSB/Cheetah/releases/download/V1.1.0/ffmpeg.exe';
     $sFFprobeLink = 'https://github.com/CheetahWSB/Cheetah/releases/download/V1.1.0/ffprobe.exe';
+    $sTarget1 = '../plugins/ffmpeg/ffmpeg.exe';
+    $sTarget2 = '../plugins/ffmpeg/ffprobe.exe';
     $sMsg1 = PHP_OS . ' detected. Downloading FFmpeg for Windows.';
     $sMsg2 = PHP_OS . ' detected. Downloading FFmpeg for Windows.';
 } else {
     $sFFmpegLink = 'https://github.com/CheetahWSB/Cheetah/releases/download/V1.1.0/ffmpeg';
     $sFFprobeLink = 'https://github.com/CheetahWSB/Cheetah/releases/download/V1.1.0/ffprobe';
+    $sTarget1 = '../plugins/ffmpeg/ffmpeg';
+    $sTarget2 = '../plugins/ffmpeg/ffprobe';
     $sMsg1 = PHP_OS . ' detected. Downloading FFmpeg for Linux.';
     $sMsg2 = PHP_OS . ' detected. Downloading FFmpeg for Linux.';
 }
 
 //save progress to variable instead of a file
 $temp_progress = '';
-$targetFile = fopen('../plugins/ffmpeg/ffmpeg', 'w');
+$targetFile = fopen($sTarget1, 'w');
 echo '<script>window.parent.document.getElementById(\'plabel\').innerHTML  = "<b>' . $sMsg1 . '</b>";</script>';
 ob_flush();
 flush();
@@ -32,11 +36,14 @@ curl_setopt($ch, CURLOPT_NOPROGRESS, false);
 curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, 'progressCallback');
 curl_setopt($ch, CURLOPT_FILE, $targetFile);
 curl_exec($ch);
+curl_close($ch);
 fclose($targetFile);
 
+// Set proper permissions.
+chmod($sTarget1, 0777);
 
 $temp_progress = '';
-$targetFile = fopen('../plugins/ffmpeg/ffprobe', 'w');
+$targetFile = fopen($sTarget2, 'w');
 echo '<script>window.parent.document.getElementById(\'plabel\').innerHTML  = "<b>' . $sMsg2 . '</b>";</script>';
 ob_flush();
 flush();
@@ -47,7 +54,12 @@ curl_setopt($ch, CURLOPT_NOPROGRESS, false);
 curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, 'progressCallback');
 curl_setopt($ch, CURLOPT_FILE, $targetFile);
 curl_exec($ch);
+curl_close($ch);
 fclose($targetFile);
+
+// Set proper permissions.
+chmod($sTarget2, 0777);
+
 
 //must add $resource to the function after a newer php version. Previous comments states php 5.5
 function progressCallback($resource, $download_size, $downloaded_size, $upload_size, $uploaded_size)

@@ -195,8 +195,6 @@ $(document).ready(function() {
             })
             .insertAfter($eInput.parent());
         });
-
-        return this;
     };
 
     $.fn.multiplyable = function() {

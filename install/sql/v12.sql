@@ -1118,6 +1118,9 @@ INSERT INTO `sys_options` VALUES
 
 ('sys_embedly_key', '', @iCatGeneral, 'Embedly Key', 'digit', '', '', 180, ''),
 ('sys_php_block_enabled', '', @iCatGeneral, 'Enable PHP Block in Page Builders.', 'checkbox', '', '', 190, ''),
+('sys_maint_mode_enabled', '', @iCatGeneral, 'Enable Maintenance Mode', 'checkbox', '', '', 200, ''),
+('sys_maint_mode_admin', '', @iCatGeneral, 'Allow admins to view site while in maintenance mode', 'checkbox', '', '', 210, ''),
+('sys_maint_mode_msg', 'Sorry. Site is currently down for maintenance. Please check back later.', @iCatGeneral, 'Maintenance mode page block text', 'text', '', '', 220, ''),
 ('two_factor_auth', '', @iCatGeneral, 'Enable Two Factor Auth', 'digit', '', '', 240, ''),
 ('two_factor_auth_required', '', @iCatGeneral, 'Require Two Factor Auth', 'digit', '', '', 250, '');
 
@@ -1765,6 +1768,7 @@ INSERT INTO `sys_page_compose_pages` VALUES('categ_calendar', 'Categories Calend
 INSERT INTO `sys_page_compose_pages` VALUES('categ_search', 'Categories Search', 31, 1);
 INSERT INTO `sys_page_compose_pages` VALUES('categ_module', 'Categories Module', 32, 1);
 INSERT INTO `sys_page_compose_pages` VALUES('two_factor_auth', 'Two Factor Auth', 33, 1);
+INSERT INTO `sys_page_compose_pages` VALUES ('site_maintenance', 'Site Maintenance', 34, 1);
 
 
 CREATE TABLE `sys_page_compose_privacy` (
@@ -1858,6 +1862,8 @@ INSERT INTO `sys_page_compose` (`Page`, `PageWidth`, `Desc`, `Caption`, `Column`
 
 ('communicator_page', '1140px', '', '_sys_cnts_bcpt_connections', 1, 1, 'Connections', '', 1, 71.9, 'memb', 0, 0),
 ('communicator_page', '1140px', '', '_sys_cnts_bcpt_friend_requests', 2, 1, 'FriendRequests', '', 1, 28.1, 'memb', 0, 0),
+
+('site_maintenance', '1140px', 'Site Maintenance', '_site_maintenance', 2, 1, 'BlockOne', '', 1, 28.1, 'non,memb', 0, 0),
 
 ('tags_home', '1140px', 'Recent Tags', '_tags_recent', 1, 0, 'Recent', '', 1, 28.1, 'non,memb', 0, 0),
 ('tags_home', '1140px', 'Popular Tags', '_popular_tags', 2, 0, 'Popular', '', 1, 71.9, 'non,memb', 0, 0),
@@ -3225,6 +3231,7 @@ INSERT INTO `sys_menu_top` (`ID`, `Parent`, `Name`, `Caption`, `Link`, `Order`, 
 (17, 179, 'Mail Inbox', '_Inbox', 'mail.php?mode=inbox', 1, 'memb', '', '', '', 3, 1, 1, 0, 1, 'custom', '', '', 1, 'mma'),
 (14, 179, 'Mail Outbox', '_Outbox', 'mail.php?mode=outbox', 2, 'memb', '', '', '', 3, 1, 1, 0, 1, 'custom', '', '', 0, ''),
 (18, 179, 'Mail Trash', '_Trash', 'mail.php?mode=trash', 3, 'memb', '', '', '', 3, 1, 1, 0, 1, 'custom', '', '', 0, ''),
+(19, 179, 'Dialogs', '_Dialog', 'mail.php?mode=dialog', 4, 'memb', '', '', '', 3, 1, 1, 1, 1, 'custom', '', '', 0, ''),
 (20, 0, 'Edit My Profile', '_Customize', 'pedit.php?ID={memberID}', 0, 'memb', '', '', '', 3, 1, 1, 0, 0, 'custom', 'user', '', 1, ''),
 (25, 6, 'Online Members', '_Online', 'search.php?online_only=1', 2, 'non,memb', '', '', '', 3, 1, 1, 0, 1, 'custom', '', '', 0, ''),
 (60, 9, 'View Profile', '_Profile', '{profileLink}|{profileUsername}|profile.php?ID={profileID}', 0, 'non,memb', '', '', '', 3, 1, 1, 0, 1, 'custom', '', '', 0, ''),

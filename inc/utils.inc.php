@@ -697,6 +697,15 @@ function echoDbgLog($mWhat, $sDesc = '', $sFileName = 'debug.log')
     fclose($rFile);
 }
 
+function echoDbgTrace($sDesc = '', $oOptions = DEBUG_BACKTRACE_PROVIDE_OBJECT, $iLimit = 0) {
+    if ($sDesc) {
+        echo "<b>$sDesc:</b> ";
+    }
+    echo "<pre>";
+    print_r(debug_backtrace($oOptions, $iLimit));
+    echo "</pre>\n";
+}
+
 function clear_xss($val)
 {
     // HTML Purifier plugin
