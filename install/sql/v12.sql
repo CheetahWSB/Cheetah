@@ -5,7 +5,7 @@
 -- --------------------------------------------------------
 
 SET NAMES 'utf8';
-DROP TABLE IF EXISTS `sys_account_custom_stat_elements`, `sys_admin_ban_list`, `sys_menu_admin`, `sys_menu_admin_top`, `sys_menu_bottom`, `sys_menu_service`, `sys_albums`, `sys_albums_objects`,`sys_banners`, `sys_banners_clicks`, `sys_banners_shows`, `sys_block_list`, `sys_categories`, `sys_objects_categories`, `sys_objects_cmts`, `sys_cmts_profile`, `sys_cmts_track`, `sys_color_base`, `sys_countries`, `sys_email_templates`, `sys_email_log`, `sys_menu_member`, `sys_friend_list`, `sys_options`, `sys_options_cats`, `sys_fave_list`, `sys_ip_list`, `sys_ip_members_visits`, `sys_localization_categories`, `sys_localization_keys`, `sys_localization_languages`, `sys_localization_string_params`, `sys_localization_strings`, `sys_acl_actions`, `sys_acl_actions_track`, `sys_acl_matrix`, `sys_acl_level_prices`, `sys_acl_levels`, `sys_messages`, `sys_page_compose`, `sys_page_compose_pages`, `sys_page_compose_privacy`, `sys_sessions`, `sys_stat_member`, `sys_pre_values`, `sys_profile_fields`, `sys_acl_levels_members`, `Profiles`, `sys_profile_views_track`, `sys_profiles_match`, `sys_profile_rating`, `sys_profile_voting_track`, `sys_sa_tokens`, `RayBoardCurrentUsers`, `RayBoardBoards`, `RayBoardUsers`, `RayChatCurrentUsers`, `RayChatMessages`, `RayChatHistory`, `RayChatProfiles`, `RayChatRooms`, `RayChatRoomsUsers`, `RayChatMembershipsSettings`, `RayChatMemberships`, `RayImContacts`, `RayImMessages`, `RayImPendings`, `RayImProfiles`, `RayMp3Files`, `RayMp3Tokens`, `RayShoutboxMessages`, `RayVideoFiles`, `RayVideoTokens`, `RayVideo_commentsFiles`, `RayVideo_commentsTokens`, `sys_objects_search`, `sys_shared_sites`, `sys_stat_site`, `sys_alerts`, `sys_alerts_handlers`, `sys_injections`, `sys_injections_admin`, `sys_modules`, `sys_modules_file_tracks`, `sys_permalinks`, `sys_privacy_actions`, `sys_privacy_defaults`, `sys_privacy_groups`, `sys_privacy_members`, `sys_tags`, `sys_objects_tag`, `sys_menu_top`, `sys_objects_actions`, `sys_objects_auths`, `sys_greetings`, `sys_objects_vote`, `sys_objects_views`, `sys_box_download`, `sys_cron_jobs`, `sys_sbs_users`, `sys_sbs_entries`, `sys_sbs_types`, `sys_sbs_queue`, `sys_sbs_messages`, `sys_profiles_match_mails`, `sys_dnsbl_rules`, `sys_dnsbl_block_log`, `sys_dnsbluri_zones`, `sys_antispam_block_log`, `sys_menu_mobile`, `sys_menu_mobile_pages`, `sys_objects_social_sharing`, `sys_objects_site_maps`, `sys_objects_charts`, `sys_objects_captcha`, `sys_objects_editor`, `sys_objects_exports`;
+DROP TABLE IF EXISTS `sys_account_custom_stat_elements`, `sys_admin_ban_list`, `sys_menu_admin`, `sys_menu_admin_top`, `sys_menu_bottom`, `sys_menu_service`, `sys_albums`, `sys_albums_objects`,`sys_banners`, `sys_banners_clicks`, `sys_banners_shows`, `sys_block_list`, `sys_categories`, `sys_objects_categories`, `sys_objects_cmts`, `sys_cmts_profile`, `sys_cmts_track`, `sys_color_base`, `sys_countries`, `sys_email_templates`, `sys_email_log`, `sys_menu_member`, `sys_friend_list`, `sys_options`, `sys_options_cats`, `sys_fave_list`, `sys_ip_list`, `sys_ip_members_visits`, `sys_localization_categories`, `sys_localization_keys`, `sys_localization_languages`, `sys_localization_string_params`, `sys_localization_strings`, `sys_acl_actions`, `sys_acl_actions_track`, `sys_acl_matrix`, `sys_acl_level_prices`, `sys_acl_levels`, `sys_messages`, `sys_page_compose`, `sys_page_compose_pages`, `sys_page_compose_privacy`, `sys_sessions`, `sys_stat_member`, `sys_pre_values`, `sys_profile_fields`, `sys_acl_levels_members`, `Profiles`, `sys_profile_views_track`, `sys_profiles_match`, `sys_profile_rating`, `sys_profile_voting_track`, `sys_sa_tokens`, `RayBoardCurrentUsers`, `RayBoardBoards`, `RayBoardUsers`, `RayChatCurrentUsers`, `RayChatMessages`, `RayChatHistory`, `RayChatProfiles`, `RayChatRooms`, `RayChatRoomsUsers`, `RayChatMembershipsSettings`, `RayChatMemberships`, `RayImContacts`, `RayImMessages`, `RayImPendings`, `RayImProfiles`, `RayMp3Files`, `RayMp3Tokens`, `RayShoutboxMessages`, `RayVideoFiles`, `RayVideoTokens`, `RayVideo_commentsFiles`, `RayVideo_commentsTokens`, `sys_objects_search`, `sys_shared_sites`, `sys_stat_site`, `sys_alerts`, `sys_alerts_handlers`, `sys_injections`, `sys_injections_admin`, `sys_modules`, `sys_modules_file_tracks`, `sys_permalinks`, `sys_privacy_actions`, `sys_privacy_defaults`, `sys_privacy_groups`, `sys_privacy_members`, `sys_tags`, `sys_objects_tag`, `sys_menu_top`, `sys_objects_actions`, `sys_objects_auths`, `sys_greetings`, `sys_objects_vote`, `sys_objects_views`, `sys_box_download`, `sys_cron_jobs`, `sys_sbs_users`, `sys_sbs_entries`, `sys_sbs_types`, `sys_sbs_queue`, `sys_sbs_messages`, `sys_profiles_match_mails`, `sys_dnsbl_rules`, `sys_dnsbl_block_log`, `sys_dnsbluri_zones`, `sys_antispam_block_log`, `sys_menu_mobile`, `sys_menu_mobile_pages`, `sys_objects_social_sharing`, `sys_objects_site_maps`, `sys_objects_charts`, `sys_objects_captcha`, `sys_objects_editor`, `sys_objects_exports`, `sys_2fa_data`;
 ALTER DATABASE DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';
 
 -- --------------------------------------------------------
@@ -1120,8 +1120,9 @@ INSERT INTO `sys_options` VALUES
 ('sys_php_block_enabled', '', @iCatGeneral, 'Enable PHP Block in Page Builders.', 'checkbox', '', '', 190, ''),
 ('sys_maint_mode_enabled', '', @iCatGeneral, 'Enable Maintenance Mode', 'checkbox', '', '', 200, ''),
 ('sys_maint_mode_admin', '', @iCatGeneral, 'Allow admins to view site while in maintenance mode', 'checkbox', '', '', 210, ''),
-('sys_maint_mode_msg', 'Sorry. Site is currently down for maintenance. Please check back later.', @iCatGeneral, 'Maintenance mode page block text', 'text', '', '', 220, '');
-
+('sys_maint_mode_msg', 'Sorry. Site is currently down for maintenance. Please check back later.', @iCatGeneral, 'Maintenance mode page block text', 'text', '', '', 220, ''),
+('two_factor_auth', '', @iCatGeneral, 'Enable Two Factor Auth', 'digit', '', '', 240, ''),
+('two_factor_auth_required', '', @iCatGeneral, 'Require Two Factor Auth', 'digit', '', '', 250, '');
 
 -- CAT: Massmailer
 SET @iCatMassmailer = 4;
@@ -1377,6 +1378,7 @@ INSERT INTO `sys_options` VALUES
 
 ('sys_captcha_default', 'sys_recaptcha', @iCatHidden, 'Default CAPTCHA', 'digit', '', '', 90, ''),
 ('sys_editor_default', 'sys_tinymce', @iCatHidden, 'Default HTML editor', 'digit', '', '', 91, '');
+
 
 
 
@@ -1765,7 +1767,8 @@ INSERT INTO `sys_page_compose_pages` VALUES('tags_module', 'Tags Module', 29, 1)
 INSERT INTO `sys_page_compose_pages` VALUES('categ_calendar', 'Categories Calendar', 30, 1);
 INSERT INTO `sys_page_compose_pages` VALUES('categ_search', 'Categories Search', 31, 1);
 INSERT INTO `sys_page_compose_pages` VALUES('categ_module', 'Categories Module', 32, 1);
-INSERT INTO `sys_page_compose_pages` VALUES ('site_maintenance', 'Site Maintenance', 33, 1);
+INSERT INTO `sys_page_compose_pages` VALUES('two_factor_auth', 'Two Factor Auth', 33, 1);
+INSERT INTO `sys_page_compose_pages` VALUES ('site_maintenance', 'Site Maintenance', 34, 1);
 
 
 CREATE TABLE `sys_page_compose_privacy` (
@@ -1884,6 +1887,7 @@ INSERT INTO `sys_page_compose` (`Page`, `PageWidth`, `Desc`, `Caption`, `Column`
 
 ('profile_private', '1140px', 'Actions that other members can do', '_Actions', 1, 0, 'ActionsMenu', '', 1, 28.1, 'non,memb', 0, 0),
 ('profile_private', '1140px', 'Some text to explain why this profile can not be viewed. Translation for this block is stored in ''_sys_profile_private_text'' language key.', '_sys_profile_private_text_title', 2, 0, 'PrivacyExplain', '', 1, 71.9, 'non,memb', 0, 0);
+('two_factor_auth', '1140px', 'Two Factor Auth Get Code Block', '_two_factor_auth', 1, 0, 'GetCode', '', 0, 100, 'non,memb', 0, 0);
 
 
 -- --------------------------------------------------------
@@ -3265,7 +3269,8 @@ INSERT INTO `sys_menu_top` (`ID`, `Parent`, `Name`, `Caption`, `Link`, `Order`, 
 (179, 0, 'Mail', '_Mail', 'mail.php?mode=inbox', 4, 'memb', '', '', '', 3, 1, 1, 0, 1, 'system', 'envelope', '', 0, ''),
 (191, 118, 'Subscriptions', '_sbs_tmenu_my_subscriptions', 'member_subscriptions.php', 7, 'memb', '', '', '', 3, 1, 1, 0, 1, 'custom', '', '', 0, ''),
 (192, 118, 'Cart', '_sys_pmt_tmenu_cart', 'cart.php|modules/?r={sys_payment_module_uri}/cart/|modules/?r={sys_payment_module_uri}/history/', 9, 'memb', '', '', 'ch_import(\'ChWsbPayments\'); return ChWsbPayments::getInstance()->isActive();', 3, 1, 1, 0, 1, 'custom', '', '', 0, ''),
-(193, 118, 'Payments', '_sys_pmt_tmenu_payments', 'orders.php|modules/?r={sys_payment_module_uri}/orders/|modules/?r={sys_payment_module_uri}/details/', 10, 'memb', '', '', 'ch_import(\'ChWsbPayments\'); return ChWsbPayments::getInstance()->isActive();', 3, 1, 1, 0, 1, 'custom', '', '', 0, '');
+(193, 118, 'Payments', '_sys_pmt_tmenu_payments', 'orders.php|modules/?r={sys_payment_module_uri}/orders/|modules/?r={sys_payment_module_uri}/details/', 10, 'memb', '', '', 'ch_import(\'ChWsbPayments\'); return ChWsbPayments::getInstance()->isActive();', 3, 1, 1, 0, 1, 'custom', '', '', 0, ''),
+(194, 118, 'TwoFactorAuth', '_two_factor_auth_short', 'two_factor_auth.php?mode=status|two_factor_auth.php?mode=setup|two_factor_auth.php?mode=sbcodes', 11, 'memb', '', '', 'if (getParam(\'two_factor_auth\')) return true;', 3, 1, 1, 1, 1, 'custom', 'key', 'key', 1, '');
 
 
 -- --------------------------------------------------------
@@ -4019,3 +4024,14 @@ CREATE TABLE IF NOT EXISTS `sys_objects_exports` (
 INSERT INTO `sys_objects_exports` (`object`, `title`, `class_name`, `class_file`, `order`, `active`) VALUES
 ('profiles', '_Profiles', 'ChWsbExportProfile', '', 1, 1),
 ('flash', '_adm_admtools_Flash', 'ChWsbExportFlash', '', 2, 1);
+
+-- --------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `sys_2fa_data` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `memberid` int(11) NOT NULL,
+  `enabled` tinyint(1) NOT NULL DEFAULT 0,
+  `secretkey` varchar(32) NOT NULL,
+  `backupkeys` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;

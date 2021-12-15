@@ -1,0 +1,23 @@
+<div class="ch-def-padding text-center ch-def-font-large ch-2fa_setup_table">
+  __msg1__
+</div>
+<div class="ch-def-padding text-center">
+  <table class="ch-2fa_setup_table">
+    <tr>
+      <td class="text-center ch-def-width-50"><img src="__qrcodeurl__" /></td>
+      <td class="text-center ch-def-font-large ch-def-width-50">
+        <div class="ch-def-font-bold ch-def-padding-4">__msg2__</div>
+        <div class="ch-def-padding-4">__msg3__</div>
+        <div class="ch-def-padding-4">__secret__</div>
+      </td>
+    </tr>
+  </table>
+  <div class="ch-def-padding text-center clearfix">
+    <ch_if:show_back>
+      <input class="ch-btn ch-btn-small ch-btn-float-display" type="button" name="back" value="<ch_text:_two_factor_auth_back />" onclick="window.location.href = '__backurl__';">
+    </ch_if:show_back>
+    <ch_if:show_next>
+      <input class="ch-btn ch-btn-small ch-btn-float-display" type="button" name="next" value="<ch_text:_two_factor_auth_next />" onclick="window.location.href = '__nexturl__';">
+    </ch_if:show_next>
+  </div>
+</div>

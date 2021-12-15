@@ -69,6 +69,7 @@ class ChBaseAccountView extends ChWsbPageView
         $sMembersC = ' ' . _t('_Members');
         $sProfileC = _t('_Profile');
         $sContentC = _t('_Content');
+        $sTwoFactorAuthC = _t('_two_factor_auth_ws');
 
         //--- General Info block ---//
         $sProfileStatus = _t( "__{$this->aMemberInfo['Status']}" );
@@ -104,6 +105,26 @@ class ChBaseAccountView extends ChWsbPageView
         if(!empty($this->aMemberInfo['DateReg']) && $this->aMemberInfo['DateReg'] != "0000-00-00 00:00:00" ) {
             $sRegistrationTS = $oForm->_passDateTime($this->aMemberInfo['DateReg']);
             $sRegistration = getLocaleDate($sRegistrationTS, CH_WSB_LOCALE_DATE);
+        }
+
+        if (getParam('two_factor_auth')) {
+            $iEnabled = (int)$GLOBALS['MySQL']->getOne("SELECT `enabled` FROM `sys_2fa_data` WHERE `memberid` = '$this->iMember'");
+            $sTwoFactorAuthStatus = $iEnabled ? _t('_two_factor_auth_status_enabled') : _t('_two_factor_auth_status_disabled');
+            $sTwoFactorAuthStatusMess = '';
+
+            if($iEnabled) {
+                if (!getParam('two_factor_auth_required')) {
+                    $sTwoFactorAuthStatusMess = '<a href="' . CH_WSB_URL_ROOT . 'two_factor_auth.php?mode=disable">' . _t('_two_factor_auth_disable') . '</a>';
+                    $sTwoFactorAuthStatusMess .= '<span class="sys-bullet"></span>';
+                }
+                $sTwoFactorAuthStatusMess .= '<a href="' . CH_WSB_URL_ROOT . 'two_factor_auth.php?mode=setup">' . _t('_two_factor_auth_showqr') . '</a>';
+                $sTwoFactorAuthStatusMess .= '<span class="sys-bullet"></span>';
+                $sTwoFactorAuthStatusMess .= '<a href="' . CH_WSB_URL_ROOT . 'two_factor_auth.php?mode=sbcodes">' . _t('_two_factor_auth_show_backup') . '</a>';
+                $sTwoFactorAuthStatusMess .= '<span class="sys-bullet"></span>';
+                $sTwoFactorAuthStatusMess .= '<a href="' . CH_WSB_URL_ROOT . 'two_factor_auth.php?mode=apps">' . _t('_two_factor_auth_show_apps') . '</a>';                
+            } else {
+                $sTwoFactorAuthStatusMess = '<a href="' . CH_WSB_URL_ROOT . 'two_factor_auth.php?mode=enable">' . _t('_two_factor_auth_enable') . '</a>';
+            }
         }
 
         //--- Presence block ---//
@@ -214,6 +235,12 @@ class ChBaseAccountView extends ChWsbPageView
                     'content' => '<b>' . $sRegistrationC . ':</b> ' . $sRegistration,
                     'colspan' => true
                 ),
+                'TwoFactorAuth' => array(
+                    'type' => 'custom',
+                    'name' => 'TwoFactorAuth',
+                    'content' => '<b>' . $sTwoFactorAuthC . ':</b> ' . $sTwoFactorAuthStatus . '<br />' . $sTwoFactorAuthStatusMess,
+                    'colspan' => true
+                ),
                 'header1_end' => array(
                     'type' => 'block_end'
                 ),
@@ -239,6 +266,11 @@ class ChBaseAccountView extends ChWsbPageView
         );
 
         //custom
+
+        if (!getParam('two_factor_auth')) {
+            unset($aForm['inputs']['TwoFactorAuth']);
+        }
+
         if(!empty($aCustomElements)) {
             $aForm['inputs'] = array_merge(
                 $aForm['inputs'],
