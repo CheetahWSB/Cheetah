@@ -4,10 +4,10 @@
 CREATE TABLE IF NOT EXISTS `[db_prefix]entries` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `author_id` int(11) unsigned NOT NULL default '0',
-  `caption` varchar(64) NOT NULL default '',
-  `content` text NOT NULL,
+  `caption` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL default '',
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `uri` varchar(64) NOT NULL default '',
-  `tags` varchar(255) NOT NULL default '',
+  `tags` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL default '',
   `allow_comment_to` int(11) NOT NULL default '0',
   `allow_vote_to` int(11) NOT NULL default '0',
   `date` int(11) NOT NULL default '0',
