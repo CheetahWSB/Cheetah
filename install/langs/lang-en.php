@@ -974,6 +974,12 @@ For any further information please <a href="{1}contact.php">contact us</a>
   '_adm_box_cpt_lang_available' => 'Languages',
   '_adm_box_cpt_lang_edit_language' => 'Edit Language',
   '_adm_box_cpt_lang_files' => 'Language files from Cheetah Market',
+
+  '_adm_box_cpt_lang_batch_msg1' => 'The list of keys entered can be in one of 3 formats.',
+  '_adm_box_cpt_lang_batch_msg2' => '1) CSV Comma separated values. The Key,Value pairs must be enclosed in quotes. Examples.',
+  '_adm_box_cpt_lang_batch_msg3' => '2) Key = String format. The Key = Value pairs must be enclosed in quotes. Examples.',
+  '_adm_box_cpt_lang_batch_msg4' => '3) PHP array double arrow operator format. The Key =&gt; Value pairs must be enclosed in quotes. Examples.',
+
   '_adm_box_cpt_lang_key' => 'Key',
   '_adm_box_cpt_license' => 'Current License',
   '_adm_box_cpt_links' => 'Quick Links',

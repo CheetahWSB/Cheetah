@@ -43,6 +43,9 @@ if (isset($_POST['create_key_batch'])) {
         file_put_contents($sTmpFile, $sKeyList);
         $bMode1 = $bMode2 = $bMode3 = true;
         $bProcess = false;
+        $aMode1Seperators = array('","','" ,"','", "','" , "',"','","' ,'","', '","' , '");
+        $aMode2Seperators = array('"=>"','" =>"','"=> "','" => "',"'=>'","' =>'","'=> '","' => '");
+        $aMode3Seperators = array('"="','" ="','"= "','" = "',"'='","' ='","'= '","' = '");
         $sSep = '';
         // Pass one. See what format the file is in.
         $file = fopen($sTmpFile, "r");
@@ -51,11 +54,11 @@ if (isset($_POST['create_key_batch'])) {
             $line = trim($line);
             if ($line) {
                 $line = rtrim($line, ',');
-                if (strpos($line, ',') === false)
+                if (strposa($line, $aMode1Seperators) === false)
                     $bMode1 = false;
-                if (strpos($line, '=>') === false)
+                if (strposa($line, $aMode2Seperators) === false)
                     $bMode2 = false;
-                if (strpos($line, '=') === false)
+                if (strposa($line, $aMode3Seperators) === false)                                
                     $bMode3 = false;
             }
         }

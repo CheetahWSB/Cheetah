@@ -50,6 +50,11 @@ $aLangContent = array(
   '_Dialog' => 'Dialogs',
   '_dialog_dialogs_msg' => 'Members you have had dialogs with.',
 
+  '_adm_box_cpt_lang_batch_msg1' => 'The list of keys entered can be in one of 3 formats.',
+  '_adm_box_cpt_lang_batch_msg2' => '1) CSV Comma separated values. The Key,Value pairs must be enclosed in quotes. Examples.',
+  '_adm_box_cpt_lang_batch_msg3' => '2) Key = String format. The Key = Value pairs must be enclosed in quotes. Examples.',
+  '_adm_box_cpt_lang_batch_msg4' => '3) PHP array double arrow operator format. The Key =&gt; Value pairs must be enclosed in quotes. Examples.',
+  
 
   // ================ CHANGED KEYS ==================
 
