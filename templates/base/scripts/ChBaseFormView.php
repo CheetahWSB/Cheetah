@@ -1079,7 +1079,6 @@ class ChBaseFormView extends ChWsbForm
         );
 
         $aCss = array(
-            //'forms_adv.css',
             'plugins/jquery/themes/|jquery-ui.css',
         );
 
@@ -1119,11 +1118,12 @@ class ChBaseFormView extends ChWsbForm
         }
 
         if (isset($GLOBALS['oSysTemplate'])) {
-        	$GLOBALS['oSysTemplate']->addCss($aCss);
+            $GLOBALS['oSysTemplate']->addCss($aCss);
             $GLOBALS['oSysTemplate']->addJs($aJs);
             $GLOBALS['oSysTemplate']->addJsTranslation($aTranslations);
         }
         if (isset($GLOBALS['oAdmTemplate'])) {
+            $aCss[] = 'forms_adv.css';
             $GLOBALS['oAdmTemplate']->addJs($aJs);
             $GLOBALS['oAdmTemplate']->addCss($aCss);
         }
