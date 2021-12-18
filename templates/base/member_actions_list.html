@@ -1,5 +1,8 @@
 <div class="actionsContainer">
     <div class="actionsBlock clearfix">
+      <ch_if:show_status>
+          <div class="ch-def-margin-bottom">__status__</div>
+      </ch_if:show_status>      
     	<div class="actionItems clearfix"><ch_repeat:actions><div class="actionItem __action_link_class__">__action_link__</div></ch_repeat:actions></div>
         __responce_block__
     </div>

@@ -402,9 +402,12 @@ class ChBaseProfileGenerator extends ChWsbProfile
             $bProfileCoverChangeHref = !empty($sProfileCoverChangeHref);
         }
 
-        ch_import('ChWsbMemberInfo');
-        $o              = ChWsbMemberInfo::getObjectInstance('sys_status_message');
-        $sProfileStatus = $o ? $o->get($p_arr) : '';
+        //ch_import('ChWsbMemberInfo');
+        //$o              = ChWsbMemberInfo::getObjectInstance('sys_status_message');
+        //$sProfileStatus = $o ? $o->get($p_arr) : '';
+        // Due to problem with user file caching, i pull this from the database until i can find the source of the problem.
+        $sProfileStatus = $GLOBALS['MySQL']->getOne("SELECT `UserStatusMessage` FROM `Profiles` WHERE `ID` = '$bProfileOwner'");
+
 
         $sBackground      = '';
         $sBackgroundClass = '';
