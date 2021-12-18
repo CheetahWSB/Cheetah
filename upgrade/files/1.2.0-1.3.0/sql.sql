@@ -48,5 +48,7 @@ INSERT INTO `sys_menu_top` (`Parent`, `Name`, `Caption`, `Link`, `Order`, `Visib
 INSERT INTO `sys_menu_top` (`Parent`, `Name`, `Caption`, `Link`, `Order`, `Visible`, `Target`, `Onclick`, `Check`, `Movable`, `Clonable`, `Editable`, `Deletable`, `Active`, `Type`, `Picture`, `Icon`, `BQuickLink`, `Statistics`) VALUES
 (179, 'Dialogs', '_Dialog', 'mail.php?mode=dialog', 4, 'memb', '', '', '', 3, 1, 1, 1, 1, 'custom', '', '', 0, '');
 
+UPDATE `sys_objects_actions` SET `Eval` WHERE `Url` = 'member.php?loginas=true&id={ID}';
+
 -- last step is to update current version
 UPDATE `sys_options` SET `VALUE` = '1.3.0' WHERE `Name` = 'sys_tmp_version';

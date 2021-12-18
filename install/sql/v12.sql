@@ -3288,7 +3288,7 @@ CREATE TABLE `sys_objects_actions` (
 
 INSERT INTO `sys_objects_actions` (`Caption`, `Icon`, `Url`, `Script`, `Eval`, `Order`, `Type`, `bDisplayInSubMenuHeader`) VALUES
 ('{evalResult}', 'edit', 'pedit.php?ID={ID}', '', 'if ({ID} == {member_id} || isAdmin({member_id}) || isModerator({member_id})) return _t(''{cpt_edit}'');', 1, 'Profile', 0),
-('{evalResult}', 'sign-in', 'member.php?loginas=true&id={ID}', '', 'if (isAdmin({member_id})) return _t(\'_Login_As\');', 1, 'Profile', 0),
+('{evalResult}', 'sign-in', 'member.php?loginas=true&id={ID}', '', 'if (isAdmin({member_id}) && {member_id} != {ID}) return _t(\'_Login_As\');', 1, 'Profile', 0),
 ('{evalResult}', 'envelope', 'mail.php?mode=compose&recipient_id={ID}', '', 'if ({ID} == {member_id}) return;\r\nreturn _t(''{cpt_send_letter}'');', 2, 'Profile', 0),
 ('{cpt_fave}', 'asterisk', '', '{evalResult}', 'return $GLOBALS[''oTopMenu'']->getScriptFaveAdd({ID}, {member_id});', 3, 'Profile', 0),
 ('{cpt_remove_fave}', 'asterisk', '', '{evalResult}', 'return $GLOBALS[''oTopMenu'']->getScriptFaveCancel({ID}, {member_id});', 3, 'Profile', 0),
