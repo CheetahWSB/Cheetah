@@ -3,6 +3,8 @@
 $aLangContent = array(
 
   // ================ ADDED KEYS ==================
+  '_site_maintenance' => 'Site Maintenance',
+  
   '_two_factor_auth' => 'Two-factor Auth',
   '_two_factor_auth_short' => '2FA',
   '_two_factor_auth_long' => 'Two-factor Authentication',
@@ -54,7 +56,7 @@ $aLangContent = array(
   '_adm_box_cpt_lang_batch_msg2' => '1) CSV Comma separated values. The Key,Value pairs must be enclosed in quotes. Examples.',
   '_adm_box_cpt_lang_batch_msg3' => '2) Key = String format. The Key = Value pairs must be enclosed in quotes. Examples.',
   '_adm_box_cpt_lang_batch_msg4' => '3) PHP array double arrow operator format. The Key =&gt; Value pairs must be enclosed in quotes. Examples.',
-  
+
 
   // ================ CHANGED KEYS ==================
 
