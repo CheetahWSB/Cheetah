@@ -1860,7 +1860,7 @@ INSERT INTO `sys_page_compose` (`Page`, `PageWidth`, `Desc`, `Caption`, `Column`
 ('communicator_page', '1140px', '', '_sys_cnts_bcpt_connections', 1, 1, 'Connections', '', 1, 71.9, 'memb', 0, 0),
 ('communicator_page', '1140px', '', '_sys_cnts_bcpt_friend_requests', 2, 1, 'FriendRequests', '', 1, 28.1, 'memb', 0, 0),
 
-('site_maintenance', '1140px', 'Site Maintenance', '_site_maintenance', 2, 1, 'BlockOne', '', 1, 28.1, 'non,memb', 0, 0),
+('site_maintenance', '1140px', 'Site Maintenance', '_site_maintenance', 1, 0, 'BlockOne', '', 1, 100, 'non,memb', 0, 0),
 
 ('tags_home', '1140px', 'Recent Tags', '_tags_recent', 1, 0, 'Recent', '', 1, 28.1, 'non,memb', 0, 0),
 ('tags_home', '1140px', 'Popular Tags', '_popular_tags', 2, 0, 'Popular', '', 1, 71.9, 'non,memb', 0, 0),

@@ -15,7 +15,7 @@ INSERT INTO `sys_options` VALUES
 INSERT INTO `sys_page_compose_pages` VALUES ('site_maintenance', 'Site Maintenance', 33, 1);
 
 INSERT INTO `sys_page_compose` (`Page`, `PageWidth`, `Desc`, `Caption`, `Column`, `Order`, `Func`, `Content`, `DesignBox`, `ColWidth`, `Visible`, `MinWidth`, `Cache`) VALUES
-('site_maintenance', '1140px', 'Site Maintenance', '_site_maintenance', 2, 1, 'BlockOne', '', 1, 28.1, 'non,memb', 0, 0);
+('site_maintenance', '1140px', 'Site Maintenance', '_site_maintenance', 1, 0, 'BlockOne', '', 1, 100, 'non,memb', 0, 0);
 
 -- 2FA
 SET @iCatGeneral = 3;
