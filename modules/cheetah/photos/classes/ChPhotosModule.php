@@ -141,7 +141,14 @@ class ChPhotosModule extends ChWsbFilesModule
         $aInfoNew = $this->_oDb->getFileInfo(array('fileId' => $a['id']));
 
         $iId = $a['id'];
-        $sUri = dechex($iId . str_replace('.', '0', microtime(true)));
+
+        for ($x = 0; $x <= 10; $x++) {
+            $sUri = substr(md5(microtime(true) . $x), 0, 16);
+            if (uriCheckUniq($sUri, 'ch_photos_main', 'Uri')) {
+                continue;
+            }
+        }
+
         $GLOBALS['MySQL']->query("UPDATE `ch_photos_main` SET `Uri` = '$sUri' WHERE `ID` = '$iId'");
 
         // Delete photo used for cropping if box was checked.
