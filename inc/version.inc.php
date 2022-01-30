@@ -25,3 +25,5 @@ if((int)$aVersion[3] != 0) {
     $sTimeStamp = strtotime($aVersion[0] . "-" . $aVersion[1] . "-" . $aVersion[2] . " 00:00");
 }
 define('CH_WSB_CSS_JS_VER', $sTimeStamp+(int)$iIncrement);  // Unix timestamp when this version was released.
+
+header('X-Powered-By: Cheetah ' . $site['version'], false);
