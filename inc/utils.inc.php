@@ -466,7 +466,8 @@ function isRWAccessible($sFileName)
      $aPlus = array(),
      $sEmailFlag = 'html',
      $isDisableAlert = false,
-     $bForceSend = false
+     $bForceSend = false,
+     $sSenderEmail = ''
  ) {
      global $site;
 
@@ -488,6 +489,10 @@ function isRWAccessible($sFileName)
      $sEmailNotify    = isset($GLOBALS['site']['email_notify']) ? $GLOBALS['site']['email_notify'] : getParam('site_email_notify');
      $sSiteTitle      = isset($GLOBALS['site']['title']) ? $GLOBALS['site']['title'] : getParam('site_title');
      $sMailHeader     = "From: =?UTF-8?B?" . base64_encode($sSiteTitle) . "?= <{$sEmailNotify}>";
+     if($sSenderEmail != '') {
+        $sMailHeader     = "Reply-To: {$sSenderEmail}\r\n" . $sMailHeader;
+     }
+
      $sMailParameters = "-f{$sEmailNotify}";
 
      if ($aPlus || $iRecipientID) {

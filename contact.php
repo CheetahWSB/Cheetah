@@ -133,7 +133,7 @@ function PageCompPageMainCodeWithForm()
 
         $sLetterBody = $sLetterBody . "\r\n" . '============' . "\r\n" . _t('_from') . ' ' . $sSenderName . "\r\n" . 'with email ' .  $sSenderEmail;
 
-        if (sendMail($site['email'], $sLetterSubject, $sLetterBody)) {
+        if (sendMail($site['email'], $sLetterSubject, $sLetterBody, 0, array(), 'html', false, false, $sSenderEmail)) {
             $sActionKey = '_ADM_PROFILE_SEND_MSG';
         } else {
             $sActionKey = '_Email sent failed';
