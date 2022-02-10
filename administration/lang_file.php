@@ -17,6 +17,7 @@ require_once( CH_DIRECTORY_PATH_INC . 'profiles.inc.php' );
 require_once( CH_DIRECTORY_PATH_INC . 'design.inc.php' );
 require_once( CH_DIRECTORY_PATH_INC . 'admin_design.inc.php' );
 require_once( CH_DIRECTORY_PATH_INC . 'utils.inc.php' );
+require_once( CH_DIRECTORY_PATH_INC . 'cheetah_utils.inc.php' );
 ch_import('ChTemplSearchResult');
 
 $logged['admin'] = member_auth( 1, true, true );
@@ -58,7 +59,7 @@ if (isset($_POST['create_key_batch'])) {
                     $bMode1 = false;
                 if (strposa($line, $aMode2Seperators) === false)
                     $bMode2 = false;
-                if (strposa($line, $aMode3Seperators) === false)                                
+                if (strposa($line, $aMode3Seperators) === false)
                     $bMode3 = false;
             }
         }
@@ -98,6 +99,7 @@ if (isset($_POST['create_key_batch'])) {
                     $line = rtrim($line, ','); // Remove trailing comma if exists.
                     $aLine = explode($sSep, $line, 2);
                     $sLangKey = trim($aLine[0], " \t\n\r\0\x0B\x27\x22"); // Trim the language key of unwanted characters.
+                    $sLangKey = process_db_input($sLangKey, CH_TAGS_STRIP);
                     $sLangString = trim($aLine[1], " \t\n\r\0\x0B\x27\x22"); // Trim the language string of unwanted characters.
                     $GLOBALS['MySQL']->query("INSERT IGNORE INTO `sys_localization_keys`(`IDCategory`, `Key`) VALUES('$iCategoryId', '$sLangKey')");
                     $iKeyId = (int) $GLOBALS['MySQL']->lastId();
@@ -105,7 +107,7 @@ if (isset($_POST['create_key_batch'])) {
                     // So if $iKeyId is not > 0, do not try to insert the string.
                     if ($iKeyId) {
                         $iKeyAddedCount++;
-                        $sLangString = process_db_input($sLangString);
+                        $sLangString = process_db_input($sLangString, CH_TAGS_VALIDATE);
                         $GLOBALS['MySQL']->query("INSERT IGNORE INTO `sys_localization_strings`(`IDKey`, `IDLanguage`, `String`) VALUES('$iKeyId', '$iLangId', '$sLangString')");
                     } else {
                         if($iUpdateDup) {
@@ -364,7 +366,11 @@ function _getKeysBatch($mixedResult, $bActive = false)
     $aCategories = $GLOBALS['MySQL']->getAll("SELECT `ID`, `Name` FROM `sys_localization_categories`");
     $sCatOptions = '';
     foreach ($aCategories as $aCategory) {
-        $sCatOptions .= '<option value="' . $aCategory['ID'] . '">' . $aCategory['Name'] . '</option>' . "\r\n";
+        if($aCategory['ID'] == 1) {
+            $sCatOptions .= '<option value="' . $aCategory['ID'] . '" selected>' . $aCategory['Name'] . '</option>' . "\r\n";
+        } else {
+            $sCatOptions .= '<option value="' . $aCategory['ID'] . '">' . $aCategory['Name'] . '</option>' . "\r\n";
+        }
     }
 
     return $GLOBALS['oAdmTemplate']->parseHtmlByName('langs_keys_batch.html', array(
