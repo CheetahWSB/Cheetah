@@ -5,7 +5,7 @@
  * CC-BY License - http://creativecommons.org/licenses/by/3.0/
  */
 
-$sLangCategory = 'BooneEx Groups';
+$sLangCategory = 'Cheetah Groups';
 
 $aLangContent = array(
   '_sys_module_groups' => 'Группы',

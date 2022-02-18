@@ -5,7 +5,7 @@
  * CC-BY License - http://creativecommons.org/licenses/by/3.0/
  */
 
-$sLangCategory = 'BooneEx Store';
+$sLangCategory = 'Cheetah Store';
 
 $aLangContent = array(
   '_sys_module_store' => 'Store',
