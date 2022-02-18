@@ -60,6 +60,12 @@ class ChWsbCategories extends ChWsbTags
 
     function getCategoriesList ($sType, $iOwnerId = 0, $bForm = false)
     {
+
+        $sOrder = getParam('categ_sort');
+        $sOrderBy = '';
+        if($sOrder == 'Ascending') $sOrderBy = ' ORDER BY `Category` ASC';
+        if($sOrder == 'Descending') $sOrderBy = ' ORDER BY `Category` DESC';
+
         $this->getTagObjectConfig();
         $sType = array_key_exists($sType, $this->aTagObjects) === true ? $sType : 'ch_photos';
         $iOwnerId = (int)$iOwnerId;
@@ -68,7 +74,7 @@ class ChWsbCategories extends ChWsbTags
                      WHERE (`cat`.`{$this->aTagFields['owner']}` = 0 OR `cat`.`{$this->aTagFields['owner']}` = $iOwnerId)
                      AND `cat`.`{$this->aTagFields['type']}` = '$sType' AND `cat`.`{$this->aTagFields['status']}` = 'active'
                      __sqlAdd__
-                     GROUP BY `cat`.`{$this->aTagFields['tag']}`";
+                     GROUP BY `cat`.`{$this->aTagFields['tag']}`" . $sOrderBy;
 
         $aAddSql = array();
 

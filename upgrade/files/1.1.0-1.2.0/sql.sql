@@ -22,5 +22,10 @@ SET @iCatGeneral = 3;
 INSERT INTO `sys_options` VALUES
 ('enable_tiny_in_mail', 'on', @iCatGeneral, 'Enable WYSIWYG editor in mail', 'checkbox', '', '', 32, '');
 
+-- CAT: Categories
+SET @iCatCategories = 27;
+INSERT INTO `sys_options` VALUES
+('categ_sort', 'Ascending', @iCatCategories, 'Categories sort order', 'select', '', '', 40, 'None,Ascending,Descending');
+
 -- last step is to update current version
 UPDATE `sys_options` SET `VALUE` = '1.2.0' WHERE `Name` = 'sys_tmp_version';

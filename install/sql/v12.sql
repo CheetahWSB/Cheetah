@@ -1331,7 +1331,8 @@ SET @iCatCategories = 27;
 INSERT INTO `sys_options` VALUES
 ('categ_perpage_browse', '30', @iCatCategories, 'Number of categories to show on browse pages', 'digit', '', '', 10, ''),
 ('categ_show_limit', '50', @iCatCategories, 'Number of categories to show limit', 'digit', '', '', 20, ''),
-('categ_show_columns', '3', @iCatCategories, 'Number of columns to show categories', 'digit', '', '', 30, '');
+('categ_show_columns', '3', @iCatCategories, 'Number of columns to show categories', 'digit', '', '', 30, ''),
+('categ_sort', 'Ascending', @iCatCategories, 'Categories sort order', 'select', '', '', 40, 'None,Ascending,Descending');
 
 -- CAT: Email Log
 SET @iCatCategories = 28;
