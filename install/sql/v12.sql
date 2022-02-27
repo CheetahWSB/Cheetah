@@ -1118,8 +1118,8 @@ INSERT INTO `sys_options` VALUES
 ('sys_maint_mode_enabled', '', @iCatGeneral, 'Enable Maintenance Mode', 'checkbox', '', '', 200, ''),
 ('sys_maint_mode_admin', '', @iCatGeneral, 'Allow admins to view site while in maintenance mode', 'checkbox', '', '', 210, ''),
 ('sys_maint_mode_msg', 'Sorry. Site is currently down for maintenance. Please check back later.', @iCatGeneral, 'Maintenance mode page block text', 'text', '', '', 220, ''),
-('two_factor_auth', '', @iCatGeneral, 'Enable Two Factor Auth', 'digit', '', '', 240, ''),
-('two_factor_auth_required', '', @iCatGeneral, 'Require Two Factor Auth', 'digit', '', '', 250, '');
+('two_factor_auth', '', @iCatGeneral, 'Enable Two Factor Auth', 'checkbox', '', '', 240, ''),
+('two_factor_auth_required', '', @iCatGeneral, 'Require Two Factor Auth', 'checkbox', '', '', 250, '');
 
 -- CAT: Massmailer
 SET @iCatMassmailer = 4;
@@ -1885,7 +1885,7 @@ INSERT INTO `sys_page_compose` (`Page`, `PageWidth`, `Desc`, `Caption`, `Column`
 ('pedit', '1140px', 'Profile membership', '_edit_profile_membership', 2, 2, 'Membership', '', 1, 28.1, 'memb', 0, 0),
 
 ('profile_private', '1140px', 'Actions that other members can do', '_Actions', 1, 0, 'ActionsMenu', '', 1, 28.1, 'non,memb', 0, 0),
-('profile_private', '1140px', 'Some text to explain why this profile can not be viewed. Translation for this block is stored in ''_sys_profile_private_text'' language key.', '_sys_profile_private_text_title', 2, 0, 'PrivacyExplain', '', 1, 71.9, 'non,memb', 0, 0);
+('profile_private', '1140px', 'Some text to explain why this profile can not be viewed. Translation for this block is stored in ''_sys_profile_private_text'' language key.', '_sys_profile_private_text_title', 2, 0, 'PrivacyExplain', '', 1, 71.9, 'non,memb', 0, 0),
 ('two_factor_auth', '1140px', 'Two Factor Auth Get Code Block', '_two_factor_auth', 1, 0, 'GetCode', '', 0, 100, 'non,memb', 0, 0);
 
 
