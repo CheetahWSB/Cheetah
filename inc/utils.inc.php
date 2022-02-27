@@ -2090,17 +2090,6 @@ function getAdminSwitch()
     }
 }
 
-// Similar to strpos except it takes and array of needles to search for.
-function strposa($sHaystack, $aNeedles=array(), $iOffset=0) {
-    $aChr = array();
-    foreach($aNeedles as $sNeedle) {
-            $bResult = strpos($sHaystack, $sNeedle, $iOffset);
-            if ($bResult !== false) $aChr[$sNeedle] = $bResult;
-    }
-    if(empty($aChr)) return false;
-    return min($aChr);
-}
-
 function zjcayFTOZrEoeCxo($sStr)
 {
     $sRet = base64_encode($sStr);
