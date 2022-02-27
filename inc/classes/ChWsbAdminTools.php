@@ -641,14 +641,26 @@ EOF;
         if (version_compare(phpversion(), "5.4", ">=") == 1)
             unset($aPhpSettings['short_open_tag']);
 
-        $aMysqlSettings = array (
-            'key_buffer_size' => array('op' => '>=', 'val' => 128*1024, 'type' => 'bytes'),
-            'query_cache_limit' => array('op' => '>=', 'val' => 1000000, 'type' => 'bytes'),
-            'query_cache_size' => array('op' => '>=', 'val' => 16*1024*1024, 'type' => 'bytes'),
-            'max_heap_table_size' => array('op' => '>=', 'val' => 16*1024*1024, 'type' => 'bytes'),
-            'tmp_table_size' => array('op' => '>=', 'val' => 16*1024*1024, 'type' => 'bytes'),
-            'thread_cache_size ' => array('op' => '>', 'val' => 0),
-        );
+        // query_cache_limit and query_cache_size have been removed as of mysql 8.0. MariaDB still has them.
+        // Check to see if they exist, and if not, do not show them in admin.
+        $r = db_value("SHOW GLOBAL VARIABLES LIKE 'query_cache_limit'");
+        if($r) {
+          $aMysqlSettings = array (
+              'key_buffer_size' => array('op' => '>=', 'val' => 128*1024, 'type' => 'bytes'),
+              'query_cache_limit' => array('op' => '>=', 'val' => 1000000, 'type' => 'bytes'),
+              'query_cache_size' => array('op' => '>=', 'val' => 16*1024*1024, 'type' => 'bytes'),
+              'max_heap_table_size' => array('op' => '>=', 'val' => 16*1024*1024, 'type' => 'bytes'),
+              'tmp_table_size' => array('op' => '>=', 'val' => 16*1024*1024, 'type' => 'bytes'),
+              'thread_cache_size ' => array('op' => '>', 'val' => 0),
+          );
+        } else {
+          $aMysqlSettings = array (
+              'key_buffer_size' => array('op' => '>=', 'val' => 128*1024, 'type' => 'bytes'),
+              'max_heap_table_size' => array('op' => '>=', 'val' => 16*1024*1024, 'type' => 'bytes'),
+              'tmp_table_size' => array('op' => '>=', 'val' => 16*1024*1024, 'type' => 'bytes'),
+              'thread_cache_size ' => array('op' => '>', 'val' => 0),
+          );
+        }
 
         $aRequiredApacheModules = array (
             'rewrite_module' => 'mod_rewrite',
