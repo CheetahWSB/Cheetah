@@ -315,6 +315,12 @@ function checkAction($iMemberId, $actionID, $performAction = false, $iForcedProf
     global $logged;
     global $site;
 
+    // If admin, always allow and do not count.
+    if(isAdmin()) {
+        $result[CHECK_ACTION_RESULT] = CHECK_ACTION_RESULT_ALLOWED;
+        return $result;
+    }
+
     //output array initialization
 
     $result = array();

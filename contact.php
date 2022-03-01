@@ -133,7 +133,9 @@ function PageCompPageMainCodeWithForm()
 
         $sLetterBody = $sLetterBody . "\r\n" . '============' . "\r\n" . _t('_from') . ' ' . $sSenderName . "\r\n" . 'with email ' .  $sSenderEmail;
 
-        if (sendMail($site['email'], $sLetterSubject, $sLetterBody)) {
+        $sRecipientEmail = getParam('contact_us_email_notify');
+        if($sRecipientEmail == '' || $sRecipientEmail == 'other@example.com') $sRecipientEmail = $site['email'];
+        if (sendMail($sRecipientEmail, $sLetterSubject, $sLetterBody, 0, array(), 'html', false, false, $sSenderEmail)) {
             $sActionKey = '_ADM_PROFILE_SEND_MSG';
         } else {
             $sActionKey = '_Email sent failed';

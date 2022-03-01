@@ -75,7 +75,12 @@ function actionAllCategories()
         'location_href' => CH_WSB_URL_ADMIN . 'categories.php?action=all&module='
     ));
 
-    $aCategories = $oDb->getAll("SELECT * FROM `sys_categories` WHERE `Status` = 'active' AND `Owner` = 0 AND `Type` = ?", [$sModule]);
+    $sOrder = getParam('categ_sort');
+    $sOrderBy = '';
+    if($sOrder == 'Ascending') $sOrderBy = ' ORDER BY `Category` ASC';
+    if($sOrder == 'Descending') $sOrderBy = ' ORDER BY `Category` DESC';
+
+    $aCategories = $oDb->getAll("SELECT * FROM `sys_categories` WHERE `Status` = 'active' AND `Owner` = 0 AND `Type` = ?" . $sOrderBy, [$sModule]);
     if(!empty($aCategories)) {
         $mixedTmplItems = array();
         foreach($aCategories as $aCategory)

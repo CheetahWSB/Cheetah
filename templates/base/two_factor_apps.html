@@ -1,0 +1,41 @@
+<div id="ch-2fa-cont" class="ch-def-padding text-center ch-2fa-app-pos-rel">
+  <div class="ch-def-margin-rightbottomleft">
+    Below are 4 popular authenticator apps. Click the standard link to go to the Google Play Store or Apple Store from a browser, or click the QR icon to popup a URL QR Code you can scan with your phone that will link to the app.
+  </div>
+	<table class="ch-2fa-width-100pc">
+		<tr>
+			<td class="ch-2fa-app-img-cell"><img src="<ch_url_root />media/images/2FA/google_auth_app.png"></td>
+			<td>Google Authenticator&nbsp;</td>
+			<td class="ch-2fa-app-img-cell-qr"><img src="<ch_url_root />media/images/2FA/google-play-googleauth.png" width="32" height="32" onclick="javascript: loadHtmlInPopup('explanation_popup', '<ch_url_root />two_factor_auth.php?mode=popup&qr=1');"></td>
+			<td class="ch-2fa-width-100px"> <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;hl=en_US&amp;gl=US">Android App</a>&nbsp; </td>
+			<td class="ch-2fa-app-img-cell-qr"><img src="<ch_url_root />media/images/2FA/apple-store-googleauth.png" width="32" height="32" onclick="javascript: loadHtmlInPopup('explanation_popup', '<ch_url_root />two_factor_auth.php?mode=popup&qr=2');"></td>
+			<td class="ch-2fa-width-100px"> <a href="https://apps.apple.com/us/app/google-authenticator/id388497605">IOS App</a>&nbsp; </td>
+		</tr>
+		<tr>
+			<td class="ch-2fa-app-img-cell"><img src="<ch_url_root />media/images/2FA/microsoft_auth_app.png"></td>
+			<td>Microsoft Authenticator&nbsp;</td>
+			<td class="ch-2fa-app-img-cell-qr"><img src="<ch_url_root />media/images/2FA/google-play-microsoftauth.png" width="32" height="32" onclick="javascript: loadHtmlInPopup('explanation_popup', '<ch_url_root />two_factor_auth.php?mode=popup&qr=3');"></td>
+			<td class="ch-2fa-width-100px"> <a href="https://play.google.com/store/apps/details?id=com.azure.authenticator&amp;hl=en_US&amp;gl=US">Android App</a>&nbsp; </td>
+			<td class="ch-2fa-app-img-cell-qr"><img src="<ch_url_root />media/images/2FA/apple-store-microsoftauth.png" width="32" height="32" onclick="javascript: loadHtmlInPopup('explanation_popup', '<ch_url_root />two_factor_auth.php?mode=popup&qr=4');"></td>
+			<td class="ch-2fa-width-100px"> <a href="https://apps.apple.com/us/app/microsoft-authenticator/id983156458">IOS App</a>&nbsp; </td>
+		</tr>
+		<tr>
+			<td class="ch-2fa-app-img-cell"><img src="<ch_url_root />media/images/2FA/2fas_auth_app.png"></td>
+			<td>2FA Authenticator</td>
+			<td class="ch-2fa-app-img-cell-qr"><img src="<ch_url_root />media/images/2FA/google-play-2fa-auth.png" width="32" height="32" onclick="javascript: loadHtmlInPopup('explanation_popup', '<ch_url_root />two_factor_auth.php?mode=popup&qr=5');"></td>
+			<td class="ch-2fa-width-100px"> <a href="https://play.google.com/store/apps/details?id=com.twofasapp&amp;hl=en_US&amp;gl=US">Android App</a> </td>
+			<td class="ch-2fa-app-img-cell-qr"><img src="<ch_url_root />media/images/2FA/apple-store-2fa-auth.png" width="32" height="32" onclick="javascript: loadHtmlInPopup('explanation_popup', '<ch_url_root />two_factor_auth.php?mode=popup&qr=6');"></td>
+			<td class="ch-2fa-width-100px"> <a href="https://apps.apple.com/us/app/2fa-authenticator-2fas/id1217793794">IOS App</a> </td>
+		</tr>
+		<tr>
+			<td class="ch-2fa-app-img-cell"><img src="<ch_url_root />media/images/2FA/lastpass_auth_app.png"></td>
+			<td>LastPass Authenticator</td>
+			<td class="ch-2fa-app-img-cell-qr"><img src="<ch_url_root />media/images/2FA/google-play-lastpass.png" width="32" height="32" onclick="javascript: loadHtmlInPopup('explanation_popup', '<ch_url_root />two_factor_auth.php?mode=popup&qr=7');"></td>
+			<td class="ch-2fa-width-100px"> <a href="https://play.google.com/store/apps/details?id=com.lastpass.authenticator">Android App</a> </td>
+			<td class="ch-2fa-app-img-cell-qr"><img src="<ch_url_root />media/images/2FA/apple-store-lastpass.png" width="32" height="32" onclick="javascript: loadHtmlInPopup('explanation_popup', '<ch_url_root />two_factor_auth.php?mode=popup&qr=8');"></td>
+			<td class="ch-2fa-width-100px"> <a href="https://apps.apple.com/us/app/lastpass-authenticator/id1079110004">IOS App</a> </td>
+		</tr>
+	</table>
+</div>
+<div class="ch-def-padding text-center clearfix">
+	<input class="ch-btn ch-btn-small ch-btn-float-display" type="button" name="back" value="<ch_text:_two_factor_auth_back />" onclick="window.location.href = '__backurl__';"> </div>

@@ -5,7 +5,7 @@
  * CC-BY License - http://creativecommons.org/licenses/by/3.0/
  */
 
-$sLangCategory = 'BooneEx Blogs';
+$sLangCategory = 'Cheetah Blogs';
 
 $aLangContent = array(
     '_sys_module_blogs' => 'Блоги',

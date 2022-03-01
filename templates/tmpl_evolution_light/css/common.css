@@ -3,6 +3,10 @@ body {
     background-image: none;
     background-color: #F5F7FA;
 }
+.sys-bullet:before {
+    content: "\00A0\2022\00A0";
+    color: #999999;
+}
 .ch_sys_unit_checkbox {
     top: 3px;
     left: 3px;

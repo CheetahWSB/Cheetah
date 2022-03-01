@@ -1,0 +1,24 @@
+<div class="ch-def-margin">
+    __status__
+</div>
+<ch_if:show_codes>
+  <div class="ch-def-margin-leftright">
+      __codesmsg__
+  </div>
+  <div class="ch-def-margin-lefttopright clearfix">
+      <ch_repeat:codes>
+        <div class="text-center ch-def-font-large ch-2fa-codes-repeat">__code__</div>
+      </ch_repeat:codes>
+  </div>
+</ch_if:show_codes>
+<div class="ch-def-margin text-center clearfix">
+  <input class="ch-btn ch-btn-small ch-btn-float-display" type="button" name="back" value="<ch_text:_two_factor_auth_back />" onclick="window.location.href = '__backurl__';">
+  <ch_if:show_enable>
+    <input class="ch-btn ch-btn-small ch-btn-float-display" type="button" name="enable" value="<ch_text:_two_factor_auth_enable />" onclick="window.location.href = '__enableurl__';">
+  </ch_if:show_enable>
+  <ch_if:show_disable>
+    <input class="ch-btn ch-btn-small" style="float: none; display: __disable_style__;" type="button" name="disable" value="<ch_text:_two_factor_auth_disable />" onclick="window.location.href = '__disableurl__';">
+    <input class="ch-btn ch-btn-small ch-btn-float-display" type="button" name="newcodes" value="<ch_text:_two_factor_auth_new_codes />" onclick="window.location.href = '__newcodesurl__';">
+    <input class="ch-btn ch-btn-small ch-btn-float-display" type="button" name="print" value="<ch_text:_two_factor_auth_print />" onclick="window.print();">
+  </ch_if:show_disable>
+</div>

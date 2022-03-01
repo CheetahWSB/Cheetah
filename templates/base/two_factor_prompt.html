@@ -1,0 +1,16 @@
+<div class="ch-def-bh-margin text-center ch-def-font-xlarge ch-def-font-bold">
+<ch_text:_two_factor_auth_promptmsg1 />
+</div>
+<div class="ch-def-bh-margin text-center ch-def-font-large">
+<ch_text:_two_factor_auth_promptmsg2 />
+</div>
+<div class="ch-def-padding">
+    __form__
+</div>
+<script>
+  var showError = __showerror__;
+  if(showError) {
+      var $Field = $( "[name='code']", "#two-factor-auth-form" );
+      $Field.parents('.ch-form-element:first').addClass('ch-form-element-error').find('.ch-form-error > [float_info]').attr('float_info', '__error__');
+  }
+</script>

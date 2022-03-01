@@ -360,6 +360,9 @@
 .ch-def-font-large {
     font-size: 16px;
 }
+.ch-def-font-xlarge {
+    font-size: 20px;
+}
 h1,
 .ch-def-font-h1 {
     font-size: 24px;
@@ -373,6 +376,10 @@ h2,
 h3,
 .ch-def-font-h3 {
     font-size: 16px;
+    font-weight: bold;
+}
+
+.ch-def-font-bold {
     font-weight: bold;
 }
 

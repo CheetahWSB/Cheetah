@@ -1,13 +1,13 @@
 -- create tables
 CREATE TABLE `[db_prefix]_posts` (
   `PostID` int(11) unsigned NOT NULL auto_increment,
-  `PostCaption` varchar(255) NOT NULL default '',
+  `PostCaption` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL default '',
   `PostUri` varchar(255) NOT NULL default '',
-  `PostText` text NOT NULL,
+  `PostText` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `PostDate` int(11) unsigned default NULL,
   `PostStatus` enum('approval','disapproval') NOT NULL default 'disapproval',
   `PostPhoto` varchar(64) default NULL,
-  `Tags` varchar(255) NOT NULL default '',
+  `Tags` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL default '',
   `Featured` tinyint(1) NOT NULL default '0',
   `Views` int(11) unsigned NOT NULL,
   `Rate` float NOT NULL,
@@ -326,4 +326,3 @@ INSERT INTO `sys_objects_charts` (`object`, `title`, `table`, `field_date_ts`, `
 SET @iMaxOrderExports = (SELECT MAX(`order`)+1 FROM `sys_objects_exports`);
 INSERT INTO `sys_objects_exports` (`object`, `title`, `class_name`, `class_file`, `order`, `active`) VALUES
 ('ch_blogs', '_ch_blog_Blogs', 'ChBlogsExport', 'modules/cheetah/blogs/classes/ChBlogsExport.php', @iMaxOrderExports, 1);
-

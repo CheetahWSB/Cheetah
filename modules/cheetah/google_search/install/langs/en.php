@@ -5,7 +5,7 @@
  * CC-BY License - http://creativecommons.org/licenses/by/3.0/
  */
 
-$sLangCategory = 'BooneEx Google Search';
+$sLangCategory = 'Cheetah Google Search';
 
 $aLangContent = array(
     '_sys_module_google_search' => 'Google Site Search',

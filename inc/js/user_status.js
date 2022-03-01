@@ -85,7 +85,7 @@ function ChUserStatus()
             function(sData) {
                 $('#StatusMessage > .sys_sm_text').html(oObject.value).parent().show();
                 $('#inloadedStatusMess').html('');
-
+                $('#UserStatusMessBut_mm').val('');
                 //window.location.href = window.location.href; // Ticket #1359
                 if ( self.bIsProfilePage ) {
                     document.location.reload();
@@ -110,4 +110,3 @@ function ChUserStatus()
         }
     };
 }
-

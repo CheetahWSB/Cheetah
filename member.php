@@ -105,7 +105,7 @@ if (!(isset($_POST['ID']) && $_POST['ID'] && isset($_POST['Password']) && $_POST
         if(!CH_LOGIN_BY_ID) {
             // Do not allow logins by ID.
             if(ctype_digit($member['ID'])) {
-                echo 'Fail';
+                echo 'NoLoginById';
                 exit;
             }
         }
@@ -114,7 +114,7 @@ if (!(isset($_POST['ID']) && $_POST['ID'] && isset($_POST['Password']) && $_POST
             // Do not allow logins by nickname.
             $sNickName = $GLOBALS['MySQL']->getOne("SELECT `NickName` FROM `Profiles` WHERE `NickName`= ? LIMIT 1", [$member['ID']]);
             if($sNickName == $member['ID']) {
-                echo 'Fail';
+                echo 'NoLoginByNick';
                 exit;
             }
         }
@@ -122,7 +122,7 @@ if (!(isset($_POST['ID']) && $_POST['ID'] && isset($_POST['Password']) && $_POST
         if(!CH_LOGIN_BY_EMAIL) {
             // Do not allow logins by email.
             if(filter_var($member['ID'], FILTER_VALIDATE_EMAIL)) {
-                echo 'Fail';
+                echo 'NoLoginByEmail';
                 exit;
             }
         }
@@ -131,7 +131,21 @@ if (!(isset($_POST['ID']) && $_POST['ID'] && isset($_POST['Password']) && $_POST
 
         // Ajaxy check
         if ($bAjxMode) {
-            echo check_password($member['ID'], $member['Password'], CH_WSB_ROLE_MEMBER, false) ? 'OK' : 'Fail';
+            $r = check_password($member['ID'], $member['Password'], CH_WSB_ROLE_MEMBER, false) ? 'OK' : 'Fail';
+            $e = 'Unknown Error';
+            if($r == 'Fail') {
+                $aProfile = getProfileInfo($member['ID']);
+                if(!$aProfile) {
+                    $e = 'Invalid Username';
+                } else {
+                    if (strcmp($aProfile['Password'], $member['Password']) !== 0) {
+                        $e = 'Invalid Password';
+                    }
+                }
+            } else {
+                $e = 'OK';
+            }
+            echo $e;
             exit;
         }
 

@@ -695,6 +695,9 @@
                 'compose' =>  _t( '_Compose' ),
             );
 
+            // Add dialog to menu only if in dialog mode.
+            //if($this -> aMailBoxSettings['mailbox_mode'] == 'dialog') $aToggleItems['dialog'] = _t( '_Dialog' );
+
             $sRequest = 'mail.php' . '?';
             foreach( $aToggleItems AS $sKey => $sValue ) {
                 $aTopToggleEllements[$sValue] = array
@@ -703,6 +706,12 @@
                     'dynamic' => false,
                     'active' => ($this -> aMailBoxSettings['mailbox_mode'] == $sKey ),
                 );
+            }
+
+            // If in dialog mode, hide the page block menu.
+            // The dialog page puts a link there instead.
+            if($this -> aMailBoxSettings['mailbox_mode'] == 'dialog') {
+                $aTopToggleEllements = array();
             }
 
             return array($sOutputHtml, $aTopToggleEllements, array(), true);
@@ -1039,16 +1048,185 @@
             return $sOutputHtml . $sPaginationHtml;
         }
 
+
+        function genMessagesRows()
+        {
+            if ($this -> aMailBoxSettings['mailbox_mode'] != 'dialog') {
+                return $this->_genMessagesRows();
+            } else {
+                if($_GET['ajax'] == 'true') {
+                    echo $this->_genDialogMessagesRows($_GET['direction'], true);
+                    exit;
+                } else {
+                    return $this->_genDialogMessagesRows('ASC');
+                }
+            }
+        }
+
+        function _genDialogMessagesRows($sDirection = 'ASC', $bAjax = false)
+        {
+            global $oSysTemplate;
+            global $oFunctions;
+            global $site;
+
+            $iSender = (int) $_GET['dialog_id'];
+
+            if ($iSender) {
+                // Show dialogs with passed sender id.
+
+                //echoDbg($this->aMailBoxSettings);
+                //exit;
+
+                // init some needed variables ;
+                $sOutputHtml        = null;
+                $sMessageBoxActions = null;
+                $sMessagesTypesList = null;
+                $sPerPageBlock      = null;
+                $aMessageRows       = null;
+                $iOldDay            = 0;
+
+                $sBackTo            = $_GET['from_box'];
+                $sSenderNickName    = getNickName($iSender);
+                $sSenderProfileLink = getProfileLink($iSender);
+                $iRecipient         = getLoggedId();
+                $sQuery             = "SELECT * FROM `sys_messages` WHERE `Type` = 'letter' AND (`Sender` = '$iSender' OR `Recipient` = '$iSender') AND (`Sender` = '$iRecipient' or `Recipient` = '$iRecipient') ORDER BY `ID` " . $sDirection;
+                $aMessages          = db_res_assoc_arr($sQuery);
+
+                $aLanguageKeys = array(
+                    'outbox' => _t('_Outbox'),
+                    'trash' => _t('_Trash'),
+                    'inbox' => _t('_Inbox'),
+                    'dialog' => _t('_Dialog')
+                );
+
+                //echoDbg($aMessages);
+                //exit;
+
+                foreach ($aMessages as $id => $value) {
+                    if ((int) $value['Recipient'] == $iRecipient) {
+                        if ($value['Trash'] != '') {
+                            $sCss = 'dialog_message_container_trash';
+                        } else {
+                            $sCss = 'dialog_message_container_recipient';
+                        }
+                        $sFloat     = 'float: right;';
+                        $bShowRight = true;
+                        $bShowLeft  = false;
+                    } else {
+                        if ($value['Trash'] != '') {
+                            $sCss = 'dialog_message_container_trash';
+                        } else {
+                            $sCss = 'dialog_message_container_sender';
+                        }
+                        $bShowRight = false;
+                        $bShowLeft  = true;
+                    }
+                    $sPhpDate = strtotime($value['Date']);
+                    $iCurDay  = date('j', $sPhpDate);
+                    if ($iCurDay != $iOldDay) {
+                        $iOldDay       = $iCurDay;
+                        $sStartDateCss = '';
+                    } else {
+                        $sStartDateCss = 'display: none;';
+                    }
+                    $aMessageRows[] = array(
+                        'css' => $sCss,
+                        'start_date_css' => $sStartDateCss,
+                        'start_date' => date('F j, Y', $sPhpDate),
+                        'ch_if:timeleft' => array(
+                            'condition' => $bShowLeft,
+                            'content' => array(
+                                'time' => date('g:i a', $sPhpDate)
+                            )
+                        ),
+                        'ch_if:timeright' => array(
+                            'condition' => $bShowRight,
+                            'content' => array(
+                                'time' => date('g:i a', $sPhpDate)
+                            )
+                        ),
+                        'message' => $value['Text']
+                    );
+                }
+
+                //echoDbg($aMessageRows);
+                //exit;
+
+                $aTemplateKeys = array(
+                    'sender_profile_link' => _t('_dialog_sender_link', $sSenderProfileLink, $sSenderNickName),
+                    'oldest' => ucwords(_t('_oldest first')),
+                    'newest' => ucwords(_t('_newest first')),
+                    'from_box_lkey_value' => _t($aLanguageKeys[$sBackTo]),
+                    'from_box' => $sBackTo,
+                    'dialog_id' => $iSender,
+                    'urlroot' => CH_WSB_URL_ROOT,
+                    'back_to_link' => CH_WSB_URL_ROOT . "mail.php?mode=" . $sBackTo,
+                    'compose_link' => CH_WSB_URL_ROOT . "mail.php?mode=compose&recipient_id=" . $iSender,
+                    'ch_repeat:messages' => $aMessageRows
+                );
+
+                if($bAjax) {
+                    return $oSysTemplate->parseHtmlByName('dialog_messages_ajax.html', array('ch_repeat:messages' => $aMessageRows));
+                }
+
+                $sMessagesSection = $oSysTemplate->parseHtmlByName('dialog_messages.html', $aTemplateKeys);
+
+                return '<div class="dbContent ch-def-bc-margin">' . $sMessagesSection . '</div>';
+            } else {
+                // No sender id passed. Show a list of members we have had a dialog with.
+                $iRecipient     = getLoggedId();
+                $sQuery         = "SELECT `Sender` FROM `sys_messages` WHERE `Type` = 'letter' AND `Recipient` = '$iRecipient'";
+                $aMessages      = db_res_assoc_arr($sQuery);
+                $aMessageCounts = array();
+                //echoDbg($aMessages);
+                //exit;
+
+                foreach ($aMessages as $id => $value) {
+                    $c = (int) $aMessageCounts[$value['Sender']];
+                    $c++;
+                    $aMessageCounts[$value['Sender']] = $c;
+                }
+                //echoDbg($aMessageCounts);
+                //exit;
+
+                $aMembers = array();
+                foreach ($aMessageCounts as $id => $value) {
+                    $iSentCount   = db_value("SELECT COUNT(*) FROM `sys_messages` WHERE `Sender` = '$iRecipient' AND `Recipient` = '$id'");
+                    $iRecvCount   = db_value("SELECT COUNT(*) FROM `sys_messages` WHERE `Recipient` = '$iRecipient' AND `Sender` = '$id'");
+                    $iNewCount    = db_value("SELECT COUNT(*) FROM `sys_messages` WHERE `Recipient` = '$iRecipient' AND `Sender` = '$id' AND `New` = '1'");
+                    $sNickname    = getNickName($id);
+                    $sMemberBlock = get_member_thumbnail($id, 'none', true);
+                    // Remove the profile status line from the member block and replace with sent and recv counts.
+                    $pattern      = '/\<i class=\"ch-def-font-small ch-def-font-grayed\"\>.*?<\/i>/i';
+                    $sMemberBlock = preg_replace($pattern, '<i class="ch-def-font-small ch-def-font-grayed">Recv: ' . $iRecvCount . '<span class="sys-bullet"></span>Sent: ' . $iSentCount . '</i><br /><i class="ch-def-font-small ch-def-font-grayed">New: ' . $iNewCount . '</i>', $sMemberBlock);
+                    $aMembers[]   = array(
+                        'member_block' => $sMemberBlock,
+                        'memberid' => $id
+                    );
+                }
+
+                $aTemplateKeys = array(
+                    'ch_repeat:members' => $aMembers
+                );
+
+                $sMessagesSection = $oSysTemplate->parseHtmlByName('dialog_members.html', $aTemplateKeys);
+                return '<div class="dbContent ch-def-bc-margin">' . $sMessagesSection . '</div>';
+            }
+        }
+
         /**
          * Function will generate the messages rows ;
          *
          * @return         : Html presentation data ;
          */
-        function genMessagesRows()
+        function _genMessagesRows()
         {
             global $oSysTemplate;
             global $oFunctions;
             global $site;
+
+            //echoDbg($this->aMailBoxSettings);
+            //exit;
 
             // init some needed variables ;
 
@@ -1166,6 +1344,18 @@
                         // generate the message status ;
                         $sMessageStatus = ($aItems['New']) ? 'unread' : 'read';
 
+                        $iSender = $aItems['Sender'];
+                        $iRecipient = $aItems['Recipient'];
+
+                        $iDialogId = $iSender;
+                        if($iDialogId == getLoggedId()) {
+                            $iDialogId = $iRecipient;
+                        }
+
+                        // Get count of messages between sender and recipient.
+                        $sQuery = "SELECT COUNT(*) FROM `sys_messages` WHERE (`Sender` = '$iSender' OR `Recipient` = '$iSender') AND (`Sender` = '$iRecipient' or `Recipient` = '$iRecipient')";
+                        $iDialogCount = db_value($sQuery);
+
                         $aMessageRows[] = array
                          (
                             'message_id' => $aItems['ID'],
@@ -1177,6 +1367,8 @@
                             'member_icon' => $sMemberIcon,
                             'member_location' => $sMemberLocation,
                             'member_nickname' => $sMemberNickName,
+                            'member_dialog_count' => $iDialogCount,
+                            'member_dialog_url' => CH_WSB_URL_ROOT . "mail.php?mode=dialog&dialog_id=" . $iDialogId . "&from_box=" . $this->aMailBoxSettings['mailbox_mode'],
                             'member_sex_img' => $sMemberSexImg,
                             'member_sex' => $aProfileInfo['Sex'],
                             'member_age' => $sMemberAge,

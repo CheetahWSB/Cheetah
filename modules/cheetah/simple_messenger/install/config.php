@@ -11,12 +11,12 @@
          * Main Section.
          */
         'title' => 'Simple Messenger',
-        'version' => '1.2.0',
+        'version' => '1.3.0',
         'vendor' => 'Cheetah',
         'update_url' => '',
 
         'compatible_with' => array(
-            '1.2.0'
+            '1.3.0'
         ),
 
         /**

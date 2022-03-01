@@ -523,6 +523,10 @@ function ch_login($iId, $bRememberMe = false, $bAlert = true)
     $_COOKIE['memberID'] = $iId;
     setcookie("memberPassword", $sPassword, $iCookieTime, $sPath, $sHost, false, true /* http only */);
     $_COOKIE['memberPassword'] = $sPassword;
+    // Logging in. If 2FA cookie exists, set the value of the 2FA cookie to 0 to force reauth.
+    if(isset($_COOKIE['memberTFA'])) {
+        setcookie("memberTFA", '0', time() + 24*60*60*365, $sPath, $sHost);
+    }
 
     db_res("UPDATE `Profiles` SET `DateLastLogin`=NOW(), `DateLastNav`=NOW() WHERE `ID`='" . $iId . "'");
     createUserDataFile($iId);
@@ -548,9 +552,11 @@ function ch_logout($bNotify = true)
 
     setcookie('memberID', '', time() - 96 * 3600, $sPath);
     setcookie('memberPassword', '', time() - 96 * 3600, $sPath);
+    setcookie("memberTFA", '', time() - 96 * 3600, $sPath);
 
     unset($_COOKIE['memberID']);
     unset($_COOKIE['memberPassword']);
+    unset($_COOKIE['memberTFA']);
 
     ch_import('ChWsbSession');
     ChWsbSession::getInstance()->destroy();

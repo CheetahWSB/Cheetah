@@ -745,9 +745,17 @@ class ChBaseFunctions
                 $sResponceBlock = $GLOBALS['oSysTemplate'] -> parseHtmlByName( $aUsedTemplate['ajaxy_popup'], array('object_id' => $aKeys['ID']) );
             }
 
+            ch_import('ChWsbUserStatusView');
+
             $aTemplateKeys = array (
                 'ch_repeat:actions' => $aActionsItem,
                 'responce_block'    => $sResponceBlock,
+                'ch_if:show_status' => array(
+                    'condition' => $aKeys['ID'] == $aKeys['member_id'] ? true : false,
+                    'content' => array(
+                        'status'   => ChWsbUserStatusView::getStatusField($aKeys['ID']),
+                    )
+                ),
             );
 
             $sActionsList = $GLOBALS['oSysTemplate'] -> parseHtmlByName( $aUsedTemplate[$sTemplateIndex], $aTemplateKeys );

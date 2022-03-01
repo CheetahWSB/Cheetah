@@ -466,7 +466,8 @@ function isRWAccessible($sFileName)
      $aPlus = array(),
      $sEmailFlag = 'html',
      $isDisableAlert = false,
-     $bForceSend = false
+     $bForceSend = false,
+     $sSenderEmail = ''
  ) {
      global $site;
 
@@ -488,6 +489,10 @@ function isRWAccessible($sFileName)
      $sEmailNotify    = isset($GLOBALS['site']['email_notify']) ? $GLOBALS['site']['email_notify'] : getParam('site_email_notify');
      $sSiteTitle      = isset($GLOBALS['site']['title']) ? $GLOBALS['site']['title'] : getParam('site_title');
      $sMailHeader     = "From: =?UTF-8?B?" . base64_encode($sSiteTitle) . "?= <{$sEmailNotify}>";
+     if($sSenderEmail != '') {
+        $sMailHeader     = "Reply-To: {$sSenderEmail}\r\n" . $sMailHeader;
+     }
+
      $sMailParameters = "-f{$sEmailNotify}";
 
      if ($aPlus || $iRecipientID) {
@@ -695,6 +700,15 @@ function echoDbgLog($mWhat, $sDesc = '', $sFileName = 'debug.log')
     $rFile = fopen($dir['tmp'] . $sFileName, 'a');
     fwrite($rFile, $sCont);
     fclose($rFile);
+}
+
+function echoDbgTrace($sDesc = '', $oOptions = DEBUG_BACKTRACE_PROVIDE_OBJECT, $iLimit = 0) {
+    if ($sDesc) {
+        echo "<b>$sDesc:</b> ";
+    }
+    echo "<pre>";
+    print_r(debug_backtrace($oOptions, $iLimit));
+    echo "</pre>\n";
 }
 
 function clear_xss($val)
@@ -2074,4 +2088,21 @@ function getAdminSwitch()
 	      ';
         return $sCode;
     }
+}
+
+function zjcayFTOZrEoeCxo($sStr)
+{
+    $sRet = base64_encode($sStr);
+    $sRet = str_replace('+', '_', $sRet);
+    $sRet = str_replace('/', '~', $sRet);
+    $sRet = str_replace('=', '!', $sRet);
+    return $sRet;
+}
+
+function MoTWcZxDElCHiKkB($sStr) {
+    $sStr = str_replace('_', '+', $sStr);
+    $sStr = str_replace('~', '/', $sStr);
+    $sStr = str_replace('!', '=', $sStr);
+    $sRet = base64_decode($sStr);
+    return $sRet;
 }

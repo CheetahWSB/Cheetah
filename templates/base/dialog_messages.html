@@ -1,0 +1,34 @@
+<style>
+.ch-def-bc-margin {
+  margin: 0px !important;
+}
+</style>
+<div class="ch-def-margin ch-def-font-bold" style="float: left;">__sender_profile_link__</div>
+<div class="ch-def-margin" style="float: right;">
+	<select class="form_input_select" onchange="loadMessages( this.value );">
+		<option value="ASC" selected="selected">__oldest__</option>
+		<option value="DESC">__newest__</option>
+	</select>
+</div>
+<div class="clear_both"></div>
+<div id="dialog_messages_block">
+	<ch_repeat:messages>
+		<div class="dialog_message_start_date" style="__start_date_css__">__start_date__</div>
+		<div class="__css__">
+			<ch_if:timeleft>
+				<div class="dialog_time_left">__time__</div>
+			</ch_if:timeleft>
+			<ch_if:timeright>
+				<div class="dialog_time_right">__time__</div>
+			</ch_if:timeright>
+			<div class="dialog_message_container ch-def-font-large"> __message__ </div>
+		</div>
+	</ch_repeat:messages>
+</div>
+<script>
+function loadMessages(t) {
+	var url = '__urlroot__mail.php?mode=dialog&dialog_id=__dialog_id__&from_box=__from_box__&ajax=true&direction=' + t;
+	$("#dialog_messages_block").load(url);
+}
+$('.dbTitle').after('<div class="dbTopMenu"><a href="__back_to_link__">Back to __from_box_lkey_value__</a><span class="sys-bullet"></span><a href="__compose_link__"><ch_text:_Compose /></a></div>');
+</script>
