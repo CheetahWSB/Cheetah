@@ -541,14 +541,17 @@ class ChWsbTemplate
             $sRet .= '<meta name="keywords" content="' . ch_html_attribute(implode(',', $GLOBALS[$this->_sPrefix . 'PageKeywords'])) . "\" />\n";
 
         if (!empty($GLOBALS[$this->_sPrefix . 'PageDescription']) && is_string($GLOBALS[$this->_sPrefix . 'PageDescription']))
-            $sRet .= '<meta name="description" content="' . ch_html_attribute($GLOBALS[$this->_sPrefix . 'PageDescription']) . "\" />\n";
+            $sRet .= '<meta name="description" content="' . ch_html_attribute($GLOBALS[$this->_sPrefix . 'PageDescription']) . "\" />\n    ";
 
-        if (!empty($GLOBALS[$this->_sPrefix . 'OG']))
-            foreach ($GLOBALS[$this->_sPrefix . 'OG'] as $sNamespace => $a)
-                foreach ($a as $k => $s)
-                    $sRet .= '<meta property="' . ($sNamespace  ? $sNamespace . ':' : '') . $k . '" content="' . ch_html_attribute($s) . "\" />\n";
+            if (!empty($GLOBALS[$this->_sPrefix . 'OG'])) {
+                foreach ($GLOBALS[$this->_sPrefix . 'OG'] as $sNamespace => $a) {
+                    foreach ($a as $k => $s) {
+                        $sRet .= '<meta property="' . ($sNamespace ? $sNamespace . ':' : '') . $k . '" content="' . ch_html_attribute($s) . "\" />\n    ";
+                    }
+                }
+            }
 
-        return $sRet;
+        return trim($sRet);
     }
     /**
      * Get template, which was loaded earlier.

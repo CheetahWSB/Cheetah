@@ -23,15 +23,36 @@ class ChBaseProfileView extends ChWsbPageView
         parent::__construct('profile');
 
         ch_import('ChWsbMemberInfo');
-        $o = ChWsbMemberInfo::getObjectInstance(getParam('sys_member_info_thumb'));
-        $sThumbUrl = $o ? $o->get($oPr->_aProfile) : '';
+
+        // Try profile photo first.
+        $sProfilePhoto = ChWsbService::call('photos', 'profile_photo', array($oPr->_aProfile['ID'], 'file', 'file_url'), 'Search');
+        // If no photo, then try for avatar.
+        if (!$sProfilePhoto) {
+            $o = ChWsbMemberInfo::getObjectInstance(getParam('sys_member_info_thumb'));
+            $sProfilePhoto = $o ? $o->get($oPr->_aProfile) : '';
+        }
+
+        $aProfile = getProfileInfoDirect($oPr->_aProfile['ID']);
+        $sDesc = $aProfile['DescriptionMe'];
+
+        $GLOBALS['oSysTemplate']->setPageDescription($sDesc);
 
         $GLOBALS['oSysTemplate']->setOpenGraphInfo(array(
+            'url' => CH_WSB_URL_ROOT . getUsername($oPr->_aProfile['ID']),
             'title' => getNickName($oPr->_aProfile['ID']),
             'type' => 'profile',
+            'description' => $sDesc,
         ));
-        if ($sThumbUrl)
-            $GLOBALS['oSysTemplate']->setOpenGraphInfo(array('image' => $sThumbUrl));
+        if ($sProfilePhoto)
+            $GLOBALS['oSysTemplate']->setOpenGraphInfo(array('image' => $sProfilePhoto));
+
+        $GLOBALS['oSysTemplate']->setOpenGraphInfo(array(
+            'url' => CH_WSB_URL_ROOT . getUsername($oPr->_aProfile['ID']),
+            'title' => getNickName($oPr->_aProfile['ID']),
+            'description' => $sDesc,
+        ), 'twitter');
+        if ($sProfilePhoto)
+            $GLOBALS['oSysTemplate']->setOpenGraphInfo(array('image:src' => $sProfilePhoto), 'twitter');
 
     }
 
