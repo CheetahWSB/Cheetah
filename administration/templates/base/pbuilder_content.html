@@ -5,10 +5,13 @@
     		<div id="pageControls" class="page_controls clearfix">
     			<div class="page_controls_cnt clearfix">
 					<ch_if:delete_link>
-	                	<button class="ch-btn ch-btn-small" type="button" onclick="oPB.deleteCustomPage()"><ch_text:_Delete /></button>
+	        		<button class="ch-btn ch-btn-small" type="button" onclick="oPB.deleteCustomPage()"><ch_text:_Delete /></button>
 					</ch_if:delete_link>
-	                <ch_if:view_link>
-	                	<button class="ch-btn ch-btn-small" type="button" onclick="window.open('__site_url__page/__page_name__', '_blank');"><ch_text:_adm_txt_pb_view_page /></button>
+					<ch_if:rename_link>
+	        		<button class="ch-btn ch-btn-small" type="button" onclick="showRenamePageDialog('__url__', '__current_page__')"><ch_text:_Rename /></button>
+					</ch_if:rename_link>
+	        <ch_if:view_link>
+	        		<button class="ch-btn ch-btn-small" type="button" onclick="window.open('__site_url__page/__page_name__', '_blank');"><ch_text:_adm_txt_pb_view_page /></button>
 					</ch_if:view_link>
 				</div>
    			</div>

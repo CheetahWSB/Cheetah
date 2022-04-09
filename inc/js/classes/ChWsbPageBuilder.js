@@ -824,6 +824,41 @@ function showNewPageDialog(sParserUrl) {
 	);
 }
 
+function showRenamePageDialog(sParserUrl, current_page) {
+	$.get(
+	sParserUrl, {	action_sys: 'loadRenamePageForm', current_page: current_page },
+	function(sData) {
+		var oPopup = $(sData).hide();
+		$('#' + oPopup.attr('id')).remove();
+
+		oPopup.prependTo('body');
+		oPopup.dolPopup();
+
+		var oForm = oPopup.find('form');
+		$(':reset[name=Cancel]', oForm).click(function() {
+			oPopup.dolPopupHide({});
+			return false;
+		});
+
+		oForm.ajaxForm({
+			success: function(oData) {
+				if(oData && oData.code != undefined && oData.code != 0) {
+					alert('Cannot create page. ' + oData.message);
+					return;
+				}
+
+				if(oData && oData.uri != undefined)
+					sParserUrl = sParserUrl + '?Page=' + oData.uri;
+
+				window.location = sParserUrl;
+			},
+			dataType: 'json'
+		});
+	},
+	'html'
+	);
+}
+
 function getCssWidth(e) {
 	if(window.getComputedStyle)
 		return e.style.getPropertyValue("width");

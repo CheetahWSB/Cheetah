@@ -36,9 +36,19 @@ class ChWsbPageViewAdmin
                     echo $this -> showNewPageForm();
                 break;
 
+                case 'loadRenamePageForm':
+                	header('Content-Type: text/html; charset=utf-8');
+                    echo $this -> showRenamePageForm();
+                break;
+
                 case 'createNewPage':
                 	header('Content-Type:text/javascript');
                     echo json_encode($this->createUserPage());
+                break;
+
+                case 'renamePage':
+                	header('Content-Type:text/javascript');
+                    echo json_encode($this->renameUserPage());
                 break;
 
                 case 'addCodeBlock':
@@ -184,6 +194,35 @@ class ChWsbPageViewAdmin
         $iPageId = db_last_id();
         $oZ = new ChWsbAlerts('page_builder', 'page_add', $iPageId, 0, array('uri' => $sUri));
         $oZ->alert();
+
+        return array('code' => '0', 'message' => 'OK', 'uri' => $sUri);
+    }
+
+    function renameUserPage()
+    {
+        // Make sure page does not already exist.
+        $s = uriFilter($_REQUEST['uri']);
+        if (!uriCheckUniq($s, $this -> sDBTable . '_pages', 'Name')) {
+          return array('code' => '1', 'message' => 'Page with the name ' . $_REQUEST['uri'] . ' already exists.');
+        }
+
+        // If here, then page name is ok, so rename the page.
+        $sUri = uriGenerate(process_db_input($_REQUEST['uri']), $this -> sDBTable . '_pages', 'Name');
+        $sTitle = process_db_input($_REQUEST['title']);
+        $sOldPage = process_db_input($_REQUEST['current_page']);
+
+        $res = db_res("UPDATE `{$this -> sDBTable}_pages` SET `Name` = '$sUri', `Title` = '$sTitle' WHERE `Name` = '$sOldPage'");
+
+        if(!db_affected_rows($res))
+        	return array('code' => '1', 'message' => 'Failed database update');
+
+        // Update any page blocks that were on the old page to the new page.
+        $res = db_res("UPDATE `{$this -> sDBTable}` SET `Page` = '$sUri' WHERE `Page` = '$sOldPage'");
+
+        $oZ = new ChWsbAlerts('page_builder', 'page_rename', 0, 0, array('uri' => $sUri, 'old_uri' => $sOldPage));
+        $oZ->alert();
+
+        $this -> createCache();
 
         return array('code' => '0', 'message' => 'OK', 'uri' => $sUri);
     }
@@ -410,6 +449,13 @@ class ChWsbPageViewAdmin
                     'ch_if:delete_link' => array(
                         'condition' => (isset($this->oPage->isSystem) && !$this->oPage->isSystem),
                         'content' => array(
+                        )
+                    ),
+                    'ch_if:rename_link' => array(
+                        'condition' => (isset($this->oPage->isSystem) && !$this->oPage->isSystem),
+                        'content' => array(
+                            'url' => ch_html_attribute($_SERVER['PHP_SELF']),
+                            'current_page' => addslashes($this->oPage->sName),
                         )
                     ),
                     'ch_if:view_link' => array(
@@ -782,6 +828,59 @@ class ChWsbPageViewAdmin
         $sContent = $GLOBALS['oAdmTemplate']->parseHtmlByName('design_box_content.html', array('content' => $sContent));
         return $GLOBALS['oFunctions']->popupBox('adm-pbuilder-add-page', _t('_adm_pbuilder_Create_new_page'), $sContent);
     }
+
+    function showRenamePageForm()
+    {
+        $sCurrentPage = $_GET['current_page'];
+        $sCurrentTitle = db_value("SELECT `Title` FROM `{$this -> sDBTable}_pages` WHERE `Name` = '$sCurrentPage'");
+
+        $oForm = new ChTemplFormView(array(
+            'form_attrs' => array(
+                'name' => 'formItemEdit',
+                'action' => ch_html_attribute($_SERVER['PHP_SELF']),
+                'method' => 'post',
+            ),
+            'inputs' => array(
+                array(
+                    'type' => 'hidden',
+                    'name' => 'action_sys',
+                    'value' => 'renamePage',
+                ),
+                array(
+                    'type' => 'hidden',
+                    'name' => 'current_page',
+                    'value' => $sCurrentPage,
+                ),
+                array(
+                    'type' => 'text',
+                    'name' => 'uri',
+                    'value' => $sCurrentPage,
+                    'caption' => _t('_Page URI'),
+                    'info' => _t('_adm_pbuilder_uri_info', CH_WSB_URL_ROOT . 'page/' . $sCurrentPage),
+                ),
+                array(
+                    'type' => 'text',
+                    'name' => 'title',
+                    'caption' => _t('_Page title'),
+                    'value' => $sCurrentTitle,
+                    'info' => _t('_adm_pbuilder_title_info'),
+                ),
+                array(
+                    'type' => 'submit',
+                    'name' => 'do_submit',
+                    'value' => _t('_adm_btn_Rename_page'),
+                ),
+            ),
+        ));
+
+        $sContent = '';
+        $sContent .= $this->getCssCode();
+        $sContent .= $oForm->getCode();
+
+        $sContent = $GLOBALS['oAdmTemplate']->parseHtmlByName('design_box_content.html', array('content' => $sContent));
+        return $GLOBALS['oFunctions']->popupBox('adm-pbuilder-add-page', _t('_adm_pbuilder_Rename_page'), $sContent);
+    }
+
 }
 
 class ChWsbPVAPage
