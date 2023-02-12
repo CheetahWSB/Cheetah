@@ -115,6 +115,9 @@ class ChWsbEmailTemplates
                 'Email'       => $aProfile['Email'],
                 'Password'    => $aProfile['Password'],
                 'SiteName'	  => getParam('site_title'),
+                'FirstName' => $aProfile['FirstName'],
+                'LastName' => $aProfile['LastName'],
+                'FullName' => $aProfile['FullName'],                
             ));
         }
         if(is_array($aKeys))
