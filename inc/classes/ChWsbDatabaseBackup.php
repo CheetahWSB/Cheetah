@@ -5,7 +5,7 @@
  * CC-BY License - http://creativecommons.org/licenses/by/3.0/
  */
 
-define('CHEETAH_VERSION', $GLOBALS['site']['ver'] . '.' . $GLOBALS['site']['build']);
+define('CHEETAH_VERSION', $GLOBALS['site']['version']);
 
 class ChWsbDatabaseBackup extends ChWsbDb
 {

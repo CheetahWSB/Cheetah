@@ -154,6 +154,8 @@ class ChWsbInstaller extends ChWsbInstallerUtils
                 'result' => false
             );
 
+// For now, compatibility check when installing modules is disabled.
+/*
         //--- Check version compatibility ---//
         $bCompatible = false;
         if(isset($this->_aConfig['compatible_with']) && is_array($this->_aConfig['compatible_with']))
@@ -167,6 +169,7 @@ class ChWsbInstaller extends ChWsbInstallerUtils
                 'message' => $this->_displayResult('check_script_version', false, '_adm_txt_modules_wrong_version_script'),
                 'result' => false
             );
+*/
 
         //--- Check actions ---//
         $aResult = $this->_perform('install', 'Installation');

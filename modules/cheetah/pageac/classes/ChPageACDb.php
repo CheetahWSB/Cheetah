@@ -28,14 +28,14 @@ class ChPageACDb extends ChWsbModuleDb
         $sExtra = array_shift($aArgs);
 
         $sName = 'sys_modules_'.$this->_oConfig->getUri().'_'.$sName;
-        $sHash = md5($sName.$GLOBALS['site']['ver'] . $GLOBALS['site']['build'] . $GLOBALS['site']['url']);
+        $sHash = md5($sName.$GLOBALS['site']['version'] . $GLOBALS['site']['url']);
         return parent::fromCache($sName.'_'.$sHash, $sFunc, $sQuery, $sExtra);
     }
 
     function cleanCache($sName)
     {
         $sName = 'sys_modules_'.$this->_oConfig->getUri().'_'.$sName;
-        $sHash = md5($sName.$GLOBALS['site']['ver'] . $GLOBALS['site']['build'] . $GLOBALS['site']['url']);
+        $sHash = md5($sName.$GLOBALS['site']['version'] . $GLOBALS['site']['url']);
         return parent::cleanCache($sName.'_'.$sHash);
     }
     function getAllRules()

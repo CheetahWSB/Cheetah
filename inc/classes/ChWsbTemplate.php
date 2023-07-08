@@ -1802,7 +1802,7 @@ class ChWsbTemplate
      */
     function _getCacheFileName($sType, $sAbsolutePath)
     {
-        $sResult = md5($sAbsolutePath . $GLOBALS['site']['ver'] . $GLOBALS['site']['build'] . $GLOBALS['site']['url']);
+        $sResult = md5($sAbsolutePath . $GLOBALS['site']['version'] . $GLOBALS['site']['url']);
         switch($sType) {
             case 'html':
                 $sResult = $this->_sCacheFilePrefix . ch_lang_name() . '_' . $this->_sCode .  '_' . $sResult;

@@ -780,16 +780,16 @@ EOF;
     <li>
         <b>Cheetah version</b> =
         <?php
-            $sCheetahVer = $GLOBALS['site']['ver'] . '.' . $GLOBALS['site']['build'];
-            if($GLOBALS['site']['pre-release'] != '') {
-              echo $sCheetahVer . '.' . $GLOBALS['site']['pre-release'] . ' - ';
+            $sCheetahVer = $GLOBALS['site']['version'];
+            if($GLOBALS['site']['modifier'] != '') {
+              echo $sCheetahVer . '.' . $GLOBALS['site']['modifier'] . ' - ';
             } else {
               echo $sCheetahVer . ' - ';
             }
             if (!version_compare($sCheetahVer, $sLatestCheetahVer, '>=')) {
                 echo '<b class="warn">WARNING</b> (your Cheetah version is outdated please upgrade to the latest ' . $sLatestCheetahVer . ' version)';
             } else {
-                if($GLOBALS['site']['pre-release'] != '') {
+                if($GLOBALS['site']['modifier'] != '') {
                     echo '<b class="warn">Pre-Release</b>';
                 } else {
                     echo '<b class="ok">OK</b>';
