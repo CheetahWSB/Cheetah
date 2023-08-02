@@ -32,7 +32,7 @@ class ChPhotosUploader extends ChWsbFilesUploader
         $this->sWorkingFile = CH_WSB_URL_ROOT . $this->oModule->_oConfig->getBaseUri() . 'albums/my/add_objects';
 
         $this->sAcceptMimeType = 'image/*';
-        $this->bImageAutoRotate = 1;
+        $this->bImageAutoRotate = 0;
     }
 
     function getEmbedFormFile()

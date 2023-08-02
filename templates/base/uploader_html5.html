@@ -214,7 +214,7 @@
 				add: function (file){
 					FU.files.push(file);
 					if( /^image/.test(file.type) ){
-						FileAPI.Image(file).preview(__preview_size__).rotate('auto').get(function (err, img){
+						FileAPI.Image(file).preview(__preview_size__).rotate('none').get(function (err, img){
 							if( !err ){
 								FU._getEl(file, '.js-preview-container')
 									.html(img)
