@@ -9,9 +9,10 @@ div.sys-account-control .bullet {
 div.sys-account-friends {}
 div.sys-account-friend {
 	position: relative;
+    float: left;
 }
 div.sys-account-friend:first-child {
-	margin-top: 0px;
+	margin-top: 10px;
 }
 
 /*--- Quick Links Block ---*/
