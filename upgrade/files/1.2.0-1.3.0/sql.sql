@@ -50,5 +50,10 @@ INSERT INTO `sys_menu_top` (`Parent`, `Name`, `Caption`, `Link`, `Order`, `Visib
 
 UPDATE `sys_objects_actions` SET `Eval` = 'if (isAdmin({member_id}) && {member_id} != {ID}) return _t(\'_Login_As\');' WHERE `Url` = 'member.php?loginas=true&id={ID}';
 
+-- Remove download block. ISSUE #221 Only removed if not currently in use.
+DELETE FROM `sys_page_compose` WHERE `Caption` = '_sys_box_title_download' AND `Column` = 0;
+-- Not going to remove its table during upgrade just to be safe.
+-- DROP TABLE IF EXISTS `sys_box_download`;
+
 -- last step is to update current version
 UPDATE `sys_options` SET `VALUE` = '1.3.0' WHERE `Name` = 'sys_tmp_version';
