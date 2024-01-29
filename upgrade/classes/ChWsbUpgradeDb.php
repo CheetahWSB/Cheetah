@@ -451,7 +451,9 @@ class ChWsbUpgradeDb
         return trim($pdoEscapted, "'");
     }
 
-    function executeSQL($sPath, $aReplace = array (), $isBreakOnError = true)
+    // Deano. Changed isBreakOnError from true to false. Upgrade script should be allowed
+    // to finish. The errors can be investigated after the upgrade is complete.
+    function executeSQL($sPath, $aReplace = array (), $isBreakOnError = false)
     {
         if(!file_exists($sPath) || !($rHandler = fopen($sPath, "r")))
             return array ('query' => "fopen($sPath, 'r')", 'error' => 'file not found or permission denied');
