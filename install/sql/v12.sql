@@ -3712,26 +3712,6 @@ CREATE TABLE `sys_sbs_messages` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Table structure for table `sys_box_download`
---
-CREATE TABLE IF NOT EXISTS `sys_box_download` (
-  `id` int(11) NOT NULL auto_increment,
-  `title` varchar(255) NOT NULL,
-  `url` varchar(255) NOT NULL,
-  `onclick` varchar(255) NOT NULL,
-  `desc` text NOT NULL,
-  `icon` varchar(255) NOT NULL,
-  `order` int(11) NOT NULL,
-  `disabled` tinyint(4) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
-
-INSERT INTO `sys_box_download` (`id`, `title`, `url`, `onclick`, `desc`, `icon`, `order`, `disabled`) VALUES
-(1, '_sbd_iPhone_title', 'http://itunes.apple.com/us/app/oo/id345450186', '', '_sbd_iPhone_desc', 'apple', 2, 0),
-(2, '_sbd_Android_title', 'https://play.google.com/store/apps/details?id=com.cheetah.oo', '', '_sbd_Android_desc', 'android', 3, 0);
-
-
---
 -- Table structure for table `sys_cron_jobs`
 --
 
