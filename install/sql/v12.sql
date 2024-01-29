@@ -1113,13 +1113,7 @@ INSERT INTO `sys_options` VALUES
 
 ('sys_default_payment', '', @iCatGeneral, 'Payment module (at least one payment processing module should be installed)', 'select', '', '', 170, 'PHP:ch_import(\'ChWsbPayments\'); return ChWsbPayments::getInstance()->getPayments();'),
 
-('sys_embedly_key', '', @iCatGeneral, 'Embedly Key', 'digit', '', '', 180, ''),
-('sys_php_block_enabled', '', @iCatGeneral, 'Enable PHP Block in Page Builders.', 'checkbox', '', '', 190, ''),
-('sys_maint_mode_enabled', '', @iCatGeneral, 'Enable Maintenance Mode', 'checkbox', '', '', 200, ''),
-('sys_maint_mode_admin', '', @iCatGeneral, 'Allow admins to view site while in maintenance mode', 'checkbox', '', '', 210, ''),
-('sys_maint_mode_msg', 'Sorry. Site is currently down for maintenance. Please check back later.', @iCatGeneral, 'Maintenance mode page block text', 'text', '', '', 220, ''),
-('two_factor_auth', '', @iCatGeneral, 'Enable Two Factor Auth', 'checkbox', '', '', 240, ''),
-('two_factor_auth_required', '', @iCatGeneral, 'Require Two Factor Auth', 'checkbox', '', '', 250, '');
+('sys_embedly_key', '', @iCatGeneral, 'Embedly Key', 'digit', '', '', 180, '');
 
 -- CAT: Massmailer
 SET @iCatMassmailer = 4;
@@ -1250,6 +1244,17 @@ INSERT INTO `sys_options` VALUES
 ('default_view_mode', 'Simple', @iAdminProfile, 'Default Members Mode', 'select', '', '', 20, 'Simple,Extended,Geeky'),
 ('default_order_by', 'None', @iAdminProfile, 'Default Order By', 'select', '', '', 30, 'None,User Name,Last Join,Last Activity'),
 ('default_per_page', '50', @iAdminProfile, 'Default Per Page', 'select', '', '', 40, '10,20,50,100,200');
+
+-- CAT: Extra
+SET @iCatExtra = 19;
+INSERT INTO `sys_options` VALUES
+('sys_php_block_enabled', '', @iCatExtra, 'Enable PHP Block in Page Builders.', 'checkbox', '', '', 1, ''),
+('sys_maint_mode_enabled', '', @iCatExtra, 'Enable Maintenance Mode', 'checkbox', '', '', 2, ''),
+('sys_maint_mode_admin', '', @iCatExtra, 'Allow admins to view site while in maintenance mode', 'checkbox', '', '', 3, ''),
+('sys_maint_mode_msg', 'Sorry. Site is currently down for maintenance. Please check back later.', @iCatExtra, 'Maintenance mode page block text', 'text', '', '', 4, ''),
+('two_factor_auth', '', @iCatExtra, 'Enable Two Factor Auth', 'checkbox', '', '', 5, ''),
+('two_factor_auth_required', '', @iCatExtra, 'Require Two Factor Auth', 'checkbox', '', '', 6, ''),
+('auto_subscribe_forum', '', @iCatExtra, 'Auto subscribe members to their own forum topics', 'checkbox', '', '', 7, '');
 
 -- CAT: Languages
 SET @iCatLanguages = 21;
@@ -3507,7 +3512,8 @@ INSERT INTO `sys_alerts_handlers` (`id`, `name`, `class`, `file`) VALUES
 (1, 'system', 'ChWsbAlertsResponseSystem', 'inc/classes/ChWsbAlertsResponseSystem.php'),
 (2, 'profile', 'ChWsbAlertsResponseProfile', 'inc/classes/ChWsbAlertsResponseProfile.php'),
 (3, 'membersData', 'ChWsbUpdateMembersCache', 'inc/classes/ChWsbUpdateMembersCache.php'),
-(4, 'profileMatch', 'ChWsbAlertsResponceMatch', 'inc/classes/ChWsbAlertsResponceMatch.php');
+(4, 'profileMatch', 'ChWsbAlertsResponceMatch', 'inc/classes/ChWsbAlertsResponceMatch.php'),
+(5, 'ch_forum', 'ChForumAlertResponse', 'modules/cheetah/forum/alert_response.php');
 
 --
 -- Table structure for table `sys_alerts`
@@ -3540,7 +3546,8 @@ INSERT INTO `sys_alerts` (`unit`, `action`, `handler_id`) VALUES
 ('profile', 'join', 4),
 ('profile', 'edit', 4),
 ('profile', 'delete', 4),
-('profile', 'change_status', 4);
+('profile', 'change_status', 4),
+('ch_forum', 'new_topic', 5);
 
 
 --
