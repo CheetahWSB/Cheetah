@@ -1,5 +1,8 @@
 ALTER TABLE `sys_messages` CHANGE `Text` `Text` MEDIUMTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;
 
+INSERT INTO `sys_options_cats` (`ID`, `name`, `menu_order`) VALUES
+(19, 'Other Settings', 19);
+
 UPDATE `sys_options` SET `kateg` = 19, `order_in_kateg` = 1 WHERE `name` = 'sys_php_block_enabled';
 
 -- Maint Mode and Two factor auth
