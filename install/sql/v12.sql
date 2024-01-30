@@ -1408,6 +1408,7 @@ INSERT INTO `sys_options_cats` VALUES(13, 'Template', 13);
 INSERT INTO `sys_options_cats` VALUES(14, 'Security', 14);
 INSERT INTO `sys_options_cats` VALUES(16, 'Watermark', 16);
 INSERT INTO `sys_options_cats` VALUES(17, 'FFmpeg Settings', 17);
+INSERT INTO `sys_options_cats` VALUES(19, 'Other Settings', 19);
 INSERT INTO `sys_options_cats` VALUES(21, 'Languages', 21);
 INSERT INTO `sys_options_cats` VALUES(22, 'IP Block List', 22);
 INSERT INTO `sys_options_cats` VALUES(23, 'Antispam', 23);
