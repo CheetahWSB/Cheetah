@@ -193,4 +193,5 @@ $aLangContent = array(
     '_mma_photos_download' => 'photos download',
     '_mma_photos_approve' => 'photos approve',
     '_mma_photos_edit' => 'photos edit',
+    '_featured_photo_index' => 'Featured Photo',
 );
