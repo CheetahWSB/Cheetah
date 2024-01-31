@@ -771,4 +771,40 @@ class ChPhotosSearch extends ChTemplSearchResultSharedMedia
     {
         return $this->getImgUrl($a[$sField]);
     }
+
+    function getFeaturedPhotoBlock($sBlockLocation = '') {
+        $aOptions = array('showLink'=>1, 'showRate' => 1, 'showDate' => 1, 'showFrom' => 1);
+        $aAddElements = array();
+        $sSorting = 'last';      
+        if($sBlockLocation == 'home') {
+            $sMode = getParam('ch_photos_featured_photo_block_sort');
+            if($sMode == 'Ordered By Views') $sSorting = 'fviews';
+            if($sMode == 'Random') $sSorting = 'rand';
+            if($sMode == 'Latest') $sSorting = 'last';
+            if(getParam('ch_photos_featured_photo_block_show_vote') == '') {
+                $aOptions = array('showLink'=>1, 'showRate' => 0, 'showDate' => 1, 'showFrom' => 1);
+            }
+            if(getParam('ch_photos_featured_photo_block_photo_pos') == 'fill') {
+                $aAddElements = array('imgWidth' => 'style="width: 100%"');
+            }            
+        }
+        $this->clearFilters(array('activeStatus', 'allow_view', 'album_status', 'albumType', 'ownerStatus'), array('albumsObjects', 'albums'));
+        $this->aCurrent['restriction']['featured'] = array(
+            'field' => 'Featured',
+            'value' => '1',
+            'operator' => '=',
+            'param' => 'featured'
+        );
+        $this->aCurrent['paginate']['perPage'] = 1;
+        $this->aCurrent['sorting'] = $sSorting;        
+        $aFiles = $this->getSearchData();
+        $sBlockContent = $this->getSwitcherUnit($aFiles[0], $aOptions, $aAddElements);
+        $this->oTemplate->addCss('search.css');
+        if($sSorting == 'fviews') {
+            $iId = (int)$aFiles[0]['id'];
+            $sQuery = "UPDATE `ch_photos_main` SET `FeaturedViews` = `FeaturedViews` + 1 WHERE `ID` = '$iId'";
+            $GLOBALS['MySQL']->query($sQuery);
+        }
+        return $sBlockContent;
+    }
 }

@@ -14,6 +14,7 @@ CREATE TABLE `[db_prefix]_main` (
   `RateCount` int(11) NOT NULL default '0',
   `CommentsCount` int(11) NOT NULL default '0',
   `Featured` tinyint(4) NOT NULL default '0',
+  `FeaturedViews` bigint(20) NOT NULL default '0',
   `Status` enum('approved','disapproved','pending') NOT NULL default 'pending',
   `Hash` varchar(32) NOT NULL default '',
   PRIMARY KEY  (`ID`),
@@ -124,7 +125,11 @@ INSERT INTO `sys_options` (`Name`, `VALUE`, `kateg`, `desc`, `Type`, `check`, `e
 ('[db_prefix]_header_cache', '0', @iKatID, 'Header Cache time (in seconds, leave 0 to disable)', 'digit', '', '', 250, ''),
 ('[db_prefix]_cover_rows', '4', @iKatID, 'Number of rows in Photos Home page Cover', 'digit', '', '', 260, ''),
 ('[db_prefix]_cover_columns', '10', @iKatID, 'Number of columns in Photos Home page Cover', 'digit', '', '', 270, ''),
-('[db_prefix]_cover_featured', '', @iKatID, 'Use featured photos for Photos Home page Cover', 'checkbox', '', '', 280, '');
+('[db_prefix]_cover_featured', '', @iKatID, 'Use featured photos for Photos Home page Cover', 'checkbox', '', '', 280, ''),
+('[db_prefix]_featured_photo_block_show_vote', '', @iKatID, 'Use vote on home page featured photo block', 'checkbox', '', '', 290, ''),
+('[db_prefix]_featured_photo_block_sort', 'Ordered By Views', @iKatID, 'Default sort on home page featured photo block', 'select', '', '', 300, 'Ordered By Views,Random,Latest'),
+('[db_prefix]_featured_photo_block_photo_pos', 'center', @iKatID, 'If photo is to small to fit home page featured photo block', 'select', '', '', 310, 'center,fill');
+
 
 SET @iPCPOrder = (SELECT MAX(`Order`) FROM `sys_page_compose_pages`);
 INSERT INTO `sys_page_compose_pages`(`Name`, `Title`, `Order`) VALUES
@@ -198,6 +203,8 @@ INSERT INTO `sys_page_compose` (`Page`, `PageWidth`, `Desc`, `Caption`, `Column`
 ('profile', '1140px', 'Photo Albums', '_[db_prefix]_albums', 0, 0, 'PHP', 'return ChWsbService::call(''photos'', ''get_profile_albums_block'', array($this->oProfileGen->_iProfileID), ''Search'');', 1, 28.1, 'non,memb', 0),
 ('profile', '1140px', 'Profile Photo Switcher Block', '_[db_prefix]_photo_switcher_block', 0, 0, 'PHP', 'return ChWsbService::call(''photos'', ''profile_photo_switcher_block'', array(array(''PID'' => $this->oProfileGen->_iProfileID)), ''Search'');', 1, 28.1, 'non,memb', 263),
 ('member', '1140px', 'Profile Photos Block', '_[db_prefix]_photo_block', 0, 0, 'PHP', '$iPID = $this->iMember;\r\n if ($iPID > 0) {\r\n $aParams = array();\r\n $aParams[''PID''] = $iPID;\r\n $aParams[''Limit''] = 10;\r\n $aParams[''DisplayPagination''] = 1;\r\n	 $sRet = ChWsbService::call(''photos'', ''profile_photo_block'', array($aParams), ''Search'');\r\n return $sRet;\r\n }', 1, 28.1, 'non,memb', 270);
+('index', '1140px', 'Featured Photo Block', '_featured_photo_index', 0, 0, 'PHP', 'require_once(CH_DIRECTORY_PATH_MODULES . \'cheetah/photos/classes/ChPhotosSearch.php\');\n$sClassSearch = \'ChPhotosSearch\';\n$oSearch = new $sClassSearch();\necho $oSearch->getFeaturedPhotoBlock(\'home\');\n', 1, 28.1, 'non,memb', 0);
+
 
 INSERT INTO `sys_objects_cmts` (`ObjectName`, `TableCmts`, `TableTrack`, `AllowTags`, `Nl2br`, `SecToEdit`, `PerView`, `IsRatable`, `ViewingThreshold`, `AnimationEffect`, `AnimationSpeed`, `IsOn`, `IsMood`, `RootStylePrefix`, `TriggerTable`, `TriggerFieldId`, `TriggerFieldComments`, `ClassName`, `ClassFile`) VALUES
 ('[db_prefix]', '[db_prefix]_cmts', 'sys_cmts_track', 0, 1, 90, 20, 1, -3, 'none', 0, 1, 0, 'cmt', '[db_prefix]_main', 'ID', 'CommentsCount', 'ChPhotosCmts', 'modules/cheetah/photos/classes/ChPhotosCmts.php'),

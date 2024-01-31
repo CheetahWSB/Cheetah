@@ -600,6 +600,9 @@ class ChWsbSearchResult
             case 'rand':
                 $aSql['order'] = "ORDER BY RAND()";
                 break;
+            case 'fviews':
+                $aSql['order'] = "ORDER BY `FeaturedViews`";
+                break;                
             case 'top':
                 $sHow = "DESC";
                 $aSql['order'] = "ORDER BY `Rate` $sHow, `RateCount` $sHow, `date` $sHow";
