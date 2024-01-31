@@ -29,6 +29,12 @@ class ChWsbUpgradeUtil
 
     function executeConclusion ($sModule = '')
     {
+        // Rename CH_DIRECTORY_PATH_TMP . 'upgrade.log' to a file name matching timestamp the upgrade completed at.
+        $sTime = time();
+        if(file_exists(CH_DIRECTORY_PATH_TMP . 'upgrade.log')) {
+            rename(CH_DIRECTORY_PATH_TMP . 'upgrade.log', CH_DIRECTORY_PATH_TMP . $sTime . '.upgrade.log');
+        }
+
         if (!$this->sFolder)
             return '';
 
@@ -36,7 +42,13 @@ class ChWsbUpgradeUtil
         if (!file_exists($sFile))
             return '';
 
-        return file_get_contents ($sFile);
+        $sFileContents = file_get_contents($sFile);
+        // If a error log exists, inform user by appending errors to end of conclusion message.
+        if(file_exists(CH_DIRECTORY_PATH_TMP . $sTime . '.upgrade.log')) {
+            $sFileContents .= file_get_contents(CH_DIRECTORY_PATH_TMP . $sTime . '.upgrade.log');
+        }
+
+        return $sFileContents;
     }
 
     function isExecuteScriptAvail ($sModule = '')

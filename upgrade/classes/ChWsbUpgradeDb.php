@@ -451,8 +451,6 @@ class ChWsbUpgradeDb
         return trim($pdoEscapted, "'");
     }
 
-    // Deano. Changed isBreakOnError from true to false. Upgrade script should be allowed
-    // to finish. The errors can be investigated after the upgrade is complete.
     function executeSQL($sPath, $aReplace = array (), $isBreakOnError = false)
     {
         if(!file_exists($sPath) || !($rHandler = fopen($sPath, "r")))
@@ -496,6 +494,9 @@ class ChWsbUpgradeDb
         }
         fclose($rHandler);
 
-        return empty($aResult) ? true : $aResult;
+        if(!empty($aResult)) {
+            file_put_contents(CH_DIRECTORY_PATH_TMP . 'upgrade.log', '<pre>' . print_r($aResult, true) . '</pre><br>' . "\n", FILE_APPEND);
+        }
+        return true;
     }
 }
