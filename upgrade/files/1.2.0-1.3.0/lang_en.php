@@ -61,7 +61,11 @@ $aLangContent = array(
   '_adm_pbuilder_Rename_page' => 'Rename Page',
   '_adm_btn_Rename_page' => 'Rename page',
 
+  '_adm_mmi_updates' => 'Updates',
+  '_adm_updates_msg_main1', 'There are {0} updates available to download.',
+  '_adm_updates_msg_main2', 'There are {0} updates ready to install.',
 
+  
   // ================ CHANGED KEYS ==================
 
 );

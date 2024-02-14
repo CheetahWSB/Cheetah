@@ -73,5 +73,12 @@ DELETE FROM `sys_page_compose` WHERE `Caption` = '_sys_box_title_download' AND `
 -- Not going to remove its table during upgrade just to be safe.
 -- DROP TABLE IF EXISTS `sys_box_download`;
 
+set @x = 1;
+UPDATE `sys_menu_admin` SET `order` = @x:=@x+1 WHERE `parent_id` = 0 ORDER BY `order`;
+INSERT INTO `sys_menu_admin` (`parent_id`, `name`, `title`, `url`, `description`, `icon`, `icon_large`, `check`, `order`) VALUES (0, 'updates', '_adm_mmi_updates', '{siteUrl}upgrade/index.php', '', 'refresh col-Purple', 'tachometer', '', 2);
+UPDATE `sys_menu_admin` SET `order` = '1' WHERE `name` = 'dashboard';
+
+INSERT INTO `sys_options` (`Name`, `VALUE`, `kateg`, `desc`, `Type`, `check`, `err_text`, `order_in_kateg`, `AvailableValues`) VALUES ('sys_updater_supported', '', 0, 'Updater supported last check timestamp', 'digit', '', '', 92, '');
+
 -- last step is to update current version
 UPDATE `sys_options` SET `VALUE` = '1.3.0' WHERE `Name` = 'sys_tmp_version';

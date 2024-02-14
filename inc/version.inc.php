@@ -5,6 +5,8 @@
  * CC-BY License - http://creativecommons.org/licenses/by/3.0/
  */
 
+// NOTE: This file marks an official release and must not be updated until a release is actually made.
+
 // This adds a verion number to the end of loaded JS and CSS files.
 // Helps with installs and upgrades when browsers cache the data.
 // The different version number forces the browser to reload the files.

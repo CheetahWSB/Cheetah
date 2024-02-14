@@ -34,3 +34,8 @@ flash/modules/video/files/*.m4v
 flash/modules/video/files/*.flv
 flash/modules/video/files/*.webm
 flash/modules/video_comments/files/[0-9]*
+
+# Excludes from new updater
+upgrade/files/*/updated_files
+upgrade/defaults
+modules/deano

@@ -29,7 +29,7 @@ if (isset($_POST['ID']) && isset($_POST['Password'])) {
     if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
         echo check_password($iId, $sPassword, CH_WSB_ROLE_ADMIN, false) ? 'OK' : 'Fail';
     } elseif (check_password($iId, $sPassword, CH_WSB_ROLE_ADMIN)) {
-        ch_login($iId, (bool)$_POST['rememberMe']);
+        ch_login($iId, (bool) $_POST['rememberMe']);
         header('Location: ' . $sUrlRelocate);
     }
     exit;
@@ -42,10 +42,12 @@ if (!isAdmin()) {
 }
 
 if (ch_get('cheetah_news') !== false) {
-    setParam("news_enable", (int)ch_get('cheetah_news'));
+    setParam("news_enable", (int) ch_get('cheetah_news'));
 }
 
 $logged['admin'] = member_auth(1, true, true);
+
+checkUpdaterSupport();
 
 if (ch_get('cat') !== false) {
     PageCategoryCode(ch_get('cat'));

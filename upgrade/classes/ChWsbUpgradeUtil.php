@@ -15,7 +15,7 @@ class ChWsbUpgradeUtil
         $this->oDb = $oDb;
     }
 
-    function executeCheck ($sModule = '')
+    function executeCheck($sModule = '')
     {
         if (!$this->sFolder)
             return 'Upgrade path folder is not defined';
@@ -24,14 +24,14 @@ class ChWsbUpgradeUtil
         if (!file_exists($sFile))
             return $sModule ? true : 'Check script was not found: ' . $sFile;
 
-        return include ($sFile);
+        return include($sFile);
     }
 
-    function executeConclusion ($sModule = '')
+    function executeConclusion($sModule = '')
     {
         // Rename CH_DIRECTORY_PATH_TMP . 'upgrade.log' to a file name matching timestamp the upgrade completed at.
         $sTime = time();
-        if(file_exists(CH_DIRECTORY_PATH_TMP . 'upgrade.log')) {
+        if (file_exists(CH_DIRECTORY_PATH_TMP . 'upgrade.log')) {
             rename(CH_DIRECTORY_PATH_TMP . 'upgrade.log', CH_DIRECTORY_PATH_TMP . $sTime . '.upgrade.log');
         }
 
@@ -44,14 +44,16 @@ class ChWsbUpgradeUtil
 
         $sFileContents = file_get_contents($sFile);
         // If a error log exists, inform user by appending errors to end of conclusion message.
-        if(file_exists(CH_DIRECTORY_PATH_TMP . $sTime . '.upgrade.log')) {
+        if (file_exists(CH_DIRECTORY_PATH_TMP . $sTime . '.upgrade.log')) {
+            $sFileContents .= '<br><span class="dbboldred">Database Errors occured during upgrade. Please review errors below.</span><br>';
+            $sFileContents .= '<span class="dbboldred">A log of these errors is available in . ' . CH_DIRECTORY_PATH_TMP . $sTime . '.upgrade.log' . '</span><br>';
             $sFileContents .= file_get_contents(CH_DIRECTORY_PATH_TMP . $sTime . '.upgrade.log');
         }
 
         return $sFileContents;
     }
 
-    function isExecuteScriptAvail ($sModule = '')
+    function isExecuteScriptAvail($sModule = '')
     {
         if (!$this->sFolder)
             return 'Upgrade path folder is not defined';
@@ -59,7 +61,7 @@ class ChWsbUpgradeUtil
         return file_exists($sFile) ? true : false;
     }
 
-    function executeScript ($sModule = '')
+    function executeScript($sModule = '')
     {
         if (!$this->sFolder)
             return 'Upgrade path folder is not defined';
@@ -68,10 +70,10 @@ class ChWsbUpgradeUtil
         if (!file_exists($sFile))
             return true; // if custom script was not found just skip it
 
-        return include ($sFile);
+        return include($sFile);
     }
 
-    function isExecuteSQLAvail ($sModule = '')
+    function isExecuteSQLAvail($sModule = '')
     {
         if (!$this->sFolder)
             return 'Upgrade path folder is not defined';
@@ -79,7 +81,7 @@ class ChWsbUpgradeUtil
         return file_exists($sFile) ? true : false;
     }
 
-    function executeSQL ($sModule = '')
+    function executeSQL($sModule = '')
     {
         if (!$this->sFolder)
             return 'Upgrade path folder is not defined';
@@ -88,18 +90,18 @@ class ChWsbUpgradeUtil
         if (!file_exists($sFile))
             return true; // if sql script was not found just skip it
 
-        $aReplace = array ();
+        $aReplace = array();
         if ($sModule) {
-            $aModule = $this->oDb->getRow ("SELECT * FROM `sys_modules` WHERE `uri` = '$sModule' LIMIT 1");
+            $aModule = $this->oDb->getRow("SELECT * FROM `sys_modules` WHERE `uri` = '$sModule' LIMIT 1");
             if (!$aModule)
                 return true; // it looks like module is not installed - skip it
-            $aReplace = array (
-                'from' => array ('[db_prefix]'),
-                'to'   => array ($aModule['db_prefix']),
+            $aReplace = array(
+                'from' => array('[db_prefix]'),
+                'to' => array($aModule['db_prefix']),
             );
         }
 
-        $mixedResult = $this->oDb->executeSQL ($sFile, $aReplace);
+        $mixedResult = $this->oDb->executeSQL($sFile, $aReplace);
 
         if (true === $mixedResult)
             return true;
@@ -113,12 +115,12 @@ class ChWsbUpgradeUtil
         return $s;
     }
 
-    function executeLangsAdd ($sModule = '')
+    function executeLangsAdd($sModule = '')
     {
         if (!$this->sFolder)
             return 'Upgrade path folder is not defined';
 
-        $aLangs = $this->readLangs ($sModule);
+        $aLangs = $this->readLangs($sModule);
         foreach ($aLangs as $sLang) {
             $this->_executeLangAdd($sModule, $sLang);
         }
@@ -126,30 +128,30 @@ class ChWsbUpgradeUtil
         return true;
     }
 
-    function _executeLangAdd ($sModule, $sLang = 'en')
+    function _executeLangAdd($sModule, $sLang = 'en')
     {
         $sFile = CH_UPGRADE_DIR_UPGRADES . $this->sFolder . '/' . ($sModule ? 'modules/' . $sModule . '/' : '') . 'lang_' . $sLang . '.php';
         if (!file_exists($sFile))
             return true; // just skip if language file is not found
 
-        include ($sFile);
+        include($sFile);
         if (!$aLangContent && !is_array($aLangContent))
             return true;
 
-        $iLanguageId = (int)$this->oDb->getOne("SELECT `ID` FROM `sys_localization_languages` WHERE `Name`='$sLang' LIMIT 1");
+        $iLanguageId = (int) $this->oDb->getOne("SELECT `ID` FROM `sys_localization_languages` WHERE `Name`='$sLang' LIMIT 1");
         if (!$iLanguageId)
             return true; // just skip the language if it is not available
 
         if ($sModule) {
-            $aModule = $this->oDb->getRow ("SELECT * FROM `sys_modules` WHERE `uri` = '$sModule' LIMIT 1");
+            $aModule = $this->oDb->getRow("SELECT * FROM `sys_modules` WHERE `uri` = '$sModule' LIMIT 1");
             if (!$aModule)
                 return true; // it looks like module is not installed - skip it
 
             $sModuleConfigFile = CH_DIRECTORY_PATH_MODULES . $aModule['path'] . 'install/config.php';
-            require ($sModuleConfigFile);
-            $iCategoryId = $this->oDb->getOne ("SELECT `ID` FROM `sys_localization_categories` WHERE `Name`='" . $aConfig['language_category'] . "' LIMIT 1");
+            require($sModuleConfigFile);
+            $iCategoryId = $this->oDb->getOne("SELECT `ID` FROM `sys_localization_categories` WHERE `Name`='" . $aConfig['language_category'] . "' LIMIT 1");
             if (!$iCategoryId && $aConfig['language_category']) {
-                if ($this->oDb->query ("INSERT INTO `sys_localization_categories` SET `Name`='" . $aConfig['language_category'] . "'"))
+                if ($this->oDb->query("INSERT INTO `sys_localization_categories` SET `Name`='" . $aConfig['language_category'] . "'"))
                     $iCategoryId = $this->oDb->lastId();
                 else
                     return "Can not determine or create language category ID";
@@ -160,13 +162,13 @@ class ChWsbUpgradeUtil
 
         foreach ($aLangContent as $sKey => $sValue) {
             $aLangKey = $this->oDb->getRow("SELECT `ID`, `IDCategory` FROM `sys_localization_keys` WHERE `Key`='" . $this->oDb->escape($sKey) . "' LIMIT 1");
-            $iLangKeyId = isset($aLangKey['ID']) && (int)$aLangKey['ID'] ? (int)$aLangKey['ID'] : false;
+            $iLangKeyId = isset($aLangKey['ID']) && (int) $aLangKey['ID'] ? (int) $aLangKey['ID'] : false;
             if (!$iLangKeyId) {
                 if (!$this->oDb->query("INSERT INTO `sys_localization_keys`(`IDCategory`, `Key`) VALUES('$iCategoryId', '" . $this->oDb->escape($sKey) . "')"))
                     continue;
                 $iLangKeyId = $this->oDb->lastId();
             } else {
-                $iLangKeyCat = isset($aLangKey['IDCategory']) && (int)$aLangKey['IDCategory'] ? (int)$aLangKey['IDCategory'] : 0;
+                $iLangKeyCat = isset($aLangKey['IDCategory']) && (int) $aLangKey['IDCategory'] ? (int) $aLangKey['IDCategory'] : 0;
                 if ($iLangKeyCat != $iCategoryId)
                     $this->oDb->query("UPDATE `sys_localization_keys` SET `IDCategory` = '$iCategoryId' WHERE `Key` = '" . $this->oDb->escape($sKey) . "' LIMIT 1");
             }
@@ -177,7 +179,7 @@ class ChWsbUpgradeUtil
         return true;
     }
 
-    function readLangs ($sModule = '')
+    function readLangs($sModule = '')
     {
         $sDir = CH_UPGRADE_DIR_UPGRADES . $this->sFolder . '/' . ($sModule ? 'modules/' . $sModule . '/' : '');
 
@@ -200,7 +202,7 @@ class ChWsbUpgradeUtil
 
     }
 
-    function readModules ()
+    function readModules()
     {
         if (!$this->sFolder)
             return false;
@@ -222,7 +224,7 @@ class ChWsbUpgradeUtil
         return $aRet;
     }
 
-    function checkFolder ($sFolder = '')
+    function checkFolder($sFolder = '')
     {
         if (!$sFolder)
             $sFolder = $this->sFolder;
@@ -234,12 +236,12 @@ class ChWsbUpgradeUtil
         return true;
     }
 
-    function setFolder ($sFolder)
+    function setFolder($sFolder)
     {
         $this->sFolder = $sFolder;
     }
 
-    function readUpgrades ()
+    function readUpgrades()
     {
         if (!($h = opendir(CH_UPGRADE_DIR_UPGRADES))) {
             return false;

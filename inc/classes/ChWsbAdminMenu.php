@@ -9,25 +9,25 @@ class ChWsbAdminMenu
 {
     public static function getTopMenu()
     {
-    	$sTmplVarsAddons = '';
-    	$aTmplVarsItems = array();
+        $sTmplVarsAddons = '';
+        $aTmplVarsItems = array();
 
-    	$aItems = array();
-		if(count(getLangsArr()) > 1) {
-			$aItems[] = array(
-				'caption' => '_adm_tmi_language',
-				'url' => 'javascript:void(0)',
-				'onclick' => 'showPopupLanguage()',
-				'target' => '',
-				'icon' => 'language'
-			);
+        $aItems = array();
+        if (count(getLangsArr()) > 1) {
+            $aItems[] = array(
+                'caption' => '_adm_tmi_language',
+                'url' => 'javascript:void(0)',
+                'onclick' => 'showPopupLanguage()',
+                'target' => '',
+                'icon' => 'language'
+            );
 
-			$sLangName = getCurrentLangName();
-			$sTmplVarsAddons .= $GLOBALS['oFunctions']->getLanguageSwitcher($sLangName);
-		}
+            $sLangName = getCurrentLangName();
+            $sTmplVarsAddons .= $GLOBALS['oFunctions']->getLanguageSwitcher($sLangName);
+        }
 
         $aItems = array_merge($aItems, $GLOBALS['MySQL']->getAll("SELECT `caption`, `url`, `target`, `icon` FROM `sys_menu_admin_top` ORDER BY `Order`"));
-        foreach($aItems as $aItem)
+        foreach ($aItems as $aItem)
             $aTmplVarsItems[] = array(
                 'caption' => _t($aItem['caption']),
                 'url' => str_replace(
@@ -43,68 +43,84 @@ class ChWsbAdminMenu
                 ),
                 'target' => !empty($aItem['target']) ? $aItem['target'] : '_self',
                 'ch_if:show_onclick' => array(
-                	'condition' => (isset($aItem['onclick']) && !empty($aItem['onclick'])),
-                	'content' => array(
-                		'onclick' => (isset($aItem['onclick'])) ? $aItem['onclick'] : ''
-                	)
+                    'condition' => (isset($aItem['onclick']) && !empty($aItem['onclick'])),
+                    'content' => array(
+                        'onclick' => (isset($aItem['onclick'])) ? $aItem['onclick'] : ''
+                    )
                 ),
                 'icon' => false === strpos($aItem['icon'], '.') ? '<i class="sys-icon ' . $aItem['icon'] . '"></i>' : '<img src="' . $GLOBALS['oAdmTemplate']->getIconUrl($aItem['icon']) . '" alt="' . _t($aItem['caption']) . '" />',
             );
 
-        return $GLOBALS['oAdmTemplate']->parseHtmlByName('top_menu.html', array(
-        	'ch_repeat:items' => $aTmplVarsItems,
-        	'addons' => $sTmplVarsAddons
-        ));
+        return $GLOBALS['oAdmTemplate']->parseHtmlByName(
+            'top_menu.html',
+            array(
+                'ch_repeat:items' => $aTmplVarsItems,
+                'addons' => $sTmplVarsAddons
+            )
+        );
     }
 
     public static function getMainMenu()
     {
-        if(!isAdmin())
+        if (!isAdmin())
             return '';
 
         $sUri = $_SERVER['REQUEST_URI'];
-        $sPath = parse_url (CH_WSB_URL_ROOT, PHP_URL_PATH);
+        $sPath = parse_url(CH_WSB_URL_ROOT, PHP_URL_PATH);
         if ($sPath && $sPath != '/' && 0 === strncmp($sPath, $sUri, strlen($sPath)))
             $sUri = substr($sUri, strlen($sPath) - strlen($sUri));
         $sUri = CH_WSB_URL_ROOT . trim($sUri, '/');
         $sFile = basename($_SERVER['PHP_SELF']);
 
         $oPermalinks = new ChWsbPermalinks();
-        $aMenu = $GLOBALS['MySQL']->getAll("SELECT `id`, `name`, `title`, `url`, `icon` FROM `sys_menu_admin` WHERE `parent_id`='0' ORDER BY `order`" );
+        $aMenu = $GLOBALS['MySQL']->getAll("SELECT `id`, `name`, `title`, `url`, `icon` FROM `sys_menu_admin` WHERE `parent_id`='0' ORDER BY `order`");
 
-        $oZ = new ChWsbAlerts('system', 'admin_menu', 0, 0, array(
-            'parent' => false,
-            'menu' => &$aMenu,
-        ));
+        $oZ = new ChWsbAlerts(
+            'system',
+            'admin_menu',
+            0,
+            0,
+            array(
+                'parent' => false,
+                'menu' => &$aMenu,
+            )
+        );
         $oZ->alert();
 
         $oChWsbAdminMenu = new self();
 
         $aItems = array();
-        foreach($aMenu as $aMenuItem) {
+        foreach ($aMenu as $id => $aMenuItem) {
             $aMenuItem['url'] = str_replace(array('{siteUrl}', '{siteAdminUrl}'), array(CH_WSB_URL_ROOT, CH_WSB_URL_ADMIN), $aMenuItem['url']);
 
             $bActiveCateg = $sFile == 'index.php' && (!empty($_GET['cat'])) && $_GET['cat'] == $aMenuItem['name'];
             $aSubmenu = $GLOBALS['MySQL']->getAll("SELECT * FROM `sys_menu_admin` WHERE `parent_id`= ? ORDER BY `order`", [$aMenuItem['id']]);
 
-            $oZ = new ChWsbAlerts('system', 'admin_menu', 0, 0, array(
-	            'parent' => &$aMenuItem,
-	            'menu' => &$aSubmenu,
-	        ));
-	        $oZ->alert();
+            $oZ = new ChWsbAlerts(
+                'system',
+                'admin_menu',
+                0,
+                0,
+                array(
+                    'parent' => &$aMenuItem,
+                    'menu' => &$aSubmenu,
+                )
+            );
+            $oZ->alert();
 
             $aSubitems = array();
-            foreach($aSubmenu as $aSubmenuItem) {
+            foreach ($aSubmenu as $aSubmenuItem) {
                 $aSubmenuItem['url'] = $oPermalinks->permalink($aSubmenuItem['url']);
                 $aSubmenuItem['url'] = str_replace(array('{siteUrl}', '{siteAdminUrl}'), array(CH_WSB_URL_ROOT, CH_WSB_URL_ADMIN), $aSubmenuItem['url']);
 
-                if(!defined('CH_WSB_ADMIN_INDEX') && $aSubmenuItem['url'] != '' && (strpos($sUri, $aSubmenuItem['url']) !== false || strpos($aSubmenuItem['url'], $sUri) !== false))
+                if (!defined('CH_WSB_ADMIN_INDEX') && $aSubmenuItem['url'] != '' && (strpos($sUri, $aSubmenuItem['url']) !== false || strpos($aSubmenuItem['url'], $sUri) !== false))
                     $bActiveCateg = $bActiveItem = true;
                 else
                     $bActiveItem = false;
 
                 $sSubItem = $oChWsbAdminMenu->_getMainMenuSubitem($aSubmenuItem, $bActiveItem);
-                if($sSubItem) $aSubitems[] = $sSubItem;
+                if ($sSubItem)
+                    $aSubitems[] = $sSubItem;
             }
 
             $aItems[] = $oChWsbAdminMenu->_getMainMenuItem($aMenuItem, $aSubitems, $bActiveCateg);
@@ -115,7 +131,7 @@ class ChWsbAdminMenu
 
     public static function getMainMenuLink($sUrl)
     {
-        if(substr($sUrl, 0, 11) == 'javascript:') {
+        if (substr($sUrl, 0, 11) == 'javascript:') {
             $sLink = 'javascript:void(0);';
             $sOnClick = 'onclick="' . $sUrl . '"';
         } else {
@@ -140,18 +156,27 @@ class ChWsbAdminMenu
         $bSubmenu = !empty($aItems);
 
         $sClass = "adm-mm-" . $aCateg['name'];
-        if($bActive && !empty($aItems))
+        if ($bActive && !empty($aItems))
             $sClass .= ' adm-mmh-opened';
-        else if($bActive && empty($aItems))
+        else if ($bActive && empty($aItems))
             $sClass .= ' adm-mmh-active';
 
         $sLink = "";
-        if(!empty($aCateg['url']))
+        if (!empty($aCateg['url']))
             $sLink = $aCateg['url'];
-        else if($aCateg['id'])
+        else if ($aCateg['id'])
             $sLink = CH_WSB_URL_ADMIN . "index.php?cat=" . $aCateg['name'];
         else
             $sLink = CH_WSB_URL_ADMIN . "index.php";
+
+        if ($aCateg['title'] == '_adm_mmi_updates') {
+            $iUpdates = $this->getUpdateCount();
+            if ($iUpdates > 0) {
+                $sTitlec = ' (' . $iUpdates . ')';
+            } else {
+                $sTitlec = '';
+            }
+        }
 
         return array(
             'class' => $sClass,
@@ -184,7 +209,7 @@ class ChWsbAdminMenu
                 'condition' => !$bActive,
                 'content' => array(
                     'link' => $sLink,
-                    'title' => _t($aCateg['title'])
+                    'title' => _t($aCateg['title']) . $sTitlec
                 )
             ),
             'ch_if:submenu' => array(
@@ -202,20 +227,20 @@ class ChWsbAdminMenu
     {
         global $oAdmTemplate;
 
-        if(strlen($aItem['check']) > 0) {
-            $oFunction = function() use($aItem) {
+        if (strlen($aItem['check']) > 0) {
+            $oFunction = function () use ($aItem) {
                 return eval($aItem['check']);
             };
 
-            if(!$oFunction())
+            if (!$oFunction())
                 return '';
         }
 
-        if(!$bActive)
+        if (!$bActive)
             list($sLink, $sOnClick) = ChWsbAdminMenu::getMainMenuLink($aItem['url']);
 
         return array(
-        	'class' => $bActive ? 'adm-mmi-active' : '',
+            'class' => $bActive ? 'adm-mmi-active' : '',
             'ch_if:subicon' => array(
                 'condition' => false !== strpos($aItem['icon'], '.'),
                 'content' => array(
@@ -243,5 +268,21 @@ class ChWsbAdminMenu
                 )
             )
         );
+    }
+    function getUpdateCount()
+    {
+        if (file_exists(CH_DIRECTORY_PATH_TMP . 'versions.txt')) {
+            $aVersions = file(CH_DIRECTORY_PATH_TMP . 'versions.txt');
+            $sCurrentVersion = $GLOBALS['site']['ver'] . '.' . $GLOBALS['site']['build'];
+            $iCount = 0;
+            foreach ($aVersions as $aVersion) {
+                $a = explode('-', $aVersion);
+                if (version_compare($sCurrentVersion, $a[1], '<')) {
+                    $iCount = 1;
+                    break;
+                }
+            }
+        }
+        return $iCount;
     }
 }

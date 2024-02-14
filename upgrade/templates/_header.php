@@ -77,6 +77,22 @@ table td {
     color:#090;
     padding:5px;
 }
+
+.button_box {
+	padding-left: 5px;
+	padding-top: 10px;
+	margin-top: 5px;
+	border-top: 1px solid #ccc;
+}
+
+.ch-def-padding-sec-left
+{
+  padding-left: 5px;
+}
+.ch-def-padding-sec-top
+{
+  padding-top: 10px;
+}
     </style>
 </head>
 <body>

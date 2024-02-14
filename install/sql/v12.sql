@@ -56,14 +56,19 @@ CREATE TABLE `sys_menu_admin` (
 -- Dumping data for table `sys_menu_admin`
 --
 
+-- Updates menu item
+INSERT INTO `sys_menu_admin`(`parent_id`, `name`, `title`, `url`, `description`, `icon`, `icon_large`, `check`, `order`) VALUES
+(0, 'updates', '_adm_mmi_updates', '{siteUrl}upgrade/index.php', '', 'users col-Purple', 'tachometer', '', 2);
+SET @iParentId = LAST_INSERT_ID();
+
 -- Users menu item
 INSERT INTO `sys_menu_admin`(`parent_id`, `name`, `title`, `url`, `description`, `icon`, `icon_large`, `check`, `order`) VALUES
-(0, 'users', '_adm_mmi_users', '{siteAdminUrl}profiles.php', '', 'users col-green1', 'users', '', 2);
+(0, 'users', '_adm_mmi_users', '{siteAdminUrl}profiles.php', '', 'users col-green1', 'users', '', 3);
 SET @iParentId = LAST_INSERT_ID();
 
 -- Extensions menu item
 INSERT INTO `sys_menu_admin`(`parent_id`, `name`, `title`, `url`, `description`, `icon`, `icon_large`, `check`, `order`) VALUES
-(0, 'modules', '_adm_mmi_modules', '', '', 'puzzle-piece col-red1', 'puzzle-piece', '', 3);
+(0, 'modules', '_adm_mmi_modules', '', '', 'puzzle-piece col-red1', 'puzzle-piece', '', 4);
 SET @iParentId = LAST_INSERT_ID();
 
 INSERT INTO `sys_menu_admin`(`parent_id`, `name`, `title`, `url`, `description`, `icon`, `icon_large`, `check`, `order`) VALUES
@@ -72,7 +77,7 @@ INSERT INTO `sys_menu_admin`(`parent_id`, `name`, `title`, `url`, `description`,
 
 -- Tools menu item
 INSERT INTO `sys_menu_admin`(`parent_id`, `name`, `title`, `url`, `description`, `icon`, `icon_large`, `check`, `order`) VALUES
-(0, 'tools', '_adm_mmi_tools', '', '', 'wrench col-green3', 'wrench', '', 4);
+(0, 'tools', '_adm_mmi_tools', '', '', 'wrench col-green3', 'wrench', '', 5);
 SET @iParentId = LAST_INSERT_ID();
 
 INSERT INTO `sys_menu_admin`(`parent_id`, `name`, `title`, `url`, `description`, `icon`, `icon_large`, `check`, `order`) VALUES
@@ -88,7 +93,7 @@ INSERT INTO `sys_menu_admin`(`parent_id`, `name`, `title`, `url`, `description`,
 
 -- Builders menu item
 INSERT INTO `sys_menu_admin`(`parent_id`, `name`, `title`, `url`, `description`, `icon`, `icon_large`, `check`, `order`) VALUES
-(0, 'builders', '_adm_mmi_builders', '', '', 'magic col-red2', 'magic', '', 5);
+(0, 'builders', '_adm_mmi_builders', '', '', 'magic col-red2', 'magic', '', 6);
 SET @iParentId = LAST_INSERT_ID();
 
 INSERT INTO `sys_menu_admin`(`parent_id`, `name`, `title`, `url`, `description`, `icon`, `icon_large`, `check`, `order`) VALUES
@@ -104,7 +109,7 @@ INSERT INTO `sys_menu_admin`(`parent_id`, `name`, `title`, `url`, `description`,
 
 -- Settings menu item
 INSERT INTO `sys_menu_admin`(`parent_id`, `name`, `title`, `url`, `description`, `icon`, `icon_large`, `check`, `order`) VALUES
-(0, 'settings', '_adm_mmi_settings', '', '', 'sliders col-blue2', 'sliders', '', 6);
+(0, 'settings', '_adm_mmi_settings', '', '', 'sliders col-blue2', 'sliders', '', 7);
 SET @iParentId = LAST_INSERT_ID();
 
 INSERT INTO `sys_menu_admin`(`parent_id`, `name`, `title`, `url`, `description`, `icon`, `icon_large`, `check`, `order`) VALUES
@@ -982,7 +987,8 @@ INSERT INTO `sys_email_templates` (`Name`, `Subject`, `Body`, `Desc`, `LangID`) 
 ('t_FriendRequestAccepted', 'Friendship Request Accepted', '<ch_include_auto:_email_header.html />\r\n\r\n    <p><b>Dear <Recipient></b>,</p>\r\n    \r\n    <p><a href="<SenderLink>"><Sender></a> accepted your friendship request.</p>\r\n    <br /> \r\n    <ch_include_auto:_email_footer.html />', 'Friendship Request Accepted', 0),
 ('t_SpamReportAuto', '<SiteName> Automatic Spam Report', '<ch_include_auto:_email_header.html />\r\n\r\n\r\n<b>Profile:</b> <a href="<SpammerUrl>"><SpammerNickName></a><br />\r\n\r\n<b>Page:</b> <Page><br />\r\n\r\n<b>GET variables:</b>\r\n<pre>\r\n<Get>\r\n</pre>\r\n\r\n<b>Spam Content:</b>\r\n<pre>\r\n<SpamContent>\r\n</pre>\r\n\r\n\r\n<ch_include_auto:_email_footer.html />', 'Automatic spam report', 0),
 ('t_ModulesUpdates', '<SiteName> Automatic modules updates checker', '<ch_include_auto:_email_header.html />\r\n\r\n\r\n<p><b>Dear <RealName></b>,</p>\r\n\r\n<p>The following updates are available:</p>\r\n\r\n<p><MessageText></p>\r\n\r\n<p>If you want to install any of them you need to go to your site''s admin panel -> Modules -> Add & Manage and click Check For Updates button in Installed Modules block. It will load all available updates.</p>\r\n\r\n\r\n<ch_include_auto:_email_footer.html />', 'Message to admin about modules updates', 0),
-('t_ExportReady', '<SiteName> Your data export is ready', '<ch_include_auto:_email_header.html />\r\n\r\n\r\n<p><b>Dear <RealName></b>,</p>\r\n\r\n<p>Your data download link:</p>\r\n\r\n<p><FileUrl></p>\r\n\r\n<p>Link will be availiable for 24 hours.</p>\r\n\r\n\r\n<ch_include_auto:_email_footer.html />', 'Notification about user data export', 0);
+('t_ExportReady', '<SiteName> Your data export is ready', '<ch_include_auto:_email_header.html />\r\n\r\n\r\n<p><b>Dear <RealName></b>,</p>\r\n\r\n<p>Your data download link:</p>\r\n\r\n<p><FileUrl></p>\r\n\r\n<p>Link will be availiable for 24 hours.</p>\r\n\r\n\r\n<ch_include_auto:_email_footer.html />', 'Notification about user data export', 0),
+('t_AdminUpdates', 'There are updates ready to be installed', '<ch_include_auto:_email_header.html />\r\n\r\n<p><b>Dear <RealName></b>,</p>\r\n\r\n<p><MessageText></p>\r\n\r\n<p>Go to <a href=\"<ViewLink>\">administration panel</a> to install pending updates.</p>\r\n\r\n<ch_include_auto:_email_footer.html />', 'Message to admin about pending updates', 0);
 
 
 -- --------------------------------------------------------
@@ -1381,7 +1387,8 @@ INSERT INTO `sys_options` VALUES
 ('sys_sitemap_enable', '', @iCatHidden, 'Enable sitemap generation', 'checkbox', '', '', 80, ''),
 
 ('sys_captcha_default', 'sys_recaptcha', @iCatHidden, 'Default CAPTCHA', 'digit', '', '', 90, ''),
-('sys_editor_default', 'sys_tinymce', @iCatHidden, 'Default HTML editor', 'digit', '', '', 91, '');
+('sys_editor_default', 'sys_tinymce', @iCatHidden, 'Default HTML editor', 'digit', '', '', 91, ''),
+('sys_updater_supported', '', @iCatHidden, 'Updater supported last check timestamp', 'digit', '', '', 92, '');
 
 
 
@@ -3743,7 +3750,6 @@ INSERT INTO `sys_cron_jobs` (`name`, `time`, `class`, `file`, `eval`) VALUES
 ('video_comments', '* * * * *', 'ChWsbCronVideoComments', 'flash/modules/video_comments/inc/classes/ChWsbCronVideoComments.php', ''),
 ('sitemap', '0 2 * * *', '', '', 'ch_import(''ChWsbSiteMaps'');\r\nChWsbSiteMaps::generateAllSiteMaps();'),
 ('modules', '0 0 * * 0', 'ChWsbCronModules', 'inc/classes/ChWsbCronModules.php', '');
-
 
 -- --------------------------------------------------------
 

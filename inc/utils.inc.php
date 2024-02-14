@@ -127,9 +127,9 @@ function ch_time_utc($iUnixTimestamp)
  */
 function isBlocked($iFirstProfile, $iSecondProfile)
 {
-    $iFirstProfile  = (int)$iFirstProfile;
+    $iFirstProfile = (int)$iFirstProfile;
     $iSecondProfile = (int)$iSecondProfile;
-    $sQuery         = "SELECT COUNT(*) FROM `sys_block_list` WHERE `ID` = {$iFirstProfile} AND `Profile` = {$iSecondProfile}";
+    $sQuery = "SELECT COUNT(*) FROM `sys_block_list` WHERE `ID` = {$iFirstProfile} AND `Profile` = {$iSecondProfile}";
 
     return db_value($sQuery) ? true : false;
 }
@@ -165,10 +165,9 @@ function WordWrapStr($sString, $iWidth = 25, $sWrapCharacter = '&shy;')
         $sString = str_replace($aSpecialSymbols, $aSpecialSymbolsWithSpace, $sString);
     } // preserve new line characters
 
-    $aWords  = mb_split("\s", $sString);
+    $aWords = mb_split("\s", $sString);
     $sResult = ' ';
     foreach ($aWords as $sWord) {
-
         if (($iWord = mb_strlen($sWord, 'UTF-8')) <= $iWidth || preg_match(CH_URL_RE, $sWord)) {
             if ($iWord > 0) {
                 $sResult .= $sWord . ' ';
@@ -207,9 +206,9 @@ function strmaxwordlen($input, $len = 100)
 function strmaxtextlen($sInput, $iMaxLen = 60)
 {
     $sTail = '';
-    $s     = trim(strip_tags($sInput));
+    $s = trim(strip_tags($sInput));
     if (mb_strlen($s) > $iMaxLen) {
-        $s     = mb_substr($s, 0, $iMaxLen);
+        $s = mb_substr($s, 0, $iMaxLen);
         $sTail = '&#8230;';
     }
 
@@ -360,8 +359,7 @@ function ConstructHiddenValues($Values)
             foreach ($Value as $KeyName => $SubValue) {
                 $Result .= ConstructHiddenSubValues("{$Name}[{$KeyName}]", $SubValue);
             }
-        } else // Exit recurse
-        {
+        } else { // Exit recurse
             $Result = "<input type=\"hidden\" name=\"" . htmlspecialchars($Name) . "\" value=\"" . htmlspecialchars($Value) . "\" />\n";
         }
 
@@ -397,9 +395,7 @@ function RedirectCode($ActionURL, $Params = null, $Method = "get", $Title = 'Red
         return false;
     }
 
-    ob_start();
-
-    ?>
+    ob_start(); ?>
     <html>
     <head>
         <title><?= $Title ?></title>
@@ -479,18 +475,20 @@ function isRWAccessible($sFileName)
 
      // don't send mail to the user if he/she decided to not receive any site's notifications, unless it is critical emails (like email confirmation)
      if (!$bForceSend) {
-         $aRealRecipient = $GLOBALS['MySQL']->getRow("SELECT * FROM `Profiles` WHERE `Email`= ? LIMIT 1",
-             [$sRecipientEmail]);
+         $aRealRecipient = $GLOBALS['MySQL']->getRow(
+             "SELECT * FROM `Profiles` WHERE `Email`= ? LIMIT 1",
+             [$sRecipientEmail]
+         );
          if ($aRealRecipient && 1 != $aRealRecipient['EmailNotify']) {
              return true;
          }
      }
 
-     $sEmailNotify    = isset($GLOBALS['site']['email_notify']) ? $GLOBALS['site']['email_notify'] : getParam('site_email_notify');
-     $sSiteTitle      = isset($GLOBALS['site']['title']) ? $GLOBALS['site']['title'] : getParam('site_title');
-     $sMailHeader     = "From: =?UTF-8?B?" . base64_encode($sSiteTitle) . "?= <{$sEmailNotify}>";
-     if($sSenderEmail != '') {
-        $sMailHeader     = "Reply-To: {$sSenderEmail}\r\n" . $sMailHeader;
+     $sEmailNotify = isset($GLOBALS['site']['email_notify']) ? $GLOBALS['site']['email_notify'] : getParam('site_email_notify');
+     $sSiteTitle = isset($GLOBALS['site']['title']) ? $GLOBALS['site']['title'] : getParam('site_title');
+     $sMailHeader = "From: =?UTF-8?B?" . base64_encode($sSiteTitle) . "?= <{$sEmailNotify}>";
+     if ($sSenderEmail != '') {
+         $sMailHeader = "Reply-To: {$sSenderEmail}\r\n" . $sMailHeader;
      }
 
      $sMailParameters = "-f{$sEmailNotify}";
@@ -501,15 +499,15 @@ function isRWAccessible($sFileName)
          }
          ch_import('ChWsbEmailTemplates');
          $oEmailTemplates = new ChWsbEmailTemplates();
-         $sMailSubject    = $oEmailTemplates->parseContent($sMailSubject, $aPlus, $iRecipientID);
-         $sMailBody       = $oEmailTemplates->parseContent($sMailBody, $aPlus, $iRecipientID);
+         $sMailSubject = $oEmailTemplates->parseContent($sMailSubject, $aPlus, $iRecipientID);
+         $sMailBody = $oEmailTemplates->parseContent($sMailBody, $aPlus, $iRecipientID);
      }
 
      $sMailSubjectEncoded = '=?UTF-8?B?' . base64_encode($sMailSubject) . '?=';
 
      $sMailHeader = "MIME-Version: 1.0\r\n" . $sMailHeader;
 
-     if('on' == getParam('email_log_emabled')) {
+     if ('on' == getParam('email_log_emabled')) {
          $sLogDate = date("F j, Y, g:i a");
          $sHttpRefererLog = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'Empty';
          $sMailSubjectLog = ($sMailSubject == '' ? 'Empty' : $sMailSubject);
@@ -528,7 +526,7 @@ function isRWAccessible($sFileName)
          $aRecipientInfoLog = serialize($aRecipientInfo);
          $sQuery = "INSERT INTO `sys_email_log` (`email`, `subject`, `encodedsubject`, `body`, `header`, `emailnotify`, `params`, `recipientinfo`, `html`, `debug`, `timestamp`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())";
          $GLOBALS['MySQL']->query($sQuery, [$sRecipientEmailLog, $sMailSubjectLog, $sMailSubjectEncodedLog, $sMailBodyLog, $sMailHeaderLog, $sEmailNotifyLog, $aPlusLog, $aRecipientInfoLog, $sEmailFlagLog, $sDebugTraceLog]);
-    }
+     }
 
 
      if (!$isDisableAlert && 'on' == getParam('ch_smtp_on')) {
@@ -544,11 +542,11 @@ function isRWAccessible($sFileName)
      }
 
      if ('html' == $sEmailFlag) {
-         $sMailHeader    = "Content-type: text/html; charset=UTF-8\r\n" . $sMailHeader;
+         $sMailHeader = "Content-type: text/html; charset=UTF-8\r\n" . $sMailHeader;
          $iSendingResult = mail($sRecipientEmail, $sMailSubjectEncoded, $sMailBody, $sMailHeader, $sMailParameters);
      } else {
-         $sMailHeader    = "Content-type: text/plain; charset=UTF-8\r\n" . $sMailHeader;
-         $sMailBody      = html2txt($sMailBody);
+         $sMailHeader = "Content-type: text/plain; charset=UTF-8\r\n" . $sMailHeader;
+         $sMailBody = html2txt($sMailBody);
          $iSendingResult = mail($sRecipientEmail, $sMailSubjectEncoded, html2txt($sMailBody), $sMailHeader, $sMailParameters);
      }
 
@@ -556,20 +554,20 @@ function isRWAccessible($sFileName)
          //--- create system event
          ch_import('ChWsbAlerts');
          $aAlertData = array(
-             'email'   => $sRecipientEmail,
+             'email' => $sRecipientEmail,
              'subject' => $sMailSubjectEncoded,
-             'body'    => $sMailBody,
-             'header'  => $sMailHeader,
-             'params'  => $sMailParameters,
-             'html'    => 'html' == $sEmailFlag ? true : false,
+             'body' => $sMailBody,
+             'header' => $sMailHeader,
+             'params' => $sMailParameters,
+             'html' => 'html' == $sEmailFlag ? true : false,
          );
 
          $oZ = new ChWsbAlerts('profile', 'send_mail', $iRecipientID, '', $aAlertData);
          $oZ->alert();
      }
 
-    return $iSendingResult;
-}
+     return $iSendingResult;
+ }
 
 /*
  * Getting Array with Templates Names
@@ -578,25 +576,24 @@ function isRWAccessible($sFileName)
 function get_templates_array($isAllParams = false)
 {
     $aTempls = array();
-    $sPath   = CH_DIRECTORY_PATH_ROOT . 'templates/';
-    $sUrl    = CH_WSB_URL_ROOT . 'templates/';
+    $sPath = CH_DIRECTORY_PATH_ROOT . 'templates/';
+    $sUrl = CH_WSB_URL_ROOT . 'templates/';
 
     if (!($handle = opendir($sPath))) {
         return array();
     }
 
     while (false !== ($sFileName = readdir($handle))) {
-
         if (!is_dir($sPath . $sFileName) || 0 !== strncmp($sFileName, 'tmpl_', 5)) {
             continue;
         }
 
-        $sTemplName    = substr($sFileName, 5);
-        $sTemplVer     = _t('_undefined');
-        $sTemplVendor  = _t('_undefined');
-        $sTemplDesc    = '';
+        $sTemplName = substr($sFileName, 5);
+        $sTemplVer = _t('_undefined');
+        $sTemplVendor = _t('_undefined');
+        $sTemplDesc = '';
         $sTemplPreview = 'preview.jpg';
-        $sPreviewImg   = false;
+        $sPreviewImg = false;
 
         if (file_exists($sPath . $sFileName . '/scripts/ChTemplName.php')) {
             @include($sPath . $sFileName . '/scripts/ChTemplName.php');
@@ -606,10 +603,10 @@ function get_templates_array($isAllParams = false)
         }
 
         $aTempls[substr($sFileName, 5)] = $isAllParams ? array(
-            'name'    => $sTemplName,
-            'ver'     => $sTemplVer,
-            'vendor'  => $sTemplVendor,
-            'desc'    => $sTemplDesc,
+            'name' => $sTemplName,
+            'ver' => $sTemplVer,
+            'vendor' => $sTemplVendor,
+            'desc' => $sTemplDesc,
             'preview' => $sPreviewImg
         ) : $sTemplName;
     }
@@ -625,7 +622,7 @@ function get_templates_array($isAllParams = false)
 
 function templates_select_txt()
 {
-    $templ_choices    = get_templates_array();
+    $templ_choices = get_templates_array();
     $current_template = (strlen($_GET['skin'])) ? $_GET['skin'] : $_COOKIE['skin'];
 
     foreach ($templ_choices as $tmpl_key => $tmpl_value) {
@@ -702,7 +699,8 @@ function echoDbgLog($mWhat, $sDesc = '', $sFileName = 'debug.log')
     fclose($rFile);
 }
 
-function echoDbgTrace($sDesc = '', $oOptions = DEBUG_BACKTRACE_PROVIDE_OBJECT, $iLimit = 0) {
+function echoDbgTrace($sDesc = '', $oOptions = DEBUG_BACKTRACE_PROVIDE_OBJECT, $iLimit = 0)
+{
     if ($sDesc) {
         echo "<b>$sDesc:</b> ";
     }
@@ -716,7 +714,6 @@ function clear_xss($val)
     // HTML Purifier plugin
     global $oHtmlPurifier;
     if (!isset($oHtmlPurifier) && !$GLOBALS['logged']['admin']) {
-
         require_once(CH_DIRECTORY_PATH_PLUGINS . 'htmlpurifier/HTMLPurifier.standalone.php');
 
         HTMLPurifier_Bootstrap::registerAutoload();
@@ -751,27 +748,27 @@ function clear_xss($val)
         $oConfig->set('HTML.DefinitionID', 'html5-definitions');
         $oConfig->set('HTML.DefinitionRev', 1);
         if ($def = $oConfig->maybeGetRawHTMLDefinition()) {
-		    $def->addElement('section', 'Block', 'Flow', 'Common');
-		    $def->addElement('nav',     'Block', 'Flow', 'Common');
-		    $def->addElement('article', 'Block', 'Flow', 'Common');
-		    $def->addElement('aside',   'Block', 'Flow', 'Common');
-		    $def->addElement('header',  'Block', 'Flow', 'Common');
-		    $def->addElement('footer',  'Block', 'Flow', 'Common');
-		    $def->addElement('video', 'Block', 'Optional: (source, Flow) | (Flow, source) | Flow', 'Common', array(
-		        'src' => 'URI',
-		        'type' => 'Text',
-		        'width' => 'Length',
-		        'height' => 'Length',
-		        'poster' => 'URI',
-		        'preload' => 'Enum#auto,metadata,none',
-		        'controls' => 'Bool',
-		    ));
-		    $def->addElement('source', 'Block', 'Flow', 'Common', array(
-		        'src' => 'URI',
-		        'type' => 'Text',
+            $def->addElement('section', 'Block', 'Flow', 'Common');
+            $def->addElement('nav', 'Block', 'Flow', 'Common');
+            $def->addElement('article', 'Block', 'Flow', 'Common');
+            $def->addElement('aside', 'Block', 'Flow', 'Common');
+            $def->addElement('header', 'Block', 'Flow', 'Common');
+            $def->addElement('footer', 'Block', 'Flow', 'Common');
+            $def->addElement('video', 'Block', 'Optional: (source, Flow) | (Flow, source) | Flow', 'Common', array(
+                'src' => 'URI',
+                'type' => 'Text',
+                'width' => 'Length',
+                'height' => 'Length',
+                'poster' => 'URI',
+                'preload' => 'Enum#auto,metadata,none',
+                'controls' => 'Bool',
+            ));
+            $def->addElement('source', 'Block', 'Flow', 'Common', array(
+                'src' => 'URI',
+                'type' => 'Text',
             ));
             $def->addAttribute('a', 'target', 'Enum#_blank,_self,_target,_top');
-		}
+        }
 
         $oHtmlPurifier = new HTMLPurifier($oConfig);
     }
@@ -780,8 +777,13 @@ function clear_xss($val)
         $val = $oHtmlPurifier->purify($val);
     }
 
-    $oZ = new ChWsbAlerts('system', 'clear_xss', 0, 0,
-        array('oHtmlPurifier' => $oHtmlPurifier, 'return_data' => &$val));
+    $oZ = new ChWsbAlerts(
+        'system',
+        'clear_xss',
+        0,
+        0,
+        array('oHtmlPurifier' => $oHtmlPurifier, 'return_data' => &$val)
+    );
     $oZ->alert();
 
     $val = wrapVideoFrame($val);
@@ -791,7 +793,7 @@ function clear_xss($val)
 
 function _format_when($iSec, $bShort = false)
 {
-    $s       = '';
+    $s = '';
     $sSuffix = $bShort ? '_short' : '';
     if ($iSec >= 0) {
         if ($iSec < 3600) {
@@ -828,7 +830,7 @@ function _format_time($iSec, $aParams = array())
 {
     $sDivider = isset($aParams['divider']) ? $aParams['divider'] : ':';
 
-    $iSec    = (int)$iSec;
+    $iSec = (int)$iSec;
     $sFormat = $iSec > 3600 ? 'H' . $sDivider . 'i' . $sDivider . 's' : 'i' . $sDivider . 's';
 
     return gmdate($sFormat, $iSec);
@@ -846,8 +848,7 @@ function defineTimeInterval($iTime, $bAutoDateConvert = true, $bShort = false)
 {
     $iTimeDiff = time() - (int)$iTime;
 
-    if ($bAutoDateConvert && $iTimeDiff > 14 * 24 * 60 * 60) // don't show "ago" dates for more than 14 days
-    {
+    if ($bAutoDateConvert && $iTimeDiff > 14 * 24 * 60 * 60) { // don't show "ago" dates for more than 14 days
         return getLocaleDate((int)$iTime);
     }
 
@@ -900,8 +901,11 @@ function replace_full_uris($text)
 
 function replace_full_uri($matches)
 {
-    if (substr($matches[2], 0, 7) != 'http://' and substr($matches[2], 0, 8) != 'https://' and substr($matches[2], 0,
-            6) != 'ftp://'
+    if (substr($matches[2], 0, 7) != 'http://' and substr($matches[2], 0, 8) != 'https://' and substr(
+        $matches[2],
+        0,
+        6
+    ) != 'ftp://'
     ) {
         $matches[2] = CH_WSB_URL_ROOT . $matches[2];
     }
@@ -997,7 +1001,7 @@ function ch_block_ip($mixedIP, $iExpirationInSec = 86400, $sComment = '')
     }
 
     $iExpirationInSec = time() + (int)$iExpirationInSec;
-    $sComment         = process_db_input($sComment, CH_TAGS_STRIP);
+    $sComment = process_db_input($sComment, CH_TAGS_STRIP);
 
     if (!db_value("SELECT ID FROM `sys_ip_list` WHERE `From` = {$iIP} AND `To` = {$iIP} LIMIT 1")) {
         return db_res("INSERT INTO `sys_ip_list` SET `From` = {$iIP}, `To` = {$iIP}, `Type` = 'deny', `LastDT` = {$iExpirationInSec}, `Desc` = '{$sComment}'");
@@ -1021,8 +1025,10 @@ function ch_is_ip_dns_blacklisted($sCurIP = '', $sType = '')
     }
 
     $o = ch_instance('ChWsbDNSBlacklists');
-    if (CH_WSB_DNSBL_POSITIVE == $o->dnsbl_lookup_ip(CH_WSB_DNSBL_CHAIN_SPAMMERS,
-            $sCurIP) && CH_WSB_DNSBL_POSITIVE != $o->dnsbl_lookup_ip(CH_WSB_DNSBL_CHAIN_WHITELIST, $sCurIP)
+    if (CH_WSB_DNSBL_POSITIVE == $o->dnsbl_lookup_ip(
+        CH_WSB_DNSBL_CHAIN_SPAMMERS,
+        $sCurIP
+    ) && CH_WSB_DNSBL_POSITIVE != $o->dnsbl_lookup_ip(CH_WSB_DNSBL_CHAIN_WHITELIST, $sCurIP)
     ) {
         $o->onPositiveDetection($sCurIP, $sType);
 
@@ -1039,15 +1045,14 @@ function ch_is_ip_whitelisted($sCurIP = '')
     }
 
     $iIPGlobalType = (int)getParam('ipListGlobalType');
-    if ($iIPGlobalType != 1 && $iIPGlobalType != 2) // 0 - disabled
-    {
+    if ($iIPGlobalType != 1 && $iIPGlobalType != 2) { // 0 - disabled
         return false;
     }
 
     if (!$sCurIP) {
         $sCurIP = getVisitorIP();
     }
-    $iCurIP    = sprintf("%u", ip2long($sCurIP));
+    $iCurIP = sprintf("%u", ip2long($sCurIP));
     $iCurrTume = time();
 
     return db_value("SELECT `ID` FROM `sys_ip_list` WHERE `Type` = 'allow' AND `LastDT` > $iCurrTume AND `From` <= '$iCurIP' AND `To` >= '$iCurIP' LIMIT 1") ? true : false;
@@ -1060,15 +1065,14 @@ function ch_is_ip_blocked($sCurIP = '')
     }
 
     $iIPGlobalType = (int)getParam('ipListGlobalType');
-    if ($iIPGlobalType != 1 && $iIPGlobalType != 2) // 0 - disabled
-    {
+    if ($iIPGlobalType != 1 && $iIPGlobalType != 2) { // 0 - disabled
         return false;
     }
 
     if (!$sCurIP) {
         $sCurIP = getVisitorIP();
     }
-    $iCurIP    = sprintf("%u", ip2long($sCurIP));
+    $iCurIP = sprintf("%u", ip2long($sCurIP));
     $iCurrTume = time();
 
     if (ch_is_ip_whitelisted($sCurIP)) {
@@ -1125,15 +1129,15 @@ function ch_is_spam($val)
     if ($bRet && 'on' == getParam('sys_antispam_report')) {
         ch_import('ChWsbEmailTemplates');
         $oEmailTemplates = new ChWsbEmailTemplates();
-        $aTemplate       = $oEmailTemplates->getTemplate('t_SpamReportAuto', 0);
+        $aTemplate = $oEmailTemplates->getTemplate('t_SpamReportAuto', 0);
 
         $iProfileId = getLoggedId();
-        $aPlus      = array(
-            'SpammerUrl'      => getProfileLink($iProfileId),
+        $aPlus = array(
+            'SpammerUrl' => getProfileLink($iProfileId),
             'SpammerNickName' => getNickName($iProfileId),
-            'Page'            => htmlspecialchars_adv($_SERVER['PHP_SELF']),
-            'Get'             => print_r($_GET, true),
-            'SpamContent'     => htmlspecialchars_adv($val),
+            'Page' => htmlspecialchars_adv($_SERVER['PHP_SELF']),
+            'Get' => print_r($_GET, true),
+            'SpamContent' => htmlspecialchars_adv($val),
         );
 
         sendMail($GLOBALS['site']['email'], $aTemplate['Subject'], $aTemplate['Body'], '', $aPlus);
@@ -1188,9 +1192,9 @@ function genSiteStatFile($aVal)
 {
     $oMenu = new ChWsbMenu();
 
-    $sLink    = $oMenu->getCurrLink($aVal['link']);
+    $sLink = $oMenu->getCurrLink($aVal['link']);
     $sAdmLink = $oMenu->getCurrLink($aVal['adm_link']);
-    $sLine    = "'{$aVal['name']}'=>array('capt'=>'{$aVal['capt']}', 'query'=>'" . addslashes($aVal['query']) . "', 'link'=>'$sLink', 'icon'=>'{$aVal['icon']}', 'adm_query'=>'" . addslashes($aVal['adm_query']) . "', 'adm_link'=>'$sAdmLink', ),\n";
+    $sLine = "'{$aVal['name']}'=>array('capt'=>'{$aVal['capt']}', 'query'=>'" . addslashes($aVal['query']) . "', 'link'=>'$sLink', 'icon'=>'{$aVal['icon']}', 'adm_query'=>'" . addslashes($aVal['adm_query']) . "', 'adm_link'=>'$sAdmLink', ),\n";
 
     return $sLine;
 }
@@ -1312,12 +1316,12 @@ function ch_js_string($mixedInput, $iQuoteType = CH_ESCAPE_STR_AUTO)
         "\r" => "",
     );
     if (CH_ESCAPE_STR_APOS == $iQuoteType) {
-        $aUnits["'"]         = "\\'";
-        $aUnits['<script']   = "<scr' + 'ipt";
+        $aUnits["'"] = "\\'";
+        $aUnits['<script'] = "<scr' + 'ipt";
         $aUnits['</script>'] = "</scr' + 'ipt>";
     } elseif (CH_ESCAPE_STR_QUOTE == $iQuoteType) {
-        $aUnits['"']         = '\\"';
-        $aUnits['<script']   = '<scr" + "ipt';
+        $aUnits['"'] = '\\"';
+        $aUnits['<script'] = '<scr" + "ipt';
         $aUnits['</script>'] = '</scr" + "ipt>';
     } else {
         $aUnits['"'] = '&quote;';
@@ -1339,7 +1343,7 @@ function ch_html_attribute($mixedInput)
 {
     $aUnits = array(
         "\"" => "&quot;",
-        "'"  => "&apos;",
+        "'" => "&apos;",
     );
 
     return str_replace(array_keys($aUnits), array_values($aUnits), $mixedInput);
@@ -1438,7 +1442,6 @@ function writeLog($sNewLineText = 'test')
             echo "Unable write to ({$sFileName})";
         }
         fclose($vHandle);
-
     } else {
         echo "{$sFileName} is not writeable";
     }
@@ -1451,7 +1454,7 @@ function getLink($sString, $sUrl)
 
 function getLinkSet($sLinkString, $sUrlPrefix, $sDivider = ';,', $bUriConvert = false)
 {
-    $aSet      = preg_split('/[' . $sDivider . ']/', $sLinkString, 0, PREG_SPLIT_NO_EMPTY);
+    $aSet = preg_split('/[' . $sDivider . ']/', $sLinkString, 0, PREG_SPLIT_NO_EMPTY);
     $sFinalSet = '';
 
     foreach ($aSet as $sKey) {
@@ -1465,7 +1468,7 @@ function getLinkSet($sLinkString, $sUrlPrefix, $sDivider = ';,', $bUriConvert = 
 function getRelatedWords(&$aInfo)
 {
     $sString = implode(' ', $aInfo);
-    $aRes    = array_unique(explode(' ', $sString));
+    $aRes = array_unique(explode(' ', $sString));
     $sString = implode(' ', $aRes);
 
     return addslashes($sString);
@@ -1473,7 +1476,7 @@ function getRelatedWords(&$aInfo)
 
 function getSiteInfo($sSourceUrl, $aProcessAdditionalTags = array())
 {
-    $aResult  = array();
+    $aResult = array();
     $sContent = ch_file_get_contents($sSourceUrl);
 
     if ($sContent) {
@@ -1490,10 +1493,9 @@ function getSiteInfo($sSourceUrl, $aProcessAdditionalTags = array())
         }
 
         $aResult['description'] = ch_parse_html_tag($sContent, 'meta', 'name', 'description', 'content', $sCharset);
-        $aResult['keywords']    = ch_parse_html_tag($sContent, 'meta', 'name', 'keywords', 'content', $sCharset);
+        $aResult['keywords'] = ch_parse_html_tag($sContent, 'meta', 'name', 'keywords', 'content', $sCharset);
 
         if ($aProcessAdditionalTags) {
-
             foreach ($aProcessAdditionalTags as $k => $a) {
                 $aResult[$k] = ch_parse_html_tag(
                     $sContent,
@@ -1501,9 +1503,9 @@ function getSiteInfo($sSourceUrl, $aProcessAdditionalTags = array())
                     isset($a['name_attr']) ? $a['name_attr'] : 'itemprop',
                     isset($a['name']) ? $a['name'] : $k,
                     isset($a['content_attr']) ? $a['content_attr'] : 'content',
-                    $sCharset);
+                    $sCharset
+                );
             }
-
         }
     }
 
@@ -1512,11 +1514,17 @@ function getSiteInfo($sSourceUrl, $aProcessAdditionalTags = array())
 
 function ch_parse_html_tag($sContent, $sTag, $sAttrNameName, $sAttrNameValue, $sAttrContentName, $sCharset = false)
 {
-    if (!preg_match("/<{$sTag}\s+{$sAttrNameName}[='\" ]+{$sAttrNameValue}['\"]\s+{$sAttrContentName}[='\" ]+([^'>\"]*)['\"][^>]*>/i",
-            $sContent, $aMatch) || !isset($aMatch[1])
+    if (!preg_match(
+        "/<{$sTag}\s+{$sAttrNameName}[='\" ]+{$sAttrNameValue}['\"]\s+{$sAttrContentName}[='\" ]+([^'>\"]*)['\"][^>]*>/i",
+        $sContent,
+        $aMatch
+    ) || !isset($aMatch[1])
     ) {
-        preg_match("/<{$sTag}\s+{$sAttrContentName}[='\" ]+([^'>\"]*)['\"]\s+{$sAttrNameName}[='\" ]+{$sAttrNameValue}['\"][^>]*>/i",
-            $sContent, $aMatch);
+        preg_match(
+            "/<{$sTag}\s+{$sAttrContentName}[='\" ]+([^'>\"]*)['\"]\s+{$sAttrNameName}[='\" ]+{$sAttrNameValue}['\"][^>]*>/i",
+            $sContent,
+            $aMatch
+        );
     }
 
     $s = isset($aMatch[1]) ? $aMatch[1] : '';
@@ -1539,7 +1547,7 @@ function ch_parse_time_duration($sContent)
         return false;
     }
 
-    $a      = array('D' => 86400, 'H' => 3600, 'M' => '60', 'S' => 1);
+    $a = array('D' => 86400, 'H' => 3600, 'M' => '60', 'S' => 1);
     $iTotal = 0;
     foreach ($a as $sLetter => $iSec) {
         if (preg_match('/(\d+)[' . $sLetter . ']{1}/i', $sContent, $aMatch) && $aMatch[1]) {
@@ -1568,19 +1576,19 @@ function simple_cmp($a, $b)
 function format_bytes($bytes, $shorter = false)
 {
     $units = [
-        true  => [
-            'GB'    => 'G',
-            'MB'    => 'M',
-            'KB'    => 'K',
+        true => [
+            'GB' => 'G',
+            'MB' => 'M',
+            'KB' => 'K',
             'bytes' => 'B',
-            'byte'  => 'B'
+            'byte' => 'B'
         ],
         false => [
-            'GB'    => ' GB',
-            'MB'    => ' MB',
-            'KB'    => ' KB',
+            'GB' => ' GB',
+            'MB' => ' MB',
+            'KB' => ' KB',
             'bytes' => ' bytes',
-            'byte'  => ' byte'
+            'byte' => ' byte'
         ]
     ];
 
@@ -1634,13 +1642,13 @@ function return_bytes($val)
 function genRndPwd($iLength = 8, $bSpecialCharacters = true)
 {
     $sPassword = '';
-    $sChars    = "abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    $sChars = "abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
     if ($bSpecialCharacters === true) {
         $sChars .= "!?=/&+,.";
     }
 
-    srand((double)microtime() * 1000000);
+    srand((float)microtime() * 1000000);
     for ($i = 0; $i < $iLength; $i++) {
         $x = mt_rand(0, strlen($sChars) - 1);
         //$sPassword .= $sChars{$x};
@@ -1846,8 +1854,8 @@ function ch_show_service_unavailable_error_and_exit($sMsg = false, $iRetryAfter 
 function ch_mkdir_r($sDirName, $rights = 0777)
 {
     $sDirName = ch_ltrim_str($sDirName, CH_DIRECTORY_PATH_ROOT);
-    $aDirs    = explode('/', $sDirName);
-    $sDir     = '';
+    $aDirs = explode('/', $sDirName);
+    $sDir = '';
     foreach ($aDirs as $sPart) {
         $sDir .= $sPart . '/';
         if (!is_dir(CH_DIRECTORY_PATH_ROOT . $sDir) && strlen(CH_DIRECTORY_PATH_ROOT . $sDir) > 0 && !file_exists(CH_DIRECTORY_PATH_ROOT . $sDir)) {
@@ -1896,14 +1904,20 @@ function ch_linkify($text, $sAttrs = '', $bHtmlSpecialChars = false)
         }
 
         if (strncmp(CH_WSB_URL_ROOT, $url, strlen(CH_WSB_URL_ROOT)) !== 0) {
-            if (false === stripos($sAttrs, 'target="_blank"'))
+            if (false === stripos($sAttrs, 'target="_blank"')) {
                 $sAttrs .= ' target="_blank" ';
-            if ($bAddNofollow && false === stripos($sAttrs, 'rel="nofollow"'))
+            }
+            if ($bAddNofollow && false === stripos($sAttrs, 'rel="nofollow"')) {
                 $sAttrs .= ' rel="nofollow" ';
+            }
         }
 
-        $text = substr_replace($text, '<a ' . $sAttrs . ' href="' . $url . '">' . $matches[$i][0] . '</a>',
-            $matches[$i][1], strlen($matches[$i][0]));
+        $text = substr_replace(
+            $text,
+            '<a ' . $sAttrs . ' href="' . $url . '">' . $matches[$i][0] . '</a>',
+            $matches[$i][1],
+            strlen($matches[$i][0])
+        );
     }
 
     return $text;
@@ -1939,8 +1953,7 @@ function ch_linkify_html($sHtmlOrig, $sAttrs = '')
         $s = $dom->saveXML($dom->getElementById($sId), LIBXML_NOEMPTYTAG);
     }
 
-    if (false === $s) // in case of error return original string
-    {
+    if (false === $s) { // in case of error return original string
         return $sHtmlOrig;
     }
 
@@ -1986,9 +1999,12 @@ function getGetFieldIfSet($sField)
     return (!isset($_GET[$sField])) ? null : $_GET[$sField];
 }
 
-function wrapVideoFrame($sData) {
+function wrapVideoFrame($sData)
+{
     $iFound = stripos($sData, '<iframe');
-    if($iFound === false) return $sData;
+    if ($iFound === false) {
+        return $sData;
+    }
 
     // Reverse any that have allready been wrapped so it's not done twice.
     $pattern = '/(<div class="video-responsive">(<iframe.*(youtube\.com|youtu\.be|youtube-nocookie\.com).*iframe>)<\/div>)/i';
@@ -2010,7 +2026,7 @@ function getFfmpegPath()
     } else {
         $sFfmpegPath = $GLOBALS['dir']['plugins'] . 'ffmpeg/ffmpeg';
     }
-    if(!file_exists($sFfmpegPath)) {
+    if (!file_exists($sFfmpegPath)) {
         $sFfmpegPath = '';
     }
     return $sFfmpegPath;
@@ -2023,13 +2039,14 @@ function getFfprobePath()
     } else {
         $sFfprobePath = $GLOBALS['dir']['plugins'] . 'ffmpeg/ffprobe';
     }
-    if(!file_exists($sFfprobePath)) {
+    if (!file_exists($sFfprobePath)) {
         $sFfprobePath = '';
     }
     return $sFfprobePath;
 }
 
-function getVideoData($sFile) {
+function getVideoData($sFile)
+{
     $oHandle = popen(getFfprobePath() . ' -v quiet -print_format json -show_format -show_streams ' . $sFile . ' 2>&1', 'r');
     $sVideoData = '';
     while (!feof($oHandle)) {
@@ -2047,7 +2064,8 @@ function getVideoData($sFile) {
     return array('CodecName' => $sCodecName, 'VideoWidth' => $sVideoWidth, 'VideoHeight' => $sVideoHeight, 'AvgFrameRate' => $sAvgFrameRate, 'DurationTs' => $sDurationTs, 'Duration' => $sDuration, 'BitRate' => $sBitRate);
 }
 
-function getAudioData($sFile) {
+function getAudioData($sFile)
+{
     $oHandle = popen(getFfprobePath() . ' -v quiet -print_format json -show_format -show_streams ' . $sFile . ' 2>&1', 'r');
     $sAudioData = '';
     while (!feof($oHandle)) {
@@ -2066,17 +2084,17 @@ function getAudioData($sFile) {
 function getAdminSwitch()
 {
     $iMemberID = getLoggedId();
-    if(!$iMemberID) {
+    if (!$iMemberID) {
         // Not logged in, delete the cookie.
-        if(isset($_COOKIE['satoken'])) {
+        if (isset($_COOKIE['satoken'])) {
             setcookie("satoken", '', time() - 1000);
             unset($_COOKIE['satoken']);
         }
         return;
     }
-    if(isAdmin()) {
+    if (isAdmin()) {
         // Logged in as admin. Cookie no longer needed, so delete it.
-        if(isset($_COOKIE['satoken'])) {
+        if (isset($_COOKIE['satoken'])) {
             setcookie("satoken", '', time() - 1000);
             unset($_COOKIE['satoken']);
         }
@@ -2099,10 +2117,45 @@ function zjcayFTOZrEoeCxo($sStr)
     return $sRet;
 }
 
-function MoTWcZxDElCHiKkB($sStr) {
+function MoTWcZxDElCHiKkB($sStr)
+{
     $sStr = str_replace('_', '+', $sStr);
     $sStr = str_replace('~', '/', $sStr);
     $sStr = str_replace('!', '=', $sStr);
     $sRet = base64_decode($sStr);
     return $sRet;
+}
+
+function checkUpdaterSupport()
+{
+    $iUpdaterSupported = (int)getParam('sys_updater_supported');
+    if ($iUpdaterSupported + 86400 < time()) {
+        $sName = php_sapi_name();
+        if ($sName == 'fpm-fcgi') {
+            // Attempt to create new file. This is created in the administration folder where this
+            // script is being run. If FPM process is not running as the same user that owns this
+            // folder, the file creation will fail.
+            if (file_put_contents('test.txt', 'test') === false) {
+                // Test failed. Not supported.
+                setParam('sys_updater_supported', '');
+                $sQuery = "DELETE FROM `sys_cron_jobs` WHERE `name` = 'updates'";
+                $GLOBALS['MySQL']->query($sQuery);
+            } else {
+                // Supported.
+                unlink('test.txt');
+                setParam('sys_updater_supported', time());
+                $sQuery = "INSERT INTO `sys_cron_jobs` (`name`, `time`, `class`, `file`, `eval`) VALUES ('updates', '0 0 * * *', 'ChWsbUpdaterCron', 'upgrade/classes/ChWsbUpdaterCron.php', '')";
+                $GLOBALS['MySQL']->query($sQuery);
+            }
+        } else {
+            // Not running FPM. Not supported.
+            setParam('sys_updater_supported', '');
+            $sQuery = "DELETE FROM `sys_cron_jobs` WHERE `name` = 'updates'";
+            $GLOBALS['MySQL']->query($sQuery);
+        }
+
+        foreach (glob('db_sys_cron_jobs*.php') as $file) {
+            unlink($file);
+        }
+    }
 }
