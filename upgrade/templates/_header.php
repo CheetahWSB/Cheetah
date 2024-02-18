@@ -14,6 +14,10 @@ body {
     padding:0;
 }
 
+pre {
+    white-space: pre-wrap;
+}
+
 #body,
 #body-title {
     margin:0 auto 0  auto;
@@ -93,6 +97,7 @@ table td {
 {
   padding-top: 10px;
 }
+
     </style>
 </head>
 <body>

@@ -73,6 +73,9 @@ DELETE FROM `sys_page_compose` WHERE `Caption` = '_sys_box_title_download' AND `
 -- Not going to remove its table during upgrade just to be safe.
 -- DROP TABLE IF EXISTS `sys_box_download`;
 
+-- This procedure results in mutipal update buttons if upgrade is run more than once.
+-- So start by removing the existing button(s)
+DELETE FROM `sys_menu_admin` WHERE `name` = 'updates';
 set @x = 1;
 UPDATE `sys_menu_admin` SET `order` = @x:=@x+1 WHERE `parent_id` = 0 ORDER BY `order`;
 INSERT INTO `sys_menu_admin` (`parent_id`, `name`, `title`, `url`, `description`, `icon`, `icon_large`, `check`, `order`) VALUES (0, 'updates', '_adm_mmi_updates', '{siteUrl}upgrade/index.php', '', 'refresh col-Purple', 'tachometer', '', 2);

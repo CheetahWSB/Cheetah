@@ -281,22 +281,30 @@ EOF;
 
     }
 
-    function compileLangs ()
+    function compileLangs()
     {
         global $gConf;
 
-        if (!$this->_admin || 0 !== strcasecmp($_SERVER['REQUEST_METHOD'], 'POST')) {
+        if (file_exists(CH_DIRECTORY_PATH_TMP . 'forum_recompile.tmp')) {
+            $sTime1 = trim(file_get_contents(CH_DIRECTORY_PATH_TMP . 'forum_recompile.tmp'));
+            $sTime2 = (int) $_GET['timestamp'];
+            if ($sTime1 != $sTime2) {
+                return '<ret>0</ret>';
+            }
+            unlink(CH_DIRECTORY_PATH_TMP . 'forum_recompile.tmp');
+        } elseif (!$this->_admin || 0 !== strcasecmp($_SERVER['REQUEST_METHOD'], 'POST')) {
             return '<ret>0</ret>';
         }
 
-        require_once( './classes/ChLang.php' );
-        require_once( $gConf['dir']['xml'].'lang.php' );
+        require_once('./classes/ChLang.php');
+        require_once($gConf['dir']['xml'].'lang.php');
 
         $sLang = isset($_GET['lang']) && preg_match("/^[a-z]{2}$/", $_GET['lang']) ? $_GET['lang'] : $gConf['lang'];
-        $l = new ChLang ($sLang, $gConf['skin']);
+        $l = new ChLang($sLang, $gConf['skin']);
         $l->setVisualProcessing(0);
-        if ($l->compile ())
+        if ($l->compile()) {
             return '<ret>1</ret>';
+        }
         return '<ret>0</ret>';
     }
 

@@ -29,6 +29,11 @@ class ChWsbUpdaterCron extends ChWsbCron
         // Eventually the versions.txt will be downloaded from github. But for now, use my website downloads url.
         //$sVerFileUrl = 'https://raw.githubusercontent.com/CheetahWSB/Cheetah/master/upgrade/versions.txt';
         $sVerFileUrl = 'https://www.cheetahwsb.com/downloads/versions.txt';
+        // Make sure the remote file exists. If not, return false.
+        $handle = fopen($sVerFileUrl, 'r');
+        $sVerFileUrl = (!$handle) ? false : $sVerFileUrl;
+        if($sVerFileUrl === false) return false;
+        
         file_put_contents(CH_DIRECTORY_PATH_TMP . 'versions.txt', ch_file_get_contents($sVerFileUrl));
         $aVersions = file(CH_DIRECTORY_PATH_TMP . 'versions.txt');
         foreach ($aVersions as $aVersion) {
