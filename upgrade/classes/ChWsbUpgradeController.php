@@ -67,6 +67,17 @@ class ChWsbUpgradeController
             require(CH_UPGRADE_DIR_TEMPLATES . 'message_success_step.php');
         }
 
+        // Install files. Only do this step if auto install of files is supported by server.
+        if((int) getParam('sys_updater_supported') > 0) {
+            if($this->installFiles($sFolder)) {
+                $sTemplateMessage = "Updated files were successfully installed.";
+                require(CH_UPGRADE_DIR_TEMPLATES . 'message_success_step.php');
+            } else {
+                $sTemplateMessage = "Updated files failed to install. Files will need to be manually uploaded.";
+                require(CH_UPGRADE_DIR_TEMPLATES . 'message_error.php');
+            }
+        }
+
         // run system SQL upgrade
         $mixedResult = $this->oUtil->isExecuteSQLAvail();
         if (true === $mixedResult) {
@@ -251,6 +262,48 @@ class ChWsbUpgradeController
             require(CH_UPGRADE_DIR_TEMPLATES . 'message_success_step.php');
         }
 
+    }
+
+    function installFiles($sFolder)
+    {
+        $sUpgradePackagePath = CH_DIRECTORY_PATH_ROOT . 'upgrade/files/' . $sFolder . '/updated_files/';
+        $sZipName = CH_DIRECTORY_PATH_ROOT . 'new_files_tmp.zip';
+        $rootPath = rtrim($sUpgradePackagePath, '\\/');
+        $zip = new ZipArchive();
+        $zip->open($sZipName, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+        // Create recursive directory iterator
+        /** @var SplFileInfo[] $files */
+        $files = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($rootPath),
+            RecursiveIteratorIterator::LEAVES_ONLY
+        );
+        foreach ($files as $file) {
+            // Skip directories (they would be added automatically)
+            if (!$file->isDir()) {
+                // Get real and relative path for current file
+                $filePath = $file->getRealPath();
+                $relativePath1 = substr($filePath, strlen($rootPath) + 1);
+
+                // Add current file to archive
+                $zip->addFile($filePath, $relativePath1);
+            }
+        }
+        $zip->close();
+        // Zip of updated_files has been created in the webroot, now unpack the zip into the webroot.
+        $zip = new ZipArchive();
+        if ($zip->open($sZipName) === true) {
+            $zip->extractTo(CH_DIRECTORY_PATH_ROOT);
+            $zip->close();
+            if (file_exists($sZipName)) {
+                unlink($sZipName);
+            }
+            return true;
+        } else {
+            if (file_exists($sZipName)) {
+                unlink($sZipName);
+            }
+            return false;
+        }
     }
 
 }

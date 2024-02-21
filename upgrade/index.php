@@ -25,6 +25,9 @@ echo $GLOBALS['oSysTemplate']->addCss('common.css', true);
 
 $oController = new ChWsbUpgradeController();
 
+$bUpdaterSupported = (int)getParam('sys_updater_supported') > 0 ? true : false;
+//var_dump($bUpdaterSupported);
+
 if (!$sFolder)
     if (!$sCheck) {
         $oController->showAvailableUpgrades();
