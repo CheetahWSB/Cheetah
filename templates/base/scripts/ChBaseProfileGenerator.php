@@ -320,7 +320,8 @@ class ChBaseProfileGenerator extends ChWsbProfile
     {
         global $p_arr;
 
-        $bProfileOwner    = $p_arr['ID'];
+        $bProfileOwner    = false;
+        $iProfileOwner    = (int)$p_arr['ID'];
         $sProfileNickname = getNickName($p_arr['ID']);
 
         $sProfileThumbnail     = '';
@@ -330,7 +331,9 @@ class ChBaseProfileGenerator extends ChWsbProfile
         $bProfileThumbnail     = false;
         $bProfileThumbnailHref = false;
 
-        $iAvatarId = $GLOBALS['MySQL']->getOne("SELECT `Avatar` FROM `Profiles` WHERE `ID` = " . (int)$bProfileOwner);
+        if($iProfileOwner == getLoggedId()) $bProfileOwner = true;
+
+        $iAvatarId = $GLOBALS['MySQL']->getOne("SELECT `Avatar` FROM `Profiles` WHERE `ID` = " . $iProfileOwner);
 
         if(getParam('sys_member_info_thumb') == 'sys_avatar') {
             if($iAvatarId) {
@@ -361,7 +364,7 @@ class ChBaseProfileGenerator extends ChWsbProfile
 
         if(getParam('sys_member_info_thumb') == 'sys_avatar') {
             $oPermalinks = new ChWsbPermalinks();
-            if($p_arr['ID'] == getLoggedId()) {
+            if($bProfileOwner) {
                 $sProfileThumbnailHref = CH_WSB_URL_ROOT . $oPermalinks->permalink('modules/?r=avatar/');
                 $bProfileThumbnailHref = true;
             } else {
@@ -369,9 +372,14 @@ class ChBaseProfileGenerator extends ChWsbProfile
                 $bProfileThumbnailHref = false;
             }
         } else {
-            if ($bProfileOwner && ChWsbRequest::serviceExists('photos', 'get_manage_profile_photo_url')) {
-                $sProfileThumbnailHref = ChWsbService::call('photos', 'get_manage_profile_photo_url', array($p_arr['ID'], 'profile_album_name'));
-                $bProfileThumbnailHref = !empty($sProfileThumbnailHref);
+            if ($iProfileOwner && ChWsbRequest::serviceExists('photos', 'get_manage_profile_photo_url')) {
+                if($bProfileOwner) {
+                    $sProfileThumbnailHref = ChWsbService::call('photos', 'get_manage_profile_photo_url', array($p_arr['ID'], 'profile_album_name'));
+                    $bProfileThumbnailHref = !empty($sProfileThumbnailHref);
+                } else {
+                    $sProfileThumbnailHref = '';
+                    $bProfileThumbnailHref = false;
+                }                
             }
         }
         $sProfileCoverHref = '';
@@ -397,7 +405,7 @@ class ChBaseProfileGenerator extends ChWsbProfile
 
         $sProfileCoverChangeHref = '';
         $bProfileCoverChangeHref = false;
-        if ($bProfileOwner && ChWsbRequest::serviceExists('photos', 'get_album_uploader_url')) {
+        if ($iProfileOwner && ChWsbRequest::serviceExists('photos', 'get_album_uploader_url')) {
             $sProfileCoverChangeHref = ChWsbService::call('photos', 'get_manage_profile_photo_url', array($p_arr['ID'], 'profile_cover_album_name'));
             $bProfileCoverChangeHref = !empty($sProfileCoverChangeHref);
         }
@@ -406,7 +414,7 @@ class ChBaseProfileGenerator extends ChWsbProfile
         //$o              = ChWsbMemberInfo::getObjectInstance('sys_status_message');
         //$sProfileStatus = $o ? $o->get($p_arr) : '';
         // Due to problem with user file caching, i pull this from the database until i can find the source of the problem.
-        $sProfileStatus = $GLOBALS['MySQL']->getOne("SELECT `UserStatusMessage` FROM `Profiles` WHERE `ID` = '$bProfileOwner'");
+        $sProfileStatus = $GLOBALS['MySQL']->getOne("SELECT `UserStatusMessage` FROM `Profiles` WHERE `ID` = '$iProfileOwner'");
 
 
         $sBackground      = '';
